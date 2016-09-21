@@ -7,14 +7,12 @@ public class Util {
 	}
 
 	// allt från en viss kurs
-
 	public static String getCourseInfo() {
 		return "select * from course where ccode = ?";
 	}
 
 	// Visa resultat för angiven kurs (alla studenter som tagit kursen och deras
 	// betyg)
-
 	public static String courseResult() {
 		return "select spnr, grade from studied where ccode = ?";
 	}

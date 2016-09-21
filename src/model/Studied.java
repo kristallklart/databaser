@@ -1,6 +1,7 @@
 package model;
 
 public class Studied {
+
 	private String semester;
 	private String sPnr;
 	private String cCode;

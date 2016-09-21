@@ -1,6 +1,7 @@
 package model;
 
 public class Course {
+
 	private String cCode;
 	private String cName;
 	private int cpoint;

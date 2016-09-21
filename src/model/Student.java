@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Student {
+
 	private String spnr;
 	private String sname;
 	private String saddress;
