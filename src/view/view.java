@@ -18,8 +18,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controller.Controller;
+import model.Student;
+
 public class view extends JFrame {
 
+	private Controller controller = new Controller();
 	private JPanel contentPane;
 	private JTextField textField_stud_pnr;
 	private JTextField txtField_name;
@@ -130,6 +134,19 @@ public class view extends JFrame {
 		panel_student.add(textField_country);
 
 		JButton btn_stud_search = new JButton("Search");
+		btn_stud_search.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					Student st = new Student();
+					st = Controller.getStudent(textField_stud_pnr.getText());
+					textField_city.setText(st.getScity());
+
+				} finally {
+
+				}
+			}
+		});
 		btn_stud_search.setBounds(272, 21, 89, 23);
 		panel_student.add(btn_stud_search);
 
