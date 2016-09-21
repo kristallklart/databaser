@@ -39,31 +39,31 @@ public class Student {
 		return saddress;
 	}
 
-	public void setSaSddress(String sAddress) {
+	public void setSaddress(String sAddress) {
 		this.saddress = sAddress;
 	}
 
-	public String getsPCode() {
+	public String getSpcode() {
 		return spcode;
 	}
 
-	public void setsPCode(String sPCode) {
+	public void setsPcode(String sPCode) {
 		this.spcode = sPCode;
 	}
 
-	public String getsCity() {
+	public String getScity() {
 		return scity;
 	}
 
-	public void setsCity(String sCity) {
+	public void setScity(String sCity) {
 		this.scity = sCity;
 	}
 
-	public String getsCountry() {
+	public String getScountry() {
 		return scountry;
 	}
 
-	public void setsCountry(String sCountry) {
+	public void setScountry(String sCountry) {
 		this.scountry = sCountry;
 	}
 
