@@ -275,6 +275,15 @@ public class view extends JFrame {
 		comboBox_rgrade_grade.setBounds(119, 241, 146, 20);
 		panel_rgrade.add(comboBox_rgrade_grade);
 
+		comboBox_rgrade_grade.addItem("");
+		comboBox_rgrade_grade.addItem("A");
+		comboBox_rgrade_grade.addItem("B");
+		comboBox_rgrade_grade.addItem("C");
+		comboBox_rgrade_grade.addItem("D");
+		comboBox_rgrade_grade.addItem("E");
+		comboBox_rgrade_grade.addItem("U");
+		comboBox_rgrade_grade.setSelectedIndex(0);
+
 		JButton btn_rgrade_clear = new JButton("Clear");
 		btn_rgrade_clear.setBounds(10, 298, 77, 23);
 		panel_rgrade.add(btn_rgrade_clear);
