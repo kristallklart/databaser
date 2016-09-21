@@ -174,11 +174,11 @@ public class view extends JFrame {
 
 		textField_course_courseCode = new JTextField();
 		textField_course_courseCode.setColumns(10);
-		textField_course_courseCode.setBounds(93, 33, 120, 20);
+		textField_course_courseCode.setBounds(107, 33, 120, 20);
 		panel_course.add(textField_course_courseCode);
 
 		JLabel lbl_course_courseName = new JLabel("Course name:");
-		lbl_course_courseName.setBounds(10, 79, 75, 21);
+		lbl_course_courseName.setBounds(10, 79, 89, 21);
 		panel_course.add(lbl_course_courseName);
 
 		JLabel lbl_course_points = new JLabel("Points:");
@@ -187,33 +187,24 @@ public class view extends JFrame {
 
 		textField_course_courseName = new JTextField();
 		textField_course_courseName.setColumns(10);
-		textField_course_courseName.setBounds(93, 79, 120, 20);
+		textField_course_courseName.setBounds(107, 79, 120, 20);
 		panel_course.add(textField_course_courseName);
 
 		textField_course_points = new JTextField();
 		textField_course_points.setColumns(10);
-		textField_course_points.setBounds(93, 128, 120, 20);
+		textField_course_points.setBounds(107, 128, 120, 20);
 		panel_course.add(textField_course_points);
-
-		JButton btn_course_search = new JButton("Search");
-		btn_course_search.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn_course_search.setBounds(230, 32, 89, 23);
-		panel_course.add(btn_course_search);
 
 		JButton btn_course_clear = new JButton("Clear");
 		btn_course_clear.setBounds(10, 185, 77, 23);
 		panel_course.add(btn_course_clear);
 
 		JButton btn_course_delete = new JButton("Delete");
-		btn_course_delete.setBounds(243, 185, 89, 23);
+		btn_course_delete.setBounds(254, 185, 89, 23);
 		panel_course.add(btn_course_delete);
 
 		JButton btn_course_update = new JButton("Update");
-		btn_course_update.setBounds(353, 185, 89, 23);
+		btn_course_update.setBounds(366, 185, 89, 23);
 		panel_course.add(btn_course_update);
 
 		JButton btn_course_save = new JButton("Save");
@@ -222,7 +213,7 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btn_course_save.setBounds(465, 185, 89, 23);
+		btn_course_save.setBounds(478, 185, 89, 23);
 		panel_course.add(btn_course_save);
 
 		JSeparator separator_2 = new JSeparator();
@@ -233,17 +224,21 @@ public class view extends JFrame {
 		lbl_course_feedback.setBounds(10, 356, 591, 52);
 		panel_course.add(lbl_course_feedback);
 
+		JButton btn_course_search = new JButton("Search");
+		btn_course_search.setBounds(254, 32, 89, 23);
+		panel_course.add(btn_course_search);
+
 		JPanel panel_rgrade = new JPanel();
 		tabbedPane.addTab("Register grade", null, panel_rgrade, null);
 		panel_rgrade.setLayout(null);
 
 		JLabel lbl_rgrade_pnr = new JLabel("Personal number:");
-		lbl_rgrade_pnr.setBounds(10, 27, 94, 21);
+		lbl_rgrade_pnr.setBounds(10, 27, 111, 21);
 		panel_rgrade.add(lbl_rgrade_pnr);
 
 		textField_rgrade_pnr = new JTextField();
 		textField_rgrade_pnr.setColumns(10);
-		textField_rgrade_pnr.setBounds(107, 27, 120, 20);
+		textField_rgrade_pnr.setBounds(119, 27, 120, 20);
 		panel_rgrade.add(textField_rgrade_pnr);
 
 		JButton btn_rgrade_search = new JButton("Search");
@@ -252,15 +247,15 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_rgrade_search.setBounds(249, 26, 89, 23);
+		btn_rgrade_search.setBounds(267, 26, 89, 23);
 		panel_rgrade.add(btn_rgrade_search);
 
 		JLabel lbl_rgrade_name = new JLabel("Name");
-		lbl_rgrade_name.setBounds(107, 58, 120, 23);
+		lbl_rgrade_name.setBounds(119, 59, 120, 23);
 		panel_rgrade.add(lbl_rgrade_name);
 
 		JScrollPane scrollPane_rgrade = new JScrollPane();
-		scrollPane_rgrade.setBounds(107, 111, 237, 109);
+		scrollPane_rgrade.setBounds(119, 106, 237, 109);
 		panel_rgrade.add(scrollPane_rgrade);
 
 		table_rgrade = new JTable();
@@ -277,7 +272,7 @@ public class view extends JFrame {
 		panel_rgrade.add(lbl_rgarde_grade);
 
 		JComboBox comboBox_rgrade_grade = new JComboBox();
-		comboBox_rgrade_grade.setBounds(107, 241, 146, 20);
+		comboBox_rgrade_grade.setBounds(119, 241, 146, 20);
 		panel_rgrade.add(comboBox_rgrade_grade);
 
 		JButton btn_rgrade_clear = new JButton("Clear");
@@ -294,7 +289,7 @@ public class view extends JFrame {
 		panel_rgrade.add(btn_rgrade_save);
 
 		JButton btn_rgrade_add = new JButton("Add");
-		btn_rgrade_add.setBounds(249, 60, 89, 23);
+		btn_rgrade_add.setBounds(267, 58, 89, 23);
 		panel_rgrade.add(btn_rgrade_add);
 
 		JSeparator separator = new JSeparator();
@@ -314,7 +309,7 @@ public class view extends JFrame {
 		panel_searchinfo.add(lbl_selectOption);
 
 		JComboBox comboBox_sinfo_selectOption = new JComboBox();
-		comboBox_sinfo_selectOption.setBounds(99, 22, 117, 20);
+		comboBox_sinfo_selectOption.setBounds(130, 22, 117, 20);
 		panel_searchinfo.add(comboBox_sinfo_selectOption);
 
 		JLabel lbl_sinfo_courseCode = new JLabel("Course code:");
@@ -322,7 +317,7 @@ public class view extends JFrame {
 		panel_searchinfo.add(lbl_sinfo_courseCode);
 
 		JLabel lbl_sinfo_personalNumber = new JLabel("Personal number:");
-		lbl_sinfo_personalNumber.setBounds(10, 120, 84, 21);
+		lbl_sinfo_personalNumber.setBounds(10, 120, 107, 21);
 		panel_searchinfo.add(lbl_sinfo_personalNumber);
 
 		JLabel lbl_sinfo_grade = new JLabel("Grade:");
@@ -331,25 +326,25 @@ public class view extends JFrame {
 
 		textField_sinfo_courseCode = new JTextField();
 		textField_sinfo_courseCode.setColumns(10);
-		textField_sinfo_courseCode.setBounds(99, 72, 120, 20);
+		textField_sinfo_courseCode.setBounds(127, 72, 120, 20);
 		panel_searchinfo.add(textField_sinfo_courseCode);
 
 		textField_sinfo_pnr = new JTextField();
 		textField_sinfo_pnr.setColumns(10);
-		textField_sinfo_pnr.setBounds(99, 120, 120, 20);
+		textField_sinfo_pnr.setBounds(127, 120, 120, 20);
 		panel_searchinfo.add(textField_sinfo_pnr);
 
 		textField_sinfo_grade = new JTextField();
 		textField_sinfo_grade.setColumns(10);
-		textField_sinfo_grade.setBounds(99, 166, 120, 20);
+		textField_sinfo_grade.setBounds(127, 166, 120, 20);
 		panel_searchinfo.add(textField_sinfo_grade);
 
 		JButton btn_sinfo_search = new JButton("Search");
-		btn_sinfo_search.setBounds(238, 71, 89, 23);
+		btn_sinfo_search.setBounds(271, 71, 89, 23);
 		panel_searchinfo.add(btn_sinfo_search);
 
 		JScrollPane scrollPane_sinfo = new JScrollPane();
-		scrollPane_sinfo.setBounds(99, 216, 237, 109);
+		scrollPane_sinfo.setBounds(130, 212, 237, 109);
 		panel_searchinfo.add(scrollPane_sinfo);
 
 		table_sinfo = new JTable();
