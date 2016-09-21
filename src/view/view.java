@@ -23,7 +23,6 @@ import model.Student;
 
 public class view extends JFrame {
 
-	private Controller controller = new Controller();
 	private JPanel contentPane;
 	private JTextField textField_stud_pnr;
 	private JTextField txtField_name;
