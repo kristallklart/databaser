@@ -2,20 +2,19 @@ package dal;
 
 public class LoginData {
 
-	private String url = "jdbc:sqlserver://localhost:1433" + "Tenta";
-	private String user = "test";
-	private String pw = "test";
-	private String test = "teset";
+	private static String url = "jdbc:sqlserver://localhost:1433;DatabaseName=DB";
+	private static String user = "test";
+	private static String pw = "test";
 
-	public String getUrl() {
+	public static String getUrl() {
 		return url;
 	}
 
-	public String getUser() {
+	public static String getUser() {
 		return user;
 	}
 
-	public String getPw() {
+	public static String getPw() {
 		return pw;
 	}
 
