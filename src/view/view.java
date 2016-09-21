@@ -141,6 +141,7 @@ public class view extends JFrame {
 					Student st = new Student();
 					st = Controller.getStudent(textField_stud_pnr.getText());
 					txtField_name.setText(st.getSname());
+					txtField_adress.setText(st.getSaddress());
 
 				} catch (Exception e) {
 					// TODO: handle exception : här bör vi skriva ut något när
