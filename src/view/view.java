@@ -137,12 +137,14 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+
 					Student st = new Student();
 					st = Controller.getStudent(textField_stud_pnr.getText());
 					txtField_name.setText(st.getSname());
 
-				} finally {
-
+				} catch (Exception e) {
+					// TODO: handle exception : här bör vi skriva ut något när
+					// vi fångar ett exception
 				}
 			}
 		});

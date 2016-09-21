@@ -10,15 +10,13 @@ import model.Student;
 
 public class DataAccessLayer {
 
-	static LoginData loginData = new LoginData();
-	static Connection con = null;
+	private static Connection con = null;
 
 	public static Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(LoginData.getUrl(), LoginData.getUser(), LoginData.getPw());
 	}
 
 	public static Student getStudent(String spnr) {
-		Connection con = null;
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 		Student st = new Student();
@@ -35,16 +33,31 @@ public class DataAccessLayer {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstate != null) {
+				try {
+					pstate.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return st;
 	}
+
 }

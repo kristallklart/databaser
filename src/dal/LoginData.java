@@ -6,15 +6,15 @@ public class LoginData {
 	private static String user = "test";
 	private static String pw = "test";
 
-	public static String getUrl() {
+	static String getUrl() {
 		return url;
 	}
 
-	public static String getUser() {
+	static String getUser() {
 		return user;
 	}
 
-	public static String getPw() {
+	static String getPw() {
 		return pw;
 	}
 
