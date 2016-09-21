@@ -139,7 +139,7 @@ public class view extends JFrame {
 				try {
 					Student st = new Student();
 					st = Controller.getStudent(textField_stud_pnr.getText());
-					textField_city.setText(st.getScity());
+					txtField_name.setText(st.getSname());
 
 				} finally {
 

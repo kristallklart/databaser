@@ -6,9 +6,6 @@ public class Student {
 	private String spnr;
 	private String sname;
 	private String saddress;
-	private String spcode;
-	private String scity;
-	private String scountry;
 	ArrayList<Studied> studiedList;
 
 	public ArrayList<Studied> getStudiedList() {
@@ -41,30 +38,6 @@ public class Student {
 
 	public void setSaddress(String sAddress) {
 		this.saddress = sAddress;
-	}
-
-	public String getSpcode() {
-		return spcode;
-	}
-
-	public void setsPcode(String sPCode) {
-		this.spcode = sPCode;
-	}
-
-	public String getScity() {
-		return scity;
-	}
-
-	public void setScity(String sCity) {
-		this.scity = sCity;
-	}
-
-	public String getScountry() {
-		return scountry;
-	}
-
-	public void setScountry(String sCountry) {
-		this.scountry = sCountry;
 	}
 
 }

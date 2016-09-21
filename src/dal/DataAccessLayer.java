@@ -32,9 +32,6 @@ public class DataAccessLayer {
 			while (rs.next()) {
 				st.setSname(rs.getString("sname"));
 				st.setSaddress(rs.getString("sadress"));
-				st.setsPcode(rs.getString("spcode"));
-				st.setScity(rs.getString("spcity"));
-				st.setScountry(rs.getString("scountry"));
 			}
 
 		} catch (SQLException e) {
