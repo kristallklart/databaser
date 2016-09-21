@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
@@ -35,6 +36,8 @@ public class view extends JFrame {
 	private JTextField textField_sinfo_pnr;
 	private JTextField textField_sinfo_grade;
 	private JTable table_sinfo;
+	private JTextField textField_rgstud_pnr;
+	private JTable table_rgStud;
 
 	/**
 	 * Launch the application.
@@ -147,7 +150,7 @@ public class view extends JFrame {
 		btn_stud_update.setBounds(378, 232, 89, 23);
 		panel_student.add(btn_stud_update);
 
-		JButton btn_stud_register = new JButton("Register New");
+		JButton btn_stud_register = new JButton("Save");
 		btn_stud_register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -164,69 +167,77 @@ public class view extends JFrame {
 		lbl_stud_feedback.setBounds(18, 360, 591, 52);
 		panel_student.add(lbl_stud_feedback);
 
-		JPanel panel_course = new JPanel();
-		tabbedPane.addTab("Course", null, panel_course, null);
-		panel_course.setLayout(null);
+		JPanel panel_registerStudent = new JPanel();
+		tabbedPane.addTab("Register student", null, panel_registerStudent, null);
+		panel_registerStudent.setLayout(null);
 
-		JLabel lbl_course_courseCode = new JLabel("Course code:");
-		lbl_course_courseCode.setBounds(10, 33, 75, 21);
-		panel_course.add(lbl_course_courseCode);
+		JLabel lbl_rgStud_pnr = new JLabel("Personal number:");
+		lbl_rgStud_pnr.setBounds(15, 26, 134, 21);
+		panel_registerStudent.add(lbl_rgStud_pnr);
 
-		textField_course_courseCode = new JTextField();
-		textField_course_courseCode.setColumns(10);
-		textField_course_courseCode.setBounds(107, 33, 120, 20);
-		panel_course.add(textField_course_courseCode);
+		textField_rgstud_pnr = new JTextField();
+		textField_rgstud_pnr.setColumns(10);
+		textField_rgstud_pnr.setBounds(154, 26, 120, 20);
+		panel_registerStudent.add(textField_rgstud_pnr);
 
-		JLabel lbl_course_courseName = new JLabel("Course name:");
-		lbl_course_courseName.setBounds(10, 79, 89, 21);
-		panel_course.add(lbl_course_courseName);
+		JLabel lbl_rgStud_name = new JLabel("Name");
+		lbl_rgStud_name.setBounds(154, 59, 120, 23);
+		panel_registerStudent.add(lbl_rgStud_name);
 
-		JLabel lbl_course_points = new JLabel("Points:");
-		lbl_course_points.setBounds(10, 128, 75, 21);
-		panel_course.add(lbl_course_points);
+		JLabel lbl_rgStud_ccode = new JLabel("Course code:");
+		lbl_rgStud_ccode.setBounds(15, 95, 103, 21);
+		panel_registerStudent.add(lbl_rgStud_ccode);
 
-		textField_course_courseName = new JTextField();
-		textField_course_courseName.setColumns(10);
-		textField_course_courseName.setBounds(107, 79, 120, 20);
-		panel_course.add(textField_course_courseName);
+		JComboBox comboBox_rgStud_ccode = new JComboBox();
+		comboBox_rgStud_ccode.setBounds(154, 98, 120, 26);
+		panel_registerStudent.add(comboBox_rgStud_ccode);
 
-		textField_course_points = new JTextField();
-		textField_course_points.setColumns(10);
-		textField_course_points.setBounds(107, 128, 120, 20);
-		panel_course.add(textField_course_points);
+		JRadioButton rdbtn_rgStud_ht = new JRadioButton("HT");
+		rdbtn_rgStud_ht.setBounds(15, 154, 53, 29);
+		panel_registerStudent.add(rdbtn_rgStud_ht);
 
-		JButton btn_course_clear = new JButton("Clear");
-		btn_course_clear.setBounds(10, 185, 77, 23);
-		panel_course.add(btn_course_clear);
+		JRadioButton rdbtn_rgStud_vt = new JRadioButton("VT");
+		rdbtn_rgStud_vt.setBounds(79, 154, 53, 29);
+		panel_registerStudent.add(rdbtn_rgStud_vt);
 
-		JButton btn_course_delete = new JButton("Delete");
-		btn_course_delete.setBounds(254, 185, 89, 23);
-		panel_course.add(btn_course_delete);
+		JComboBox comboBox_rgStud_år = new JComboBox();
+		comboBox_rgStud_år.setBounds(187, 155, 87, 26);
+		panel_registerStudent.add(comboBox_rgStud_år);
 
-		JButton btn_course_update = new JButton("Update");
-		btn_course_update.setBounds(366, 185, 89, 23);
-		panel_course.add(btn_course_update);
+		JLabel lbl_rgStud_år = new JLabel("\u00C5r");
+		lbl_rgStud_år.setBounds(154, 158, 26, 20);
+		panel_registerStudent.add(lbl_rgStud_år);
 
-		JButton btn_course_save = new JButton("Save");
-		btn_course_save.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btn_course_save.setBounds(478, 185, 89, 23);
-		panel_course.add(btn_course_save);
+		JScrollPane scrollPane_rgStud = new JScrollPane();
+		scrollPane_rgStud.setBounds(15, 243, 366, 81);
+		panel_registerStudent.add(scrollPane_rgStud);
 
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 333, 599, 7);
-		panel_course.add(separator_2);
+		table_rgStud = new JTable();
+		scrollPane_rgStud.setViewportView(table_rgStud);
 
-		JLabel lbl_course_feedback = new JLabel("");
-		lbl_course_feedback.setBounds(10, 356, 591, 52);
-		panel_course.add(lbl_course_feedback);
+		JSeparator separator_4 = new JSeparator();
+		separator_4.setBounds(15, 353, 599, 7);
+		panel_registerStudent.add(separator_4);
 
-		JButton btn_course_search = new JButton("Search");
-		btn_course_search.setBounds(254, 32, 89, 23);
-		panel_course.add(btn_course_search);
+		JLabel label_3 = new JLabel("");
+		label_3.setBounds(15, 361, 591, 52);
+		panel_registerStudent.add(label_3);
+
+		JButton btn_rgStud_delete = new JButton("Delete");
+		btn_rgStud_delete.setBounds(410, 302, 89, 23);
+		panel_registerStudent.add(btn_rgStud_delete);
+
+		JButton btn_rgStud_register = new JButton("Register");
+		btn_rgStud_register.setBounds(517, 301, 89, 23);
+		panel_registerStudent.add(btn_rgStud_register);
+
+		JButton btn_regStud_search = new JButton("Search");
+		btn_regStud_search.setBounds(305, 22, 89, 23);
+		panel_registerStudent.add(btn_regStud_search);
+
+		JButton btn_rgStud_add = new JButton("Add");
+		btn_rgStud_add.setBounds(15, 212, 89, 23);
+		panel_registerStudent.add(btn_rgStud_add);
 
 		JPanel panel_rgrade = new JPanel();
 		tabbedPane.addTab("Register grade", null, panel_rgrade, null);
@@ -308,6 +319,70 @@ public class view extends JFrame {
 		JLabel lbl_rgrade_feedback = new JLabel("");
 		lbl_rgrade_feedback.setBounds(10, 361, 591, 52);
 		panel_rgrade.add(lbl_rgrade_feedback);
+
+		JPanel panel_course = new JPanel();
+		tabbedPane.addTab("Course", null, panel_course, null);
+		panel_course.setLayout(null);
+
+		JLabel lbl_course_courseCode = new JLabel("Course code:");
+		lbl_course_courseCode.setBounds(10, 33, 75, 21);
+		panel_course.add(lbl_course_courseCode);
+
+		textField_course_courseCode = new JTextField();
+		textField_course_courseCode.setColumns(10);
+		textField_course_courseCode.setBounds(107, 33, 120, 20);
+		panel_course.add(textField_course_courseCode);
+
+		JLabel lbl_course_courseName = new JLabel("Course name:");
+		lbl_course_courseName.setBounds(10, 79, 89, 21);
+		panel_course.add(lbl_course_courseName);
+
+		JLabel lbl_course_points = new JLabel("Points:");
+		lbl_course_points.setBounds(10, 128, 75, 21);
+		panel_course.add(lbl_course_points);
+
+		textField_course_courseName = new JTextField();
+		textField_course_courseName.setColumns(10);
+		textField_course_courseName.setBounds(107, 79, 120, 20);
+		panel_course.add(textField_course_courseName);
+
+		textField_course_points = new JTextField();
+		textField_course_points.setColumns(10);
+		textField_course_points.setBounds(107, 128, 120, 20);
+		panel_course.add(textField_course_points);
+
+		JButton btn_course_clear = new JButton("Clear");
+		btn_course_clear.setBounds(10, 185, 77, 23);
+		panel_course.add(btn_course_clear);
+
+		JButton btn_course_delete = new JButton("Delete");
+		btn_course_delete.setBounds(254, 185, 89, 23);
+		panel_course.add(btn_course_delete);
+
+		JButton btn_course_update = new JButton("Update");
+		btn_course_update.setBounds(366, 185, 89, 23);
+		panel_course.add(btn_course_update);
+
+		JButton btn_course_save = new JButton("Save");
+		btn_course_save.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btn_course_save.setBounds(478, 185, 89, 23);
+		panel_course.add(btn_course_save);
+
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(10, 333, 599, 7);
+		panel_course.add(separator_2);
+
+		JLabel lbl_course_feedback = new JLabel("");
+		lbl_course_feedback.setBounds(10, 356, 591, 52);
+		panel_course.add(lbl_course_feedback);
+
+		JButton btn_course_search = new JButton("Search");
+		btn_course_search.setBounds(254, 32, 89, 23);
+		panel_course.add(btn_course_search);
 
 		JPanel panel_searchinfo = new JPanel();
 		tabbedPane.addTab("Search information", null, panel_searchinfo, null);
