@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.Controller;
 import model.Course;
 import model.Student;
+import model.Studying;
 
 public class view extends JFrame {
 
@@ -86,6 +87,10 @@ public class view extends JFrame {
 		JPanel panel_student = new JPanel();
 		tabbedPane.addTab("Student", null, panel_student, null);
 		panel_student.setLayout(null);
+
+		DefaultTableModel dtmcourses = new DefaultTableModel();
+		String[] course = { "Code", "semester" };
+		dtmcourses.setColumnIdentifiers(course);
 
 		JLabel lbl_stud_pnr = new JLabel("Personal number:");
 		lbl_stud_pnr.setBounds(10, 22, 112, 21);
@@ -313,9 +318,23 @@ public class view extends JFrame {
 					st = Controller.getStudent(textField_rgrade_pnr.getText());
 					textField_rgrade_name.setText(st.getSname());
 
+					ArrayList<Studying> s;
+					s = Controller.getStudentStudying();
+
+					for (int i = 0; i < s.size(); i++) {
+						String cCode = s.get(i).getcCode();
+						String Semester = s.get(i).getSemester().toUpperCase();
+
+						Object[] studentsCourses = { cCode, Semester };
+
+						dtmcourses.addRow(studentsCourses);
+
+					}
+					table_rgrade.setModel(dtmcourses);
 				} catch (SQLException e) {
 					System.out.println(e.getErrorCode());
 				}
+
 			}
 		});
 
@@ -329,10 +348,7 @@ public class view extends JFrame {
 		table_rgrade = new JTable();
 
 		scrollPane_rgrade.setViewportView(table_rgrade);
-		Object[] columns = { "Ccode", "Cname", "Points" };
-		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(columns);
-		table_rgrade.setModel(model);
+		table_rgrade.setModel(dtmcourses);
 		table_rgrade.setRowHeight(20);
 
 		JLabel lbl_rgarde_grade = new JLabel("Grade:");
@@ -364,10 +380,6 @@ public class view extends JFrame {
 		});
 		btn_rgrade_save.setBounds(280, 298, 89, 23);
 		panel_rgrade.add(btn_rgrade_save);
-
-		JButton btn_rgrade_add = new JButton("Add");
-		btn_rgrade_add.setBounds(267, 58, 89, 23);
-		panel_rgrade.add(btn_rgrade_add);
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 337, 599, 7);
