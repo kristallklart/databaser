@@ -46,6 +46,7 @@ public class view extends JFrame {
 	private JTable table_sinfo;
 	private JTextField textField_rgstud_pnr;
 	private JTable table_rgStud;
+	private JTextField textField_regstud_namefound;
 
 	/**
 	 * Launch the application.
@@ -204,10 +205,6 @@ public class view extends JFrame {
 		textField_rgstud_pnr.setBounds(154, 26, 120, 20);
 		panel_registerStudent.add(textField_rgstud_pnr);
 
-		JLabel lbl_rgStud_name = new JLabel("Name");
-		lbl_rgStud_name.setBounds(154, 59, 120, 23);
-		panel_registerStudent.add(lbl_rgStud_name);
-
 		JLabel lbl_rgStud_ccode = new JLabel("Course code:");
 		lbl_rgStud_ccode.setBounds(15, 95, 103, 21);
 		panel_registerStudent.add(lbl_rgStud_ccode);
@@ -256,12 +253,28 @@ public class view extends JFrame {
 		panel_registerStudent.add(btn_rgStud_register);
 
 		JButton btn_regStud_search = new JButton("Search");
+		btn_regStud_search.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+			}
+		});
 		btn_regStud_search.setBounds(305, 22, 89, 23);
 		panel_registerStudent.add(btn_regStud_search);
 
 		JButton btn_rgStud_add = new JButton("Add");
 		btn_rgStud_add.setBounds(15, 212, 89, 23);
 		panel_registerStudent.add(btn_rgStud_add);
+
+		textField_regstud_namefound = new JTextField();
+		textField_regstud_namefound.setEditable(false);
+		textField_regstud_namefound.setBounds(154, 55, 120, 20);
+		panel_registerStudent.add(textField_regstud_namefound);
+		textField_regstud_namefound.setColumns(10);
+
+		JLabel lbl_regstud_namefound = new JLabel("Name:");
+		lbl_regstud_namefound.setBounds(15, 55, 56, 16);
+		panel_registerStudent.add(lbl_regstud_namefound);
 
 		JPanel panel_rgrade = new JPanel();
 		tabbedPane.addTab("Register grade", null, panel_rgrade, null);
