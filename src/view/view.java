@@ -193,14 +193,6 @@ public class view extends JFrame {
 		comboBox_rgStud_ccode.setMaximumRowCount(10);
 		comboBox_rgStud_ccode.setBounds(154, 98, 120, 26);
 		panel_registerStudent.add(comboBox_rgStud_ccode);
-		comboBox_rgStud_ccode.addItem("");
-		comboBox_rgStud_ccode.addItem("A");
-		comboBox_rgStud_ccode.addItem("B");
-		comboBox_rgStud_ccode.addItem("C");
-		comboBox_rgStud_ccode.addItem("D");
-		comboBox_rgStud_ccode.addItem("E");
-		comboBox_rgStud_ccode.addItem("U");
-		comboBox_rgStud_ccode.setSelectedIndex(0);
 
 		JRadioButton rdbtn_rgStud_ht = new JRadioButton("HT");
 		rdbtn_rgStud_ht.setBounds(15, 154, 53, 29);
