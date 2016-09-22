@@ -18,4 +18,11 @@ public class Controller {
 	public static ArrayList<Course> getCourses() throws SQLException {
 		return DataAccessLayer.getCourses();
 	}
+
+	public static Course getCourse(String ccode) throws SQLException {
+
+		return DataAccessLayer.getCourse(ccode);
+
+	}
+
 }

@@ -49,6 +49,7 @@ public class view extends JFrame {
 	private JTextField textField_rgstud_pnr;
 	private JTable table_rgStud;
 	private JTextField textField_regstud_namefound;
+	private JTextField textField_rgrade_name;
 
 	/**
 	 * Launch the application.
@@ -305,15 +306,21 @@ public class view extends JFrame {
 		JButton btn_rgrade_search = new JButton("Search");
 		btn_rgrade_search.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+
+					Student st = new Student();
+					st = Controller.getStudent(textField_rgrade_pnr.getText());
+					textField_rgrade_name.setText(st.getSname());
+
+				} catch (SQLException e) {
+					System.out.println(e.getErrorCode());
+				}
 			}
 		});
+
 		btn_rgrade_search.setBounds(267, 26, 89, 23);
 		panel_rgrade.add(btn_rgrade_search);
-
-		JLabel lbl_rgrade_name = new JLabel("Name");
-		lbl_rgrade_name.setBounds(119, 59, 120, 23);
-		panel_rgrade.add(lbl_rgrade_name);
 
 		JScrollPane scrollPane_rgrade = new JScrollPane();
 		scrollPane_rgrade.setBounds(119, 106, 237, 109);
@@ -365,6 +372,20 @@ public class view extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 337, 599, 7);
 		panel_rgrade.add(separator);
+
+		JLabel lbl_rgrade_feedback = new JLabel("");
+		lbl_rgrade_feedback.setBounds(10, 361, 591, 52);
+		panel_rgrade.add(lbl_rgrade_feedback);
+
+		textField_rgrade_name = new JTextField();
+		textField_rgrade_name.setEditable(false);
+		textField_rgrade_name.setColumns(10);
+		textField_rgrade_name.setBounds(119, 59, 120, 20);
+		panel_rgrade.add(textField_rgrade_name);
+
+		JLabel label = new JLabel("Name:");
+		label.setBounds(10, 62, 56, 16);
+		panel_rgrade.add(label);
 
 		JPanel panel_course = new JPanel();
 		tabbedPane.addTab("Course", null, panel_course, null);
@@ -423,6 +444,25 @@ public class view extends JFrame {
 		panel_course.add(separator_2);
 
 		JButton btn_course_search = new JButton("Search");
+		btn_course_search.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				try {
+
+					Course cc = new Course();
+					cc = Controller.getCourse(textField_course_courseCode.getText());
+					textField_course_courseName.setText(cc.getCname());
+					int i = cc.getCpoint();
+					String string = Integer.toString(i);
+					textField_course_points.setText(string);
+
+				} catch (SQLException e) {
+					// TODO: handle exception : här bör vi skriva ut något när
+					// vi fångar ett exception
+				}
+			}
+		});
 		btn_course_search.setBounds(254, 32, 89, 23);
 		panel_course.add(btn_course_search);
 
