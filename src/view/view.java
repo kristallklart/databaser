@@ -188,10 +188,6 @@ public class view extends JFrame {
 		separator_1.setBounds(10, 337, 599, 7);
 		panel_student.add(separator_1);
 
-		JLabel lbl_stud_feedback = new JLabel("");
-		lbl_stud_feedback.setBounds(18, 360, 591, 52);
-		panel_student.add(lbl_stud_feedback);
-
 		JPanel panel_registerStudent = new JPanel();
 		tabbedPane.addTab("Register student", null, panel_registerStudent, null);
 		panel_registerStudent.setLayout(null);
@@ -239,10 +235,6 @@ public class view extends JFrame {
 		JSeparator separator_4 = new JSeparator();
 		separator_4.setBounds(15, 353, 599, 7);
 		panel_registerStudent.add(separator_4);
-
-		JLabel label_3 = new JLabel("");
-		label_3.setBounds(15, 361, 591, 52);
-		panel_registerStudent.add(label_3);
 
 		JButton btn_rgStud_delete = new JButton("Delete");
 		btn_rgStud_delete.setBounds(410, 302, 89, 23);
@@ -361,10 +353,6 @@ public class view extends JFrame {
 		separator.setBounds(10, 337, 599, 7);
 		panel_rgrade.add(separator);
 
-		JLabel lbl_rgrade_feedback = new JLabel("");
-		lbl_rgrade_feedback.setBounds(10, 361, 591, 52);
-		panel_rgrade.add(lbl_rgrade_feedback);
-
 		JPanel panel_course = new JPanel();
 		tabbedPane.addTab("Course", null, panel_course, null);
 		panel_course.setLayout(null);
@@ -420,10 +408,6 @@ public class view extends JFrame {
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(10, 333, 599, 7);
 		panel_course.add(separator_2);
-
-		JLabel lbl_course_feedback = new JLabel("");
-		lbl_course_feedback.setBounds(10, 356, 591, 52);
-		panel_course.add(lbl_course_feedback);
 
 		JButton btn_course_search = new JButton("Search");
 		btn_course_search.setBounds(254, 32, 89, 23);
@@ -482,10 +466,6 @@ public class view extends JFrame {
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setBounds(10, 352, 599, 7);
 		panel_searchinfo.add(separator_3);
-
-		JLabel lbl_sinfo_feedback = new JLabel("");
-		lbl_sinfo_feedback.setBounds(10, 364, 591, 52);
-		panel_searchinfo.add(lbl_sinfo_feedback);
 
 	}
 }
