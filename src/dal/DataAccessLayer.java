@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import model.Course;
 import model.Student;
-import model.Studying;
 
 public class DataAccessLayer {
 
@@ -59,8 +58,8 @@ public class DataAccessLayer {
 		return cc;
 	}
 
-	public static ArrayList<Course> getCourses() throws SQLException {
-		ArrayList<Course> courses = new ArrayList<Course>();
+	public static ArrayList<String> getCcodes() throws SQLException {
+		ArrayList<String> courses = new ArrayList<String>();
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 
@@ -69,32 +68,8 @@ public class DataAccessLayer {
 		rs = pstate.executeQuery();
 
 		while (rs.next()) {
-			Course c = new Course();
-			c.setCcode(rs.getString("ccode"));
-			c.setCname(rs.getString("cname"));
-			c.setCpoint(rs.getInt("points"));
-			courses.add(c);
+			courses.add(rs.getString("ccname"));
 		}
 		return courses;
 	}
-
-	public static ArrayList<Studying> getStudentStudying() throws SQLException {
-		ArrayList<Studying> studies = new ArrayList<Studying>();
-		PreparedStatement pstate = null;
-		ResultSet rs = null;
-
-		con = DataAccessLayer.createConnection();
-		pstate = con.prepareStatement(Util.getStudentStudying());
-		rs = pstate.executeQuery();
-
-		while (rs.next()) {
-			Studying s = new Studying();
-			s.setsPnr(rs.getNString("spnr"));
-			s.setcCode(rs.getString("ccode"));
-			s.setSemester(rs.getString("semester"));
-			studies.add(s);
-		}
-		return studies;
-	}
-
 }
