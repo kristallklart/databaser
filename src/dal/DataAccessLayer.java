@@ -58,8 +58,8 @@ public class DataAccessLayer {
 		return cc;
 	}
 
-	public static ArrayList<Course> getCourses() throws SQLException {
-		ArrayList<Course> courses = new ArrayList<Course>();
+	public static ArrayList<String> getCcodes() throws SQLException {
+		ArrayList<String> courses = new ArrayList<String>();
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 
@@ -68,11 +68,7 @@ public class DataAccessLayer {
 		rs = pstate.executeQuery();
 
 		while (rs.next()) {
-			Course c = new Course();
-			c.setCcode(rs.getString(1));
-			c.setCname(rs.getString(2));
-			c.setCpoint(rs.getInt(3));
-			courses.add(c);
+			courses.add(rs.getString("ccname"));
 		}
 		return courses;
 	}

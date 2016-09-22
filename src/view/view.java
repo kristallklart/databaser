@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -34,9 +33,6 @@ public class view extends JFrame {
 	private JTextField textField_stud_pnr;
 	private JTextField txtField_name;
 	private JTextField txtField_adress;
-	private JTextField textField_postelCode;
-	private JTextField textField_city;
-	private JTextField textField_country;
 	private JTextField textField_course_courseCode;
 	private JTextField textField_course_courseName;
 	private JTextField textField_course_points;
@@ -126,21 +122,6 @@ public class view extends JFrame {
 		txtField_adress.setBounds(121, 86, 120, 20);
 		panel_student.add(txtField_adress);
 
-		textField_postelCode = new JTextField();
-		textField_postelCode.setColumns(10);
-		textField_postelCode.setBounds(121, 118, 120, 20);
-		panel_student.add(textField_postelCode);
-
-		textField_city = new JTextField();
-		textField_city.setColumns(10);
-		textField_city.setBounds(121, 152, 120, 20);
-		panel_student.add(textField_city);
-
-		textField_country = new JTextField();
-		textField_country.setColumns(10);
-		textField_country.setBounds(121, 184, 120, 20);
-		panel_student.add(textField_country);
-
 		JButton btn_stud_search = new JButton("Search");
 		btn_stud_search.addActionListener(new ActionListener() {
 			@Override
@@ -209,19 +190,17 @@ public class view extends JFrame {
 		panel_registerStudent.add(lbl_rgStud_ccode);
 
 		JComboBox comboBox_rgStud_ccode = new JComboBox();
-		comboBox_rgStud_ccode.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					ArrayList<Course> courses = Controller.getCourses();
-					comboBox_rgStud_ccode.setModel(courses);
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-			}
-		});
+		comboBox_rgStud_ccode.setMaximumRowCount(10);
 		comboBox_rgStud_ccode.setBounds(154, 98, 120, 26);
 		panel_registerStudent.add(comboBox_rgStud_ccode);
+		comboBox_rgStud_ccode.addItem("");
+		comboBox_rgStud_ccode.addItem("A");
+		comboBox_rgStud_ccode.addItem("B");
+		comboBox_rgStud_ccode.addItem("C");
+		comboBox_rgStud_ccode.addItem("D");
+		comboBox_rgStud_ccode.addItem("E");
+		comboBox_rgStud_ccode.addItem("U");
+		comboBox_rgStud_ccode.setSelectedIndex(0);
 
 		JRadioButton rdbtn_rgStud_ht = new JRadioButton("HT");
 		rdbtn_rgStud_ht.setBounds(15, 154, 53, 29);
@@ -340,6 +319,7 @@ public class view extends JFrame {
 		panel_rgrade.add(lbl_rgarde_grade);
 
 		JComboBox comboBox_rgrade_grade = new JComboBox();
+		comboBox_rgrade_grade.setMaximumRowCount(10);
 		comboBox_rgrade_grade.setBounds(119, 241, 146, 20);
 		panel_rgrade.add(comboBox_rgrade_grade);
 

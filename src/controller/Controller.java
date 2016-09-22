@@ -15,8 +15,8 @@ public class Controller {
 
 	}
 
-	public static ArrayList<Course> getCourses() throws SQLException {
-		return DataAccessLayer.getCourses();
+	public static ArrayList<String> getCourses() throws SQLException {
+		return DataAccessLayer.getCcodes();
 	}
 
 	public static Course getCourse(String ccode) throws SQLException {
