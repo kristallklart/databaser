@@ -70,14 +70,14 @@ public class view extends JFrame {
 	 */
 	public view() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 664, 519);
+		setBounds(100, 100, 664, 470);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 648, 421);
+		tabbedPane.setBounds(0, 0, 648, 378);
 		contentPane.add(tabbedPane);
 
 		JPanel panel_student = new JPanel();
@@ -104,18 +104,6 @@ public class view extends JFrame {
 		JLabel lbl_stud_adress = new JLabel("Adress:");
 		lbl_stud_adress.setBounds(10, 86, 112, 21);
 		panel_student.add(lbl_stud_adress);
-
-		JLabel lbl_stud_postelCode = new JLabel("postal code:");
-		lbl_stud_postelCode.setBounds(10, 118, 112, 21);
-		panel_student.add(lbl_stud_postelCode);
-
-		JLabel lbl_stud_city = new JLabel("City:");
-		lbl_stud_city.setBounds(10, 152, 112, 21);
-		panel_student.add(lbl_stud_city);
-
-		JLabel lbl_stud_country = new JLabel("Country:");
-		lbl_stud_country.setBounds(10, 184, 112, 21);
-		panel_student.add(lbl_stud_country);
 
 		txtField_name = new JTextField();
 		txtField_name.setColumns(10);
@@ -148,7 +136,7 @@ public class view extends JFrame {
 		panel_student.add(btn_stud_search);
 
 		JButton btn_stud_clear = new JButton("Clear");
-		btn_stud_clear.setBounds(10, 232, 77, 23);
+		btn_stud_clear.setBounds(10, 130, 77, 23);
 		panel_student.add(btn_stud_clear);
 
 		JButton btn_stud_delete = new JButton("Delete");
@@ -157,11 +145,11 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_stud_delete.setBounds(272, 232, 89, 23);
+		btn_stud_delete.setBounds(290, 232, 89, 23);
 		panel_student.add(btn_stud_delete);
 
 		JButton btn_stud_update = new JButton("Update");
-		btn_stud_update.setBounds(378, 232, 89, 23);
+		btn_stud_update.setBounds(394, 232, 89, 23);
 		panel_student.add(btn_stud_update);
 
 		JButton btn_stud_register = new JButton("Save");
@@ -170,7 +158,7 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btn_stud_register.setBounds(490, 232, 97, 23);
+		btn_stud_register.setBounds(498, 232, 97, 23);
 		panel_student.add(btn_stud_register);
 
 		JPanel panel_registerStudent = new JPanel();
@@ -485,7 +473,7 @@ public class view extends JFrame {
 		scrollPane_sinfo.setViewportView(table_sinfo);
 
 		JLabel lbl_feedback = new JLabel("");
-		lbl_feedback.setBounds(0, 427, 648, 36);
+		lbl_feedback.setBounds(0, 379, 648, 36);
 		contentPane.add(lbl_feedback);
 
 	}
