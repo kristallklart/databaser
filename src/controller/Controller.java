@@ -12,4 +12,10 @@ public class Controller {
 		return DataAccessLayer.getStudent(spnr);
 
 	}
+
+	/*
+	 * public static void regStudent (String spnr) throws SQLException {
+	 * 
+	 * }
+	 */
 }

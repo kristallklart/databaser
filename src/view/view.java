@@ -256,7 +256,15 @@ public class view extends JFrame {
 		btn_regStud_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				try {
 
+					Student st = new Student();
+					st = Controller.getStudent(textField_rgstud_pnr.getText());
+					textField_regstud_namefound.setText(st.getSname());
+
+				} catch (SQLException e) {
+					System.out.println(e.getErrorCode());
+				}
 			}
 		});
 		btn_regStud_search.setBounds(305, 22, 89, 23);
