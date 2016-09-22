@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -77,7 +77,7 @@ public class view extends JFrame {
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 648, 480);
+		tabbedPane.setBounds(0, 0, 648, 421);
 		contentPane.add(tabbedPane);
 
 		JPanel panel_student = new JPanel();
@@ -173,10 +173,6 @@ public class view extends JFrame {
 		btn_stud_register.setBounds(490, 232, 97, 23);
 		panel_student.add(btn_stud_register);
 
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 337, 599, 7);
-		panel_student.add(separator_1);
-
 		JPanel panel_registerStudent = new JPanel();
 		tabbedPane.addTab("Register student", null, panel_registerStudent, null);
 		panel_registerStudent.setLayout(null);
@@ -221,10 +217,6 @@ public class view extends JFrame {
 
 		table_rgStud = new JTable();
 		scrollPane_rgStud.setViewportView(table_rgStud);
-
-		JSeparator separator_4 = new JSeparator();
-		separator_4.setBounds(15, 353, 599, 7);
-		panel_registerStudent.add(separator_4);
 
 		JButton btn_rgStud_delete = new JButton("Delete");
 		btn_rgStud_delete.setBounds(410, 302, 89, 23);
@@ -353,10 +345,6 @@ public class view extends JFrame {
 		btn_rgrade_save.setBounds(280, 298, 89, 23);
 		panel_rgrade.add(btn_rgrade_save);
 
-		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 337, 599, 7);
-		panel_rgrade.add(separator);
-
 		JLabel lbl_rgrade_feedback = new JLabel("");
 		lbl_rgrade_feedback.setBounds(10, 361, 591, 52);
 		panel_rgrade.add(lbl_rgrade_feedback);
@@ -422,10 +410,6 @@ public class view extends JFrame {
 		});
 		btn_course_save.setBounds(478, 185, 89, 23);
 		panel_course.add(btn_course_save);
-
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 333, 599, 7);
-		panel_course.add(separator_2);
 
 		JButton btn_course_search = new JButton("Search");
 		btn_course_search.addActionListener(new ActionListener() {
@@ -500,9 +484,9 @@ public class view extends JFrame {
 		table_sinfo = new JTable();
 		scrollPane_sinfo.setViewportView(table_sinfo);
 
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(10, 352, 599, 7);
-		panel_searchinfo.add(separator_3);
+		JLabel lbl_feedback = new JLabel("");
+		lbl_feedback.setBounds(0, 427, 648, 36);
+		contentPane.add(lbl_feedback);
 
 	}
 }
