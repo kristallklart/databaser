@@ -64,7 +64,7 @@ public class DataAccessLayer {
 		ResultSet rs = null;
 
 		con = DataAccessLayer.createConnection();
-		pstate = con.prepareStatement(Util.getCourseInfo());
+		pstate = con.prepareStatement(Util.getCourse());
 		rs = pstate.executeQuery();
 
 		while (rs.next()) {
