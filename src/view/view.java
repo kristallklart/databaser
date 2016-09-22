@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.Controller;
+import model.Course;
 import model.Student;
 
 public class view extends JFrame {
@@ -206,6 +208,17 @@ public class view extends JFrame {
 		panel_registerStudent.add(lbl_rgStud_ccode);
 
 		JComboBox comboBox_rgStud_ccode = new JComboBox();
+		comboBox_rgStud_ccode.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					ArrayList<Course> courses = Controller.getCourses();
+					comboBox_rgStud_ccode.setModel(courses);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		});
 		comboBox_rgStud_ccode.setBounds(154, 98, 120, 26);
 		panel_registerStudent.add(comboBox_rgStud_ccode);
 
