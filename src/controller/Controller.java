@@ -3,6 +3,7 @@ package controller;
 import java.sql.SQLException;
 
 import dal.DataAccessLayer;
+import model.Course;
 import model.Student;
 
 public class Controller {
@@ -13,9 +14,15 @@ public class Controller {
 
 	}
 
+	public static Course getCourse(String ccode) throws SQLException {
+
+		return DataAccessLayer.getCourse(ccode);
+
+	}
+
 	/*
 	 * public static void regStudent (String spnr) throws SQLException {
-	 * 
+	 *
 	 * }
 	 */
 }

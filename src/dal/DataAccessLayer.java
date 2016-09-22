@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.Course;
 import model.Student;
 
 public class DataAccessLayer {
@@ -35,6 +36,25 @@ public class DataAccessLayer {
 
 		}
 		return st;
+	}
+
+	public static Course getCourse(String ccode) throws SQLException {
+
+		PreparedStatement pstate = null;
+		ResultSet rs = null;
+		Course cc = new Course();
+
+		con = DataAccessLayer.createConnection();
+		pstate = con.prepareStatement(Util.getCourse());
+		pstate.setString(1, ccode);
+		rs = pstate.executeQuery();
+
+		while (rs.next()) {
+			cc.setCcode(rs.getString("ccode"));
+			cc.setCname(rs.getString("cname"));
+			cc.setCpoint(rs.getInt("points"));
+		}
+		return cc;
 	}
 
 }

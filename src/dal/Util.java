@@ -7,7 +7,7 @@ public class Util {
 	}
 
 	// allt från en viss kurs
-	public static String getCourseInfo() {
+	public static String getCourse() {
 		return "select * from course where ccode = ?";
 	}
 
