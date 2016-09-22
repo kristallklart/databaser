@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import model.Course;
 import model.Student;
 
 public class DataAccessLayer {
@@ -37,4 +39,22 @@ public class DataAccessLayer {
 		return st;
 	}
 
+	public static ArrayList<Course> getCourses() throws SQLException {
+		ArrayList<Course> courses = new ArrayList<Course>();
+		PreparedStatement pstate = null;
+		ResultSet rs = null;
+
+		con = DataAccessLayer.createConnection();
+		pstate = con.prepareStatement(Util.getCourseInfo());
+		rs = pstate.executeQuery();
+
+		while (rs.next()) {
+			Course c = new Course();
+			c.setCcode(rs.getString(1));
+			c.setCname(rs.getString(2));
+			c.setCpoint(rs.getInt(3));
+			courses.add(c);
+		}
+		return courses;
+	}
 }
