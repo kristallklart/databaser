@@ -18,58 +18,23 @@ public class DataAccessLayer {
 
 	}
 
-	public static Student getStudent(String spnr) {
+	public static Student getStudent(String spnr) throws SQLException {
 
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 		Student st = new Student();
 
-		try {
+		con = DataAccessLayer.createConnection();
+		pstate = con.prepareStatement(Util.getStudent());
+		pstate.setString(1, spnr);
+		rs = pstate.executeQuery();
 
-			con = DataAccessLayer.createConnection();
-			pstate = con.prepareStatement(Util.getStudent());
-			pstate.setString(1, spnr);
-			rs = pstate.executeQuery();
+		while (rs.next()) {
+			st.setSname(rs.getString("sname"));
+			st.setSaddress(rs.getString("sadress"));
 
-			while (rs.next()) {
-				st.setSname(rs.getString("sname"));
-				st.setSaddress(rs.getString("sadress"));
-
-			}
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
-		} finally {
-
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if (pstate != null) {
-				try {
-					pstate.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
-
 		return st;
-
 	}
 
 }

@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -147,7 +148,7 @@ public class view extends JFrame {
 					txtField_name.setText(st.getSname());
 					txtField_adress.setText(st.getSaddress());
 
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					// TODO: handle exception : här bör vi skriva ut något när
 					// vi fångar ett exception
 				}
