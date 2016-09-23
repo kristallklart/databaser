@@ -75,6 +75,7 @@ public class DataAccessLayer {
 	}
 
 	public static ArrayList<Studying> getStudentStudying() {
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
