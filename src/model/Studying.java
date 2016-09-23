@@ -6,6 +6,17 @@ public class Studying {
 	private String cCode;
 	private String semester;
 
+	public Studying(String ccode, String semester) {
+
+		this.cCode = ccode;
+		this.semester = semester;
+
+	}
+
+	public Studying() {
+
+	}
+
 	public String getsPnr() {
 		return sPnr;
 	}

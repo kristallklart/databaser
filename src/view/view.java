@@ -89,7 +89,7 @@ public class view extends JFrame {
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 648, 378);
+		tabbedPane.setBounds(0, 0, 648, 391);
 		contentPane.add(tabbedPane);
 
 		// ***********************************
@@ -100,12 +100,12 @@ public class view extends JFrame {
 		tabbedPane.addTab("Student", panel_student);
 		panel_student.setLayout(null);
 
-		JLabel lbl_feedback = new JLabel("");
-		lbl_feedback.setBounds(0, 379, 648, 36);
+		JLabel lbl_feedback = new JLabel("Message: ");
+		lbl_feedback.setBounds(7, 395, 638, 20);
 		contentPane.add(lbl_feedback);
 
 		DefaultTableModel dtmcourses = new DefaultTableModel();
-		String[] course = { "Code", "semester" };
+		String[] course = { "Code", "Semester" };
 		dtmcourses.setColumnIdentifiers(course);
 
 		JButton btn_stud_search = new JButton("Search");
@@ -129,6 +129,12 @@ public class view extends JFrame {
 		panel_student.add(btn_stud_search);
 
 		JButton btn_stud_clear = new JButton("Clear");
+		btn_stud_clear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 		btn_stud_clear.setBounds(10, 130, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_clear);
 
@@ -289,13 +295,13 @@ public class view extends JFrame {
 					textField_regGrade_name.setText(st.getSname());
 
 					ArrayList<Studying> s;
-					s = Controller.getStudentStudying();
+					s = Controller.getStudentStudying(textField_regGrade_pnr.getText());
 
 					for (int i = 0; i < s.size(); i++) {
 						String cCode = s.get(i).getcCode();
 						String Semester = s.get(i).getSemester().toUpperCase();
 
-						Object[] studentsCourses = { cCode, Semester };
+						String[] studentsCourses = { cCode, Semester };
 
 						dtmcourses.addRow(studentsCourses);
 
@@ -419,7 +425,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_search.setBounds(254, 32, 89, BUTTON_HEIGHT);
+		btn_course_search.setBounds(273, 34, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_search);
 
 		textField_course_courseCode = new JTextField();
