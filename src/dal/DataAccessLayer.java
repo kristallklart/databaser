@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import model.Course;
 import model.Student;
+import model.Studying;
 
 public class DataAccessLayer {
 
@@ -71,5 +72,10 @@ public class DataAccessLayer {
 			courses.add(rs.getString("ccname"));
 		}
 		return courses;
+	}
+
+	public static ArrayList<Studying> getStudentStudying() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
