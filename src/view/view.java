@@ -154,14 +154,14 @@ public class view extends JFrame {
 		btn_stud_update.setBounds(394, 232, 89, 23);
 		panel_student.add(btn_stud_update);
 
-		JButton btn_stud_register = new JButton("Save");
-		btn_stud_register.addActionListener(new ActionListener() {
+		JButton btn_stud_save = new JButton("Save");
+		btn_stud_save.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btn_stud_register.setBounds(498, 232, 97, 23);
-		panel_student.add(btn_stud_register);
+		btn_stud_save.setBounds(498, 232, 97, 23);
+		panel_student.add(btn_stud_save);
 
 		JPanel panel_registerStudent = new JPanel();
 		tabbedPane.addTab("Register student", null, panel_registerStudent, null);
