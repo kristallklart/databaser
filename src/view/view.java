@@ -39,8 +39,6 @@ public class view extends JFrame {
 	private final int LABEL_HEIGHT = 23;
 	private final int COMBOBOX_WIDHT = 85;
 	private final int COMBOBOX_HEIGHT = 25;
-	private final int RADIOBUTTON_WIDTH = 47;
-	private final int RADIOBUTTON_HEIGHT = 23;
 	private JTextField textField_stud_pnr;
 	private JTextField textField_stud_name;
 	private JTextField textField_stud_address;
@@ -247,7 +245,7 @@ public class view extends JFrame {
 		lbl_regStud_year.setBounds(15, 156, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regStudent.add(lbl_regStud_year);
 
-		JComboBox comboBox_regStud_ccode = new JComboBox();
+		JComboBox<String> comboBox_regStud_ccode = new JComboBox<String>();
 		comboBox_regStud_ccode.setMaximumRowCount(10);
 		comboBox_regStud_ccode.setBounds(154, 98, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regStudent.add(comboBox_regStud_ccode);
@@ -368,7 +366,7 @@ public class view extends JFrame {
 
 		table_regGrade = new JTable();
 		scrollPane_regGrade.setViewportView(table_regGrade);
-		// table_regGrade.setModel(dtmcourses);
+		table_regGrade.setModel(dtmcourses);
 		table_regGrade.setRowHeight(20);
 
 		// ***********************************
@@ -415,8 +413,7 @@ public class view extends JFrame {
 					textField_course_points.setText(string);
 
 				} catch (SQLException e) {
-					// TODO: handle exception : här bör vi skriva ut något när
-					// vi fångar ett exception
+
 				}
 			}
 		});
@@ -498,7 +495,7 @@ public class view extends JFrame {
 		lbl_searchInfo_grade.setBounds(10, 166, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_searchInfo.add(lbl_searchInfo_grade);
 
-		JComboBox comboBox_searchInfo_selectOption = new JComboBox();
+		JComboBox<String> comboBox_searchInfo_selectOption = new JComboBox<String>();
 		comboBox_searchInfo_selectOption.setBounds(130, 22, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_searchInfo.add(comboBox_searchInfo_selectOption);
 
@@ -528,7 +525,7 @@ public class view extends JFrame {
 
 		String[] test = { "Choose...", "Query1", "Query2" };
 
-		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
+		JComboBox<String> comboBox_caccess_selectOption = new JComboBox<String>();
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 
 		panel_caccess.add(comboBox_caccess_selectOption);
