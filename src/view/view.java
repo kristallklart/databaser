@@ -11,7 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
@@ -244,8 +243,8 @@ public class view extends JFrame {
 		lbl_regStud_ccode.setBounds(15, 95, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regStudent.add(lbl_regStud_ccode);
 
-		JLabel lbl_regStud_year = new JLabel("Year");
-		lbl_regStud_year.setBounds(154, 157, LABEL_WIDTH, LABEL_HEIGHT);
+		JLabel lbl_regStud_year = new JLabel("Termin:");
+		lbl_regStud_year.setBounds(15, 156, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regStudent.add(lbl_regStud_year);
 
 		JComboBox comboBox_regStud_ccode = new JComboBox();
@@ -254,20 +253,12 @@ public class view extends JFrame {
 		panel_regStudent.add(comboBox_regStud_ccode);
 
 		JComboBox<String> comboBox_regStud_year = new JComboBox<String>();
-		comboBox_regStud_year.setBounds(226, 155, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
+		comboBox_regStud_year.setBounds(154, 155, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regStudent.add(comboBox_regStud_year);
 
-		comboBox_regStud_year.addItem("2016");
-		comboBox_regStud_year.addItem("2017");
-		comboBox_regStud_year.addItem("2018");
-
-		JRadioButton rdbtn_regStud_ht = new JRadioButton("HT");
-		rdbtn_regStud_ht.setBounds(15, 154, RADIOBUTTON_WIDTH, RADIOBUTTON_HEIGHT);
-		panel_regStudent.add(rdbtn_regStud_ht);
-
-		JRadioButton rdbtn_regStud_vt = new JRadioButton("VT");
-		rdbtn_regStud_vt.setBounds(79, 154, RADIOBUTTON_WIDTH, RADIOBUTTON_HEIGHT);
-		panel_regStudent.add(rdbtn_regStud_vt);
+		comboBox_regStud_year.addItem("HT16");
+		comboBox_regStud_year.addItem("VT16");
+		comboBox_regStud_year.addItem("HT17");
 
 		JScrollPane scrollPane_regStud = new JScrollPane();
 		scrollPane_regStud.setBounds(15, 243, 366, 81);
