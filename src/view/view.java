@@ -18,7 +18,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import controller.Controller;
 import model.Course;
@@ -292,7 +291,7 @@ public class view extends JFrame {
 					Student st = new Student();
 					st = Controller.getStudent(textField_regGrade_pnr.getText());
 					textField_regGrade_name.setText(st.getSname());
-					
+
 					ArrayList<Studying> s;
 					s = Controller.getStudentStudying(textField_regGrade_pnr.getText());
 
@@ -303,7 +302,6 @@ public class view extends JFrame {
 						String[] studentsCourses = { cCode, Semester };
 
 						dtmcourses.addRow(studentsCourses);
-
 
 					}
 					table_regGrade.setModel(dtmcourses);
@@ -373,7 +371,7 @@ public class view extends JFrame {
 
 		table_regGrade = new JTable();
 		scrollPane_regGrade.setViewportView(table_regGrade);
-		table_regGrade.setModel(dtmcourses);
+		// table_regGrade.setModel(dtmcourses);
 		table_regGrade.setRowHeight(20);
 
 		// ***********************************
@@ -532,9 +530,9 @@ public class view extends JFrame {
 		panel_caccess.add(lbl_caccess_selectOption);
 
 		String[] test = { "Query1", "Query2" };
-		JComboBox comboBox_caccess_selectOption = new JComboBox();
+		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		comboBox_caccess_selectOption.addItem(test);
+		// comboBox_caccess_selectOption.
 		panel_caccess.add(comboBox_caccess_selectOption);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
