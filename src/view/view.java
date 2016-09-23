@@ -129,6 +129,12 @@ public class view extends JFrame {
 		panel_student.add(btn_stud_search);
 
 		JButton btn_stud_clear = new JButton("Clear");
+		btn_stud_clear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 		btn_stud_clear.setBounds(10, 130, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_clear);
 
