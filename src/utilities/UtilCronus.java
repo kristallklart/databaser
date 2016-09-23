@@ -27,42 +27,44 @@ public class UtilCronus {
 		return "select * from [Demo Database NAV (5-0)]" + ".information_schema.table_constrains"
 				+ "order by table_name";
 	}
-
+	
+	//hämtar 5 columner från Index
 	public String getIndex() {
-		return "select * from sys.indexes order by object_id";
+		return "select object_id, name, index_id, type, type_desc "
+				+ "from sys.indexes order by object_id";
 	}
 
 	// hämtar både pk & fk
 	public String getKeys() {
-		return "select table_name as Tabellnamn, " + "column_name as Nyckelattribut "
+		return "select top 5 table_name as Tabellnamn, " + "column_name as Nyckelattribut "
 				+ "from [Demo Database NAV (5-0)].information_schema.key_column_usage";
 	}
 		
-	//hämtar 5 attribut från EMPLOYEE ABSENCE
+	//hämtar 5 columner från EMPLOYEE ABSENCE
 	public String getEmployeAbsence(){
 		return "select [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"  
 				+ "from [CRONUS Sverige AB$Employee Absence]";
 	}
 	
-	//hämtar 5 attribut från EMPLOYEE PORTAL SETUP
+	//hämtar 5 columner från EMPLOYEE PORTAL SETUP
 	public String getEmployeePortalSetup(){
 		return "select [Config TP WP Request Capt ID], [Config TP Initial Req_ Capt ID], [Config TP Group Capt ID], [Search Tool Pane Caption ID], [Search Config Table ID]"
 				+"from [CRONUS Sverige AB$Employee Portal Setup]";
 	}
 	
-	//hämtar 5 attribut från EMPLOYEE QUALIFICATION
+	//hämtar 5 columner från EMPLOYEE QUALIFICATION
 	public String getEmployeeQualification(){
 		return "select [Employee No_], [Qualification Code], Description, Institution_Company,Type"
 				+ "from [CRONUS Sverige AB$Employee Qualification]";
 	}
 	
-	//hämtar 5 attribut från EMPLOYEE RELATIVE
+	//hämtar 5 columner från EMPLOYEE RELATIVE
 	public String getEmployeeRelative(){
 		return "select [Employee No_], [First Name], [Last Name], [Relative Code], [Phone No_]"
 				+ "from [CRONUS Sverige AB$Employee Relative]";
 	}
 	
-	//hämtar 5 attribut från EMPLOYEE STATISTICS GROUP
+	//hämtar 5 columner från EMPLOYEE STATISTICS GROUP
 	public String getEmployeeStatisticsGroup(){
 		return "select [timestamp], [Code], [Description]"
 				+"from [CRONUS Sverige AB$Employee Statistics Group]";
