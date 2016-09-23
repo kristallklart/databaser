@@ -59,7 +59,6 @@ public class view extends JFrame {
 	private JTable table_regGrade;
 	private JTable table_searchInfo;
 	private JTable table_caccess;
-	private DefaultTableModel dtmcourses;
 
 	/**
 	 * Launch the application.
