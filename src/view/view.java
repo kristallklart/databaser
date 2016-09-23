@@ -530,9 +530,11 @@ public class view extends JFrame {
 		JLabel lbl_caccess_selectOption = new JLabel("Select query:");
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
-
-		JComboBox comboBox_caccess_selectOption = new JComboBox();
+		
+		String[] test = { "Choose...", "Query1", "Query2" };
+		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
+		comboBox_caccess_selectOption.setSelectedIndex(0);
 		panel_caccess.add(comboBox_caccess_selectOption);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
@@ -545,5 +547,10 @@ public class view extends JFrame {
 		JSeparator separator_caccess = new JSeparator();
 		separator_caccess.setBounds(10, 352, 599, 7);
 		panel_caccess.add(separator_caccess);
+		
+
+
+
+
 	}
 }
