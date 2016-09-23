@@ -254,9 +254,13 @@ public class view extends JFrame {
 		comboBox_regStud_ccode.setBounds(154, 98, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regStudent.add(comboBox_regStud_ccode);
 
-		JComboBox comboBox_regStud_year = new JComboBox();
+		JComboBox<String> comboBox_regStud_year = new JComboBox<String>();
 		comboBox_regStud_year.setBounds(226, 155, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regStudent.add(comboBox_regStud_year);
+
+		comboBox_regStud_year.addItem("2016");
+		comboBox_regStud_year.addItem("2017");
+		comboBox_regStud_year.addItem("2018");
 
 		JRadioButton rdbtn_regStud_ht = new JRadioButton("HT");
 		rdbtn_regStud_ht.setBounds(15, 154, RADIOBUTTON_WIDTH, RADIOBUTTON_HEIGHT);
@@ -532,7 +536,7 @@ public class view extends JFrame {
 		JLabel lbl_caccess_selectOption = new JLabel("Select query:");
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
-		
+
 		String[] test = { "Choose...", "Query1", "Query2" };
 		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
@@ -549,10 +553,6 @@ public class view extends JFrame {
 		JSeparator separator_caccess = new JSeparator();
 		separator_caccess.setBounds(10, 352, 599, 7);
 		panel_caccess.add(separator_caccess);
-		
-
-
-
 
 	}
 }
