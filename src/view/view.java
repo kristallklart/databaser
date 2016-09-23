@@ -464,6 +464,11 @@ public class view extends JFrame {
 		panel_searchinfo.add(textField_sinfo_grade);
 
 		JButton btn_sinfo_search = new JButton("Search");
+		btn_sinfo_search.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btn_sinfo_search.setBounds(271, 71, 89, 23);
 		panel_searchinfo.add(btn_sinfo_search);
 
@@ -478,13 +483,21 @@ public class view extends JFrame {
 		lbl_feedback.setBounds(0, 379, 648, 36);
 		contentPane.add(lbl_feedback);
 
+		// ***********************************
+		// ***********CRONUS ACCESS***********
+		// ***********************************
+
 		table_caccess = new JTable();
 		JPanel panel_caccess = new JPanel();
 		tabbedPane.addTab("Cronus Access", null, panel_caccess, null);
 		panel_caccess.setLayout(null);
 
+		JLabel lbl_selectCronusQuery = new JLabel("Select option:");
+		lbl_selectCronusQuery.setBounds(10, 22, 94, 21);
+		panel_caccess.add(lbl_selectCronusQuery);
+
 		JButton btn_caccess_go = new JButton("Go");
-		btn_caccess_go.setBounds(271, 71, 89, 23);
+		btn_caccess_go.setBounds(269, 21, 89, 23);
 		panel_caccess.add(btn_caccess_go);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
@@ -493,6 +506,10 @@ public class view extends JFrame {
 
 		table_caccess = new JTable();
 		scrollPane_caccess.setViewportView(table_caccess);
+
+		JComboBox comboBox_caccess_selectOption = new JComboBox();
+		comboBox_caccess_selectOption.setBounds(130, 22, 117, 20);
+		panel_caccess.add(comboBox_caccess_selectOption);
 
 		JSeparator separator_caccess = new JSeparator();
 		separator_caccess.setBounds(10, 352, 599, 7);
