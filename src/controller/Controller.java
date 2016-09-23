@@ -29,5 +29,6 @@ public class Controller {
 	public static ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
 
 		return DataAccessLayer.getStudentStudying(pnr);
+
 	}
 }

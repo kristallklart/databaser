@@ -59,6 +59,7 @@ public class view extends JFrame {
 	private JTable table_regGrade;
 	private JTable table_searchInfo;
 	private JTable table_caccess;
+	private DefaultTableModel dtmcourses;
 
 	/**
 	 * Launch the application.
@@ -103,10 +104,6 @@ public class view extends JFrame {
 		JLabel lbl_feedback = new JLabel("Message: ");
 		lbl_feedback.setBounds(7, 395, 638, 20);
 		contentPane.add(lbl_feedback);
-
-		DefaultTableModel dtmcourses = new DefaultTableModel();
-		String[] course = { "Code", "Semester" };
-		dtmcourses.setColumnIdentifiers(course);
 
 		JButton btn_stud_search = new JButton("Search");
 		btn_stud_search.addActionListener(new ActionListener() {
@@ -284,8 +281,13 @@ public class view extends JFrame {
 		tabbedPane.addTab("Register grade", panel_regGrade);
 		panel_regGrade.setLayout(null);
 
+		DefaultTableModel dtmcourses = new DefaultTableModel();
+		String[] course = { "Code", "Semester" };
+		dtmcourses.setColumnIdentifiers(course);
+
 		JButton btn_regGrade_search = new JButton("Search");
 		btn_regGrade_search.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
