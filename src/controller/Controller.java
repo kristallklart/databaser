@@ -28,6 +28,10 @@ public class Controller {
 
 	public static ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
 
+<<<<<<< HEAD
+		return DataAccessLayer.getStudying();
+=======
 		return DataAccessLayer.getStudentStudying(pnr);
+>>>>>>> branch 'master' of https://github.com/paulssonkalle/databaser.git
 	}
 }

@@ -104,7 +104,6 @@ public class view extends JFrame {
 		lbl_feedback.setBounds(7, 395, 638, 20);
 		contentPane.add(lbl_feedback);
 
-		DefaultTableModel dtmcourses = new DefaultTableModel();
 		String[] course = { "Code", "Semester" };
 		dtmcourses.setColumnIdentifiers(course);
 
@@ -293,7 +292,7 @@ public class view extends JFrame {
 					Student st = new Student();
 					st = Controller.getStudent(textField_regGrade_pnr.getText());
 					textField_regGrade_name.setText(st.getSname());
-
+					
 					ArrayList<Studying> s;
 					s = Controller.getStudentStudying(textField_regGrade_pnr.getText());
 
@@ -304,6 +303,7 @@ public class view extends JFrame {
 						String[] studentsCourses = { cCode, Semester };
 
 						dtmcourses.addRow(studentsCourses);
+
 
 					}
 					table_regGrade.setModel(dtmcourses);

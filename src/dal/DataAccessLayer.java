@@ -74,6 +74,25 @@ public class DataAccessLayer {
 		return courses;
 	}
 
+<<<<<<< HEAD
+	public static ArrayList<Studying> getStudying() throws SQLException {
+		ArrayList<Studying> studies = new ArrayList<Studying>();
+		PreparedStatement pstate = null;
+		ResultSet rs = null;
+
+		con = DataAccessLayer.createConnection();
+		pstate = con.prepareStatement(Util.getStudying());
+		rs = pstate.executeQuery();
+
+		while (rs.next()) {
+			Studying stud = new Studying();
+			stud.setsPnr(rs.getString("spnr"));
+			stud.setcCode(rs.getString("ccode"));
+			stud.setSemester(rs.getString("semester"));
+		}
+		return studies;
+	}
+=======
 	public static ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
 
 		ArrayList<Studying> stud = new ArrayList<Studying>();
@@ -93,4 +112,5 @@ public class DataAccessLayer {
 
 	}
 
+>>>>>>> branch 'master' of https://github.com/paulssonkalle/databaser.git
 }
