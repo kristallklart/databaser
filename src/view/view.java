@@ -113,8 +113,7 @@ public class view extends JFrame {
 					textField_stud_address.setText(st.getSaddress());
 
 				} catch (SQLException e) {
-					// TODO: handle exception : här bör vi skriva ut något när
-					// vi fångar ett exception
+
 				}
 			}
 		});
@@ -525,7 +524,7 @@ public class view extends JFrame {
 
 		String[] test = { "Choose...", "Query1", "Query2" };
 
-		JComboBox<String> comboBox_caccess_selectOption = new JComboBox<String>();
+		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 
 		panel_caccess.add(comboBox_caccess_selectOption);
