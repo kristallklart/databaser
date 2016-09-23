@@ -8,7 +8,8 @@ public class UtilCronus {
 	}
 	
 	public String getEmployee2(){
-		return "select * from \"CRONUS Sverige AB$Employee\"";
+		return "select COLUMN_NAME from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
+				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'";
 	}
 
 	// hämtar alla tables från databasen

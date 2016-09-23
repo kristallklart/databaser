@@ -18,6 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import controller.Controller;
 import model.Course;
@@ -58,6 +59,7 @@ public class view extends JFrame {
 	private JTable table_regGrade;
 	private JTable table_searchInfo;
 	private JTable table_caccess;
+	private DefaultTableModel dtmcourses;
 
 	/**
 	 * Launch the application.
@@ -102,9 +104,6 @@ public class view extends JFrame {
 		JLabel lbl_feedback = new JLabel("Message: ");
 		lbl_feedback.setBounds(7, 395, 638, 20);
 		contentPane.add(lbl_feedback);
-
-		String[] course = { "Code", "Semester" };
-		dtmcourses.setColumnIdentifiers(course);
 
 		JButton btn_stud_search = new JButton("Search");
 		btn_stud_search.addActionListener(new ActionListener() {
@@ -282,8 +281,13 @@ public class view extends JFrame {
 		tabbedPane.addTab("Register grade", panel_regGrade);
 		panel_regGrade.setLayout(null);
 
+		DefaultTableModel dtmcourses = new DefaultTableModel();
+		String[] course = { "Code", "Semester" };
+		dtmcourses.setColumnIdentifiers(course);
+
 		JButton btn_regGrade_search = new JButton("Search");
 		btn_regGrade_search.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -529,10 +533,11 @@ public class view extends JFrame {
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
 
-		String[] test = { "Query1", "Query2" };
+		String[] test = { "Choose...", "Query1", "Query2" };
+
 		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		// comboBox_caccess_selectOption.
+
 		panel_caccess.add(comboBox_caccess_selectOption);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
@@ -545,5 +550,6 @@ public class view extends JFrame {
 		JSeparator separator_caccess = new JSeparator();
 		separator_caccess.setBounds(10, 352, 599, 7);
 		panel_caccess.add(separator_caccess);
+
 	}
 }
