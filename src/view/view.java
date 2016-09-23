@@ -299,7 +299,7 @@ public class view extends JFrame {
 					textField_regGrade_name.setText(st.getSname());
 
 					ArrayList<Studying> s;
-					s = Controller.getStudentStudying(textField_rgrade_pnr.getText());
+					s = Controller.getStudentStudying(textField_regGrade_pnr.getText());
 
 					for (int i = 0; i < s.size(); i++) {
 						String cCode = s.get(i).getcCode();
