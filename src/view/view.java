@@ -89,7 +89,7 @@ public class view extends JFrame {
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 648, 378);
+		tabbedPane.setBounds(0, 0, 648, 391);
 		contentPane.add(tabbedPane);
 
 		// ***********************************
@@ -100,8 +100,8 @@ public class view extends JFrame {
 		tabbedPane.addTab("Student", panel_student);
 		panel_student.setLayout(null);
 
-		JLabel lbl_feedback = new JLabel("");
-		lbl_feedback.setBounds(0, 379, 648, 36);
+		JLabel lbl_feedback = new JLabel("Message: ");
+		lbl_feedback.setBounds(7, 395, 638, 20);
 		contentPane.add(lbl_feedback);
 
 		DefaultTableModel dtmcourses = new DefaultTableModel();
