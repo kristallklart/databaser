@@ -182,7 +182,7 @@ public class view extends JFrame {
 		panel_student.add(lbl_stud_address);
 
 		// ***********************************
-		// *******REGISTER STUDEN TAB*********
+		// *******REGISTER STUDENT TAB********
 		// ***********************************
 
 		JPanel panel_regStudent = new JPanel();
@@ -508,9 +508,9 @@ public class view extends JFrame {
 		table_searchInfo = new JTable();
 		scrollPane_searchInfo.setViewportView(table_searchInfo);
 
-		// ***********************************
-		// ***********CRONUS ACCESS***********
-		// ***********************************
+		// ***************************************
+		// ***********CRONUS ACCESS TAB***********
+		// ***************************************
 
 		table_caccess = new JTable();
 		JPanel panel_caccess = new JPanel();
@@ -521,7 +521,7 @@ public class view extends JFrame {
 		btn_caccess_go.setBounds(216, 22, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_caccess.add(btn_caccess_go);
 
-		JLabel lbl_caccess_selectOption = new JLabel("Select option:");
+		JLabel lbl_caccess_selectOption = new JLabel("Select query:");
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
 
