@@ -240,9 +240,9 @@ public class view extends JFrame {
 		lbl_regStud_ccode.setBounds(15, 95, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regStudent.add(lbl_regStud_ccode);
 
-		JLabel lbl_regStud_year = new JLabel("Termin:");
-		lbl_regStud_year.setBounds(15, 156, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_regStudent.add(lbl_regStud_year);
+		JLabel lbl_regStud_semester = new JLabel("Semester:");
+		lbl_regStud_semester.setBounds(15, 156, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_regStudent.add(lbl_regStud_semester);
 
 		JComboBox<String> comboBox_regStud_ccode = new JComboBox<String>();
 		comboBox_regStud_ccode.setMaximumRowCount(10);
