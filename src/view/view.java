@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -84,9 +85,8 @@ public class view extends JFrame {
 		tabbedPane.addTab("Student", null, panel_student, null);
 		panel_student.setLayout(null);
 
-		DefaultTableModel dtmcourses = new DefaultTableModel();
 		String[] course = { "Code", "semester" };
-		dtmcourses.setColumnIdentifiers(course);
+		DefaultTableModel dtmcourses = new DefaultTableModel(course, 0);
 
 		JLabel lbl_stud_pnr = new JLabel("Personal number:");
 		lbl_stud_pnr.setBounds(10, 22, 112, 21);
@@ -289,8 +289,7 @@ public class view extends JFrame {
 					st = Controller.getStudent(textField_rgrade_pnr.getText());
 					textField_rgrade_name.setText(st.getSname());
 
-					ArrayList<Studying> s;
-					s = Controller.getStudentStudying();
+					ArrayList<Studying> s = Controller.getStudentStudying();
 
 					for (int i = 0; i < s.size(); i++) {
 						String cCode = s.get(i).getcCode();
@@ -298,10 +297,8 @@ public class view extends JFrame {
 
 						Object[] studentsCourses = { cCode, Semester };
 
-						dtmcourses.addRow(studentsCourses);
-
 					}
-					table_rgrade.setModel(dtmcourses);
+
 				} catch (SQLException e) {
 					System.out.println(e.getErrorCode());
 				}

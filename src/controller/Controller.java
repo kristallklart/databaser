@@ -28,6 +28,6 @@ public class Controller {
 
 	public static ArrayList<Studying> getStudentStudying() throws SQLException {
 
-		return DataAccessLayer.getStudentStudying();
+		return DataAccessLayer.getStudying();
 	}
 }
