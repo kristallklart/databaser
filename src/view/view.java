@@ -531,8 +531,10 @@ public class view extends JFrame {
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
 
+		String[] test = { "Query1", "Query2" };
 		JComboBox comboBox_caccess_selectOption = new JComboBox();
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
+		comboBox_caccess_selectOption.addItem(test);
 		panel_caccess.add(comboBox_caccess_selectOption);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
