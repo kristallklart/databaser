@@ -11,7 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
@@ -40,8 +39,6 @@ public class view extends JFrame {
 	private final int LABEL_HEIGHT = 23;
 	private final int COMBOBOX_WIDHT = 85;
 	private final int COMBOBOX_HEIGHT = 25;
-	private final int RADIOBUTTON_WIDTH = 47;
-	private final int RADIOBUTTON_HEIGHT = 23;
 	private JTextField textField_stud_pnr;
 	private JTextField textField_stud_name;
 	private JTextField textField_stud_address;
@@ -59,7 +56,6 @@ public class view extends JFrame {
 	private JTable table_regGrade;
 	private JTable table_searchInfo;
 	private JTable table_caccess;
-	private DefaultTableModel dtmcourses;
 
 	/**
 	 * Launch the application.
@@ -117,8 +113,7 @@ public class view extends JFrame {
 					textField_stud_address.setText(st.getSaddress());
 
 				} catch (SQLException e) {
-					// TODO: handle exception : här bör vi skriva ut något när
-					// vi fångar ett exception
+
 				}
 			}
 		});
@@ -245,26 +240,22 @@ public class view extends JFrame {
 		lbl_regStud_ccode.setBounds(15, 95, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regStudent.add(lbl_regStud_ccode);
 
-		JLabel lbl_regStud_year = new JLabel("Year");
-		lbl_regStud_year.setBounds(154, 157, LABEL_WIDTH, LABEL_HEIGHT);
+		JLabel lbl_regStud_year = new JLabel("Termin:");
+		lbl_regStud_year.setBounds(15, 156, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regStudent.add(lbl_regStud_year);
 
-		JComboBox comboBox_regStud_ccode = new JComboBox();
+		JComboBox<String> comboBox_regStud_ccode = new JComboBox<String>();
 		comboBox_regStud_ccode.setMaximumRowCount(10);
 		comboBox_regStud_ccode.setBounds(154, 98, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regStudent.add(comboBox_regStud_ccode);
 
-		JComboBox comboBox_regStud_year = new JComboBox();
-		comboBox_regStud_year.setBounds(226, 155, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
+		JComboBox<String> comboBox_regStud_year = new JComboBox<String>();
+		comboBox_regStud_year.setBounds(154, 155, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regStudent.add(comboBox_regStud_year);
 
-		JRadioButton rdbtn_regStud_ht = new JRadioButton("HT");
-		rdbtn_regStud_ht.setBounds(15, 154, RADIOBUTTON_WIDTH, RADIOBUTTON_HEIGHT);
-		panel_regStudent.add(rdbtn_regStud_ht);
-
-		JRadioButton rdbtn_regStud_vt = new JRadioButton("VT");
-		rdbtn_regStud_vt.setBounds(79, 154, RADIOBUTTON_WIDTH, RADIOBUTTON_HEIGHT);
-		panel_regStudent.add(rdbtn_regStud_vt);
+		comboBox_regStud_year.addItem("HT16");
+		comboBox_regStud_year.addItem("VT16");
+		comboBox_regStud_year.addItem("HT17");
 
 		JScrollPane scrollPane_regStud = new JScrollPane();
 		scrollPane_regStud.setBounds(15, 243, 366, 81);
@@ -355,12 +346,11 @@ public class view extends JFrame {
 		lbl_regGarde_grade.setBounds(10, 241, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regGrade.add(lbl_regGarde_grade);
 
-		JComboBox comboBox_regGrade_grade = new JComboBox();
+		JComboBox<String> comboBox_regGrade_grade = new JComboBox<String>();
 		comboBox_regGrade_grade.setMaximumRowCount(10);
 		comboBox_regGrade_grade.setBounds(119, 241, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regGrade.add(comboBox_regGrade_grade);
 
-		comboBox_regGrade_grade.addItem("");
 		comboBox_regGrade_grade.addItem("A");
 		comboBox_regGrade_grade.addItem("B");
 		comboBox_regGrade_grade.addItem("C");
@@ -422,8 +412,7 @@ public class view extends JFrame {
 					textField_course_points.setText(string);
 
 				} catch (SQLException e) {
-					// TODO: handle exception : här bör vi skriva ut något när
-					// vi fångar ett exception
+
 				}
 			}
 		});
@@ -505,7 +494,7 @@ public class view extends JFrame {
 		lbl_searchInfo_grade.setBounds(10, 166, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_searchInfo.add(lbl_searchInfo_grade);
 
-		JComboBox comboBox_searchInfo_selectOption = new JComboBox();
+		JComboBox<String> comboBox_searchInfo_selectOption = new JComboBox<String>();
 		comboBox_searchInfo_selectOption.setBounds(130, 22, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_searchInfo.add(comboBox_searchInfo_selectOption);
 
@@ -532,11 +521,12 @@ public class view extends JFrame {
 		JLabel lbl_caccess_selectOption = new JLabel("Select query:");
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
-		
+
 		String[] test = { "Choose...", "Query1", "Query2" };
+
 		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		comboBox_caccess_selectOption.setSelectedIndex(0);
+
 		panel_caccess.add(comboBox_caccess_selectOption);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
@@ -549,10 +539,6 @@ public class view extends JFrame {
 		JSeparator separator_caccess = new JSeparator();
 		separator_caccess.setBounds(10, 352, 599, 7);
 		panel_caccess.add(separator_caccess);
-		
-
-
-
 
 	}
 }
