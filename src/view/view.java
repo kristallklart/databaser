@@ -419,7 +419,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_search.setBounds(254, 32, 89, BUTTON_HEIGHT);
+		btn_course_search.setBounds(273, 34, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_search);
 
 		textField_course_courseCode = new JTextField();
