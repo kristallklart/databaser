@@ -358,12 +358,11 @@ public class view extends JFrame {
 		lbl_regGarde_grade.setBounds(10, 241, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regGrade.add(lbl_regGarde_grade);
 
-		JComboBox comboBox_regGrade_grade = new JComboBox();
+		JComboBox<String> comboBox_regGrade_grade = new JComboBox<String>();
 		comboBox_regGrade_grade.setMaximumRowCount(10);
 		comboBox_regGrade_grade.setBounds(119, 241, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regGrade.add(comboBox_regGrade_grade);
 
-		comboBox_regGrade_grade.addItem("");
 		comboBox_regGrade_grade.addItem("A");
 		comboBox_regGrade_grade.addItem("B");
 		comboBox_regGrade_grade.addItem("C");
