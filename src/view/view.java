@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -48,7 +47,6 @@ public class view extends JFrame {
 	private JTable table_rgStud;
 	private JTextField textField_regstud_namefound;
 	private JTextField textField_rgrade_name;
-	private JTable table_caccess;
 
 	/**
 	 * Launch the application.
@@ -87,7 +85,7 @@ public class view extends JFrame {
 		panel_student.setLayout(null);
 
 		DefaultTableModel dtmcourses = new DefaultTableModel();
-		String[] course = { "Code", "semester" };
+		String[] course = { "Code", "Semester" };
 		dtmcourses.setColumnIdentifiers(course);
 
 		JLabel lbl_stud_pnr = new JLabel("Personal number:");
@@ -272,20 +270,20 @@ public class view extends JFrame {
 					textField_rgrade_name.setText(st.getSname());
 
 					ArrayList<Studying> s;
-					s = Controller.getStudentStudying();
+					s = Controller.getStudentStudying(textField_rgrade_pnr.getText());
 
 					for (int i = 0; i < s.size(); i++) {
 						String cCode = s.get(i).getcCode();
 						String Semester = s.get(i).getSemester().toUpperCase();
 
-						Object[] studentsCourses = { cCode, Semester };
+						String[] studentsCourses = { cCode, Semester };
 
 						dtmcourses.addRow(studentsCourses);
 
 					}
 					table_rgrade.setModel(dtmcourses);
-				} catch (SQLException e) {
-					System.out.println(e.getErrorCode());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 
 			}
@@ -478,24 +476,5 @@ public class view extends JFrame {
 		lbl_feedback.setBounds(0, 379, 648, 36);
 		contentPane.add(lbl_feedback);
 
-		table_caccess = new JTable();
-		JPanel panel_caccess = new JPanel();
-		tabbedPane.addTab("Cronus Access", null, panel_caccess, null);
-		panel_caccess.setLayout(null);
-
-		JButton btn_caccess_go = new JButton("Go");
-		btn_caccess_go.setBounds(271, 71, 89, 23);
-		panel_caccess.add(btn_caccess_go);
-
-		JScrollPane scrollPane_caccess = new JScrollPane();
-		scrollPane_caccess.setBounds(130, 212, 237, 109);
-		panel_caccess.add(scrollPane_caccess);
-
-		table_caccess = new JTable();
-		scrollPane_caccess.setViewportView(table_caccess);
-
-		JSeparator separator_caccess = new JSeparator();
-		separator_caccess.setBounds(10, 352, 599, 7);
-		panel_caccess.add(separator_caccess);
 	}
 }
