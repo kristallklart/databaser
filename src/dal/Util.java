@@ -11,13 +11,8 @@ public class Util {
 		return "select * from course where ccode = ?";
 	}
 
-<<<<<<< HEAD
-	public static String getStudying() {
-		return "select ccode, semester from studying where spnr = ?";
-=======
 	public static String getStudentStudying() {
 		return "select ccode, semester from studies where spnr = ?";
->>>>>>> branch 'master' of https://github.com/paulssonkalle/databaser.git
 	}
 
 	// Visa resultat för angiven kurs (alla studenter som tagit kursen och deras
