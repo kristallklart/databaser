@@ -59,7 +59,6 @@ public class view extends JFrame {
 	private JTable table_regGrade;
 	private JTable table_searchInfo;
 	private JTable table_caccess;
-	private DefaultTableModel dtmcourses;
 
 	/**
 	 * Launch the application.
@@ -379,7 +378,7 @@ public class view extends JFrame {
 
 		table_regGrade = new JTable();
 		scrollPane_regGrade.setViewportView(table_regGrade);
-		table_regGrade.setModel(dtmcourses);
+		// table_regGrade.setModel(dtmcourses);
 		table_regGrade.setRowHeight(20);
 
 		// ***********************************
@@ -538,9 +537,10 @@ public class view extends JFrame {
 		panel_caccess.add(lbl_caccess_selectOption);
 
 		String[] test = { "Choose...", "Query1", "Query2" };
+
 		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		comboBox_caccess_selectOption.setSelectedIndex(0);
+
 		panel_caccess.add(comboBox_caccess_selectOption);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
