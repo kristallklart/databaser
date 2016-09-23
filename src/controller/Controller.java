@@ -26,8 +26,8 @@ public class Controller {
 
 	}
 
-	public static ArrayList<Studying> getStudentStudying() throws SQLException {
+	public static ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
 
-		return DataAccessLayer.getStudentStudying();
+		return DataAccessLayer.getStudentStudying(pnr);
 	}
 }

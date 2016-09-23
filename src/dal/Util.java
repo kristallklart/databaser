@@ -12,7 +12,7 @@ public class Util {
 	}
 
 	public static String getStudentStudying() {
-		return "select ccode, semester from studying where spnr = ?";
+		return "select ccode, semester from studies where spnr = ?";
 	}
 
 	// Visa resultat för angiven kurs (alla studenter som tagit kursen och deras

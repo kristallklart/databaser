@@ -74,9 +74,23 @@ public class DataAccessLayer {
 		return courses;
 	}
 
-	public static ArrayList<Studying> getStudentStudying() {
-		
-		// TODO Auto-generated method stub
-		return null;
+	public static ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
+
+		ArrayList<Studying> stud = new ArrayList<Studying>();
+		PreparedStatement pstate = null;
+		ResultSet rs = null;
+
+		con = DataAccessLayer.createConnection();
+		pstate = con.prepareStatement(Util.getStudentStudying());
+		pstate.setString(1, pnr);
+		rs = pstate.executeQuery();
+
+		while (rs.next()) {
+			stud.add(new Studying(rs.getString("ccode"), (rs.getString("semester"))));
+
+		}
+		return stud;
+
 	}
+
 }

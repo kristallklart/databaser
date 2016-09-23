@@ -52,6 +52,16 @@ public class view extends JFrame {
 	private JTextField textField_course_courseCode;
 	private JTextField textField_course_cname;
 	private JTextField textField_course_points;
+	private JTextField textField_rgrade_pnr;
+	private JTable table_rgrade;
+	private JTextField textField_sinfo_courseCode;
+	private JTextField textField_sinfo_pnr;
+	private JTextField textField_sinfo_grade;
+	private JTable table_sinfo;
+	private JTextField textField_rgstud_pnr;
+	private JTable table_rgStud;
+	private JTextField textField_regstud_namefound;
+	private JTextField textField_rgrade_name;
 	private JTextField textField_searchInfo_courseCode;
 	private JTextField textField_searchInfo_pnr;
 	private JTextField textField_searchInfo_grade;
@@ -105,7 +115,7 @@ public class view extends JFrame {
 		contentPane.add(lbl_feedback);
 
 		DefaultTableModel dtmcourses = new DefaultTableModel();
-		String[] course = { "Code", "semester" };
+		String[] course = { "Code", "Semester" };
 		dtmcourses.setColumnIdentifiers(course);
 
 		JButton btn_stud_search = new JButton("Search");
@@ -295,13 +305,13 @@ public class view extends JFrame {
 					textField_regGrade_name.setText(st.getSname());
 
 					ArrayList<Studying> s;
-					s = Controller.getStudentStudying();
+					s = Controller.getStudentStudying(textField_regGrade_pnr.getText());
 
 					for (int i = 0; i < s.size(); i++) {
 						String cCode = s.get(i).getcCode();
 						String Semester = s.get(i).getSemester().toUpperCase();
 
-						Object[] studentsCourses = { cCode, Semester };
+						String[] studentsCourses = { cCode, Semester };
 
 						dtmcourses.addRow(studentsCourses);
 
