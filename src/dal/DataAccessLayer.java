@@ -13,22 +13,24 @@ import model.Studying;
 
 public class DataAccessLayer {
 
-	private static Connection con = null;
+	private Connection con = null;
+	private LoginData login = new LoginData();
+	private Util util = new Util();
 
-	public static Connection createConnection() throws SQLException {
+	public Connection createConnection() throws SQLException {
 
-		return DriverManager.getConnection(LoginData.getUrl(), LoginData.getUser(), LoginData.getPw());
+		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
 
 	}
 
-	public static Student getStudent(String spnr) throws SQLException {
+	public Student getStudent(String spnr) throws SQLException {
 
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 		Student st = new Student();
 
-		con = DataAccessLayer.createConnection();
-		pstate = con.prepareStatement(Util.getStudent());
+		con = createConnection();
+		pstate = con.prepareStatement(util.getStudent());
 		pstate.setString(1, spnr);
 		rs = pstate.executeQuery();
 
@@ -40,14 +42,14 @@ public class DataAccessLayer {
 		return st;
 	}
 
-	public static Course getCourse(String ccode) throws SQLException {
+	public Course getCourse(String ccode) throws SQLException {
 
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 		Course cc = new Course();
 
-		con = DataAccessLayer.createConnection();
-		pstate = con.prepareStatement(Util.getCourse());
+		con = createConnection();
+		pstate = con.prepareStatement(util.getCourse());
 		pstate.setString(1, ccode);
 		rs = pstate.executeQuery();
 
@@ -59,13 +61,13 @@ public class DataAccessLayer {
 		return cc;
 	}
 
-	public static ArrayList<String> getCcodes() throws SQLException {
+	public ArrayList<String> getCcodes() throws SQLException {
 		ArrayList<String> courses = new ArrayList<String>();
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 
-		con = DataAccessLayer.createConnection();
-		pstate = con.prepareStatement(Util.getCourse());
+		con = createConnection();
+		pstate = con.prepareStatement(util.getCourse());
 		rs = pstate.executeQuery();
 
 		while (rs.next()) {
@@ -74,14 +76,14 @@ public class DataAccessLayer {
 		return courses;
 	}
 
-	public static ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
+	public ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
 
 		ArrayList<Studying> stud = new ArrayList<Studying>();
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 
-		con = DataAccessLayer.createConnection();
-		pstate = con.prepareStatement(Util.getStudentStudying());
+		con = createConnection();
+		pstate = con.prepareStatement(util.getStudentStudying());
 		pstate.setString(1, pnr);
 		rs = pstate.executeQuery();
 

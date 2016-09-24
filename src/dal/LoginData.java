@@ -2,20 +2,32 @@ package dal;
 
 public class LoginData {
 
-	private static String url = "jdbc:sqlserver://localhost:1433;DatabaseName=lu";
-	private static String user = "bibbi";
-	private static String pw = "bibbi";
+	private String url = "jdbc:sqlserver://localhost:1433;DatabaseName=lu";
+	private String user = "bibbi";
+	private String pw = "bibbi";
 
-	static String getUrl() {
+	public String getUrl() {
 		return url;
 	}
 
-	static String getUser() {
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUser() {
 		return user;
 	}
 
-	static String getPw() {
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPw() {
 		return pw;
+	}
+
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 
 }
