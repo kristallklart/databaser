@@ -1,10 +1,12 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -88,6 +90,7 @@ public class view extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 648, 391);
 		contentPane.add(tabbedPane);
+
 
 		// ***********************************
 		// ***********STUDENT TAB*************
