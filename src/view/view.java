@@ -32,6 +32,7 @@ public class view extends JFrame {
 	 *
 	 */
 	private static final long serialVersionUID = 5054166201282114423L;
+	private Controller controller = new Controller();
 	private JPanel contentPane;
 	private final int BUTTON_WIDTH = 108;
 	private final int BUTTON_HEIGHT = 23;
@@ -111,7 +112,7 @@ public class view extends JFrame {
 				try {
 
 					Student st = new Student();
-					st = Controller.getStudent(textField_stud_pnr.getText());
+					st = controller.getStudent(textField_stud_pnr.getText());
 					textField_stud_name.setText(st.getSname());
 					textField_stud_address.setText(st.getSaddress());
 
@@ -205,7 +206,7 @@ public class view extends JFrame {
 				try {
 
 					Student st = new Student();
-					st = Controller.getStudent(textField_regStud_pnr.getText());
+					st = controller.getStudent(textField_regStud_pnr.getText());
 					textField_regStud_name.setText(st.getSname());
 
 				} catch (SQLException e) {
@@ -284,21 +285,24 @@ public class view extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+
 				try {
-
 					Student st = new Student();
-					st = Controller.getStudent(textField_regGrade_pnr.getText());
+					st = controller.getStudent(textField_regGrade_pnr.getText());
 					textField_regGrade_name.setText(st.getSname());
+				} catch (SQLException e) {
+					System.out.println(e.getErrorCode());
+				}
 
+				try {
 					ArrayList<Studying> s;
-					s = Controller.getStudentStudying(textField_regGrade_pnr.getText());
+					s = controller.getStudentStudying(textField_regGrade_pnr.getText());
 
 					for (int i = 0; i < s.size(); i++) {
 						String cCode = s.get(i).getcCode();
 						String Semester = s.get(i).getSemester().toUpperCase();
 
 						String[] studentsCourses = { cCode, Semester };
-
 						dtmcourses.addRow(studentsCourses);
 
 					}
@@ -306,7 +310,6 @@ public class view extends JFrame {
 				} catch (SQLException e) {
 					System.out.println(e.getErrorCode());
 				}
-
 			}
 		});
 
@@ -408,7 +411,7 @@ public class view extends JFrame {
 				try {
 
 					Course cc = new Course();
-					cc = Controller.getCourse(textField_course_courseCode.getText());
+					cc = controller.getCourse(textField_course_courseCode.getText());
 					textField_course_cname.setText(cc.getCname());
 					int i = cc.getCpoint();
 					String string = Integer.toString(i);
@@ -527,7 +530,7 @@ public class view extends JFrame {
 
 		String[] test = { "Choose...", "Query1", "Query2" };
 
-		JComboBox comboBox_caccess_selectOption = new JComboBox(test);
+		JComboBox<String> comboBox_caccess_selectOption = new JComboBox<String>(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 
 		panel_caccess.add(comboBox_caccess_selectOption);

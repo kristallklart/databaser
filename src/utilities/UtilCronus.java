@@ -6,14 +6,14 @@ public class UtilCronus {
 	public String getEmployee() {
 		return "select name from sys.columns " + "where object_id=object_ID('CRONUS Sverige AB$Employee')";
 	}
-	
-	public String getEmployee2(){
+
+	public String getEmployee2() {
 		return "select COLUMN_NAME from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
 				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'";
 	}
 
 	// hämtar alla tables från databasen
-	public String getTables() {
+	public String getAllTablesUsingInformationSchema() {
 		return "select table_name " + "from [Demo Database NAV (5-0)].information_schema.tables "
 				+ "where table_type = 'base table'";
 	}
@@ -28,11 +28,10 @@ public class UtilCronus {
 		return "select * from [Demo Database NAV (5-0)]" + ".information_schema.table_constrains"
 				+ "order by table_name";
 	}
-	
-	//hämtar 5 columner från Index
+
+	// hämtar 5 columner från Index
 	public String getIndex() {
-		return "select object_id, name, index_id, type, type_desc "
-				+ "from sys.indexes order by object_id";
+		return "select object_id, name, index_id, type, type_desc " + "from sys.indexes order by object_id";
 	}
 
 	// hämtar både pk & fk
@@ -40,34 +39,37 @@ public class UtilCronus {
 		return "select top 5 table_name as Tabellnamn, " + "column_name as Nyckelattribut "
 				+ "from [Demo Database NAV (5-0)].information_schema.key_column_usage";
 	}
-		
-	//hämtar 5 columner från EMPLOYEE ABSENCE
-	public String getEmployeAbsence(){
-		return "select [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"  
+
+	// hämtar 5 columner från EMPLOYEE ABSENCE
+	public String getEmployeAbsence() {
+		return "select [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"
 				+ "from [CRONUS Sverige AB$Employee Absence]";
 	}
-	
-	//hämtar 5 columner från EMPLOYEE PORTAL SETUP
-	public String getEmployeePortalSetup(){
+
+	// hämtar 5 columner från EMPLOYEE PORTAL SETUP
+	public String getEmployeePortalSetup() {
 		return "select [Config TP WP Request Capt ID], [Config TP Initial Req_ Capt ID], [Config TP Group Capt ID], [Search Tool Pane Caption ID], [Search Config Table ID]"
-				+"from [CRONUS Sverige AB$Employee Portal Setup]";
+				+ "from [CRONUS Sverige AB$Employee Portal Setup]";
 	}
-	
-	//hämtar 5 columner från EMPLOYEE QUALIFICATION
-	public String getEmployeeQualification(){
+
+	// hämtar 5 columner från EMPLOYEE QUALIFICATION
+	public String getEmployeeQualification() {
 		return "select [Employee No_], [Qualification Code], Description, Institution_Company,Type"
 				+ "from [CRONUS Sverige AB$Employee Qualification]";
 	}
-	
-	//hämtar 5 columner från EMPLOYEE RELATIVE
-	public String getEmployeeRelative(){
+
+	// hämtar 5 columner från EMPLOYEE RELATIVE
+	public String getEmployeeRelative() {
 		return "select [Employee No_], [First Name], [Last Name], [Relative Code], [Phone No_]"
 				+ "from [CRONUS Sverige AB$Employee Relative]";
 	}
-	
-	//hämtar 5 columner från EMPLOYEE STATISTICS GROUP
-	public String getEmployeeStatisticsGroup(){
-		return "select [timestamp], [Code], [Description]"
-				+"from [CRONUS Sverige AB$Employee Statistics Group]";
+
+	// hämtar 5 columner från EMPLOYEE STATISTICS GROUP
+	public String getEmployeeStatisticsGroup() {
+		return "select [timestamp], [Code], [Description]" + "from [CRONUS Sverige AB$Employee Statistics Group]";
+	}
+
+	public String getAllTablesUsingSysObjects() {
+		return "use [Demo Database NAV (5-0)] select name from sysobjects where xtype ='U'";
 	}
 }

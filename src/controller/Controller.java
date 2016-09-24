@@ -10,25 +10,27 @@ import model.Studying;
 
 public class Controller {
 
-	public static Student getStudent(String spnr) throws SQLException {
+	private DataAccessLayer dal = new DataAccessLayer();
 
-		return DataAccessLayer.getStudent(spnr);
+	public Student getStudent(String spnr) throws SQLException {
 
-	}
-
-	public static ArrayList<String> getCourses() throws SQLException {
-		return DataAccessLayer.getCcodes();
-	}
-
-	public static Course getCourse(String ccode) throws SQLException {
-
-		return DataAccessLayer.getCourse(ccode);
+		return dal.getStudent(spnr);
 
 	}
 
-	public static ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
+	public ArrayList<String> getCourses() throws SQLException {
+		return dal.getCcodes();
+	}
 
-		return DataAccessLayer.getStudentStudying(pnr);
+	public Course getCourse(String ccode) throws SQLException {
+
+		return dal.getCourse(ccode);
+
+	}
+
+	public ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
+
+		return dal.getStudentStudying(pnr);
 
 	}
 }
