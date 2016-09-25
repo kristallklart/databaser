@@ -114,11 +114,13 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (textField_stud_pnr.getText().trim().isEmpty()) {
 					lbl_feedback.setText(errorHandler.noInput());
+					UtilView.clearAllFields(studPanelFields);
 				} else {
 					try {
 						Student s = controller.getStudent(textField_stud_pnr.getText());
 						if (s == null) {
 							lbl_feedback.setText(errorHandler.noStudentFound(textField_stud_pnr.getText()));
+							UtilView.clearNonSearchFields(studPanelFields);
 						} else {
 							textField_stud_name.setText(s.getSname());
 							textField_stud_address.setText(s.getSaddress());
@@ -136,7 +138,7 @@ public class view extends JFrame {
 		btn_stud_clear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UtilView.clearFields(studPanelFields);
+				UtilView.clearAllFields(studPanelFields);
 			}
 		});
 		btn_stud_clear.setBounds(10, 130, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -173,12 +175,14 @@ public class view extends JFrame {
 		textField_stud_name = new JTextField();
 		textField_stud_name.setColumns(10);
 		textField_stud_name.setBounds(121, 54, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_stud_name.setEditable(false);
 		panel_student.add(textField_stud_name);
 		studPanelFields.add(textField_stud_name);
 
 		textField_stud_address = new JTextField();
 		textField_stud_address.setColumns(10);
 		textField_stud_address.setBounds(121, 86, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_stud_address.setEditable(false);
 		panel_student.add(textField_stud_address);
 		studPanelFields.add(textField_stud_address);
 
@@ -306,25 +310,25 @@ public class view extends JFrame {
 				} else {
 					try {
 						Student s = controller.getStudent(textField_regGrade_pnr.getText());
+						ArrayList<Studying> studying = controller.getStudentStudying(textField_regGrade_pnr.getText());
+						dtmcourses.setRowCount(0);
+
 						if (s == null) {
 							lbl_feedback.setText(errorHandler.noStudentFound(textField_regGrade_pnr.getText()));
+
+						} else if (studying == null) {
+							lbl_feedback.setText(errorHandler.noStudying(textField_regGrade_pnr.getText()));
+
 						} else {
 							textField_regGrade_name.setText(s.getSname());
-						}
-					} catch (Exception e) {
-						lbl_feedback.setText(errorHandler.handleException(e));
-					}
-					try {
-						ArrayList<Studying> studying = controller.getStudentStudying(textField_regGrade_pnr.getText());
-						if (studying == null) {
-							lbl_feedback.setText(errorHandler.noStudying(textField_regGrade_pnr.getText()));
-						} else {
-							dtmcourses.setRowCount(0);
-							for (Studying s : studying) {
-								String[] studentsCourses = { s.getcCode(), s.getSemester().toUpperCase() };
+
+							for (Studying stud : studying) {
+								String[] studentsCourses = { stud.getcCode(), stud.getSemester().toUpperCase() };
 								dtmcourses.addRow(studentsCourses);
 							}
+
 							table_regGrade.setModel(dtmcourses);
+							lbl_feedback.setText(UtilView.studentFound(textField_regGrade_pnr.getText()));
 						}
 					} catch (Exception e) {
 						lbl_feedback.setText(errorHandler.handleException(e));
@@ -341,7 +345,7 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dtmcourses.setRowCount(0);
-				UtilView.clearFields(regGradePanelFields);
+				UtilView.clearAllFields(regGradePanelFields);
 			}
 		});
 		btn_regGrade_clear.setBounds(10, 298, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -415,7 +419,7 @@ public class view extends JFrame {
 		btn_course_clear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UtilView.clearFields(coursePanelFields);
+				UtilView.clearAllFields(coursePanelFields);
 			}
 		});
 		btn_course_clear.setBounds(10, 185, BUTTON_WIDTH, BUTTON_HEIGHT);

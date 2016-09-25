@@ -54,7 +54,7 @@ public class ErrorHandler {
 	}
 
 	public String noStudying(String input) {
-		String message = "The student with personal number: " + input + "is not registered on any courses.";
+		String message = "The student with personal number: " + input + " is not registered on any courses.";
 		return message;
 	}
 }
