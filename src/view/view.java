@@ -1,12 +1,10 @@
 package view;
 
 import java.awt.EventQueue;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,6 +23,7 @@ import controller.Controller;
 import model.Course;
 import model.Student;
 import model.Studying;
+import utilities.UtilView;
 
 public class view extends JFrame {
 
@@ -33,6 +32,9 @@ public class view extends JFrame {
 	 */
 	private static final long serialVersionUID = 5054166201282114423L;
 	private Controller controller = new Controller();
+	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
+	private ArrayList<JTextField> regGradePanelFields = new ArrayList<JTextField>();
+	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
 	private JPanel contentPane;
 	private final int BUTTON_WIDTH = 108;
 	private final int BUTTON_HEIGHT = 23;
@@ -92,7 +94,6 @@ public class view extends JFrame {
 		tabbedPane.setBounds(0, 0, 648, 391);
 		contentPane.add(tabbedPane);
 
-
 		// ***********************************
 		// ***********STUDENT TAB*************
 		// ***********************************
@@ -128,7 +129,7 @@ public class view extends JFrame {
 		btn_stud_clear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				UtilView.clearFields(studPanelFields);
 			}
 		});
 		btn_stud_clear.setBounds(10, 130, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -160,16 +161,19 @@ public class view extends JFrame {
 		textField_stud_pnr.setBounds(121, 22, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_pnr);
 		textField_stud_pnr.setColumns(10);
+		studPanelFields.add(textField_stud_pnr);
 
 		textField_stud_name = new JTextField();
 		textField_stud_name.setColumns(10);
 		textField_stud_name.setBounds(121, 54, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_name);
+		studPanelFields.add(textField_stud_name);
 
 		textField_stud_address = new JTextField();
 		textField_stud_address.setColumns(10);
 		textField_stud_address.setBounds(121, 86, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_address);
+		studPanelFields.add(textField_stud_address);
 
 		JLabel lbl_stud_pnr = new JLabel("Personal number:");
 		lbl_stud_pnr.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
@@ -317,6 +321,12 @@ public class view extends JFrame {
 		panel_regGrade.add(btn_regGrade_search);
 
 		JButton btn_regGrade_clear = new JButton("Clear");
+		btn_regGrade_clear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UtilView.clearFields(regGradePanelFields);
+			}
+		});
 		btn_regGrade_clear.setBounds(10, 298, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_regGrade.add(btn_regGrade_clear);
 
@@ -333,12 +343,14 @@ public class view extends JFrame {
 		textField_regGrade_pnr.setColumns(10);
 		textField_regGrade_pnr.setBounds(119, 27, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_regGrade.add(textField_regGrade_pnr);
+		regGradePanelFields.add(textField_regGrade_pnr);
 
 		textField_regGrade_name = new JTextField();
 		textField_regGrade_name.setEditable(false);
 		textField_regGrade_name.setColumns(10);
 		textField_regGrade_name.setBounds(119, 59, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_regGrade.add(textField_regGrade_name);
+		regGradePanelFields.add(textField_regGrade_name);
 
 		JLabel lbl_regGrade_pnr = new JLabel("Personal number:");
 		lbl_regGrade_pnr.setBounds(10, 27, LABEL_WIDTH, LABEL_HEIGHT);
@@ -383,6 +395,12 @@ public class view extends JFrame {
 		panel_course.setLayout(null);
 
 		JButton btn_course_clear = new JButton("Clear");
+		btn_course_clear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UtilView.clearFields(coursePanelFields);
+			}
+		});
 		btn_course_clear.setBounds(10, 185, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_clear);
 
@@ -429,16 +447,19 @@ public class view extends JFrame {
 		textField_course_courseCode.setColumns(10);
 		textField_course_courseCode.setBounds(107, 33, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_courseCode);
+		coursePanelFields.add(textField_course_courseCode);
 
 		textField_course_cname = new JTextField();
 		textField_course_cname.setColumns(10);
 		textField_course_cname.setBounds(107, 79, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_cname);
+		coursePanelFields.add(textField_course_cname);
 
 		textField_course_points = new JTextField();
 		textField_course_points.setColumns(10);
 		textField_course_points.setBounds(107, 128, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_points);
+		coursePanelFields.add(textField_course_points);
 
 		JLabel lbl_course_ccode = new JLabel("Course code:");
 		lbl_course_ccode.setBounds(10, 33, LABEL_WIDTH, LABEL_HEIGHT);
@@ -530,7 +551,7 @@ public class view extends JFrame {
 
 		String[] test = { "Choose...", "Query1", "Query2" };
 
-		JComboBox<String> comboBox_caccess_selectOption = new JComboBox<String>(test);
+		JComboBox<String> comboBox_caccess_selectOption = new JComboBox(test);
 		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 
 		panel_caccess.add(comboBox_caccess_selectOption);
