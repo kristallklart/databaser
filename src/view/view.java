@@ -23,6 +23,7 @@ import controller.Controller;
 import model.Course;
 import model.Student;
 import model.Studying;
+import utilities.ErrorHandler;
 import utilities.UtilView;
 
 public class view extends JFrame {
@@ -32,6 +33,7 @@ public class view extends JFrame {
 	 */
 	private static final long serialVersionUID = 5054166201282114423L;
 	private Controller controller = new Controller();
+	private ErrorHandler errorHandler = new ErrorHandler();
 	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> regGradePanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
@@ -102,7 +104,7 @@ public class view extends JFrame {
 		tabbedPane.addTab("Student", panel_student);
 		panel_student.setLayout(null);
 
-		JLabel lbl_feedback = new JLabel("Message: ");
+		JLabel lbl_feedback = new JLabel("");
 		lbl_feedback.setBounds(7, 395, 638, 20);
 		contentPane.add(lbl_feedback);
 
@@ -110,15 +112,20 @@ public class view extends JFrame {
 		btn_stud_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-
-					Student st = new Student();
-					st = controller.getStudent(textField_stud_pnr.getText());
-					textField_stud_name.setText(st.getSname());
-					textField_stud_address.setText(st.getSaddress());
-
-				} catch (SQLException e) {
-
+				if (textField_stud_pnr.getText().trim().isEmpty()) {
+					lbl_feedback.setText(errorHandler.noInput());
+				} else {
+					try {
+						Student s = controller.getStudent(textField_stud_pnr.getText());
+						if (s == null) {
+							lbl_feedback.setText(errorHandler.noStudentFound(textField_stud_pnr.getText()));
+						} else {
+							textField_stud_name.setText(s.getSname());
+							textField_stud_address.setText(s.getSaddress());
+						}
+					} catch (Exception e) {
+						lbl_feedback.setText("Error: " + errorHandler.handleException(e));
+					}
 				}
 			}
 		});
@@ -207,14 +214,19 @@ public class view extends JFrame {
 		btn_regStud_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-
-					Student st = new Student();
-					st = controller.getStudent(textField_regStud_pnr.getText());
-					textField_regStud_name.setText(st.getSname());
-
-				} catch (SQLException e) {
-					System.out.println(e.getErrorCode());
+				if (textField_regStud_pnr.getText().trim().isEmpty()) {
+					lbl_feedback.setText(errorHandler.noInput());
+				} else {
+					try {
+						Student s = controller.getStudent(textField_regStud_pnr.getText());
+						if (s == null) {
+							lbl_feedback.setText(errorHandler.noStudentFound(textField_regStud_pnr.getText()));
+						} else {
+							textField_regStud_name.setText(s.getSname());
+						}
+					} catch (Exception e) {
+						lbl_feedback.setText("Error: " + errorHandler.handleException(e));
+					}
 				}
 			}
 		});
@@ -289,30 +301,34 @@ public class view extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
-				try {
-					Student st = new Student();
-					st = controller.getStudent(textField_regGrade_pnr.getText());
-					textField_regGrade_name.setText(st.getSname());
-				} catch (SQLException e) {
-					System.out.println(e.getErrorCode());
-				}
-
-				try {
-					ArrayList<Studying> s;
-					s = controller.getStudentStudying(textField_regGrade_pnr.getText());
-
-					for (int i = 0; i < s.size(); i++) {
-						String cCode = s.get(i).getcCode();
-						String Semester = s.get(i).getSemester().toUpperCase();
-
-						String[] studentsCourses = { cCode, Semester };
-						dtmcourses.addRow(studentsCourses);
-
+				if (textField_regGrade_pnr.getText().trim().isEmpty()) {
+					lbl_feedback.setText(errorHandler.noInput());
+				} else {
+					try {
+						Student s = controller.getStudent(textField_regGrade_pnr.getText());
+						if (s == null) {
+							lbl_feedback.setText(errorHandler.noStudentFound(textField_regGrade_pnr.getText()));
+						} else {
+							textField_regGrade_name.setText(s.getSname());
+						}
+					} catch (Exception e) {
+						lbl_feedback.setText(errorHandler.handleException(e));
 					}
-					table_regGrade.setModel(dtmcourses);
-				} catch (SQLException e) {
-					System.out.println(e.getErrorCode());
+					try {
+						ArrayList<Studying> studying = controller.getStudentStudying(textField_regGrade_pnr.getText());
+						if (studying == null) {
+							lbl_feedback.setText(errorHandler.noStudying(textField_regGrade_pnr.getText()));
+						} else {
+							dtmcourses.setRowCount(0);
+							for (Studying s : studying) {
+								String[] studentsCourses = { s.getcCode(), s.getSemester().toUpperCase() };
+								dtmcourses.addRow(studentsCourses);
+							}
+							table_regGrade.setModel(dtmcourses);
+						}
+					} catch (Exception e) {
+						lbl_feedback.setText(errorHandler.handleException(e));
+					}
 				}
 			}
 		});
@@ -324,6 +340,7 @@ public class view extends JFrame {
 		btn_regGrade_clear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				dtmcourses.setRowCount(0);
 				UtilView.clearFields(regGradePanelFields);
 			}
 		});
