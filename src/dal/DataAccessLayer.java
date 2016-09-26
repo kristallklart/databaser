@@ -12,38 +12,49 @@ import model.Student;
 import model.Studying;
 
 public class DataAccessLayer {
-
-	private Connection con = null;
 	private LoginData login = new LoginData();
 	private Util util = new Util();
 
 	public Connection createConnection() throws SQLException {
-
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
-
 	}
 
 	public Student getStudent(String spnr) throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		Student s = null;
 
-		PreparedStatement pstate = null;
-		ResultSet rs = null;
-		Student st = new Student();
-
-		con = createConnection();
-		pstate = con.prepareStatement(util.getStudent());
-		pstate.setString(1, spnr);
-		rs = pstate.executeQuery();
-
-		while (rs.next()) {
-			st.setSname(rs.getString("sname"));
-			st.setSaddress(rs.getString("sadress"));
-
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.getStudent());
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return s;
+			} else {
+				s = new Student();
+				while (rSet.next()) {
+					s.setSname(rSet.getString("sname"));
+					s.setSaddress(rSet.getString("sadress"));
+				}
+			}
+		} finally {
+			if (rSet != null && !rSet.isClosed()) {
+				rSet.close();
+			}
+			if (pStatement != null && !pStatement.isClosed()) {
+				pStatement.close();
+			}
+			if (con != null && !con.isClosed()) {
+				con.close();
+			}
 		}
-		return st;
+		return s;
 	}
 
 	public Course getCourse(String ccode) throws SQLException {
-
+		Connection con = null;
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
 		Course cc = new Course();
@@ -62,6 +73,7 @@ public class DataAccessLayer {
 	}
 
 	public ArrayList<String> getCcodes() throws SQLException {
+		Connection con = null;
 		ArrayList<String> courses = new ArrayList<String>();
 		PreparedStatement pstate = null;
 		ResultSet rs = null;
@@ -76,22 +88,35 @@ public class DataAccessLayer {
 		return courses;
 	}
 
-	public ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
-
-		ArrayList<Studying> stud = new ArrayList<Studying>();
-		PreparedStatement pstate = null;
-		ResultSet rs = null;
-
-		con = createConnection();
-		pstate = con.prepareStatement(util.getStudentStudying());
-		pstate.setString(1, pnr);
-		rs = pstate.executeQuery();
-
-		while (rs.next()) {
-			stud.add(new Studying(rs.getString("ccode"), (rs.getString("semester"))));
-
+	public ArrayList<Studying> getStudentStudying(String spnr) throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Studying> studying = null;
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.getStudentStudying());
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return studying;
+			} else {
+				studying = new ArrayList<Studying>();
+				while (rSet.next()) {
+					studying.add(new Studying(rSet.getString("ccode"), (rSet.getString("semester"))));
+				}
+			}
+		} finally {
+			if (rSet != null && !rSet.isClosed()) {
+				rSet.close();
+			}
+			if (pStatement != null && !pStatement.isClosed()) {
+				pStatement.close();
+			}
+			if (con != null && !con.isClosed()) {
+				con.close();
+			}
 		}
-		return stud;
-
+		return studying;
 	}
 }
