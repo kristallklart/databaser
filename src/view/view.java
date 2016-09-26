@@ -71,6 +71,7 @@ public class view extends JFrame {
 	private JTextField textField_stud_delete_pnr;
 	private JTextField textField_stud_delete_name;
 	private JTextField textField_stud_delete_address;
+	private JTable table_stud_foundStud;
 
 	/**
 	 * Launch the application.
@@ -116,6 +117,10 @@ public class view extends JFrame {
 		lbl_feedback.setBounds(10, 640, 638, 20);
 		contentPane.add(lbl_feedback);
 
+		DefaultTableModel dtmStudSearch = new DefaultTableModel();
+		String[] student = { "Personal number", "Name", "Address" };
+		dtmStudSearch.setColumnIdentifiers(student);
+
 		JButton btn_stud_search = new JButton("Search");
 		btn_stud_search.addActionListener(new ActionListener() {
 			@Override
@@ -124,12 +129,14 @@ public class view extends JFrame {
 					lbl_feedback.setText(errorHandler.noInput());
 				} else {
 					try {
+						dtmStudSearch.setRowCount(0);
 						Student s = controller.getStudent(textField_stud_pnr.getText());
 						if (s == null) {
 							lbl_feedback.setText(errorHandler.noStudentFound(textField_stud_pnr.getText()));
 						} else {
-							// textField_stud_name.setText(s.getSname());
-							// textField_stud_address.setText(s.getSaddress());
+							String[] row = { s.getSpnr(), s.getSname(), s.getSaddress() };
+							dtmStudSearch.addRow(row);
+							table_stud_foundStud.setModel(dtmStudSearch);
 						}
 					} catch (Exception e) {
 						lbl_feedback.setText("Error: " + errorHandler.handleException(e));
@@ -277,8 +284,8 @@ public class view extends JFrame {
 
 		JScrollPane scrollPane_stud_foundStudent = new JScrollPane();
 		scrollPane_stud_foundStudent.setBounds(472, 121, 391, 88);
-		table_stud_reg = new JTable();
-		scrollPane_stud_foundStudent.setViewportView(table_stud_reg);
+		table_stud_foundStud = new JTable();
+		scrollPane_stud_foundStudent.setViewportView(table_stud_foundStud);
 		panel_student.add(scrollPane_stud_foundStudent);
 
 		JScrollPane scrollPane_stud_courses = new JScrollPane();

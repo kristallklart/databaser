@@ -8,14 +8,7 @@ public class Student {
 	private String sname;
 	private String saddress;
 	ArrayList<Studied> studiedList;
-
-	public ArrayList<Studied> getStudiedList() {
-		return studiedList;
-	}
-
-	public void setStudiedList(ArrayList<Studied> studiedList) {
-		this.studiedList = studiedList;
-	}
+	ArrayList<Studying> studyingList;
 
 	public String getSpnr() {
 		return spnr;
@@ -41,4 +34,19 @@ public class Student {
 		this.saddress = sAddress;
 	}
 
+	public ArrayList<Studied> getStudiedList() {
+		return studiedList;
+	}
+
+	public void setStudiedList(ArrayList<Studied> studiedList) {
+		this.studiedList = studiedList;
+	}
+
+	public ArrayList<Studying> getStudyingList() {
+		return studyingList;
+	}
+
+	public void setStudyingList(ArrayList<Studying> studyingList) {
+		this.studyingList = studyingList;
+	}
 }
