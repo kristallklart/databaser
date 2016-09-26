@@ -315,7 +315,7 @@ public class view extends JFrame {
 
 						if (s == null) {
 							lbl_feedback.setText(errorHandler.noStudentFound(textField_regGrade_pnr.getText()));
-
+							UtilView.clearNonSearchFields(regGradePanelFields);
 						} else if (studying == null) {
 							lbl_feedback.setText(errorHandler.noStudying(textField_regGrade_pnr.getText()));
 
