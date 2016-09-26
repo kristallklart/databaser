@@ -877,5 +877,71 @@ public class view extends JFrame {
 		separator_caccess.setBounds(10, 352, 599, 7);
 		panel_caccess.add(separator_caccess);
 
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Cronus Database", null, panel, null);
+		panel.setLayout(null);
+
+		JLabel lblSelectOption = new JLabel("Select option:");
+		lblSelectOption.setBounds(44, 95, 112, 39);
+		panel.add(lblSelectOption);
+
+		JLabel lblSelectQuery = new JLabel("Select query:");
+		lblSelectQuery.setBounds(44, 150, 112, 39);
+		panel.add(lblSelectQuery);
+
+		String[] microsoft = { "Excel", "Access" };
+
+		JComboBox comboBox_word_excel = new JComboBox(microsoft);
+		comboBox_word_excel.setBounds(171, 101, 144, 26);
+		panel.add(comboBox_word_excel);
+
+		String[] query = { "", "1", "2", "3", "4", "5", "6", "7" };
+
+		JComboBox comboBox_cdatabase_query = new JComboBox(query);
+		comboBox_cdatabase_query.setBounds(171, 156, 144, 26);
+		panel.add(comboBox_cdatabase_query);
+
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(30, 297, 900, 2);
+		panel.add(separator_1);
+
+		JLabel lblSqlQuery = new JLabel("SQL query");
+		lblSqlQuery.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblSqlQuery.setBounds(383, 30, 112, 31);
+		panel.add(lblSqlQuery);
+
+		JLabel lblOpen = new JLabel("Open form");
+		lblOpen.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblOpen.setBounds(383, 330, 112, 31);
+		panel.add(lblOpen);
+
+		JLabel lbl_oform_selectOption = new JLabel("Select option:");
+		lbl_oform_selectOption.setBounds(30, 406, 112, 39);
+		panel.add(lbl_oform_selectOption);
+
+		String[] micoffice = { "Access", "Excel", "Word" };
+
+		JComboBox comboBox_oform_selectOption = new JComboBox(micoffice);
+		comboBox_oform_selectOption.setBounds(171, 412, 144, 26);
+		panel.add(comboBox_oform_selectOption);
+
+		JLabel lbl_oform_select = new JLabel("Select :");
+		lbl_oform_select.setBounds(30, 466, 112, 39);
+		panel.add(lbl_oform_select);
+
+		String[] ec = { "Employee", "Customer" };
+
+		JComboBox comboBox_oform_select = new JComboBox(ec);
+		comboBox_oform_select.setBounds(171, 472, 144, 26);
+		panel.add(comboBox_oform_select);
+
+		JButton btnGo = new JButton("GO");
+		btnGo.setBounds(40, 224, 102, 29);
+		panel.add(btnGo);
+
+		JButton button_1 = new JButton("GO");
+		button_1.setBounds(30, 546, 102, 29);
+		panel.add(button_1);
+
 	}
 }
