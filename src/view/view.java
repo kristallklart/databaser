@@ -17,6 +17,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,11 +46,11 @@ public class view extends JFrame {
 	private final int TEXTFIELD_HEIGHT = 25;
 	private final int LABEL_WIDTH = 108;
 	private final int LABEL_HEIGHT = 23;
+	private final int LABEL_HEADLINE_WIDTH = 150;
+	private final int LABEL_HEADLINE_HEIGHT = 23;
 	private final int COMBOBOX_WIDHT = 85;
 	private final int COMBOBOX_HEIGHT = 25;
 	private JTextField textField_stud_pnr;
-	private JTextField textField_stud_name;
-	private JTextField textField_stud_address;
 	private JTextField textField_regStud_pnr;
 	private JTextField textField_regStud_name;
 	private JTextField textField_regGrade_name;
@@ -60,11 +61,18 @@ public class view extends JFrame {
 	private JTextField textField_searchInfo_courseCode;
 	private JTextField textField_searchInfo_pnr;
 	private JTextField textField_searchInfo_grade;
-	private JTable table_regStud;
+	private JTable table_stud_reg;
+	private JTable table_stud_courses;
 	private JTable table_regGrade;
 	private JTable table_searchInfo;
 	private JTable table_caccess;
 	private JComboBox comboBox_regStud_ccode;
+	private JTextField textField_stud_add_pnr;
+	private JTextField textField_stud_add_name;
+	private JTextField textField_stud_add_address;
+	private JTextField textField_stud_delete_pnr;
+	private JTextField textField_stud_delete_name;
+	private JTextField textField_stud_delete_address;
 
 	/**
 	 * Launch the application.
@@ -88,14 +96,14 @@ public class view extends JFrame {
 	 */
 	public view() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 664, 470);
+		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 648, 391);
+		tabbedPane.setBounds(0, 0, 1262, 636);
 		contentPane.add(tabbedPane);
 
 		// ***********************************
@@ -107,7 +115,7 @@ public class view extends JFrame {
 		panel_student.setLayout(null);
 
 		JLabel lbl_feedback = new JLabel("");
-		lbl_feedback.setBounds(7, 395, 638, 20);
+		lbl_feedback.setBounds(10, 640, 638, 20);
 		contentPane.add(lbl_feedback);
 
 		JButton btn_stud_search = new JButton("Search");
@@ -116,16 +124,14 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (textField_stud_pnr.getText().trim().isEmpty()) {
 					lbl_feedback.setText(errorHandler.noInput());
-					UtilView.clearAllFields(studPanelFields);
 				} else {
 					try {
 						Student s = controller.getStudent(textField_stud_pnr.getText());
 						if (s == null) {
 							lbl_feedback.setText(errorHandler.noStudentFound(textField_stud_pnr.getText()));
-							UtilView.clearNonSearchFields(studPanelFields);
 						} else {
-							textField_stud_name.setText(s.getSname());
-							textField_stud_address.setText(s.getSaddress());
+							// textField_stud_name.setText(s.getSname());
+							// textField_stud_address.setText(s.getSaddress());
 						}
 					} catch (Exception e) {
 						lbl_feedback.setText("Error: " + errorHandler.handleException(e));
@@ -133,72 +139,164 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_stud_search.setBounds(292, 23, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(438, 11, 2, 582);
+		panel_student.add(separator);
+		btn_stud_search.setBounds(763, 47, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_search);
 
-		JButton btn_stud_clear = new JButton("Clear");
-		btn_stud_clear.addActionListener(new ActionListener() {
+		JButton btn_stud_add_clear = new JButton("Clear");
+		btn_stud_add_clear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				UtilView.clearAllFields(studPanelFields);
 			}
 		});
-		btn_stud_clear.setBounds(10, 130, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_student.add(btn_stud_clear);
+		btn_stud_add_clear.setBounds(63, 155, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_student.add(btn_stud_add_clear);
 
-		JButton btn_stud_delete = new JButton("Delete");
-		btn_stud_delete.addActionListener(new ActionListener() {
+		JButton btn_stud_delete_delete = new JButton("Delete");
+		btn_stud_delete_delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_stud_delete.setBounds(255, 232, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_student.add(btn_stud_delete);
+		btn_stud_delete_delete.setBounds(183, 449, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_student.add(btn_stud_delete_delete);
 
-		JButton btn_stud_update = new JButton("Update");
-		btn_stud_update.setBounds(375, 232, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_student.add(btn_stud_update);
+		JButton btn_stud_add_createNew = new JButton("Add new student");
+		btn_stud_add_createNew.setBounds(183, 155, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_student.add(btn_stud_add_createNew);
 
-		JButton btn_stud_save = new JButton("Save");
-		btn_stud_save.addActionListener(new ActionListener() {
+		JButton btn_stud_currentCourses = new JButton("Current Courses");
+		btn_stud_currentCourses.setBounds(472, 340, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_student.add(btn_stud_currentCourses);
+
+		JButton btn_stud_previuosCourses = new JButton("Finished Courses");
+		btn_stud_previuosCourses.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_stud_save.setBounds(495, 232, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_student.add(btn_stud_save);
+		btn_stud_previuosCourses.setBounds(592, 340, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_student.add(btn_stud_previuosCourses);
+
+		JButton btnRegisterGrade = new JButton("Register Grade");
+		btnRegisterGrade.setBounds(1137, 497, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_student.add(btnRegisterGrade);
+
+		JButton btn_stud_delete_search = new JButton("Search");
+		btn_stud_delete_search.setBounds(303, 340, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_student.add(btn_stud_delete_search);
+
+		JLabel lbl_stud_add_pnr = new JLabel("Personal number");
+		lbl_stud_add_pnr.setBounds(12, 47, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_add_pnr);
+
+		JLabel lbl_stud_add_name = new JLabel("Name:");
+		lbl_stud_add_name.setBounds(12, 83, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_add_name);
+
+		JLabel lbl_stud_add_address = new JLabel("Address:");
+		lbl_stud_add_address.setBounds(12, 119, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_add_address);
+
+		JLabel lbl_stud_addStudent = new JLabel("Add Student");
+		lbl_stud_addStudent.setBounds(12, 11, LABEL_HEADLINE_WIDTH, LABEL_HEADLINE_HEIGHT);
+		panel_student.add(lbl_stud_addStudent);
+
+		JLabel lbl_stud_searchStudent = new JLabel("Search Student");
+		lbl_stud_searchStudent.setBounds(472, 11, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_searchStudent);
+
+		JLabel lbl_stud_regStudent = new JLabel("Register grade for selected course");
+		lbl_stud_regStudent.setBounds(1034, 374, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_regStudent);
+
+		JLabel lbl_stud_deleteStudent = new JLabel("Delete student");
+		lbl_stud_deleteStudent.setBounds(12, 300, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_deleteStudent);
+
+		JLabel lbl_stud_delete_pnr = new JLabel("Persnal number:");
+		lbl_stud_delete_pnr.setBounds(12, 340, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_delete_pnr);
+
+		JLabel lbl_stud_delete_name = new JLabel("Name:");
+		lbl_stud_delete_name.setBounds(12, 375, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_delete_name);
+
+		JLabel lbl_stud_delete_address = new JLabel("Address:");
+		lbl_stud_delete_address.setBounds(12, 412, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_delete_address);
+
+		JLabel lbl_stud_pnr = new JLabel("Personal number:");
+		lbl_stud_pnr.setBounds(472, 47, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_pnr);
+
+		JLabel lbl_stud_search_courseCode = new JLabel("Course code: ");
+		lbl_stud_search_courseCode.setBounds(472, 83, LABEL_WIDTH, LABEL_HEIGHT);
+		panel_student.add(lbl_stud_search_courseCode);
 
 		textField_stud_pnr = new JTextField();
-		textField_stud_pnr.setBounds(121, 22, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_stud_pnr.setBounds(592, 46, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_pnr);
 		textField_stud_pnr.setColumns(10);
 		studPanelFields.add(textField_stud_pnr);
 
-		textField_stud_name = new JTextField();
-		textField_stud_name.setColumns(10);
-		textField_stud_name.setBounds(121, 54, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		textField_stud_name.setEditable(false);
-		panel_student.add(textField_stud_name);
-		studPanelFields.add(textField_stud_name);
+		textField_stud_add_pnr = new JTextField();
+		textField_stud_add_pnr.setBounds(132, 46, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel_student.add(textField_stud_add_pnr);
+		textField_stud_add_pnr.setColumns(10);
 
-		textField_stud_address = new JTextField();
-		textField_stud_address.setColumns(10);
-		textField_stud_address.setBounds(121, 86, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		textField_stud_address.setEditable(false);
-		panel_student.add(textField_stud_address);
-		studPanelFields.add(textField_stud_address);
+		textField_stud_add_name = new JTextField();
+		textField_stud_add_name.setBounds(132, 82, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel_student.add(textField_stud_add_name);
+		textField_stud_add_name.setColumns(10);
 
-		JLabel lbl_stud_pnr = new JLabel("Personal number:");
-		lbl_stud_pnr.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_student.add(lbl_stud_pnr);
+		textField_stud_add_address = new JTextField();
+		textField_stud_add_address.setBounds(132, 118, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel_student.add(textField_stud_add_address);
+		textField_stud_add_address.setColumns(10);
 
-		JLabel lbl_stud_name = new JLabel("Name:");
-		lbl_stud_name.setBounds(10, 54, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_student.add(lbl_stud_name);
+		textField_stud_delete_pnr = new JTextField();
+		textField_stud_delete_pnr.setBounds(132, 339, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel_student.add(textField_stud_delete_pnr);
+		textField_stud_delete_pnr.setColumns(10);
 
-		JLabel lbl_stud_address = new JLabel("Address:");
-		lbl_stud_address.setBounds(10, 86, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_student.add(lbl_stud_address);
+		textField_stud_delete_name = new JTextField();
+		textField_stud_delete_name.setEditable(false);
+		textField_stud_delete_name.setBounds(132, 374, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel_student.add(textField_stud_delete_name);
+		textField_stud_delete_name.setColumns(10);
+
+		textField_stud_delete_address = new JTextField();
+		textField_stud_delete_address.setEditable(false);
+		textField_stud_delete_address.setBounds(132, 411, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel_student.add(textField_stud_delete_address);
+		textField_stud_delete_address.setColumns(10);
+
+		JScrollPane scrollPane_stud_foundStudent = new JScrollPane();
+		scrollPane_stud_foundStudent.setBounds(472, 121, 391, 88);
+		table_stud_reg = new JTable();
+		scrollPane_stud_foundStudent.setViewportView(table_stud_reg);
+		panel_student.add(scrollPane_stud_foundStudent);
+
+		JScrollPane scrollPane_stud_courses = new JScrollPane();
+		scrollPane_stud_courses.setBounds(472, 374, 556, 219);
+		table_stud_courses = new JTable();
+		scrollPane_stud_courses.setViewportView(table_stud_courses);
+		panel_student.add(scrollPane_stud_courses);
+
+		JComboBox comboBox_stud_grade = new JComboBox();
+		comboBox_stud_grade.setBounds(1040, 496, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
+		panel_student.add(comboBox_stud_grade);
+
+		JComboBox comboBox_stud_course = new JComboBox();
+		comboBox_stud_course.setToolTipText("");
+		comboBox_stud_course.setBounds(592, 82, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
+		panel_student.add(comboBox_stud_course);
 
 		// ***********************************
 		// *******REGISTER STUDENT TAB********
@@ -294,8 +392,8 @@ public class view extends JFrame {
 		scrollPane_regStud.setBounds(15, 243, 366, 81);
 		panel_regStudent.add(scrollPane_regStud);
 
-		table_regStud = new JTable();
-		scrollPane_regStud.setViewportView(table_regStud);
+		table_stud_reg = new JTable();
+		scrollPane_regStud.setViewportView(table_stud_reg);
 
 		// ***********************************
 		// *********REGISTER GRADE TAB********

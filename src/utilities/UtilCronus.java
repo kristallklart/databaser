@@ -1,44 +1,12 @@
 package utilities;
 
 public class UtilCronus {
-
-	// samtliga kolumner från Employee
-	public String getEmployee() {
-		return "select name from sys.columns " + "where object_id=object_ID('CRONUS Sverige AB$Employee')";
+	
+	//hämtar 5 columner från EMPLOYEE
+	public String getEmployee(){
+		return "select [First Name], [Last Name], Initials, [Job Title], Address from [CRONUS Sverige AB$Employee]";
 	}
-
-	public String getEmployee2() {
-		return "select COLUMN_NAME from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
-				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'";
-	}
-
-	// hämtar alla tables från databasen
-	public String getAllTablesUsingInformationSchema() {
-		return "select table_name " + "from [Demo Database NAV (5-0)].information_schema.tables "
-				+ "where table_type = 'base table'";
-	}
-
-	// tabell som innehåller flest rader
-	public String getMostRows() {
-		return "select top 1 object_name(object_id)as Tabellnamn " + ", st.row_count as [Antal Rader] "
-				+ "from  sys.dm_db_partition_stats st " + "order by st.row_count desc";
-	}
-
-	public String getTableConstrains() {
-		return "select * from [Demo Database NAV (5-0)]" + ".information_schema.table_constrains"
-				+ "order by table_name";
-	}
-
-	// hämtar 5 columner från Index
-	public String getIndex() {
-		return "select object_id, name, index_id, type, type_desc " + "from sys.indexes order by object_id";
-	}
-
-	// hämtar både pk & fk
-	public String getKeys() {
-		return "select top 5 table_name as Tabellnamn, " + "column_name as Nyckelattribut "
-				+ "from [Demo Database NAV (5-0)].information_schema.key_column_usage";
-	}
+	
 
 	// hämtar 5 columner från EMPLOYEE ABSENCE
 	public String getEmployeAbsence() {
@@ -72,4 +40,81 @@ public class UtilCronus {
 	public String getAllTablesUsingSysObjects() {
 		return "use [Demo Database NAV (5-0)] select name from sysobjects where xtype ='U'";
 	}
+	public String getMetaDataEmployee(){
+		return "select top 5 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
+				+ "where TABLE_NAME = 'CRONUS Sverige AB$Employee'";
+	}
+	public String getMetaDataEmployeeAbsence(){
+		return "select top 5 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
+				+ "where TABLE_NAME = 'CRONUS Sverige AB$Employee Absence'";
+	}
+	public String getMetaDataEmployeePortalSetup(){
+		return "select top 5 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
+				+ "where TABLE_NAME = 'CRONUS Sverige AB$Employee Portal Setup'";
+	}
+	
+	public String getMetaDataEmployeeQualification(){
+		return "select top 5 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
+				+ "where TABLE_NAME = 'CRONUS Sverige AB$Employee Qualification'";
+	}
+	
+	public String getMetaDataEmployeeRelative(){
+		return "select top 5 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
+				+ "where TABLE_NAME = 'CRONUS Sverige AB$EmployeeRelative'";
+	}
+	
+	public String getMetaDataEmployeeStatisticsGroup(){
+		return "select top 5 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
+				+ "where TABLE_NAME = 'CRONUS Sverige AB$Employee Statistics Group'";
+	}
+
+	// samtliga kolumner från Employee
+	public String getEmployeeColumns() {
+		return "select name from sys.columns " + "where object_id=object_ID('CRONUS Sverige AB$Employee')";
+	}
+
+	public String getEmployee2() {
+		return "select COLUMN_NAME from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
+				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'";
+	}
+
+	// hämtar alla tables från databasen
+	public String getAllTablesUsingInformationSchema() {
+		return "select table_name " + "from [Demo Database NAV (5-0)].information_schema.tables "
+				+ "where table_type = 'base table'";
+	}
+
+	// tabell som innehåller flest rader
+	public String getMostRows() {
+		return "select top 1 object_name(object_id)as Tabellnamn " 
+				+ ", st.row_count as [Antal Rader] "
+				+ "from  sys.dm_db_partition_stats st " + "order by st.row_count desc";
+	}
+	
+	//hämtar 3 columner fron Table Constrains
+	public String getTableConstrains() {
+		return "select top 5 CONSTRAINT_CATALOG, CONSTRAINT_NAME, TABLE_CATALOG "
+				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.TABLE_CONSTRAINTS "
+				+ "order by TABLE_NAME";
+	}
+
+	// hämtar 5 columner från Index
+	public String getIndex() {
+
+		return "select top 5 object_id, name, index_id, type, type_desc "
+				+ "from sys.indexes order by object_id";
+	}
+
+	// hämtar både pk & fk
+	public String getKeys() {
+		return "select top 5 table_name as Tabellnamn, " + "column_name as Nyckelattribut "
+				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.KEY_COLUMN_USAGE";
+	}
+
 }

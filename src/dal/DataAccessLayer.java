@@ -35,6 +35,7 @@ public class DataAccessLayer {
 			} else {
 				s = new Student();
 				while (rSet.next()) {
+					s.setSpnr(rSet.getString("spnr"));
 					s.setSname(rSet.getString("sname"));
 					s.setSaddress(rSet.getString("sadress"));
 				}
