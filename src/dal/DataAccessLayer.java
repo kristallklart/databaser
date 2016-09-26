@@ -79,11 +79,11 @@ public class DataAccessLayer {
 		ResultSet rs = null;
 
 		con = createConnection();
-		pstate = con.prepareStatement(util.getCourse());
+		pstate = con.prepareStatement(Util.getCcodes());
 		rs = pstate.executeQuery();
 
 		while (rs.next()) {
-			courses.add(rs.getString("ccname"));
+			courses.add(rs.getString("ccode"));
 		}
 		return courses;
 	}

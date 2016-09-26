@@ -16,7 +16,7 @@ public class Controller {
 		return dal.getStudent(spnr);
 	}
 
-	public ArrayList<String> getCourses() throws SQLException {
+	public ArrayList<String> getCcodes() throws SQLException {
 		return dal.getCcodes();
 	}
 

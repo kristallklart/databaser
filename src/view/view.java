@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -63,6 +64,7 @@ public class view extends JFrame {
 	private JTable table_regGrade;
 	private JTable table_searchInfo;
 	private JTable table_caccess;
+	private JComboBox comboBox_regStud_ccode;
 
 	/**
 	 * Launch the application.
@@ -201,6 +203,8 @@ public class view extends JFrame {
 		// ***********************************
 		// *******REGISTER STUDENT TAB********
 		// ***********************************
+		JComboBox<String> comboBox_regStud_ccode = new JComboBox<String>();
+		DefaultComboBoxModel<String> ccodesList = new DefaultComboBoxModel<String>();
 
 		JPanel panel_regStudent = new JPanel();
 		tabbedPane.addTab("Register student", panel_regStudent);
@@ -223,6 +227,12 @@ public class view extends JFrame {
 				} else {
 					try {
 						Student s = controller.getStudent(textField_regStud_pnr.getText());
+						ArrayList<String> c = controller.getCcodes();
+						for (String string : c) {
+							ccodesList.addElement(string);
+						}
+						comboBox_regStud_ccode.setModel(ccodesList);
+
 						if (s == null) {
 							lbl_feedback.setText(errorHandler.noStudentFound(textField_regStud_pnr.getText()));
 						} else {
@@ -268,7 +278,6 @@ public class view extends JFrame {
 		lbl_regStud_semester.setBounds(15, 156, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_regStudent.add(lbl_regStud_semester);
 
-		JComboBox<String> comboBox_regStud_ccode = new JComboBox<String>();
 		comboBox_regStud_ccode.setMaximumRowCount(10);
 		comboBox_regStud_ccode.setBounds(154, 98, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_regStudent.add(comboBox_regStud_ccode);
