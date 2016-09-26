@@ -188,6 +188,27 @@ public class view extends JFrame {
 		panel_student.add(btnRegisterGrade);
 
 		JButton btn_stud_delete_search = new JButton("Search");
+		btn_stud_delete_search.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (textField_stud_delete_pnr.getText().trim().isEmpty()) {
+					lbl_feedback.setText(errorHandler.noInput());
+				} else {
+					try {
+						Student s = controller.getStudent(textField_stud_delete_pnr.getText());
+						if (s == null) {
+							lbl_feedback.setText(errorHandler.noStudentFound(textField_stud_delete_pnr.getText()));
+						} else {
+							textField_stud_delete_name.setText(s.getSname());
+							textField_stud_delete_address.setText(s.getSaddress());
+						}
+					} catch (Exception e) {
+						lbl_feedback.setText("Error: " + errorHandler.handleException(e));
+					}
+				}
+			}
+		});
+
 		btn_stud_delete_search.setBounds(303, 340, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_delete_search);
 
@@ -289,9 +310,15 @@ public class view extends JFrame {
 		scrollPane_stud_courses.setViewportView(table_stud_courses);
 		panel_student.add(scrollPane_stud_courses);
 
-		JComboBox comboBox_stud_grade = new JComboBox();
+		JComboBox<String> comboBox_stud_grade = new JComboBox<String>();
 		comboBox_stud_grade.setBounds(1040, 496, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
 		panel_student.add(comboBox_stud_grade);
+		comboBox_stud_grade.addItem("A");
+		comboBox_stud_grade.addItem("B");
+		comboBox_stud_grade.addItem("C");
+		comboBox_stud_grade.addItem("D");
+		comboBox_stud_grade.addItem("E");
+		comboBox_stud_grade.addItem("U");
 
 		JComboBox comboBox_stud_course = new JComboBox();
 		comboBox_stud_course.setToolTipText("");
