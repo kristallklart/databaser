@@ -11,7 +11,7 @@ public class Util {
 		return "select * from course where ccode = ?";
 	}
 
-	public static String getCcodes() {
+	public String getCcodes() {
 		return "select ccode from course ";
 	}
 

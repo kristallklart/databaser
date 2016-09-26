@@ -49,4 +49,12 @@ public class Student {
 	public void setStudyingList(ArrayList<Studying> studyingList) {
 		this.studyingList = studyingList;
 	}
+
+	public void addStudying(Studying s) {
+		studyingList.add(s);
+	}
+
+	public void addStudied(Studied s) {
+		studiedList.add(s);
+	}
 }

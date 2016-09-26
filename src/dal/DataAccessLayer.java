@@ -42,52 +42,60 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			if (rSet != null && !rSet.isClosed()) {
-				rSet.close();
-			}
-			if (pStatement != null && !pStatement.isClosed()) {
-				pStatement.close();
-			}
-			if (con != null && !con.isClosed()) {
-				con.close();
-			}
+			closeAll(rSet, pStatement, con);
 		}
 		return s;
 	}
 
 	public Course getCourse(String ccode) throws SQLException {
 		Connection con = null;
-		PreparedStatement pstate = null;
-		ResultSet rs = null;
-		Course cc = new Course();
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		Course c = null;
 
-		con = createConnection();
-		pstate = con.prepareStatement(util.getCourse());
-		pstate.setString(1, ccode);
-		rs = pstate.executeQuery();
-
-		while (rs.next()) {
-			cc.setCcode(rs.getString("ccode"));
-			cc.setCname(rs.getString("cname"));
-			cc.setCpoint(rs.getInt("points"));
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.getCourse());
+			pStatement.setString(1, ccode);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return c;
+			} else {
+				c = new Course();
+				while (rSet.next()) {
+					c.setCcode(rSet.getString("ccode"));
+					c.setCname(rSet.getString("cname"));
+					c.setCpoint(rSet.getInt("points"));
+				}
+			}
+		} finally {
+			closeAll(rSet, pStatement, con);
 		}
-		return cc;
+		return c;
 	}
 
 	public ArrayList<String> getCcodes() throws SQLException {
 		Connection con = null;
-		ArrayList<String> courses = new ArrayList<String>();
-		PreparedStatement pstate = null;
-		ResultSet rs = null;
+		ArrayList<String> c = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
 
-		con = createConnection();
-		pstate = con.prepareStatement(Util.getCcodes());
-		rs = pstate.executeQuery();
-
-		while (rs.next()) {
-			courses.add(rs.getString("ccode"));
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.getCcodes());
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return c;
+			} else {
+				c = new ArrayList<String>();
+				while (rSet.next()) {
+					c.add(rSet.getString("ccode"));
+				}
+			}
+		} finally {
+			closeAll(rSet, pStatement, con);
 		}
-		return courses;
+		return c;
 	}
 
 	public ArrayList<Studying> getStudentStudying(String spnr) throws SQLException {
@@ -109,15 +117,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			if (rSet != null && !rSet.isClosed()) {
-				rSet.close();
-			}
-			if (pStatement != null && !pStatement.isClosed()) {
-				pStatement.close();
-			}
-			if (con != null && !con.isClosed()) {
-				con.close();
-			}
+			closeAll(rSet, pStatement, con);
 		}
 		return studying;
 	}
@@ -143,17 +143,91 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			if (rSet != null && !rSet.isClosed()) {
-				rSet.close();
-			}
-			if (pStatement != null && !pStatement.isClosed()) {
-				pStatement.close();
-			}
-			if (con != null && !con.isClosed()) {
-				con.close();
-			}
+			closeAll(rSet, pStatement, con);
 		}
 		return studied;
 	}
 
+	// returnerar en student med alla attribut och kurser som studenten läser
+	// och har läst
+	public Student getStudentAll(String spnr) throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		Student student = null;
+		Studying studying = null;
+		Studied studied = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.getStudent());
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return student;
+			} else {
+				student = new Student();
+				setStudent(rSet, student);
+
+				pStatement.close();
+				rSet.close();
+
+				pStatement = con.prepareStatement(util.getStudentStudying());
+				pStatement.setString(1, spnr);
+				rSet = pStatement.executeQuery();
+				if (!rSet.isBeforeFirst()) {
+					return student;
+				} else {
+					studying = new Studying();
+					while (rSet.next()) {
+						studying.setsPnr(rSet.getString("spnr"));
+						studying.setcCode(rSet.getString("ccode"));
+						studying.setSemester(rSet.getString("semester"));
+						student.addStudying(studying);
+					}
+					pStatement.close();
+					rSet.close();
+
+					pStatement = con.prepareStatement(util.getStudentStudied());
+					pStatement.setString(1, spnr);
+					rSet = pStatement.executeQuery();
+					if (!rSet.isBeforeFirst()) {
+						return student;
+					} else {
+						studied = new Studied();
+						while (rSet.next()) {
+							studied.setsPnr(rSet.getString("spnr"));
+							studied.setcCode(rSet.getString("ccode"));
+							studied.setGrade(rSet.getString("grade"));
+							studied.setSemester(rSet.getString("semester"));
+							student.addStudied(studied);
+						}
+					}
+				}
+			}
+		} finally {
+			closeAll(rSet, pStatement, con);
+		}
+		return student;
+	}
+
+	private void closeAll(ResultSet rSet, PreparedStatement pStatement, Connection con) throws SQLException {
+		if (rSet != null && !rSet.isClosed()) {
+			rSet.close();
+		}
+		if (pStatement != null && !pStatement.isClosed()) {
+			pStatement.close();
+		}
+		if (con != null && !con.isClosed()) {
+			con.close();
+		}
+	}
+
+	private void setStudent(ResultSet rSet, Student s) throws SQLException {
+		while (rSet.next()) {
+			s.setSpnr(rSet.getString("spnr"));
+			s.setSname(rSet.getString("sname"));
+			s.setSaddress(rSet.getString("spnr"));
+		}
+	}
 }
