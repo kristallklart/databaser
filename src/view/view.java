@@ -257,7 +257,7 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if (textField_stud_pnr.getText().trim().isEmpty()) {
-						lbl_feedback.setText(errorHandler.noInput());
+						lbl_feedback.setText(feedbackHandler.noInput());
 					} else {
 
 						String grade = comboBox_stud_grade.getSelectedItem().toString();
