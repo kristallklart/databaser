@@ -225,6 +225,22 @@ public class view extends JFrame {
 		panel_student.add(btn_stud_delete_delete);
 
 		JButton btn_stud_add_createNew = new JButton("Add new student");
+		btn_stud_add_createNew.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (textField_stud_add_pnr.getText().trim().isEmpty()) {
+						lbl_feedback.setText(errorHandler.noInput());
+					} else {
+						controller.createStudent(textField_stud_add_pnr.getText(), textField_stud_add_name.getText(),
+								textField_stud_add_address.getText());
+						lbl_feedback.setText("Student added!");
+					}
+				} catch (Exception e) {
+				}
+			}
+
+		});
 		btn_stud_add_createNew.setBounds(183, 155, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_add_createNew);
 
