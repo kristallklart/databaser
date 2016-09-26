@@ -11,6 +11,10 @@ public class Util {
 		return "select * from course where ccode = ?";
 	}
 
+	public static String getCcodes() {
+		return "select ccode from course ";
+	}
+
 	public String getStudentStudying() {
 		return "select ccode, semester from studies where spnr = ?";
 	}
