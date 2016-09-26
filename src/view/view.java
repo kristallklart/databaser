@@ -152,7 +152,6 @@ public class view extends JFrame {
 						Student s = controller.getStudentAll(textField_stud_pnr.getText());
 						if (s == null) {
 							lbl_feedback.setText(errorHandler.noStudentFound(textField_stud_pnr.getText()));
-
 						} else {
 							String[] row = { s.getSpnr(), s.getSname(), s.getSaddress() };
 							dtmStud_Search.addRow(row);
@@ -173,11 +172,7 @@ public class view extends JFrame {
 										dtmStud_Finished.addRow(finishedCourses);
 									}
 								}
-								// for (String s : Studying) {
-								// courselist.addElement(s);
-
 							}
-
 							table_stud_foundStud.setModel(dtmStud_Search);
 							table_stud_finished.setModel(dtmStud_Finished);
 							table_stud_courses.setModel(dtmStud_Current);

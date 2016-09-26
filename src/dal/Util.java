@@ -26,7 +26,7 @@ public class Util {
 	}
 
 	public String getStudentStudied() {
-		return "select semester, ccode, grade from studied where spnr=?";
+		return "select semester, ccode, grade from studied where spnr = ?";
 	}
 
 	// studenter som inte är klara med en viss kurs - fråga erre

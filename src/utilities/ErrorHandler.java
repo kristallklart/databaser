@@ -62,4 +62,9 @@ public class ErrorHandler {
 		String message = "The student with personal number: " + input + " has not finished any courses.";
 		return message;
 	}
+
+	public String noStudiedOrStudying(String input) {
+		String message = "The student with personal number: " + input + " neither studies or has studied any courses";
+		return message;
+	}
 }
