@@ -1,13 +1,14 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +23,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.Controller;
-import model.Course;
 import model.Student;
 import model.Studied;
 import model.Studying;
@@ -78,6 +78,11 @@ public class view extends JFrame {
 	private DefaultTableModel stud_finished;
 	private JTable table_stud_foundStud;
 	private JTable table_stud_finished;
+	private JTextField textField_course_delete_ccode;
+	private JTextField textField_course_delete_cname;
+	private JTextField textField_course_delete_points;
+	private JTable table;
+	private JTextField textField_course_search_ccode;
 
 	/**
 	 * Launch the application.
@@ -220,6 +225,22 @@ public class view extends JFrame {
 		panel_student.add(btn_stud_delete_delete);
 
 		JButton btn_stud_add_createNew = new JButton("Add new student");
+		btn_stud_add_createNew.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (textField_stud_add_pnr.getText().trim().isEmpty()) {
+						lbl_feedback.setText(errorHandler.noInput());
+					} else {
+						controller.createStudent(textField_stud_add_pnr.getText(), textField_stud_add_name.getText(),
+								textField_stud_add_address.getText());
+						lbl_feedback.setText("Student added!");
+					}
+				} catch (Exception e) {
+				}
+			}
+
+		});
 		btn_stud_add_createNew.setBounds(183, 155, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_add_createNew);
 
@@ -609,63 +630,32 @@ public class view extends JFrame {
 				UtilView.clearAllFields(coursePanelFields);
 			}
 		});
-		btn_course_clear.setBounds(10, 185, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_clear.setBounds(69, 164, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_clear);
 
 		JButton btn_course_delete = new JButton("Delete");
-		btn_course_delete.setBounds(254, 185, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_delete.setBounds(182, 503, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_delete);
 
-		JButton btn_course_update = new JButton("Update");
-		btn_course_update.setBounds(366, 185, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_update);
-
-		JButton btn_course_save = new JButton("Save");
-		btn_course_save.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btn_course_save.setBounds(478, 185, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_save);
-
-		JButton btn_course_search = new JButton("Search");
-		btn_course_search.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				try {
-
-					Course cc = new Course();
-					cc = controller.getCourse(textField_course_courseCode.getText());
-					textField_course_cname.setText(cc.getCname());
-					int i = cc.getCpoint();
-					String string = Integer.toString(i);
-					textField_course_points.setText(string);
-
-				} catch (SQLException e) {
-
-				}
-			}
-		});
-		btn_course_search.setBounds(273, 34, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_search);
+		JButton btn_course_add = new JButton("Add Course");
+		btn_course_add.setBounds(187, 164, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_course.add(btn_course_add);
 
 		textField_course_courseCode = new JTextField();
 		textField_course_courseCode.setColumns(10);
-		textField_course_courseCode.setBounds(107, 33, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_courseCode.setBounds(131, 33, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_courseCode);
 		coursePanelFields.add(textField_course_courseCode);
 
 		textField_course_cname = new JTextField();
 		textField_course_cname.setColumns(10);
-		textField_course_cname.setBounds(107, 79, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_cname.setBounds(131, 79, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_cname);
 		coursePanelFields.add(textField_course_cname);
 
 		textField_course_points = new JTextField();
 		textField_course_points.setColumns(10);
-		textField_course_points.setBounds(107, 128, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_points.setBounds(131, 128, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_points);
 		coursePanelFields.add(textField_course_points);
 
@@ -680,6 +670,113 @@ public class view extends JFrame {
 		JLabel lbl_course_points = new JLabel("Points:");
 		lbl_course_points.setBounds(10, 128, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_points);
+
+		JLabel lbl_course_addcourse = new JLabel("Add Course");
+		lbl_course_addcourse.setBounds(10, 8, 80, 14);
+		panel_course.add(lbl_course_addcourse);
+
+		JLabel lbl_course_delete = new JLabel("Delete Course");
+		lbl_course_delete.setBounds(10, 362, 108, 23);
+		panel_course.add(lbl_course_delete);
+
+		JLabel lbl_course_delete_ccode = new JLabel("Course Code");
+		lbl_course_delete_ccode.setBounds(10, 396, 108, 23);
+		panel_course.add(lbl_course_delete_ccode);
+
+		JLabel lbl_course_delete_cname = new JLabel("Course Name:");
+		lbl_course_delete_cname.setBounds(10, 431, 108, 23);
+		panel_course.add(lbl_course_delete_cname);
+
+		JLabel lbl_course_delete_cpoints = new JLabel("Points");
+		lbl_course_delete_cpoints.setBounds(10, 468, 108, 23);
+		panel_course.add(lbl_course_delete_cpoints);
+
+		textField_course_delete_ccode = new JTextField();
+		textField_course_delete_ccode.setColumns(10);
+		textField_course_delete_ccode.setBounds(130, 395, 159, 25);
+		panel_course.add(textField_course_delete_ccode);
+
+		textField_course_delete_cname = new JTextField();
+		textField_course_delete_cname.setEditable(false);
+		textField_course_delete_cname.setColumns(10);
+		textField_course_delete_cname.setBounds(130, 430, 159, 25);
+		panel_course.add(textField_course_delete_cname);
+
+		textField_course_delete_points = new JTextField();
+		textField_course_delete_points.setEditable(false);
+		textField_course_delete_points.setColumns(10);
+		textField_course_delete_points.setBounds(130, 467, 159, 25);
+		panel_course.add(textField_course_delete_points);
+
+		JButton btn_course_delete_search = new JButton("Search");
+		btn_course_delete_search.setBounds(301, 396, 108, 23);
+		panel_course.add(btn_course_delete_search);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(674, 247, 527, 309);
+		panel_course.add(scrollPane);
+
+		table = new JTable();
+		scrollPane.setViewportView(table);
+
+		textField_course_search_ccode = new JTextField();
+		textField_course_search_ccode.setColumns(10);
+		textField_course_search_ccode.setBounds(792, 48, 159, 25);
+		panel_course.add(textField_course_search_ccode);
+
+		JLabel lblShowOnlyStudents = new JLabel("Show only students who hasn't finished course");
+		lblShowOnlyStudents.setBounds(674, 83, 251, 14);
+		panel_course.add(lblShowOnlyStudents);
+
+		JLabel lblShowOnlyThe = new JLabel("Show only the course with the highest level of throughput");
+		lblShowOnlyThe.setBounds(674, 192, 307, 14);
+		panel_course.add(lblShowOnlyThe);
+
+		JCheckBox checkBox_course_throughput = new JCheckBox("");
+		checkBox_course_throughput.setBounds(1055, 188, 97, 23);
+		panel_course.add(checkBox_course_throughput);
+
+		JCheckBox checkBox_course_notfinished = new JCheckBox("");
+		checkBox_course_notfinished.setBounds(1055, 79, 97, 23);
+		panel_course.add(checkBox_course_notfinished);
+
+		JLabel lbl_course_search_gradeA = new JLabel("% of Students with grade A");
+		lbl_course_search_gradeA.setBounds(674, 567, 149, 14);
+		panel_course.add(lbl_course_search_gradeA);
+
+		JLabel lbl_course_search_showgradeA = new JLabel("");
+		lbl_course_search_showgradeA.setBounds(829, 567, 46, 14);
+		panel_course.add(lbl_course_search_showgradeA);
+
+		JLabel lbl_course_search_header = new JLabel("Enrolled Students");
+		lbl_course_search_header.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lbl_course_search_header.setBounds(674, 8, 189, 14);
+		panel_course.add(lbl_course_search_header);
+
+		JButton btn_course_search_showresult = new JButton("Show Result");
+		btn_course_search_showresult.setBounds(965, 213, 108, 23);
+		panel_course.add(btn_course_search_showresult);
+
+		JLabel lblShowAllCourses = new JLabel("Show all courses");
+		lblShowAllCourses.setBounds(674, 171, 108, 14);
+		panel_course.add(lblShowAllCourses);
+
+		JLabel lblSelectCourse = new JLabel("Select course:");
+		lblSelectCourse.setBounds(674, 53, 115, 14);
+		panel_course.add(lblSelectCourse);
+
+		JLabel lbl_course_courseInfo = new JLabel("Course Info");
+		lbl_course_courseInfo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lbl_course_courseInfo.setBounds(674, 146, 128, 14);
+		panel_course.add(lbl_course_courseInfo);
+
+		JCheckBox checkBox_course_showall = new JCheckBox("");
+		checkBox_course_showall.setBounds(1055, 167, 97, 23);
+		panel_course.add(checkBox_course_showall);
+
+		JButton button = new JButton("Show Result");
+		button.setBounds(965, 109, 108, 23);
+		panel_course.add(button);
 
 		// ***********************************
 		// *********SEARCH INFO TAB***********
@@ -774,6 +871,72 @@ public class view extends JFrame {
 		JSeparator separator_caccess = new JSeparator();
 		separator_caccess.setBounds(10, 352, 599, 7);
 		panel_caccess.add(separator_caccess);
+
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Cronus Database", null, panel, null);
+		panel.setLayout(null);
+
+		JLabel lblSelectOption = new JLabel("Select option:");
+		lblSelectOption.setBounds(44, 95, 112, 39);
+		panel.add(lblSelectOption);
+
+		JLabel lblSelectQuery = new JLabel("Select query:");
+		lblSelectQuery.setBounds(44, 150, 112, 39);
+		panel.add(lblSelectQuery);
+
+		String[] microsoft = { "Excel", "Access" };
+
+		JComboBox comboBox_word_excel = new JComboBox(microsoft);
+		comboBox_word_excel.setBounds(171, 101, 144, 26);
+		panel.add(comboBox_word_excel);
+
+		String[] query = { "", "1", "2", "3", "4", "5", "6", "7" };
+
+		JComboBox comboBox_cdatabase_query = new JComboBox(query);
+		comboBox_cdatabase_query.setBounds(171, 156, 144, 26);
+		panel.add(comboBox_cdatabase_query);
+
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(30, 297, 900, 2);
+		panel.add(separator_1);
+
+		JLabel lblSqlQuery = new JLabel("SQL query");
+		lblSqlQuery.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblSqlQuery.setBounds(383, 30, 112, 31);
+		panel.add(lblSqlQuery);
+
+		JLabel lblOpen = new JLabel("Open form");
+		lblOpen.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblOpen.setBounds(383, 330, 112, 31);
+		panel.add(lblOpen);
+
+		JLabel lbl_oform_selectOption = new JLabel("Select option:");
+		lbl_oform_selectOption.setBounds(30, 406, 112, 39);
+		panel.add(lbl_oform_selectOption);
+
+		String[] micoffice = { "Access", "Excel", "Word" };
+
+		JComboBox comboBox_oform_selectOption = new JComboBox(micoffice);
+		comboBox_oform_selectOption.setBounds(171, 412, 144, 26);
+		panel.add(comboBox_oform_selectOption);
+
+		JLabel lbl_oform_select = new JLabel("Select :");
+		lbl_oform_select.setBounds(30, 466, 112, 39);
+		panel.add(lbl_oform_select);
+
+		String[] ec = { "Employee", "Customer" };
+
+		JComboBox comboBox_oform_select = new JComboBox(ec);
+		comboBox_oform_select.setBounds(171, 472, 144, 26);
+		panel.add(comboBox_oform_select);
+
+		JButton btnGo = new JButton("GO");
+		btnGo.setBounds(40, 224, 102, 29);
+		panel.add(btnGo);
+
+		JButton button_1 = new JButton("GO");
+		button_1.setBounds(30, 546, 102, 29);
+		panel.add(button_1);
 
 	}
 }

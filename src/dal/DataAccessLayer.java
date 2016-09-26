@@ -254,4 +254,23 @@ public class DataAccessLayer {
 			s.setSaddress(rSet.getString("sadress"));
 		}
 	}
+
+	public boolean createStudent(String spnr, String sname, String saddress) {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.createStudent());
+			pStatement.setString(1, spnr);
+			pStatement.setString(2, sname);
+			pStatement.setString(3, saddress);
+
+			pStatement.execute();
+			return true;
+
+		} catch (SQLException e) {
+			return false;
+
+		}
+	}
 }
