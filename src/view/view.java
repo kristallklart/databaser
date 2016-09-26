@@ -122,13 +122,11 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (textField_stud_pnr.getText().trim().isEmpty()) {
 					lbl_feedback.setText(errorHandler.noInput());
-					UtilView.clearAllFields(studPanelFields);
 				} else {
 					try {
 						Student s = controller.getStudent(textField_stud_pnr.getText());
 						if (s == null) {
 							lbl_feedback.setText(errorHandler.noStudentFound(textField_stud_pnr.getText()));
-							UtilView.clearNonSearchFields(studPanelFields);
 						} else {
 							// textField_stud_name.setText(s.getSname());
 							// textField_stud_address.setText(s.getSaddress());
