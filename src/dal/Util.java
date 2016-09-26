@@ -49,4 +49,29 @@ public class Util {
 		return "select ccode, count(grade) from studied group by ccode,grade having grade !='u'";
 	}
 
+	public String deleteStudent() {
+		return "delete from student where spnr=?";
+	}
+
+	public String deleteCourse() {
+		return "delete from course where ccode =?";
+	}
+
+	public String createStudent() {
+		return "insert into student values (?,?,?)";
+	}
+
+	public String createCourse() {
+		return "insert into course values (?,?,?)";
+	}
+
+	public String registerGrade() {
+		return "insert into studied values (?,?,?,?)";
+
+	}
+
+	public String registerOnCourse() {
+		return "insert into studies values (?,?,?)";
+	}
+
 }

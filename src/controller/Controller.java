@@ -32,4 +32,12 @@ public class Controller {
 	public ArrayList<Studied> getStudentStudied(String pnr) throws SQLException {
 		return dal.getStudentStudied(pnr);
 	}
+
+	public void deleteCourse(String ccode) throws SQLException {
+		dal.deleteCourse(ccode);
+	}
+
+	public void deleteStudent(String spnr) throws SQLException {
+		dal.deleteStudent(spnr);
+	}
 }
