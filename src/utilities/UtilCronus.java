@@ -7,15 +7,10 @@ public class UtilCronus {
 		return "select [First Name], [Last Name], Initials, [Job Title], Address from [CRONUS Sverige AB$Employee]";
 	}
 	
-	//hämtar 5 columner från EMPLOYEE ABSENCE
-	public String getEmployeAbsence(){
-		return "select [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"  
-=======
 
 	// hämtar 5 columner från EMPLOYEE ABSENCE
 	public String getEmployeAbsence() {
 		return "select [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"
->>>>>>> branch 'master' of https://github.com/paulssonkalle/databaser.git
 				+ "from [CRONUS Sverige AB$Employee Absence]";
 	}
 
@@ -111,12 +106,9 @@ public class UtilCronus {
 
 	// hämtar 5 columner från Index
 	public String getIndex() {
-<<<<<<< HEAD
+
 		return "select top 5 object_id, name, index_id, type, type_desc "
 				+ "from sys.indexes order by object_id";
-=======
-		return "select object_id, name, index_id, type, type_desc " + "from sys.indexes order by object_id";
->>>>>>> branch 'master' of https://github.com/paulssonkalle/databaser.git
 	}
 
 	// hämtar både pk & fk
@@ -124,6 +116,5 @@ public class UtilCronus {
 		return "select top 5 table_name as Tabellnamn, " + "column_name as Nyckelattribut "
 				+ "from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.KEY_COLUMN_USAGE";
 	}
-<<<<<<< HEAD
 
 }
