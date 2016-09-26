@@ -346,4 +346,24 @@ public class DataAccessLayer {
 		}
 		return percent;
 	}
+
+	public boolean registerGrade(String semester, String sPnr, String cCode, String grade) {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.registerGrade());
+			pStatement.setString(4, semester);
+			pStatement.setString(1, sPnr);
+			pStatement.setString(2, cCode);
+			pStatement.setString(3, grade);
+
+			pStatement.execute();
+			return true;
+
+		} catch (SQLException e) {
+			return false;
+
+		}
+	}
 }

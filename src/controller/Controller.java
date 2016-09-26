@@ -60,4 +60,8 @@ public class Controller {
 	public String acedIt(String ccode) throws SQLException {
 		return dal.acedIt(ccode);
 	}
+
+	public boolean registerGrade(String semester, String sPnr, String cCode, String grade) {
+		return dal.registerGrade(semester, sPnr, cCode, grade);
+	}
 }

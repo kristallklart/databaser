@@ -71,6 +71,7 @@ public class view extends JFrame {
 	private JTable table_caccess;
 	private JComboBox comboBox_regStud_ccode;
 	private JComboBox comboBox_stud_course;
+	private JComboBox comboBox_stud_grade;
 	private JTextField textField_stud_add_pnr;
 	private JTextField textField_stud_add_name;
 	private JTextField textField_stud_add_address;
@@ -130,6 +131,8 @@ public class view extends JFrame {
 		JLabel lbl_feedback = new JLabel("");
 		lbl_feedback.setBounds(10, 640, 638, 20);
 		contentPane.add(lbl_feedback);
+
+		JComboBox<String> comboBox_stud_grade = new JComboBox<String>();
 
 		DefaultTableModel dtmStud_Finished = new DefaultTableModel();
 		String[] finCourse = { "Course code", "Semester", "Grade" };
@@ -252,6 +255,27 @@ public class view extends JFrame {
 		panel_student.add(btn_stud_add_createNew);
 
 		JButton btnRegisterGrade = new JButton("Register Grade");
+		btnRegisterGrade.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (textField_stud_pnr.getText().trim().isEmpty()) {
+						lbl_feedback.setText(errorHandler.noInput());
+					} else {
+
+						String grade = comboBox_stud_grade.getSelectedItem().toString();
+						int st = table_stud_courses.getSelectedRow();
+						String semester = dtmStud_Current.getValueAt(st, 0).toString();
+						String ccode = dtmStud_Current.getValueAt(st, 1).toString();
+						controller.registerGrade(semester, textField_stud_pnr.getText(), ccode, grade);
+						lbl_feedback.setText("Grade registered!");
+					}
+				} catch (Exception e) {
+					lbl_feedback.setText("buuu");
+				}
+			}
+
+		});
 		btnRegisterGrade.setBounds(592, 537, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btnRegisterGrade);
 
@@ -378,7 +402,6 @@ public class view extends JFrame {
 		scrollPane_stud_courses.setViewportView(table_stud_courses);
 		panel_student.add(scrollPane_stud_courses);
 
-		JComboBox<String> comboBox_stud_grade = new JComboBox<String>();
 		comboBox_stud_grade.setBounds(472, 536, 108, 25);
 		panel_student.add(comboBox_stud_grade);
 		comboBox_stud_grade.addItem("A");
