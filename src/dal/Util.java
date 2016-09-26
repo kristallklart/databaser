@@ -22,7 +22,7 @@ public class Util {
 	// Visa resultat för angiven kurs (alla studenter som tagit kursen och deras
 	// betyg)
 	public String courseResult() {
-		return "select spnr, grade from studied where ccode = ?";
+		return "select spnr,semester,grade from studied where ccode = ? order by semester asc";
 	}
 
 	public String getStudentStudied() {

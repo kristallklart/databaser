@@ -7,10 +7,10 @@ public class Studied {
 	private String cCode;
 	private String grade;
 
-	public Studied(String semester, String cCode, String grade) {
+	public Studied(String spnr, String semester, String grade) {
 
 		this.semester = semester;
-		this.cCode = cCode;
+		this.sPnr = spnr;
 		this.grade = grade;
 
 	}

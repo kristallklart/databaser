@@ -48,4 +48,16 @@ public class Controller {
 	public boolean createStudent(String spnr, String sname, String saddress) {
 		return dal.createStudent(spnr, sname, saddress);
 	}
+
+	public boolean createCourse(String ccode, String cname, String cpoint) {
+		return dal.createCourse(ccode, cname, cpoint);
+	}
+
+	public ArrayList<Studied> getCourseResult(String ccode) throws SQLException {
+		return dal.getCourseResult(ccode);
+	}
+
+	public String acedIt(String ccode) throws SQLException {
+		return dal.acedIt(ccode);
+	}
 }

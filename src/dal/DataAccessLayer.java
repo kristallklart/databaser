@@ -279,4 +279,77 @@ public class DataAccessLayer {
 
 		}
 	}
+
+	public boolean createCourse(String ccode, String cname, String cpoint) {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.createCourse());
+			pStatement.setString(1, ccode);
+			pStatement.setString(2, cname);
+			pStatement.setString(3, cpoint);
+
+			pStatement.execute();
+			return true;
+
+		} catch (SQLException e) {
+			return false;
+
+		}
+	}
+
+	public ArrayList<Studied> getCourseResult(String ccode) throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Studied> results = null;
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.courseResult());
+			pStatement.setString(1, ccode);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return results;
+			} else {
+				results = new ArrayList<Studied>();
+				while (rSet.next()) {
+					results.add(new Studied(rSet.getString("spnr"), (rSet.getString("semester")),
+							(rSet.getString("grade"))));
+				}
+			}
+		} finally {
+			closeAll(rSet, pStatement, con);
+		}
+		return results;
+
+	}
+
+	public String acedIt(String ccode) throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		String percent = new String();
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.AcedIt());
+			pStatement.setString(1, ccode);
+			pStatement.setString(2, ccode);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return percent;
+			} else {
+				while (rSet.next()) {
+
+					percent = rSet.getString(1);
+				}
+
+			}
+
+		} finally {
+			closeAll(rSet, pStatement, con);
+		}
+		return percent;
+	}
 }
