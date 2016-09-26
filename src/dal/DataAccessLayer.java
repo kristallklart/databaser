@@ -200,36 +200,30 @@ public class DataAccessLayer {
 				setStudent(rSet, student);
 
 				pStatement.close();
-				rSet.close();
-
 				pStatement = con.prepareStatement(util.getStudentStudying());
 				pStatement.setString(1, spnr);
 				rSet = pStatement.executeQuery();
 				if (!rSet.isBeforeFirst()) {
 					return student;
 				} else {
-					studying = new Studying();
 					while (rSet.next()) {
-						studying.setsPnr(rSet.getString("spnr"));
+						studying = new Studying();
 						studying.setcCode(rSet.getString("ccode"));
 						studying.setSemester(rSet.getString("semester"));
 						student.addStudying(studying);
 					}
 					pStatement.close();
-					rSet.close();
-
 					pStatement = con.prepareStatement(util.getStudentStudied());
 					pStatement.setString(1, spnr);
 					rSet = pStatement.executeQuery();
 					if (!rSet.isBeforeFirst()) {
 						return student;
 					} else {
-						studied = new Studied();
 						while (rSet.next()) {
-							studied.setsPnr(rSet.getString("spnr"));
+							studied = new Studied();
+							studied.setSemester(rSet.getString("semester"));
 							studied.setcCode(rSet.getString("ccode"));
 							studied.setGrade(rSet.getString("grade"));
-							studied.setSemester(rSet.getString("semester"));
 							student.addStudied(studied);
 						}
 					}
@@ -257,7 +251,7 @@ public class DataAccessLayer {
 		while (rSet.next()) {
 			s.setSpnr(rSet.getString("spnr"));
 			s.setSname(rSet.getString("sname"));
-			s.setSaddress(rSet.getString("spnr"));
+			s.setSaddress(rSet.getString("sadress"));
 		}
 	}
 
