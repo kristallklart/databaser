@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import model.Course;
 import model.Student;
+import model.Studied;
 import model.Studying;
 
 public class DataAccessLayer {
@@ -120,4 +121,39 @@ public class DataAccessLayer {
 		}
 		return studying;
 	}
+
+	public ArrayList<Studied> getStudentStudied(String spnr) throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Studied> studied = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.getStudentStudied());
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return studied;
+			} else {
+				studied = new ArrayList<Studied>();
+				while (rSet.next()) {
+					studied.add(new Studied(rSet.getString("semester"), (rSet.getString("ccode")),
+							(rSet.getString("grade"))));
+				}
+			}
+		} finally {
+			if (rSet != null && !rSet.isClosed()) {
+				rSet.close();
+			}
+			if (pStatement != null && !pStatement.isClosed()) {
+				pStatement.close();
+			}
+			if (con != null && !con.isClosed()) {
+				con.close();
+			}
+		}
+		return studied;
+	}
+
 }

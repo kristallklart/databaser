@@ -7,6 +7,18 @@ public class Studied {
 	private String cCode;
 	private String grade;
 
+	public Studied(String semester, String cCode, String grade) {
+
+		this.semester = semester;
+		this.cCode = cCode;
+		this.grade = grade;
+
+	}
+
+	public Studied() {
+
+	}
+
 	public String getSemester() {
 		return semester;
 	}

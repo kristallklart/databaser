@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.Controller;
 import model.Course;
 import model.Student;
+import model.Studied;
 import model.Studying;
 import utilities.ErrorHandler;
 import utilities.UtilView;
@@ -73,6 +74,7 @@ public class view extends JFrame {
 	private JTextField textField_stud_delete_pnr;
 	private JTextField textField_stud_delete_name;
 	private JTextField textField_stud_delete_address;
+	private DefaultTableModel stud_finished;
 
 	/**
 	 * Launch the application.
@@ -117,6 +119,10 @@ public class view extends JFrame {
 		JLabel lbl_feedback = new JLabel("");
 		lbl_feedback.setBounds(10, 640, 638, 20);
 		contentPane.add(lbl_feedback);
+
+		DefaultTableModel stud_finished = new DefaultTableModel();
+		String[] finCourse = { "Course code", "Semester", "Grade" };
+		stud_finished.setColumnIdentifiers(finCourse);
 
 		JButton btn_stud_search = new JButton("Search");
 		btn_stud_search.addActionListener(new ActionListener() {
@@ -177,9 +183,36 @@ public class view extends JFrame {
 		JButton btn_stud_previuosCourses = new JButton("Finished Courses");
 		btn_stud_previuosCourses.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
+				if (textField_stud_pnr.getText().trim().isEmpty()) {
+					lbl_feedback.setText(errorHandler.noInput());
+				} else {
+					try {
+						Student s = controller.getStudent(textField_stud_pnr.getText());
+						ArrayList<Studied> studied = controller.getStudentStudied(textField_stud_pnr.getText());
+						stud_finished.setRowCount(0);
+
+						if (s == null) {
+							lbl_feedback.setText(errorHandler.noStudentFound(textField_stud_pnr.getText()));
+							UtilView.clearNonSearchFields(regGradePanelFields);
+						} else if (studied == null) {
+							lbl_feedback.setText(errorHandler.noStudied(textField_stud_pnr.getText()));
+						}
+						for (Studied stud : studied) {
+							String[] finishedCourses = { stud.getcCode(), stud.getSemester().toUpperCase(),
+									stud.getGrade().toUpperCase() };
+							stud_finished.addRow(finishedCourses);
+						}
+
+						table_stud_courses.setModel(stud_finished);
+						lbl_feedback.setText(UtilView.studentFound(textField_stud_pnr.getText()));
+					} catch (Exception e) {
+						lbl_feedback.setText(errorHandler.handleException(e));
+					}
+				}
 			}
 		});
+
 		btn_stud_previuosCourses.setBounds(592, 340, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_previuosCourses);
 

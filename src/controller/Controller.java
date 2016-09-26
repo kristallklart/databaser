@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import dal.DataAccessLayer;
 import model.Course;
 import model.Student;
+import model.Studied;
 import model.Studying;
 
 public class Controller {
@@ -26,5 +27,9 @@ public class Controller {
 
 	public ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
 		return dal.getStudentStudying(pnr);
+	}
+
+	public ArrayList<Studied> getStudentStudied(String pnr) throws SQLException {
+		return dal.getStudentStudied(pnr);
 	}
 }

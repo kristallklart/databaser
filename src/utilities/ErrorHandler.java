@@ -57,4 +57,9 @@ public class ErrorHandler {
 		String message = "The student with personal number: " + input + " is not registered on any courses.";
 		return message;
 	}
+
+	public String noStudied(String input) {
+		String message = "The student with personal number: " + input + " has not finished any courses.";
+		return message;
+	}
 }
