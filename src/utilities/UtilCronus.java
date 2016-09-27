@@ -97,57 +97,58 @@ public class UtilCronus {
 	public Vector<String> getCronusQueryNames() {
 		Vector<String> cronusQueryNames = new Vector<String>();
 
-		cronusQueryNames.add(" ");
-		cronusQueryNames.add("Employee");
-		cronusQueryNames.add("Employee Absence");
-		cronusQueryNames.add("Employee Portal Setup");
-		cronusQueryNames.add("Employee Qualification");
-		cronusQueryNames.add("Employee Relative");
-		cronusQueryNames.add("Employee Statistics Group");
-		cronusQueryNames.add("Metadata Employee");
-		cronusQueryNames.add("Metadata Employee Absence");
-		cronusQueryNames.add("Metadata Employee Portal Setup");
-		cronusQueryNames.add("Metadata Employee Relative");
-		cronusQueryNames.add("Metadata Employee Statistics Group");
-		cronusQueryNames.add("Keys");
-		cronusQueryNames.add("Indexes");
-		cronusQueryNames.add("Table Constrains");
-		cronusQueryNames.add("All tables 1");
-		cronusQueryNames.add("All tables 2");
-		cronusQueryNames.add("Employee columns 1");
-		cronusQueryNames.add("Employee columns 2");
-		cronusQueryNames.add("Most rows in database");
+		cronusQueryNames.add(" "); // 0
+		cronusQueryNames.add("Employee"); // 1
+		cronusQueryNames.add("Employee Absence"); // 2
+		cronusQueryNames.add("Employee Portal Setup"); // 3
+		cronusQueryNames.add("Employee Qualification"); // 4
+		cronusQueryNames.add("Employee Relative"); // 5
+		cronusQueryNames.add("Employee Statistics Group"); // 6
+		cronusQueryNames.add("Metadata Employee"); // 7
+		cronusQueryNames.add("Metadata Employee Absence"); // 8
+		cronusQueryNames.add("Metadata Employee Portal Setup"); // 9
+		cronusQueryNames.add("Metadata Employee Qualification"); // 10
+		cronusQueryNames.add("Metadata Employee Relative"); // 11
+		cronusQueryNames.add("Metadata Employee Statistics Group"); // 12
+		cronusQueryNames.add("Keys"); // 13
+		cronusQueryNames.add("Indexes"); // 14
+		cronusQueryNames.add("Table Constrains"); // 15
+		cronusQueryNames.add("All tables 1"); // 16
+		cronusQueryNames.add("All tables 2"); // 17
+		cronusQueryNames.add("Employee columns 1"); // 18
+		cronusQueryNames.add("Employee columns 2"); // 19
+		cronusQueryNames.add("Most rows in database"); // 20
 
 		return cronusQueryNames;
 	}
 
 	// hämtar 5 columner från EMPLOYEE
 	public String getEmployee() {
-		return "select [First Name], [Last Name], Initials, [Job Title], Address from [CRONUS Sverige AB$Employee]";
+		return "select * from [CRONUS Sverige AB$Employee]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE ABSENCE
 	public String getEmployeeAbsence() {
 		return "select [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"
-				+ "from [CRONUS Sverige AB$Employee Absence]";
+				+ " from [CRONUS Sverige AB$Employee Absence]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE PORTAL SETUP
 	public String getEmployeePortalSetup() {
 		return "select [Config TP WP Request Capt ID], [Config TP Initial Req_ Capt ID], [Config TP Group Capt ID], [Search Tool Pane Caption ID], [Search Config Table ID]"
-				+ "from [CRONUS Sverige AB$Employee Portal Setup]";
+				+ " from [CRONUS Sverige AB$Employee Portal Setup]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE QUALIFICATION
 	public String getEmployeeQualification() {
 		return "select [Employee No_], [Qualification Code], Description, Institution_Company,Type"
-				+ "from [CRONUS Sverige AB$Employee Qualification]";
+				+ " from [CRONUS Sverige AB$Employee Qualification]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE RELATIVE
 	public String getEmployeeRelative() {
 		return "select [Employee No_], [First Name], [Last Name], [Relative Code]"
-				+ "from [CRONUS Sverige AB$Employee Relative]";
+				+ " from [CRONUS Sverige AB$Employee Relative]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE STATISTICS GROUP

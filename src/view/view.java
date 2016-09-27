@@ -701,6 +701,7 @@ public class view extends JFrame {
 				if (selectedCronusIndex != 0) {
 					try {
 						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex));
+							
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
@@ -715,6 +716,7 @@ public class view extends JFrame {
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
+		table_caccess.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane_caccess.setViewportView(table_caccess);
 
 		JPanel panel = new JPanel();
