@@ -25,11 +25,39 @@ public class Controller {
 		return dal.getCourse(ccode);
 	}
 
-	public ArrayList<Studying> getStudentStudying(String pnr) throws SQLException {
-		return dal.getStudentStudying(pnr);
+	public ArrayList<Studying> getStudentStudying(String spnr) throws SQLException {
+		return dal.getStudentStudying(spnr);
 	}
 
-	public ArrayList<Studied> getStudentStudied(String pnr) throws SQLException {
-		return dal.getStudentStudied(pnr);
+	public ArrayList<Studied> getStudentStudied(String spnr) throws SQLException {
+		return dal.getStudentStudied(spnr);
+	}
+
+	public Student getStudentAll(String spnr) throws SQLException {
+		return dal.getStudentAll(spnr);
+	}
+
+	public void deleteCourse(String ccode) throws SQLException {
+		dal.deleteCourse(ccode);
+	}
+
+	public void deleteStudent(String spnr) throws SQLException {
+		dal.deleteStudent(spnr);
+	}
+
+	public boolean createStudent(String spnr, String sname, String saddress) {
+		return dal.createStudent(spnr, sname, saddress);
+	}
+
+	public boolean createCourse(String ccode, String cname, String cpoint) {
+		return dal.createCourse(ccode, cname, cpoint);
+	}
+
+	public ArrayList<Studied> getCourseResult(String ccode) throws SQLException {
+		return dal.getCourseResult(ccode);
+	}
+
+	public String acedIt(String ccode) throws SQLException {
+		return dal.acedIt(ccode);
 	}
 }

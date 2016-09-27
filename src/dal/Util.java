@@ -11,7 +11,7 @@ public class Util {
 		return "select * from course where ccode = ?";
 	}
 
-	public static String getCcodes() {
+	public String getCcodes() {
 		return "select ccode from course ";
 	}
 
@@ -22,11 +22,11 @@ public class Util {
 	// Visa resultat för angiven kurs (alla studenter som tagit kursen och deras
 	// betyg)
 	public String courseResult() {
-		return "select spnr, grade from studied where ccode = ?";
+		return "select spnr,semester,grade from studied where ccode = ? order by semester asc";
 	}
 
 	public String getStudentStudied() {
-		return "select semester, ccode, grade from studied where spnr=?";
+		return "select semester, ccode, grade from studied where spnr = ?";
 	}
 
 	// studenter som inte är klara med en viss kurs - fråga erre
@@ -47,6 +47,31 @@ public class Util {
 	// högst genomströmmning
 	public String mostThrough() {
 		return "select ccode, count(grade) from studied group by ccode,grade having grade !='u'";
+	}
+
+	public String deleteStudent() {
+		return "delete from student where spnr=?";
+	}
+
+	public String deleteCourse() {
+		return "delete from course where ccode =?";
+	}
+
+	public String createStudent() {
+		return "insert into student values (?,?,?)";
+	}
+
+	public String createCourse() {
+		return "insert into course values (?,?,?)";
+	}
+
+	public String registerGrade() {
+		return "insert into studied values (?,?,?,?)";
+
+	}
+
+	public String registerOnCourse() {
+		return "insert into studies values (?,?,?)";
 	}
 
 }

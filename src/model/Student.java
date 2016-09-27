@@ -7,8 +7,8 @@ public class Student {
 	private String spnr;
 	private String sname;
 	private String saddress;
-	ArrayList<Studied> studiedList;
-	ArrayList<Studying> studyingList;
+	private ArrayList<Studied> studiedList = new ArrayList<Studied>();
+	private ArrayList<Studying> studyingList = new ArrayList<Studying>();
 
 	public String getSpnr() {
 		return spnr;
@@ -48,5 +48,13 @@ public class Student {
 
 	public void setStudyingList(ArrayList<Studying> studyingList) {
 		this.studyingList = studyingList;
+	}
+
+	public void addStudying(Studying s) {
+		studyingList.add(s);
+	}
+
+	public void addStudied(Studied s) {
+		studiedList.add(s);
 	}
 }
