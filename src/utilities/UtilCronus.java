@@ -1,6 +1,11 @@
 package utilities;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
+
+import sun.launcher.resources.launcher;
 
 public class UtilCronus {
 
@@ -120,6 +125,23 @@ public class UtilCronus {
 		cronusQueryNames.add("Most rows in database"); // 20
 
 		return cronusQueryNames;
+	}
+
+	public void openCronusFile(int selectedCronusFileToOpen) {
+		try {
+			Desktop desktop = null;
+			if (Desktop.isDesktopSupported()) {
+				desktop = Desktop.getDesktop();
+			}
+
+			desktop.open(new File("C:\\Program Files\\Cronusfiler\\Query1.xlsx"));
+
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+
+	}
+
 	}
 
 	// hämtar 5 columner från EMPLOYEE
