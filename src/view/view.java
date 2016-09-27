@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -83,6 +85,7 @@ public class view extends JFrame {
 	private JTextField textField_course_delete_points;
 	private JTable table_course;
 	private JTextField textField_course_search_ccode;
+	private JLabel lbl_stud_showRemoveCourse;
 
 	/**
 	 * Launch the application.
@@ -275,7 +278,7 @@ public class view extends JFrame {
 			}
 
 		});
-		btnRegisterGrade.setBounds(592, 537, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnRegisterGrade.setBounds(592, 512, 139, 23);
 		panel_student.add(btnRegisterGrade);
 
 		JButton btn_stud_delete_search = new JButton("Search");
@@ -324,7 +327,7 @@ public class view extends JFrame {
 		panel_student.add(lbl_stud_searchStudent);
 
 		JLabel lbl_stud_regStudent = new JLabel("Register grade for selected course");
-		lbl_stud_regStudent.setBounds(472, 508, 187, 23);
+		lbl_stud_regStudent.setBounds(472, 483, 248, 23);
 		panel_student.add(lbl_stud_regStudent);
 
 		JLabel lbl_stud_deleteStudent = new JLabel("Delete student");
@@ -395,13 +398,29 @@ public class view extends JFrame {
 		scrollPane_stud_foundStudent.setViewportView(table_stud_foundStud);
 		panel_student.add(scrollPane_stud_foundStudent);
 
+		JLabel lbl_stud_showRemoveCourse = new JLabel("");
+		lbl_stud_showRemoveCourse.setBounds(693, 558, 58, 14);
+		panel_student.add(lbl_stud_showRemoveCourse);
+
 		JScrollPane scrollPane_stud_courses = new JScrollPane();
-		scrollPane_stud_courses.setBounds(472, 278, 293, 219);
+		scrollPane_stud_courses.setBounds(472, 253, 358, 219);
 		table_stud_courses = new JTable();
+		table_stud_courses.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					int sel = table_stud_courses.getSelectedRow();
+					String ccode = dtmStud_Current.getValueAt(sel, 0).toString().toUpperCase();
+					lbl_stud_showRemoveCourse.setText(ccode);
+				} catch (Exception e) {
+					communicateMessage(exceptionHandler.handleException(e));
+				}
+			}
+		});
 		scrollPane_stud_courses.setViewportView(table_stud_courses);
 		panel_student.add(scrollPane_stud_courses);
 
-		comboBox_stud_grade.setBounds(472, 536, 108, 25);
+		comboBox_stud_grade.setBounds(472, 511, 108, 25);
 		panel_student.add(comboBox_stud_grade);
 		comboBox_stud_grade.addItem("A");
 		comboBox_stud_grade.addItem("B");
@@ -415,18 +434,50 @@ public class view extends JFrame {
 		panel_student.add(comboBox_stud_course);
 
 		JScrollPane scrollPane_stud_finished = new JScrollPane();
-		scrollPane_stud_finished.setBounds(793, 278, 367, 219);
+		scrollPane_stud_finished.setBounds(856, 253, 367, 219);
 		panel_student.add(scrollPane_stud_finished);
 		table_stud_finished = new JTable();
 		scrollPane_stud_finished.setViewportView(table_stud_finished);
 
 		JLabel lblFinishedCourses = new JLabel("Finished Courses:");
-		lblFinishedCourses.setBounds(793, 249, 108, 14);
+		lblFinishedCourses.setBounds(866, 228, 108, 14);
 		panel_student.add(lblFinishedCourses);
 
 		JLabel lblCurrentCourses = new JLabel("Current Courses:");
-		lblCurrentCourses.setBounds(472, 249, 108, 14);
+		lblCurrentCourses.setBounds(472, 224, 108, 14);
 		panel_student.add(lblCurrentCourses);
+
+		JLabel lbl_student_removeStudentCourse = new JLabel("Remove student from selected course:");
+		lbl_student_removeStudentCourse.setBounds(472, 558, 228, 14);
+		panel_student.add(lbl_student_removeStudentCourse);
+
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(472, 549, 248, 14);
+		panel_student.add(separator_2);
+
+		JButton btn_course_deleteSelCourse = new JButton("Delete");
+		btn_course_deleteSelCourse.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (textField_stud_pnr.getText().trim().isEmpty()) {
+						lbl_feedback.setText(feedbackHandler.noInput());
+					} else {
+						int st = table_stud_courses.getSelectedRow();
+						String ccode = dtmStud_Current.getValueAt(st, 0).toString();
+						String spnr = textField_stud_pnr.getText();
+						controller.deleteStudying(spnr, ccode);
+						lbl_feedback.setText("Course successfully removed from student!");
+
+					}
+				} catch (Exception e) {
+					communicateMessage(exceptionHandler.handleException(e));
+				}
+			}
+
+		});
+		btn_course_deleteSelCourse.setBounds(745, 558, 85, 23);
+		panel_student.add(btn_course_deleteSelCourse);
 		DefaultComboBoxModel<String> ccodesList = new DefaultComboBoxModel<String>();
 
 		DefaultTableModel dtmcourses = new DefaultTableModel();
