@@ -165,7 +165,7 @@ public class UtilCronus {
 	
 	// hämtar både pk & fk
 		public String getKeys() {
-			return "select top 50 table_name as [Table Name], column_name as Key"
+			return "select top 50 table_name as [Table Name], column_name as 'Key'"
 					+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.KEY_COLUMN_USAGE";
 		}
 		// hämtar 5 columner från Index
