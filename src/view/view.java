@@ -753,7 +753,7 @@ public class view extends JFrame {
 				if (selectedCronusIndex != 0) {
 					try {
 						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex));
-							
+
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
