@@ -852,6 +852,11 @@ public class view extends JFrame {
 		panel.add(comboBox_oform_select);
 
 		JButton btnGo = new JButton("GO");
+		btnGo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnGo.setBounds(40, 224, 102, 29);
 		panel.add(btnGo);
 
