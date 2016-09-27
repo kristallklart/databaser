@@ -262,8 +262,8 @@ public class view extends JFrame {
 
 						String grade = comboBox_stud_grade.getSelectedItem().toString();
 						int st = table_stud_courses.getSelectedRow();
-						String semester = dtmStud_Current.getValueAt(st, 0).toString();
-						String ccode = dtmStud_Current.getValueAt(st, 1).toString();
+						String semester = dtmStud_Current.getValueAt(st, 1).toString();
+						String ccode = dtmStud_Current.getValueAt(st, 0).toString();
 						controller.registerGrade(semester, textField_stud_pnr.getText(), ccode, grade);
 						lbl_feedback.setText("Grade registered!");
 					}
