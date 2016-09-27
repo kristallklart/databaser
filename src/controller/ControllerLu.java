@@ -3,7 +3,7 @@ package controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dal.DataAccessLayer;
+import databaseAccess.DataAccessLayerLu;
 import model.Course;
 import model.Student;
 import model.Studied;
@@ -11,7 +11,7 @@ import model.Studying;
 
 public class ControllerLu {
 
-	private DataAccessLayer dal = new DataAccessLayer();
+	private DataAccessLayerLu dal = new DataAccessLayerLu();
 
 	public Student getStudent(String spnr) throws SQLException {
 		return dal.getStudent(spnr);

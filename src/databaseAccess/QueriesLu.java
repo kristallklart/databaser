@@ -1,6 +1,6 @@
-package dal;
+package databaseAccess;
 
-public class Util {
+public class QueriesLu {
 
 	public String getStudent() {
 		return "select * from student where spnr = ?";
@@ -31,7 +31,7 @@ public class Util {
 
 	// studenter som inte är klara med en viss kurs - fråga erre
 	public String notFinished() {
-		return "select spnr, semester from studies where ccode = ?";
+		return "select spnr, sname from studying where ccode = ?";
 	}
 
 	// procent studenter som fått a på en särskild kurs
@@ -46,7 +46,7 @@ public class Util {
 
 	// högst genomströmmning
 	public String mostThrough() {
-		return "select top 5 ccode, count(*)totalt from Studied where grade != 'U' group by ccode order by totalt desc";
+		return "select ccode, count(grade) from studied group by ccode,grade having grade !='u'";
 	}
 
 	public String deleteStudent() {

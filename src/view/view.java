@@ -850,7 +850,7 @@ public class view extends JFrame {
 		lblSelectQuery.setBounds(44, 150, 112, 39);
 		panel.add(lblSelectQuery);
 
-		String[] microsoft = { "Excel", "Access" };
+		String[] microsoft = { "", "Access", "Excel" };
 
 		JComboBox comboBox_word_excel = new JComboBox(microsoft);
 		comboBox_word_excel.setBounds(171, 101, 144, 26);
@@ -880,7 +880,7 @@ public class view extends JFrame {
 		lbl_oform_selectOption.setBounds(30, 406, 112, 39);
 		panel.add(lbl_oform_selectOption);
 
-		String[] micoffice = { "Access", "Excel", "Word" };
+		String[] micoffice = { "", "Access", "Excel", "Word" };
 
 		JComboBox comboBox_oform_selectOption = new JComboBox(micoffice);
 		comboBox_oform_selectOption.setBounds(171, 412, 144, 26);
