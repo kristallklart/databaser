@@ -7,83 +7,83 @@ public class UtilCronus {
 		String sqlQuery = null;
 		
 		switch (selectedIndex) {
-		case 1 : selectedIndex = 1;
+		case 1 :
 			sqlQuery = getEmployee();
 			break;
 			
-		case 2 : selectedIndex = 2;
+		case 2 : 
 			sqlQuery = getEmployeeAbsence();
 			break;
 			
-		case 3 : selectedIndex = 3;
+		case 3 : 
 			sqlQuery = getEmployeePortalSetup();
 			break;
 			
-		case 4 : selectedIndex = 4;
+		case 4 : 
 			sqlQuery = getEmployeeQualification();
 			break;
 			
-		case 5 : selectedIndex = 5;
+		case 5 : 
 			sqlQuery = getEmployeeRelative();
 			break;
 			
-		case 6 : selectedIndex = 6;
+		case 6 :
 			sqlQuery = getEmployeeStatisticsGroup();
 			break;
 			
-		case 7 : selectedIndex = 7;
+		case 7 :
 			sqlQuery = getMetaDataEmployee();
 			break;
 			
-		case 8: selectedIndex = 8;
+		case 8:
 			sqlQuery = getMetaDataEmployeeAbsence();
 			break;
 			
-		case 9: selectedIndex = 9;
+		case 9:
 			sqlQuery = getMetaDataEmployeePortalSetup();
 			break;
 			
-		case 10: selectedIndex = 10;
+		case 10:
 			sqlQuery = getMetaDataEmployeeQualification();
 			break;
 			
-		case 11: selectedIndex = 11;
+		case 11: 
 			sqlQuery = getMetaDataEmployeeRelative();
 			break;
 			
-		case 12: selectedIndex = 12;
+		case 12: 
 			sqlQuery = getMetaDataEmployeeStatisticsGroup();
 			break;
 			
-		case 13: selectedIndex = 13;
+		case 13:
 			sqlQuery = getKeys();
 			break;
 			
-		case 14: selectedIndex = 15;
+		case 14:
 			sqlQuery = getIndex();
 			break;
 			
-		case 15: selectedIndex = 15;
+		case 15:
 			sqlQuery = getTableConstrains();
 			break;
 			
-		case 16: selectedIndex = 16;
+		case 16:
 			sqlQuery = getAllTablesUsingInformationSchema();
 			break;
 		
-		case 17: selectedIndex = 17;
+		case 17:
 			sqlQuery = getAllTablesUsingSysObjects();
 			break;
 			
-		case 18: selectedIndex = 18;
+		case 18: 
 			sqlQuery = getEmployeeColumns1();
 			break;
 			
-		case 19: selectedIndex = 19;
+		case 19:
 			sqlQuery = getEmployeeColumns2();
 			break;
 			
-		case 20: selectedIndex = 20;
+		case 20:
 			sqlQuery = getMostRows();
 			break;
 			
