@@ -400,4 +400,59 @@ public class DataAccessLayer {
 		}
 		return nf;
 	}
+
+	public ArrayList<Course> allCourses() throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Course> c = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.allCourses());
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return c;
+			} else {
+				c = new ArrayList<Course>();
+				while (rSet.next()) {
+					Course co = new Course();
+					co.setCcode(rSet.getString("ccode"));
+					co.setCname(rSet.getString("cname"));
+					co.setCpoint(rSet.getInt("points"));
+					c.add(co);
+				}
+			}
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+		return c;
+	}
+
+	public ArrayList<Course> mostThrough() throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Course> c = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.mostThrough());
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return c;
+			} else {
+				c = new ArrayList<Course>();
+				while (rSet.next()) {
+					Course co = new Course();
+					co.setCcode(rSet.getString("ccode"));
+					co.setTotal(rSet.getInt("totalt"));
+					c.add(co);
+				}
+			}
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+		return c;
+	}
 }

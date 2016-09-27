@@ -46,7 +46,7 @@ public class Util {
 
 	// högst genomströmmning
 	public String mostThrough() {
-		return "select ccode, count(grade) from studied group by ccode,grade having grade !='u'";
+		return "select top 5 ccode, count(*)totalt from Studied where grade != 'U' group by ccode order by totalt desc";
 	}
 
 	public String deleteStudent() {
@@ -76,6 +76,10 @@ public class Util {
 
 	public String registerOnCourse() {
 		return "insert into studies values (?,?,?)";
+	}
+
+	public String allCourses() {
+		return "select * from course";
 	}
 
 }
