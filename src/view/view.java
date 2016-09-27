@@ -768,7 +768,7 @@ public class view extends JFrame {
 
 							if (r == null) {
 								communicateMessage(
-										feedbackHandler.noStudentFound(textField_course_search_ccode.getText()));
+										feedbackHandler.noCourseFound(textField_course_search_ccode.getText()));
 								UtilView.clearNonSearchFields(regGradePanelFields);
 							} else {
 
@@ -897,6 +897,11 @@ public class view extends JFrame {
 		panel.add(comboBox_oform_select);
 
 		JButton btnGo = new JButton("GO");
+		btnGo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnGo.setBounds(40, 224, 102, 29);
 		panel.add(btnGo);
 
