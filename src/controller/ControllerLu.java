@@ -65,6 +65,10 @@ public class ControllerLu {
 		return dal.registerGrade(semester, sPnr, cCode, grade);
 	}
 
+	public boolean registerOnCourse(String sPnr, String cCode, String semester) {
+		return dal.registerOnCourse(sPnr, cCode, semester);
+	}
+
 	public void deleteStudying(String spnr, String ccode) {
 		dal.deleteStudying(spnr, ccode);
 	}
