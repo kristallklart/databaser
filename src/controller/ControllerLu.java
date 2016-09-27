@@ -72,4 +72,12 @@ public class ControllerLu {
 	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
 		return dal.notFinished(ccode);
 	}
+
+	public ArrayList<Course> allCourses() throws SQLException {
+		return dal.allCourses();
+	}
+
+	public ArrayList<Course> mostThrough() throws SQLException {
+		return dal.mostThrough();
+	}
 }

@@ -78,4 +78,8 @@ public class QueriesLu {
 		return "insert into studies values (?,?,?)";
 	}
 
+	public String allCourses() {
+		return "select * from course";
+	}
+
 }

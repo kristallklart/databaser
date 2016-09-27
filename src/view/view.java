@@ -79,6 +79,8 @@ public class view extends JFrame {
 	private DefaultTableModel stud_finished;
 	private DefaultTableModel dtmCourse_results;
 	private DefaultTableModel dtmNotFinished;
+	private DefaultTableModel dtmcourse_showall;
+	private DefaultTableModel dtmcourse_mostThrough;
 	private JTable table_stud_foundStud;
 	private JTable table_stud_finished;
 	private JTextField textField_course_delete_ccode;
@@ -484,7 +486,7 @@ public class view extends JFrame {
 		panel_student.add(lbl_student_removeStudentCourse);
 
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(472, 549, 248, 14);
+		separator_2.setBounds(472, 549, 358, 14);
 		panel_student.add(separator_2);
 
 		JButton btn_course_deleteSelCourse = new JButton("Delete");
@@ -519,6 +521,14 @@ public class view extends JFrame {
 		DefaultTableModel dtmcourses = new DefaultTableModel();
 		String[] course = { "Code", "Semester" };
 		dtmcourses.setColumnIdentifiers(course);
+
+		DefaultTableModel dtmcourse_showall = new DefaultTableModel();
+		String[] courses = { "Code", "Name", "Points" };
+		dtmcourse_showall.setColumnIdentifiers(courses);
+
+		DefaultTableModel dtmcourse_mostThrough = new DefaultTableModel();
+		String[] mcourses = { "Code", "No. of students through ", };
+		dtmcourse_mostThrough.setColumnIdentifiers(mcourses);
 
 		DefaultTableModel dtmNotFinished = new DefaultTableModel();
 		String[] students = { "Personal Number", "Semester" };
@@ -676,7 +686,7 @@ public class view extends JFrame {
 		textField_course_search_ccode.setBounds(792, 33, 159, 25);
 		panel_course.add(textField_course_search_ccode);
 
-		JLabel lbl_course_search_gradeA = new JLabel("% of Students with grade A");
+		JLabel lbl_course_search_gradeA = new JLabel("% of Students with grade A:");
 		lbl_course_search_gradeA.setBounds(674, 567, 167, 14);
 		panel_course.add(lbl_course_search_gradeA);
 
@@ -690,6 +700,41 @@ public class view extends JFrame {
 		panel_course.add(lbl_course_search_header);
 
 		JButton btn_course_search_showresult = new JButton("Show Result");
+		btn_course_search_showresult.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (rdbtn_course_showAll.isSelected()) {
+					try {
+						ArrayList<Course> c = controllerLu.allCourses();
+						dtmcourse_showall.setRowCount(0);
+
+						for (Course co : c) {
+							String[] allCourses = { co.getCcode().toUpperCase(), co.getCname(),
+									Integer.toString(co.getCpoint()) };
+							dtmcourse_showall.addRow(allCourses);
+						}
+						table_course.setModel(dtmcourse_showall);
+					} catch (Exception e) {
+
+					}
+				} else {
+					if (rdbtn_course_highestThrough.isSelected()) {
+						try {
+							ArrayList<Course> c = controllerLu.mostThrough();
+							dtmcourse_mostThrough.setRowCount(0);
+
+							for (Course co : c) {
+								String[] allCourses = { co.getCcode().toUpperCase(), Integer.toString(co.getTotal()) };
+								dtmcourse_mostThrough.addRow(allCourses);
+							}
+							table_course.setModel(dtmcourse_mostThrough);
+						} catch (Exception e) {
+						}
+					}
+				}
+			}
+
+		});
 		btn_course_search_showresult.setBounds(1093, 213, 108, 23);
 		panel_course.add(btn_course_search_showresult);
 

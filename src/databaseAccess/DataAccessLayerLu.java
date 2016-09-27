@@ -373,4 +373,87 @@ public class DataAccessLayerLu {
 		}
 
 	}
+
+	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Studying> nf = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(queriesLu.notFinished());
+			pStatement.setString(1, ccode);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return nf;
+			} else {
+				nf = new ArrayList<Studying>();
+				while (rSet.next()) {
+					Studying s = new Studying();
+					s.setsPnr(rSet.getString("spnr"));
+					s.setSemester((rSet.getString("semester")));
+					nf.add(s);
+				}
+			}
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+		return nf;
+	}
+
+	public ArrayList<Course> allCourses() throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Course> c = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(queriesLu.allCourses());
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return c;
+			} else {
+				c = new ArrayList<Course>();
+				while (rSet.next()) {
+					Course co = new Course();
+					co.setCcode(rSet.getString("ccode"));
+					co.setCname(rSet.getString("cname"));
+					co.setCpoint(rSet.getInt("points"));
+					c.add(co);
+				}
+			}
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+		return c;
+	}
+
+	public ArrayList<Course> mostThrough() throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Course> c = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(queriesLu.mostThrough());
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return c;
+			} else {
+				c = new ArrayList<Course>();
+				while (rSet.next()) {
+					Course co = new Course();
+					co.setCcode(rSet.getString("ccode"));
+					co.setTotal(rSet.getInt("totalt"));
+					c.add(co);
+				}
+			}
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+		return c;
+	}
 }
