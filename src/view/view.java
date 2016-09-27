@@ -173,16 +173,17 @@ public class view extends JFrame {
 											studying.getSemester().toUpperCase() };
 									dtmStud_Current.addRow(currentCourses);
 								}
-								if (s.getStudiedList().isEmpty()) {
-									communicateMessage(feedbackHandler.noStudied(textField_stud_pnr.getText()));
-								} else {
-									for (Studied studied : s.getStudiedList()) {
-										String[] finishedCourses = { studied.getcCode(),
-												studied.getSemester().toUpperCase(), studied.getGrade().toUpperCase() };
-										dtmStud_Finished.addRow(finishedCourses);
-									}
+							}
+							if (s.getStudiedList().isEmpty()) {
+								communicateMessage(feedbackHandler.noStudied(textField_stud_pnr.getText()));
+							} else {
+								for (Studied studied : s.getStudiedList()) {
+									String[] finishedCourses = { studied.getcCode(),
+											studied.getSemester().toUpperCase(), studied.getGrade().toUpperCase() };
+									dtmStud_Finished.addRow(finishedCourses);
 								}
 							}
+
 							table_stud_foundStud.setModel(dtmStud_Search);
 							table_stud_finished.setModel(dtmStud_Finished);
 							table_stud_courses.setModel(dtmStud_Current);

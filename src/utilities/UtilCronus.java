@@ -129,25 +129,25 @@ public class UtilCronus {
 	// hämtar 5 columner från EMPLOYEE ABSENCE
 	public String getEmployeeAbsence() {
 		return "select [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"
-				+ "from [CRONUS Sverige AB$Employee Absence]";
+				+ " from [CRONUS Sverige AB$Employee Absence]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE PORTAL SETUP
 	public String getEmployeePortalSetup() {
 		return "select [Config TP WP Request Capt ID], [Config TP Initial Req_ Capt ID], [Config TP Group Capt ID], [Search Tool Pane Caption ID], [Search Config Table ID]"
-				+ "from [CRONUS Sverige AB$Employee Portal Setup]";
+				+ " from [CRONUS Sverige AB$Employee Portal Setup]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE QUALIFICATION
 	public String getEmployeeQualification() {
 		return "select [Employee No_], [Qualification Code], Description, Institution_Company,Type"
-				+ "from [CRONUS Sverige AB$Employee Qualification]";
+				+ " from [CRONUS Sverige AB$Employee Qualification]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE RELATIVE
 	public String getEmployeeRelative() {
 		return "select [Employee No_], [First Name], [Last Name], [Relative Code]"
-				+ "from [CRONUS Sverige AB$Employee Relative]";
+				+ " from [CRONUS Sverige AB$Employee Relative]";
 	}
 
 	// hämtar 5 columner från EMPLOYEE STATISTICS GROUP
