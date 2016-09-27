@@ -26,8 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import controller.Controller;
 import controller.ControllerCronus;
+import controller.ControllerLu;
 import model.Course;
 import model.Student;
 import model.Studied;
@@ -42,7 +42,7 @@ public class view extends JFrame {
 	 *
 	 */
 	private static final long serialVersionUID = 5054166201282114423L;
-	private Controller controller = new Controller();
+	private ControllerLu controllerLu = new ControllerLu();
 	private ControllerCronus controllerCronus = new ControllerCronus();
 	private FeedbackHandler feedbackHandler = new FeedbackHandler();
 	private ExceptionHandler exceptionHandler = new ExceptionHandler();
@@ -187,7 +187,7 @@ public class view extends JFrame {
 						dtmStud_Search.setRowCount(0);
 						dtmStud_Current.setRowCount(0);
 						dtmStud_Finished.setRowCount(0);
-						Student s = controller.getStudentAll(textField_stud_pnr.getText());
+						Student s = controllerLu.getStudentAll(textField_stud_pnr.getText());
 						if (s == null) {
 							communicateMessage(feedbackHandler.noStudentFound(textField_stud_pnr.getText()));
 						} else {
@@ -201,16 +201,17 @@ public class view extends JFrame {
 											studying.getSemester().toUpperCase() };
 									dtmStud_Current.addRow(currentCourses);
 								}
-								if (s.getStudiedList().isEmpty()) {
-									communicateMessage(feedbackHandler.noStudied(textField_stud_pnr.getText()));
-								} else {
-									for (Studied studied : s.getStudiedList()) {
-										String[] finishedCourses = { studied.getcCode(),
-												studied.getSemester().toUpperCase(), studied.getGrade().toUpperCase() };
-										dtmStud_Finished.addRow(finishedCourses);
-									}
+							}
+							if (s.getStudiedList().isEmpty()) {
+								communicateMessage(feedbackHandler.noStudied(textField_stud_pnr.getText()));
+							} else {
+								for (Studied studied : s.getStudiedList()) {
+									String[] finishedCourses = { studied.getcCode(),
+											studied.getSemester().toUpperCase(), studied.getGrade().toUpperCase() };
+									dtmStud_Finished.addRow(finishedCourses);
 								}
 							}
+
 							table_stud_foundStud.setModel(dtmStud_Search);
 							table_stud_finished.setModel(dtmStud_Finished);
 							table_stud_courses.setModel(dtmStud_Current);
@@ -248,7 +249,7 @@ public class view extends JFrame {
 					if (textField_stud_delete_pnr.getText().trim().isEmpty()) {
 						communicateMessage(feedbackHandler.noInput());
 					} else {
-						controller.deleteStudent(textField_stud_delete_pnr.getText());
+						controllerLu.deleteStudent(textField_stud_delete_pnr.getText());
 					}
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
@@ -266,7 +267,7 @@ public class view extends JFrame {
 					if (textField_stud_add_pnr.getText().trim().isEmpty()) {
 						communicateMessage(feedbackHandler.noInput());
 					} else {
-						controller.createStudent(textField_stud_add_pnr.getText(), textField_stud_add_name.getText(),
+						controllerLu.createStudent(textField_stud_add_pnr.getText(), textField_stud_add_name.getText(),
 								textField_stud_add_address.getText());
 						lbl_feedback.setText("Student added!");
 					}
@@ -293,8 +294,8 @@ public class view extends JFrame {
 						String semester = dtmStud_Current.getValueAt(st, 1).toString();
 						String ccode = dtmStud_Current.getValueAt(st, 0).toString();
 						String spnr = textField_stud_pnr.getText();
-						controller.registerGrade(semester, spnr, ccode, grade);
-						controller.deleteStudying(spnr, ccode);
+						controllerLu.registerGrade(semester, spnr, ccode, grade);
+						controllerLu.deleteStudying(spnr, ccode);
 						lbl_feedback.setText("Grade registered!");
 					}
 				} catch (Exception e) {
@@ -314,7 +315,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.noInput());
 				} else {
 					try {
-						Student s = controller.getStudent(textField_stud_delete_pnr.getText());
+						Student s = controllerLu.getStudent(textField_stud_delete_pnr.getText());
 						if (s == null) {
 							communicateMessage(feedbackHandler.noStudentFound(textField_stud_delete_pnr.getText()));
 						} else {
@@ -491,7 +492,7 @@ public class view extends JFrame {
 						int st = table_stud_courses.getSelectedRow();
 						String ccode = dtmStud_Current.getValueAt(st, 0).toString();
 						String spnr = textField_stud_pnr.getText();
-						controller.deleteStudying(spnr, ccode);
+						controllerLu.deleteStudying(spnr, ccode);
 						lbl_feedback.setText("Course successfully removed from student!");
 
 					}
@@ -535,7 +536,7 @@ public class view extends JFrame {
 					if (textField_course_delete_ccode.getText().trim().isEmpty()) {
 						communicateMessage(feedbackHandler.noInput());
 					} else {
-						controller.deleteCourse(textField_course_delete_ccode.getText());
+						controllerLu.deleteCourse(textField_course_delete_ccode.getText());
 					}
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
@@ -553,8 +554,8 @@ public class view extends JFrame {
 					if (textField_course_courseCode.getText().trim().isEmpty()) {
 						communicateMessage(feedbackHandler.noInput());
 					} else {
-						controller.createCourse(textField_course_courseCode.getText(), textField_course_cname.getText(),
-								textField_course_points.getText());
+						controllerLu.createCourse(textField_course_courseCode.getText(),
+								textField_course_cname.getText(), textField_course_points.getText());
 						communicateMessage("Course successfully added!");
 					}
 				} catch (Exception e) {
@@ -641,7 +642,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.noInput());
 				} else {
 					try {
-						Course c = controller.getCourse(textField_course_delete_ccode.getText());
+						Course c = controllerLu.getCourse(textField_course_delete_ccode.getText());
 						if (c == null) {
 							communicateMessage(feedbackHandler.noCourseFound(textField_course_delete_ccode.getText()));
 						} else {
@@ -705,7 +706,7 @@ public class view extends JFrame {
 				} else {
 					try {
 						if (rdbtn_course_showNotFinished.isSelected()) {
-							ArrayList<Studying> s = controller
+							ArrayList<Studying> s = controllerLu
 									.notFinished(textField_course_search_ccode.getText().trim());
 							dtmNotFinished.setRowCount(0);
 
@@ -716,7 +717,8 @@ public class view extends JFrame {
 							table_course.setModel(dtmNotFinished);
 
 						} else {
-							ArrayList<Studied> r = controller.getCourseResult(textField_course_search_ccode.getText());
+							ArrayList<Studied> r = controllerLu
+									.getCourseResult(textField_course_search_ccode.getText());
 							dtmCourse_results.setRowCount(0);
 
 							if (r == null) {
@@ -733,7 +735,7 @@ public class view extends JFrame {
 
 								table_course.setModel(dtmCourse_results);
 								lbl_course_search_showgradeA
-										.setText(controller.acedIt(textField_course_search_ccode.getText()));
+										.setText(controllerLu.acedIt(textField_course_search_ccode.getText()));
 							}
 						}
 					} catch (Exception e) {

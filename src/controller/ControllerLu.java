@@ -9,7 +9,7 @@ import model.Student;
 import model.Studied;
 import model.Studying;
 
-public class Controller {
+public class ControllerLu {
 
 	private DataAccessLayer dal = new DataAccessLayer();
 

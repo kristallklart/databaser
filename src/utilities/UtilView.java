@@ -20,9 +20,4 @@ public class UtilView {
 		}
 		return fields;
 	}
-
-	public static String studentFound(String input) {
-		String message = "Student with personal number: " + input + " found.";
-		return message;
-	}
 }
