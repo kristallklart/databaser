@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.Controller;
+import controller.ControllerCronus;
 import model.Course;
 import model.Student;
 import model.Studied;
@@ -36,6 +37,7 @@ public class view extends JFrame {
 	 */
 	private static final long serialVersionUID = 5054166201282114423L;
 	private Controller controller = new Controller();
+	private ControllerCronus controllerCronus = new ControllerCronus();
 	private ErrorHandler errorHandler = new ErrorHandler();
 	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> regGradePanelFields = new ArrayList<JTextField>();
@@ -735,24 +737,44 @@ public class view extends JFrame {
 		JPanel panel_caccess = new JPanel();
 		tabbedPane.addTab("Cronus Access", panel_caccess);
 		panel_caccess.setLayout(null);
-
-		JButton btn_caccess_go = new JButton("Go");
-		btn_caccess_go.setBounds(216, 22, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_caccess.add(btn_caccess_go);
-
+		
 		JLabel lbl_caccess_selectOption = new JLabel("Select query:");
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
 
-		String[] test = { "Choose...", "Query1", "Query2" };
+		String[] test = { " ", "Employee", "Employee Absence", "Employee Portal Setup", "Employee Qualification",
+				"Employee Relative", "Employee Statistics Group",
+				"Metadata Employee", "Metadata Employee Absence", "Metdata Employee Portal Setup", 
+				"Metadata Employee Qualification", "Metadata Employee Relative", "Metadata Employee Statistics Group",
+				"Keys", "Indexes", "Table Constrains", "All tables 1", "All tables 2", "Employee columns 1", "Employee columns 2", "Most rows in database"};
 
-		JComboBox<String> comboBox_caccess_selectOption = new JComboBox(test);
-		comboBox_caccess_selectOption.setBounds(119, 21, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
+		JComboBox<String> comboBox_caccess = new JComboBox(test);
+		comboBox_caccess.setBounds(119, 21, 228, 25);
 
-		panel_caccess.add(comboBox_caccess_selectOption);
+		panel_caccess.add(comboBox_caccess);
+
+		JButton btn_caccess_go = new JButton("Go");
+		btn_caccess_go.setBounds(372, 22, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_caccess_go.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				int testInt = comboBox_caccess.getSelectedIndex();
+				if (testInt != 0) {
+					
+					try {
+						table_caccess.setModel(controllerCronus.getTableModel(testInt));
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		panel_caccess.add(btn_caccess_go);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
-		scrollPane_caccess.setBounds(130, 212, 237, 109);
+		scrollPane_caccess.setBounds(119, 92, 544, 229);
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
