@@ -6,6 +6,10 @@ public class FeedbackHandler {
 		return "Please type something to search for.";
 	}
 
+	public String insufficientInput() {
+		return "Please fill in all the fields";
+	}
+
 	public String noStudentFound(String input) {
 		String message = "Could not find student with personal number: " + input;
 		return message;
@@ -28,6 +32,11 @@ public class FeedbackHandler {
 
 	public String noStudiedOrStudying(String input) {
 		String message = "The student with personal number: " + input + " neither studies or has studied any courses";
+		return message;
+	}
+
+	public String studentAdded(String input) {
+		String message = "Successfully added student with personal number: " + input;
 		return message;
 	}
 }
