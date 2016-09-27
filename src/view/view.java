@@ -774,7 +774,7 @@ public class view extends JFrame {
 
 							if (r == null) {
 								communicateMessage(
-										feedbackHandler.noStudentFound(textField_course_search_ccode.getText()));
+										feedbackHandler.noCourseFound(textField_course_search_ccode.getText()));
 								UtilView.clearNonSearchFields(regGradePanelFields);
 							} else {
 
