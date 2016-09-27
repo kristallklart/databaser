@@ -78,6 +78,7 @@ public class view extends JFrame {
 	private JTextField textField_stud_delete_address;
 	private DefaultTableModel stud_finished;
 	private DefaultTableModel dtmCourse_results;
+	private DefaultTableModel dtmNotFinished;
 	private JTable table_stud_foundStud;
 	private JTable table_stud_finished;
 	private JTextField textField_course_delete_ccode;
@@ -86,6 +87,7 @@ public class view extends JFrame {
 	private JTable table_course;
 	private JTextField textField_course_search_ccode;
 	private JLabel lbl_stud_showRemoveCourse;
+	private JRadioButton rdbtn_course_showNotFinished;
 
 	/**
 	 * Launch the application.
@@ -127,6 +129,10 @@ public class view extends JFrame {
 		tabbedPane.addTab("Student", panel_student);
 		panel_student.setLayout(null);
 
+		JPanel panel_course = new JPanel();
+		tabbedPane.addTab("Course", panel_course);
+		panel_course.setLayout(null);
+
 		lbl_feedback.setBounds(10, 640, 638, 20);
 		contentPane.add(lbl_feedback);
 
@@ -150,6 +156,25 @@ public class view extends JFrame {
 
 		JComboBox<String> comboBox_stud_course = new JComboBox<String>();
 		DefaultComboBoxModel<String> courselist = new DefaultComboBoxModel<String>();
+
+		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
+		rdbtn_course_showAll.setBounds(674, 164, 109, 23);
+		panel_course.add(rdbtn_course_showAll);
+
+		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
+				"Only shows the course with the highest throughoutput", false);
+		rdbtn_course_highestThrough.setBounds(674, 190, 360, 23);
+		panel_course.add(rdbtn_course_highestThrough);
+
+		JRadioButton rdbtn_course_showNotFinished = new JRadioButton(
+				"Show only students who hasn't finished the course", false);
+		rdbtn_course_showNotFinished.setBounds(674, 66, 301, 23);
+		panel_course.add(rdbtn_course_showNotFinished);
+
+		ButtonGroup btngr_course = new ButtonGroup();
+		btngr_course.add(rdbtn_course_showAll);
+		btngr_course.add(rdbtn_course_highestThrough);
+		btngr_course.add(rdbtn_course_showNotFinished);
 
 		JButton btn_stud_search = new JButton("Search");
 		btn_stud_search.addActionListener(new ActionListener() {
@@ -476,6 +501,10 @@ public class view extends JFrame {
 			}
 
 		});
+
+		// ***********************************
+		// ************COURSE TAB*************
+		// ***********************************
 		btn_course_deleteSelCourse.setBounds(745, 558, 85, 23);
 		panel_student.add(btn_course_deleteSelCourse);
 		DefaultComboBoxModel<String> ccodesList = new DefaultComboBoxModel<String>();
@@ -484,13 +513,9 @@ public class view extends JFrame {
 		String[] course = { "Code", "Semester" };
 		dtmcourses.setColumnIdentifiers(course);
 
-		// ***********************************
-		// ************COURSE TAB*************
-		// ***********************************
-
-		JPanel panel_course = new JPanel();
-		tabbedPane.addTab("Course", panel_course);
-		panel_course.setLayout(null);
+		DefaultTableModel dtmNotFinished = new DefaultTableModel();
+		String[] students = { "Personal Number", "Semester" };
+		dtmNotFinished.setColumnIdentifiers(students);
 
 		JButton btn_course_clear = new JButton("Clear");
 		btn_course_clear.addActionListener(new ActionListener() {
@@ -658,7 +683,7 @@ public class view extends JFrame {
 		panel_course.add(lbl_course_search_header);
 
 		JButton btn_course_search_showresult = new JButton("Show Result");
-		btn_course_search_showresult.setBounds(1010, 213, 108, 23);
+		btn_course_search_showresult.setBounds(1093, 213, 108, 23);
 		panel_course.add(btn_course_search_showresult);
 
 		JLabel lblSelectCourse = new JLabel("Select course:");
@@ -679,51 +704,47 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.noInput());
 				} else {
 					try {
-						ArrayList<Studied> r = controller.getCourseResult(textField_course_search_ccode.getText());
-						dtmCourse_results.setRowCount(0);
+						if (rdbtn_course_showNotFinished.isSelected()) {
+							ArrayList<Studying> s = controller
+									.notFinished(textField_course_search_ccode.getText().trim());
+							dtmNotFinished.setRowCount(0);
 
-						if (r == null) {
-							communicateMessage(feedbackHandler.noStudentFound(textField_course_search_ccode.getText()));
-							UtilView.clearNonSearchFields(regGradePanelFields);
-						} else {
-
-							for (Studied re : r) {
-								String[] studentsCourses = { re.getsPnr(), re.getSemester().toUpperCase(),
-										re.getGrade().toUpperCase() };
-								dtmCourse_results.addRow(studentsCourses);
+							for (Studying studying : s) {
+								String[] studentsCourses = { studying.getsPnr(), studying.getSemester().toUpperCase() };
+								dtmNotFinished.addRow(studentsCourses);
 							}
+							table_course.setModel(dtmNotFinished);
 
-							table_course.setModel(dtmCourse_results);
-							lbl_course_search_showgradeA
-									.setText(controller.acedIt(textField_course_search_ccode.getText()));
+						} else {
+							ArrayList<Studied> r = controller.getCourseResult(textField_course_search_ccode.getText());
+							dtmCourse_results.setRowCount(0);
+
+							if (r == null) {
+								communicateMessage(
+										feedbackHandler.noStudentFound(textField_course_search_ccode.getText()));
+								UtilView.clearNonSearchFields(regGradePanelFields);
+							} else {
+
+								for (Studied re : r) {
+									String[] studentsCourses = { re.getsPnr(), re.getSemester().toUpperCase(),
+											re.getGrade().toUpperCase() };
+									dtmCourse_results.addRow(studentsCourses);
+								}
+
+								table_course.setModel(dtmCourse_results);
+								lbl_course_search_showgradeA
+										.setText(controller.acedIt(textField_course_search_ccode.getText()));
+							}
 						}
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 				}
+
 			}
 		});
-		btn_course_searchEnrolled.setBounds(1010, 109, 108, 23);
+		btn_course_searchEnrolled.setBounds(1093, 110, 108, 23);
 		panel_course.add(btn_course_searchEnrolled);
-
-		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
-		rdbtn_course_showAll.setBounds(674, 164, 109, 23);
-		panel_course.add(rdbtn_course_showAll);
-
-		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
-				"Only shows the course with the highest throughoutput", false);
-		rdbtn_course_highestThrough.setBounds(674, 190, 320, 23);
-		panel_course.add(rdbtn_course_highestThrough);
-
-		JRadioButton rdbtn_course_showNotFinished = new JRadioButton(
-				"Show only students who hasn't finished the course", false);
-		rdbtn_course_showNotFinished.setBounds(674, 66, 301, 23);
-		panel_course.add(rdbtn_course_showNotFinished);
-
-		ButtonGroup btngr_course = new ButtonGroup();
-		btngr_course.add(rdbtn_course_showAll);
-		btngr_course.add(rdbtn_course_highestThrough);
-		btngr_course.add(rdbtn_course_showNotFinished);
 
 		// ***************************************
 		// ***********CRONUS ACCESS TAB***********
@@ -752,7 +773,7 @@ public class view extends JFrame {
 				if (selectedCronusIndex != 0) {
 					try {
 						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex));
-							
+
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();

@@ -372,4 +372,32 @@ public class DataAccessLayer {
 		}
 
 	}
+
+	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ArrayList<Studying> nf = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.notFinished());
+			pStatement.setString(1, ccode);
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				return nf;
+			} else {
+				nf = new ArrayList<Studying>();
+				while (rSet.next()) {
+					Studying s = new Studying();
+					s.setsPnr(rSet.getString("spnr"));
+					s.setSemester((rSet.getString("semester")));
+					nf.add(s);
+				}
+			}
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+		return nf;
+	}
 }

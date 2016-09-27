@@ -68,4 +68,8 @@ public class Controller {
 	public void deleteStudying(String spnr, String ccode) {
 		dal.deleteStudying(spnr, ccode);
 	}
+
+	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
+		return dal.notFinished(ccode);
+	}
 }

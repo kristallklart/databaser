@@ -31,7 +31,7 @@ public class Util {
 
 	// studenter som inte är klara med en viss kurs - fråga erre
 	public String notFinished() {
-		return "select spnr, sname from studying where ccode = ?";
+		return "select spnr, semester from studies where ccode = ?";
 	}
 
 	// procent studenter som fått a på en särskild kurs
