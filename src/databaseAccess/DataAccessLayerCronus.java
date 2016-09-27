@@ -6,16 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
-import dal.LoginDataCronus;
-import model.Course;
-import model.Student;
-import model.Studied;
-import model.Studying;
 import utilities.UtilCronus;
 
 public class DataAccessLayerCronus {
@@ -25,18 +19,17 @@ public class DataAccessLayerCronus {
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
 	}
-	
-	public DefaultTableModel getTableModel(int selectedIndex)
-	{
+
+	public DefaultTableModel getTableModel(int selectedIndex) {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
 		UtilCronus utilCronus = new UtilCronus();
-		
+
 		Connection con = null;
 		try {
 			con = this.createConnection();
 			if (con != null) {
-				
+
 				PreparedStatement pstate = null;
 				ResultSet rs = null;
 				ResultSetMetaData rsmd = null;
@@ -46,12 +39,12 @@ public class DataAccessLayerCronus {
 				rsmd = rs.getMetaData();
 
 				int numberOfColumns = rsmd.getColumnCount();
-				
-				for(int i = 1; i <= numberOfColumns; i++){
+
+				for (int i = 1; i <= numberOfColumns; i++) {
 					sendColumnNames.add(rsmd.getColumnName(i));
 				}
-				
-				while(rs.next()){
+
+				while (rs.next()) {
 					Vector<Object> columnData = new Vector<Object>();
 					for (int i = 1; i <= numberOfColumns; i++) {
 						columnData.add(rs.getObject(i));

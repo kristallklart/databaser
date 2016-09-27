@@ -1,6 +1,6 @@
-package dal;
+package databaseAccess;
 
-public class LoginData {
+public class LoginDataLu {
 
 	private String url = "jdbc:sqlserver://localhost:1433;DatabaseName=lu";
 	private String user = "bibbi";

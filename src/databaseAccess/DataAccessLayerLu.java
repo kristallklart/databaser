@@ -1,4 +1,4 @@
-package dal;
+package databaseAccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,9 +13,10 @@ import model.Studied;
 import model.Studying;
 import utilities.UtilDatabaseAccess;
 
-public class DataAccessLayer {
-	private LoginData login = new LoginData();
-	private Util util = new Util();
+public class DataAccessLayerLu {
+
+	private LoginDataLu login = new LoginDataLu();
+	private QueriesLu queriesLu = new QueriesLu();
 	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
 
 	public Connection createConnection() throws SQLException {
@@ -30,7 +31,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.getStudent());
+			pStatement = con.prepareStatement(queriesLu.getStudent());
 			pStatement.setString(1, spnr);
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
@@ -57,7 +58,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.getCourse());
+			pStatement = con.prepareStatement(queriesLu.getCourse());
 			pStatement.setString(1, ccode);
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
@@ -84,7 +85,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.getCcodes());
+			pStatement = con.prepareStatement(queriesLu.getCcodes());
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
 				return c;
@@ -107,7 +108,7 @@ public class DataAccessLayer {
 		ArrayList<Studying> studying = null;
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.getStudentStudying());
+			pStatement = con.prepareStatement(queriesLu.getStudentStudying());
 			pStatement.setString(1, spnr);
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
@@ -132,7 +133,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.getStudentStudied());
+			pStatement = con.prepareStatement(queriesLu.getStudentStudied());
 			pStatement.setString(1, spnr);
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
@@ -156,7 +157,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.deleteStudent());
+			pStatement = con.prepareStatement(queriesLu.deleteStudent());
 			pStatement.setString(1, spnr);
 			pStatement.execute();
 
@@ -172,7 +173,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.deleteCourse());
+			pStatement = con.prepareStatement(queriesLu.deleteCourse());
 			pStatement.setString(1, ccode);
 			pStatement.execute();
 
@@ -193,7 +194,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.getStudent());
+			pStatement = con.prepareStatement(queriesLu.getStudent());
 			pStatement.setString(1, spnr);
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
@@ -203,7 +204,7 @@ public class DataAccessLayer {
 				setStudent(rSet, student);
 
 				pStatement.close();
-				pStatement = con.prepareStatement(util.getStudentStudying());
+				pStatement = con.prepareStatement(queriesLu.getStudentStudying());
 				pStatement.setString(1, spnr);
 				rSet = pStatement.executeQuery();
 				if (!rSet.isBeforeFirst()) {
@@ -216,7 +217,7 @@ public class DataAccessLayer {
 						student.addStudying(studying);
 					}
 					pStatement.close();
-					pStatement = con.prepareStatement(util.getStudentStudied());
+					pStatement = con.prepareStatement(queriesLu.getStudentStudied());
 					pStatement.setString(1, spnr);
 					rSet = pStatement.executeQuery();
 					if (!rSet.isBeforeFirst()) {
@@ -246,23 +247,22 @@ public class DataAccessLayer {
 		}
 	}
 
-	public boolean createStudent(String spnr, String sname, String saddress) throws SQLException {
+	public boolean createStudent(String spnr, String sname, String saddress) {
 		Connection con = null;
 		PreparedStatement pStatement = null;
-		boolean result;
-
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.createStudent());
+			pStatement = con.prepareStatement(queriesLu.createStudent());
 			pStatement.setString(1, spnr);
 			pStatement.setString(2, sname);
 			pStatement.setString(3, saddress);
 
-			result = pStatement.execute();
-			return result;
+			pStatement.execute();
+			return true;
 
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
+		} catch (SQLException e) {
+			return false;
+
 		}
 	}
 
@@ -271,7 +271,7 @@ public class DataAccessLayer {
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.createCourse());
+			pStatement = con.prepareStatement(queriesLu.createCourse());
 			pStatement.setString(1, ccode);
 			pStatement.setString(2, cname);
 			pStatement.setString(3, cpoint);
@@ -292,7 +292,7 @@ public class DataAccessLayer {
 		ArrayList<Studied> results = null;
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.courseResult());
+			pStatement = con.prepareStatement(queriesLu.courseResult());
 			pStatement.setString(1, ccode);
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
@@ -319,7 +319,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.AcedIt());
+			pStatement = con.prepareStatement(queriesLu.AcedIt());
 			pStatement.setString(1, ccode);
 			pStatement.setString(2, ccode);
 			rSet = pStatement.executeQuery();
@@ -343,7 +343,7 @@ public class DataAccessLayer {
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.registerGrade());
+			pStatement = con.prepareStatement(queriesLu.registerGrade());
 			pStatement.setString(4, semester);
 			pStatement.setString(1, sPnr);
 			pStatement.setString(2, cCode);
@@ -364,7 +364,7 @@ public class DataAccessLayer {
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(util.deleteStudying());
+			pStatement = con.prepareStatement(queriesLu.deleteStudying());
 			pStatement.setString(1, spnr);
 			pStatement.setString(2, ccode);
 			pStatement.execute();
@@ -372,33 +372,5 @@ public class DataAccessLayer {
 		} catch (SQLException e) {
 		}
 
-	}
-
-	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
-		ArrayList<Studying> nf = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(util.notFinished());
-			pStatement.setString(1, ccode);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return nf;
-			} else {
-				nf = new ArrayList<Studying>();
-				while (rSet.next()) {
-					Studying s = new Studying();
-					s.setsPnr(rSet.getString("spnr"));
-					s.setSemester((rSet.getString("semester")));
-					nf.add(s);
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return nf;
 	}
 }
