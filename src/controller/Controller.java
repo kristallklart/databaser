@@ -64,4 +64,8 @@ public class Controller {
 	public boolean registerGrade(String semester, String sPnr, String cCode, String grade) {
 		return dal.registerGrade(semester, sPnr, cCode, grade);
 	}
+
+	public void deleteStudying(String spnr, String ccode) {
+		dal.deleteStudying(spnr, ccode);
+	}
 }

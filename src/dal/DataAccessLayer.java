@@ -366,4 +366,20 @@ public class DataAccessLayer {
 
 		}
 	}
+
+	public void deleteStudying(String spnr, String ccode) {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(util.deleteStudying());
+			pStatement.setString(1, spnr);
+			pStatement.setString(2, ccode);
+			pStatement.execute();
+
+		} catch (SQLException e) {
+		}
+
+	}
 }

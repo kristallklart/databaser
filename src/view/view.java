@@ -262,13 +262,15 @@ public class view extends JFrame {
 
 						String grade = comboBox_stud_grade.getSelectedItem().toString();
 						int st = table_stud_courses.getSelectedRow();
-						String semester = dtmStud_Current.getValueAt(st, 0).toString();
-						String ccode = dtmStud_Current.getValueAt(st, 1).toString();
-						controller.registerGrade(semester, textField_stud_pnr.getText(), ccode, grade);
+						String semester = dtmStud_Current.getValueAt(st, 1).toString();
+						String ccode = dtmStud_Current.getValueAt(st, 0).toString();
+						String spnr = textField_stud_pnr.getText();
+						controller.registerGrade(semester, spnr, ccode, grade);
+						controller.deleteStudying(spnr, ccode);
 						lbl_feedback.setText("Grade registered!");
 					}
 				} catch (Exception e) {
-					lbl_feedback.setText("buuu");
+					communicateMessage(exceptionHandler.handleException(e));
 				}
 			}
 
