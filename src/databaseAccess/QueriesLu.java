@@ -1,6 +1,6 @@
-package dal;
+package databaseAccess;
 
-public class Util {
+public class QueriesLu {
 
 	public String getStudent() {
 		return "select * from student where spnr = ?";
