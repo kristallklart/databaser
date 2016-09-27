@@ -57,6 +57,10 @@ public class Util {
 		return "delete from course where ccode =?";
 	}
 
+	public String deleteStudying() {
+		return "delete from studies where spnr =? and ccode=?";
+	}
+
 	public String createStudent() {
 		return "insert into student values (?,?,?)";
 	}
