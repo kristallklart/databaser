@@ -57,20 +57,10 @@ public class view extends JFrame {
 	private final int COMBOBOX_WIDHT = 85;
 	private final int COMBOBOX_HEIGHT = 25;
 	private JTextField textField_stud_pnr;
-	private JTextField textField_regStud_pnr;
-	private JTextField textField_regStud_name;
-	private JTextField textField_regGrade_name;
-	private JTextField textField_regGrade_pnr;
 	private JTextField textField_course_courseCode;
 	private JTextField textField_course_cname;
 	private JTextField textField_course_points;
-	private JTextField textField_searchInfo_courseCode;
-	private JTextField textField_searchInfo_pnr;
-	private JTextField textField_searchInfo_grade;
-	private JTable table_stud_reg;
 	private JTable table_stud_courses;
-	private JTable table_regGrade;
-	private JTable table_searchInfo;
 	private JTable table_caccess;
 	private JComboBox comboBox_regStud_ccode;
 	private JComboBox comboBox_stud_course;
@@ -408,222 +398,11 @@ public class view extends JFrame {
 		JLabel lblCurrentCourses = new JLabel("Current Courses:");
 		lblCurrentCourses.setBounds(472, 249, 108, 14);
 		panel_student.add(lblCurrentCourses);
-
-		// ***********************************
-		// *******REGISTER STUDENT TAB********
-		// ***********************************
-		JComboBox<String> comboBox_regStud_ccode = new JComboBox<String>();
 		DefaultComboBoxModel<String> ccodesList = new DefaultComboBoxModel<String>();
-
-		JPanel panel_regStudent = new JPanel();
-		tabbedPane.addTab("Register student", panel_regStudent);
-		panel_regStudent.setLayout(null);
-
-		JButton btn_regStud_delete = new JButton("Delete");
-		btn_regStud_delete.setBounds(393, 301, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_regStudent.add(btn_regStud_delete);
-
-		JButton btn_regStud_register = new JButton("Register");
-		btn_regStud_register.setBounds(513, 301, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_regStudent.add(btn_regStud_register);
-
-		JButton btn_regStud_search = new JButton("Search");
-		btn_regStud_search.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (textField_regStud_pnr.getText().trim().isEmpty()) {
-					lbl_feedback.setText(errorHandler.noInput());
-				} else {
-					try {
-						Student s = controller.getStudent(textField_regStud_pnr.getText());
-						ArrayList<String> c = controller.getCcodes();
-						for (String string : c) {
-							ccodesList.addElement(string);
-						}
-						comboBox_regStud_ccode.setModel(ccodesList);
-
-						if (s == null) {
-							lbl_feedback.setText(errorHandler.noStudentFound(textField_regStud_pnr.getText()));
-						} else {
-							textField_regStud_name.setText(s.getSname());
-						}
-					} catch (Exception e) {
-						lbl_feedback.setText("Error: " + errorHandler.handleException(e));
-					}
-				}
-			}
-		});
-		btn_regStud_search.setBounds(325, 27, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_regStudent.add(btn_regStud_search);
-
-		JButton btn_regStud_add = new JButton("Add");
-		btn_regStud_add.setBounds(15, 212, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_regStudent.add(btn_regStud_add);
-
-		textField_regStud_pnr = new JTextField();
-		textField_regStud_pnr.setColumns(10);
-		textField_regStud_pnr.setBounds(154, 26, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_regStudent.add(textField_regStud_pnr);
-
-		textField_regStud_name = new JTextField();
-		textField_regStud_name.setEditable(false);
-		textField_regStud_name.setBounds(154, 60, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_regStudent.add(textField_regStud_name);
-		textField_regStud_name.setColumns(10);
-
-		JLabel lbl_regStud_name = new JLabel("Name:");
-		lbl_regStud_name.setBounds(15, 61, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_regStudent.add(lbl_regStud_name);
-
-		JLabel lbl_regStud_pnr = new JLabel("Personal number:");
-		lbl_regStud_pnr.setBounds(15, 26, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_regStudent.add(lbl_regStud_pnr);
-
-		JLabel lbl_regStud_ccode = new JLabel("Course code:");
-		lbl_regStud_ccode.setBounds(15, 95, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_regStudent.add(lbl_regStud_ccode);
-
-		JLabel lbl_regStud_semester = new JLabel("Semester:");
-		lbl_regStud_semester.setBounds(15, 156, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_regStudent.add(lbl_regStud_semester);
-
-		comboBox_regStud_ccode.setMaximumRowCount(10);
-		comboBox_regStud_ccode.setBounds(154, 98, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		panel_regStudent.add(comboBox_regStud_ccode);
-
-		JComboBox<String> comboBox_regStud_year = new JComboBox<String>();
-		comboBox_regStud_year.setBounds(154, 155, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		panel_regStudent.add(comboBox_regStud_year);
-
-		comboBox_regStud_year.addItem("HT16");
-		comboBox_regStud_year.addItem("VT16");
-		comboBox_regStud_year.addItem("HT17");
-
-		JScrollPane scrollPane_regStud = new JScrollPane();
-		scrollPane_regStud.setBounds(15, 243, 366, 81);
-		panel_regStudent.add(scrollPane_regStud);
-
-		table_stud_reg = new JTable();
-		scrollPane_regStud.setViewportView(table_stud_reg);
-
-		// ***********************************
-		// *********REGISTER GRADE TAB********
-		// ***********************************
-
-		JPanel panel_regGrade = new JPanel();
-		tabbedPane.addTab("Register grade", panel_regGrade);
-		panel_regGrade.setLayout(null);
 
 		DefaultTableModel dtmcourses = new DefaultTableModel();
 		String[] course = { "Code", "Semester" };
 		dtmcourses.setColumnIdentifiers(course);
-
-		JButton btn_regGrade_search = new JButton("Search");
-		btn_regGrade_search.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (textField_regGrade_pnr.getText().trim().isEmpty()) {
-					lbl_feedback.setText(errorHandler.noInput());
-				} else {
-					try {
-						Student s = controller.getStudent(textField_regGrade_pnr.getText());
-						ArrayList<Studying> studying = controller.getStudentStudying(textField_regGrade_pnr.getText());
-						dtmcourses.setRowCount(0);
-
-						if (s == null) {
-							lbl_feedback.setText(errorHandler.noStudentFound(textField_regGrade_pnr.getText()));
-							UtilView.clearNonSearchFields(regGradePanelFields);
-						} else if (studying == null) {
-							lbl_feedback.setText(errorHandler.noStudying(textField_regGrade_pnr.getText()));
-
-						} else {
-							textField_regGrade_name.setText(s.getSname());
-
-							for (Studying stud : studying) {
-								String[] studentsCourses = { stud.getcCode(), stud.getSemester().toUpperCase() };
-								dtmcourses.addRow(studentsCourses);
-							}
-
-							table_regGrade.setModel(dtmcourses);
-							lbl_feedback.setText(UtilView.studentFound(textField_regGrade_pnr.getText()));
-						}
-					} catch (Exception e) {
-						lbl_feedback.setText(errorHandler.handleException(e));
-					}
-				}
-			}
-		});
-
-		btn_regGrade_search.setBounds(290, 28, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_regGrade.add(btn_regGrade_search);
-
-		JButton btn_regGrade_clear = new JButton("Clear");
-		btn_regGrade_clear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dtmcourses.setRowCount(0);
-				UtilView.clearAllFields(regGradePanelFields);
-			}
-		});
-		btn_regGrade_clear.setBounds(10, 298, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_regGrade.add(btn_regGrade_clear);
-
-		JButton btn_regGrade_save = new JButton("Save");
-		btn_regGrade_save.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btn_regGrade_save.setBounds(280, 298, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_regGrade.add(btn_regGrade_save);
-
-		textField_regGrade_pnr = new JTextField();
-		textField_regGrade_pnr.setColumns(10);
-		textField_regGrade_pnr.setBounds(119, 27, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_regGrade.add(textField_regGrade_pnr);
-		regGradePanelFields.add(textField_regGrade_pnr);
-
-		textField_regGrade_name = new JTextField();
-		textField_regGrade_name.setEditable(false);
-		textField_regGrade_name.setColumns(10);
-		textField_regGrade_name.setBounds(119, 59, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_regGrade.add(textField_regGrade_name);
-		regGradePanelFields.add(textField_regGrade_name);
-
-		JLabel lbl_regGrade_pnr = new JLabel("Personal number:");
-		lbl_regGrade_pnr.setBounds(10, 27, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_regGrade.add(lbl_regGrade_pnr);
-
-		JLabel lbl_regGrade_name = new JLabel("Name:");
-		lbl_regGrade_name.setBounds(10, 62, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_regGrade.add(lbl_regGrade_name);
-
-		JLabel lbl_regGarde_grade = new JLabel("Grade:");
-		lbl_regGarde_grade.setBounds(10, 241, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_regGrade.add(lbl_regGarde_grade);
-
-		JComboBox<String> comboBox_regGrade_grade = new JComboBox<String>();
-		comboBox_regGrade_grade.setMaximumRowCount(10);
-		comboBox_regGrade_grade.setBounds(119, 241, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		panel_regGrade.add(comboBox_regGrade_grade);
-
-		comboBox_regGrade_grade.addItem("A");
-		comboBox_regGrade_grade.addItem("B");
-		comboBox_regGrade_grade.addItem("C");
-		comboBox_regGrade_grade.addItem("D");
-		comboBox_regGrade_grade.addItem("E");
-		comboBox_regGrade_grade.addItem("U");
-		comboBox_regGrade_grade.setSelectedIndex(0);
-
-		JScrollPane scrollPane_regGrade = new JScrollPane();
-		scrollPane_regGrade.setBounds(119, 106, 237, 109);
-		panel_regGrade.add(scrollPane_regGrade);
-
-		table_regGrade = new JTable();
-		scrollPane_regGrade.setViewportView(table_regGrade);
-		table_regGrade.setModel(dtmcourses);
-		table_regGrade.setRowHeight(20);
 
 		// ***********************************
 		// ************COURSE TAB*************
@@ -833,7 +612,6 @@ public class view extends JFrame {
 							}
 
 							table_course.setModel(dtmCourse_results);
-							lbl_feedback.setText(UtilView.studentFound(textField_regGrade_pnr.getText()));
 							lbl_course_search_showgradeA
 									.setText(controller.acedIt(textField_course_search_ccode.getText()));
 						}
@@ -865,65 +643,6 @@ public class view extends JFrame {
 		btngr_course.add(rdbtn_course_highestThrough);
 		btngr_course.add(rdbtn_course_showNotFinished);
 
-		// ***********************************
-		// *********SEARCH INFO TAB***********
-		// ***********************************
-
-		JPanel panel_searchInfo = new JPanel();
-		tabbedPane.addTab("Search information", panel_searchInfo);
-		panel_searchInfo.setLayout(null);
-
-		JButton btn_searchInfo_search = new JButton("Search");
-		btn_searchInfo_search.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btn_searchInfo_search.setBounds(298, 73, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_searchInfo.add(btn_searchInfo_search);
-
-		textField_searchInfo_courseCode = new JTextField();
-		textField_searchInfo_courseCode.setColumns(10);
-		textField_searchInfo_courseCode.setBounds(127, 72, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_searchInfo.add(textField_searchInfo_courseCode);
-
-		textField_searchInfo_pnr = new JTextField();
-		textField_searchInfo_pnr.setColumns(10);
-		textField_searchInfo_pnr.setBounds(127, 120, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_searchInfo.add(textField_searchInfo_pnr);
-
-		textField_searchInfo_grade = new JTextField();
-		textField_searchInfo_grade.setColumns(10);
-		textField_searchInfo_grade.setBounds(127, 166, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_searchInfo.add(textField_searchInfo_grade);
-
-		JLabel lbl_searchInfo_selectOption = new JLabel("Select option:");
-		lbl_searchInfo_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_searchInfo.add(lbl_searchInfo_selectOption);
-
-		JLabel lbl_searchInfo_courseCode = new JLabel("Course code:");
-		lbl_searchInfo_courseCode.setBounds(10, 72, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_searchInfo.add(lbl_searchInfo_courseCode);
-
-		JLabel lbl_searchInfo_personalNumber = new JLabel("Personal number:");
-		lbl_searchInfo_personalNumber.setBounds(10, 120, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_searchInfo.add(lbl_searchInfo_personalNumber);
-
-		JLabel lbl_searchInfo_grade = new JLabel("Grade:");
-		lbl_searchInfo_grade.setBounds(10, 166, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_searchInfo.add(lbl_searchInfo_grade);
-
-		JComboBox<String> comboBox_searchInfo_selectOption = new JComboBox<String>();
-		comboBox_searchInfo_selectOption.setBounds(130, 22, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		panel_searchInfo.add(comboBox_searchInfo_selectOption);
-
-		JScrollPane scrollPane_searchInfo = new JScrollPane();
-		scrollPane_searchInfo.setBounds(130, 212, 237, 109);
-		panel_searchInfo.add(scrollPane_searchInfo);
-
-		table_searchInfo = new JTable();
-		scrollPane_searchInfo.setViewportView(table_searchInfo);
-
 		// ***************************************
 		// ***********CRONUS ACCESS TAB***********
 		// ***************************************
@@ -932,16 +651,16 @@ public class view extends JFrame {
 		JPanel panel_caccess = new JPanel();
 		tabbedPane.addTab("Cronus Access", panel_caccess);
 		panel_caccess.setLayout(null);
-		
+
 		JLabel lbl_caccess_selectOption = new JLabel("Select query:");
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
 
 		String[] test = { " ", "Employee", "Employee Absence", "Employee Portal Setup", "Employee Qualification",
-				"Employee Relative", "Employee Statistics Group",
-				"Metadata Employee", "Metadata Employee Absence", "Metdata Employee Portal Setup", 
-				"Metadata Employee Qualification", "Metadata Employee Relative", "Metadata Employee Statistics Group",
-				"Keys", "Indexes", "Table Constrains", "All tables 1", "All tables 2", "Employee columns 1", "Employee columns 2", "Most rows in database"};
+				"Employee Relative", "Employee Statistics Group", "Metadata Employee", "Metadata Employee Absence",
+				"Metdata Employee Portal Setup", "Metadata Employee Qualification", "Metadata Employee Relative",
+				"Metadata Employee Statistics Group", "Keys", "Indexes", "Table Constrains", "All tables 1",
+				"All tables 2", "Employee columns 1", "Employee columns 2", "Most rows in database" };
 
 		JComboBox<String> comboBox_caccess = new JComboBox(test);
 		comboBox_caccess.setBounds(119, 21, 228, 25);
@@ -956,7 +675,7 @@ public class view extends JFrame {
 				// TODO Auto-generated method stub
 				int testInt = comboBox_caccess.getSelectedIndex();
 				if (testInt != 0) {
-					
+
 					try {
 						table_caccess.setModel(controllerCronus.getTableModel(testInt));
 					} catch (SQLException e) {
