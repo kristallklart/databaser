@@ -45,7 +45,7 @@ public class ControllerLu {
 		dal.deleteStudent(spnr);
 	}
 
-	public boolean createStudent(String spnr, String sname, String saddress) {
+	public boolean createStudent(String spnr, String sname, String saddress) throws SQLException {
 		return dal.createStudent(spnr, sname, saddress);
 	}
 

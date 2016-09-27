@@ -264,12 +264,18 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					if (textField_stud_add_pnr.getText().trim().isEmpty()) {
-						communicateMessage(feedbackHandler.noInput());
+					if (textField_stud_add_pnr.getText().trim().isEmpty()
+							|| textField_stud_add_name.getText().trim().isEmpty()
+							|| textField_stud_add_address.getText().trim().isEmpty()) {
+						communicateMessage(feedbackHandler.insufficientInput());
 					} else {
-						controllerLu.createStudent(textField_stud_add_pnr.getText(), textField_stud_add_name.getText(),
-								textField_stud_add_address.getText());
-						lbl_feedback.setText("Student added!");
+						boolean test = controllerLu.createStudent(textField_stud_add_pnr.getText(),
+								textField_stud_add_name.getText(), textField_stud_add_address.getText());
+						if (test == false) {
+							communicateMessage(feedbackHandler.studentAdded(textField_stud_add_pnr.getText()));
+						} else {
+							communicateMessage("NOT SO GREAT!");
+						}
 					}
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));

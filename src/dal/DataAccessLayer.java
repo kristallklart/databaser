@@ -246,9 +246,11 @@ public class DataAccessLayer {
 		}
 	}
 
-	public boolean createStudent(String spnr, String sname, String saddress) {
+	public boolean createStudent(String spnr, String sname, String saddress) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
+		boolean result;
+
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(util.createStudent());
@@ -256,12 +258,11 @@ public class DataAccessLayer {
 			pStatement.setString(2, sname);
 			pStatement.setString(3, saddress);
 
-			pStatement.execute();
-			return true;
+			result = pStatement.execute();
+			return result;
 
-		} catch (SQLException e) {
-			return false;
-
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
 
