@@ -2,7 +2,7 @@ package utilities;
 
 import java.sql.SQLException;
 
-public class ErrorHandler {
+public class ExceptionHandler {
 
 	public String handleException(Exception ex) {
 		String message;
@@ -36,35 +36,6 @@ public class ErrorHandler {
 		} else {
 			message = "An unknown exception occured, please contact support.";
 		}
-		return message;
-	}
-
-	public String noInput() {
-		return "Please type something to search for.";
-	}
-
-	public String noStudentFound(String input) {
-		String message = "Could not find student with personal number: " + input;
-		return message;
-	}
-
-	public String noCourseFound(String input) {
-		String message = "Could not find course with course code: " + input;
-		return message;
-	}
-
-	public String noStudying(String input) {
-		String message = "The student with personal number: " + input + " is not registered on any courses.";
-		return message;
-	}
-
-	public String noStudied(String input) {
-		String message = "The student with personal number: " + input + " has not finished any courses.";
-		return message;
-	}
-
-	public String noStudiedOrStudying(String input) {
-		String message = "The student with personal number: " + input + " neither studies or has studied any courses";
 		return message;
 	}
 }
