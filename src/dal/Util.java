@@ -1,9 +1,5 @@
 package dal;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 public class Util {
 
 	public String getStudent() {
@@ -80,16 +76,6 @@ public class Util {
 
 	public String registerOnCourse() {
 		return "insert into studies values (?,?,?)";
-	}
-
-	public void closeAll(PreparedStatement pStatement, Connection con) throws SQLException {
-
-		if (pStatement != null && !pStatement.isClosed()) {
-			pStatement.close();
-		}
-		if (con != null && !con.isClosed()) {
-			con.close();
-		}
 	}
 
 }

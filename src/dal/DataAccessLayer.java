@@ -11,10 +11,12 @@ import model.Course;
 import model.Student;
 import model.Studied;
 import model.Studying;
+import utilities.UtilDatabaseAccess;
 
 public class DataAccessLayer {
 	private LoginData login = new LoginData();
 	private Util util = new Util();
+	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
 
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
@@ -42,7 +44,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return s;
 	}
@@ -69,7 +71,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return c;
 	}
@@ -93,7 +95,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return c;
 	}
@@ -117,7 +119,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return studying;
 	}
@@ -143,7 +145,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return studied;
 	}
@@ -159,7 +161,7 @@ public class DataAccessLayer {
 			pStatement.execute();
 
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 
 	}
@@ -231,7 +233,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return student;
 	}
@@ -302,7 +304,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return results;
 
@@ -330,7 +332,7 @@ public class DataAccessLayer {
 			}
 
 		} finally {
-			util.closeAll(pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return percent;
 	}
