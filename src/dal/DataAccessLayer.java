@@ -11,10 +11,12 @@ import model.Course;
 import model.Student;
 import model.Studied;
 import model.Studying;
+import utilities.UtilDatabaseAccess;
 
 public class DataAccessLayer {
 	private LoginData login = new LoginData();
 	private Util util = new Util();
+	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
 
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
@@ -42,7 +44,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			closeAll(rSet, pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return s;
 	}
@@ -69,7 +71,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			closeAll(rSet, pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return c;
 	}
@@ -93,7 +95,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			closeAll(rSet, pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return c;
 	}
@@ -117,7 +119,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			closeAll(rSet, pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return studying;
 	}
@@ -143,12 +145,12 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			closeAll(rSet, pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return studied;
 	}
 
-	public void deleteStudent(String spnr) {
+	public void deleteStudent(String spnr) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 
@@ -158,7 +160,8 @@ public class DataAccessLayer {
 			pStatement.setString(1, spnr);
 			pStatement.execute();
 
-		} catch (SQLException e) {
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 
 	}
@@ -230,21 +233,9 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			closeAll(rSet, pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return student;
-	}
-
-	private void closeAll(ResultSet rSet, PreparedStatement pStatement, Connection con) throws SQLException {
-		if (rSet != null && !rSet.isClosed()) {
-			rSet.close();
-		}
-		if (pStatement != null && !pStatement.isClosed()) {
-			pStatement.close();
-		}
-		if (con != null && !con.isClosed()) {
-			con.close();
-		}
 	}
 
 	private void setStudent(ResultSet rSet, Student s) throws SQLException {
@@ -313,7 +304,7 @@ public class DataAccessLayer {
 				}
 			}
 		} finally {
-			closeAll(rSet, pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return results;
 
@@ -335,14 +326,13 @@ public class DataAccessLayer {
 				return percent;
 			} else {
 				while (rSet.next()) {
-
 					percent = rSet.getString(1);
 				}
 
 			}
 
 		} finally {
-			closeAll(rSet, pStatement, con);
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return percent;
 	}

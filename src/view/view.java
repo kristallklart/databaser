@@ -738,13 +738,7 @@ public class view extends JFrame {
 		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_caccess.add(lbl_caccess_selectOption);
 
-		String[] test = { " ", "Employee", "Employee Absence", "Employee Portal Setup", "Employee Qualification",
-				"Employee Relative", "Employee Statistics Group", "Metadata Employee", "Metadata Employee Absence",
-				"Metdata Employee Portal Setup", "Metadata Employee Qualification", "Metadata Employee Relative",
-				"Metadata Employee Statistics Group", "Keys", "Indexes", "Table Constrains", "All tables 1",
-				"All tables 2", "Employee columns 1", "Employee columns 2", "Most rows in database" };
-
-		JComboBox<String> comboBox_caccess = new JComboBox(test);
+		JComboBox<String> comboBox_caccess = new JComboBox(controllerCronus.getCronusQueryNames());
 		comboBox_caccess.setBounds(119, 21, 228, 25);
 
 		panel_caccess.add(comboBox_caccess);
@@ -754,11 +748,11 @@ public class view extends JFrame {
 		btn_caccess_go.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int testInt = comboBox_caccess.getSelectedIndex();
-				if (testInt != 0) {
-
+				int selectedCronusIndex = comboBox_caccess.getSelectedIndex();
+				if (selectedCronusIndex != 0) {
 					try {
-						table_caccess.setModel(controllerCronus.getTableModel(testInt));
+						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex));
+							
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
@@ -773,11 +767,8 @@ public class view extends JFrame {
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
+		table_caccess.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane_caccess.setViewportView(table_caccess);
-
-		JSeparator separator_caccess = new JSeparator();
-		separator_caccess.setBounds(10, 352, 599, 7);
-		panel_caccess.add(separator_caccess);
 
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Cronus Database", null, panel, null);
