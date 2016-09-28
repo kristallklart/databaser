@@ -805,7 +805,7 @@ public class view extends JFrame {
 		tabbedPane.addTab("Cronus Access", panel_caccess);
 		panel_caccess.setLayout(null);
 
-		JLabel lbl_caccess_selectOption = new JLabel("Tables");
+		JLabel lbl_caccess_selectOption = new JLabel("Tables:");
 		lbl_caccess_selectOption.setBounds(44, 94, 87, 23);
 		panel_caccess.add(lbl_caccess_selectOption);
 
@@ -816,7 +816,7 @@ public class view extends JFrame {
 		panel_caccess.add(comboBox_caccessTables);
 
 		JButton btn_caccess_go_tables = new JButton("Show tables");
-		btn_caccess_go_tables.setBounds(514, 93, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_caccess_go_tables.setBounds(476, 94, BUTTON_WIDTH, BUTTON_HEIGHT);
 		btn_caccess_go_tables.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -836,7 +836,7 @@ public class view extends JFrame {
 		panel_caccess.add(btn_caccess_go_tables);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
-		scrollPane_caccess.setBounds(679, 93, 544, 229);
+		scrollPane_caccess.setBounds(620, 91, 544, 229);
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
@@ -848,7 +848,7 @@ public class view extends JFrame {
 		panel_caccess.add(comboBox_caccessMeta);
 
 		JButton btn_caccess_go_meta = new JButton("Show meta");
-		btn_caccess_go_meta.setBounds(479, 88, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_caccess_go_meta.setBounds(476, 178, BUTTON_WIDTH, BUTTON_HEIGHT);
 		btn_caccess_go_meta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -867,7 +867,7 @@ public class view extends JFrame {
 		});
 		panel_caccess.add(btn_caccess_go_meta);
 
-		JLabel lblNewLabel = new JLabel("Meta data");
+		JLabel lblNewLabel = new JLabel("Meta data:");
 		lblNewLabel.setBounds(44, 180, 75, 19);
 		panel_caccess.add(lblNewLabel);
 
@@ -943,7 +943,7 @@ public class view extends JFrame {
 		panel_2.add(comboBox_oform_selectProgram);
 		comboBox_oform_selectProgram.setName("comboBox_oform_selectProgram");
 
-		JLabel lbl_oform_select = new JLabel("Form:");
+		JLabel lbl_oform_select = new JLabel("Specified form:");
 		lbl_oform_select.setBounds(34, 85, 112, 39);
 		panel_2.add(lbl_oform_select);
 
