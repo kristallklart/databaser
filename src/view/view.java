@@ -806,12 +806,12 @@ public class view extends JFrame {
 		panel_caccess.add(lbl_caccess_selectOption);
 
 		JComboBox<String> comboBox_caccess = new JComboBox(controllerCronus.getCronusQueryNames());
-		comboBox_caccess.setBounds(119, 21, 228, 25);
+		comboBox_caccess.setBounds(119, 21, 297, 25);
 
 		panel_caccess.add(comboBox_caccess);
 
 		JButton btn_caccess_go = new JButton("Go");
-		btn_caccess_go.setBounds(372, 22, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_caccess_go.setBounds(479, 22, BUTTON_WIDTH, BUTTON_HEIGHT);
 		btn_caccess_go.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -834,7 +834,6 @@ public class view extends JFrame {
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
-		table_caccess.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane_caccess.setViewportView(table_caccess);
 
 		JPanel panel = new JPanel();
