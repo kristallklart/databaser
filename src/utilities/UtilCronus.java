@@ -70,70 +70,77 @@ public class UtilCronus {
 		case 6:
 			sqlQuery = getEmployeeStatisticsGroup();
 			break;
+		}
+		return sqlQuery;
+	}
 
-		case 7:
+	public String getQueryMeta(int selectedIndex) {
+		String sqlQuery = null;
+		
+		switch (selectedIndex) {
+		case 1:
 			sqlQuery = getMetaDataEmployee();
 			break;
-
-		case 8:
+	
+		case 2:
 			sqlQuery = getMetaDataEmployeeAbsence();
 			break;
-
-		case 9:
+	
+		case 3:
 			sqlQuery = getMetaDataEmployeePortalSetup();
 			break;
-
-		case 10:
+	
+		case 4:
 			sqlQuery = getMetaDataEmployeeQualification();
 			break;
-
-		case 11:
+	
+		case 5:
 			sqlQuery = getMetaDataEmployeeRelative();
 			break;
-
-		case 12:
+	
+		case 6:
 			sqlQuery = getMetaDataEmployeeStatisticsGroup();
 			break;
-
-		case 13:
+	
+		case 7:
 			sqlQuery = getKeys();
 			break;
-
-		case 14:
+	
+		case 8:
 			sqlQuery = getIndex();
 			break;
-
-		case 15:
+	
+		case 9:
 			sqlQuery = getTableConstrains();
 			break;
-
-		case 16:
+	
+		case 10:
 			sqlQuery = getAllTablesUsingInformationSchema();
 			break;
 
-		case 17:
+		case 11:
 			sqlQuery = getAllTablesUsingSysObjects();
 			break;
-
-		case 18:
+	
+		case 12:
 			sqlQuery = getEmployeeColumnsInformationSchema();
 			break;
-
-		case 19:
+	
+		case 13:
 			sqlQuery = getEmployeeColumnsSysColumns();
 			break;
-
-		case 20:
+	
+		case 14:
 			sqlQuery = getMostRows();
 			break;
-
+	
 		default:
 			break;
 		}
 		return sqlQuery;
 	}
-
-	public Vector<String> getCronusQueryNames() {
+	
+	public Vector<String> getCronusQueryGetTables() {
 		Vector<String> cronusQueryNames = new Vector<String>();
 
 		cronusQueryNames.add(" "); // 0
@@ -143,20 +150,25 @@ public class UtilCronus {
 		cronusQueryNames.add("Employee Qualification"); // 4
 		cronusQueryNames.add("Employee Relative"); // 5
 		cronusQueryNames.add("Employee Statistics Group"); // 6
-		cronusQueryNames.add("Metadata Employee top 20"); // 7
-		cronusQueryNames.add("Metadata Employee Absence"); // 8
-		cronusQueryNames.add("Metadata Employee Portal Setup top 20"); // 9
-		cronusQueryNames.add("Metadata Employee Qualification"); // 10
-		cronusQueryNames.add("Metadata Employee Relative"); // 11
-		cronusQueryNames.add("Metadata Employee Statistics Group"); // 12
-		cronusQueryNames.add("Keys top 20"); // 13
-		cronusQueryNames.add("Indexes top 20"); // 14
-		cronusQueryNames.add("Table Constrains top 20"); // 15
-		cronusQueryNames.add("All tables (InformationSchema"); // 16
-		cronusQueryNames.add("All tables (SysObjects)"); // 17
-		cronusQueryNames.add("Employee columns (InformationSchema)"); // 18
-		cronusQueryNames.add("Employee columns (SysColumns)"); // 19
-		cronusQueryNames.add("Most rows in database"); // 20
+		cronusQueryNames.add("Most rows in database"); // 7
+		return cronusQueryNames;
+	}
+	public Vector<String> getCronusQueryGetMetaData(){
+		Vector<String> cronusQueryNames = new Vector<String>();
+		cronusQueryNames.add(" "); //0
+		cronusQueryNames.add("Metadata Employee top 20"); // 1
+		cronusQueryNames.add("Metadata Employee Absence"); // 2
+		cronusQueryNames.add("Metadata Employee Portal Setup top 20"); // 3
+		cronusQueryNames.add("Metadata Employee Qualification"); // 4
+		cronusQueryNames.add("Metadata Employee Relative"); // 5
+		cronusQueryNames.add("Metadata Employee Statistics Group"); // 6
+		cronusQueryNames.add("Keys top 20"); // 7
+		cronusQueryNames.add("Indexes top 20"); // 8
+		cronusQueryNames.add("Table Constrains top 20"); // 9
+		cronusQueryNames.add("All tables (InformationSchema"); // 10
+		cronusQueryNames.add("All tables (SysObjects)"); // 11
+		cronusQueryNames.add("Employee columns (InformationSchema)"); // 12
+		cronusQueryNames.add("Employee columns (SysColumns)"); // 13
 
 		return cronusQueryNames;
 	}

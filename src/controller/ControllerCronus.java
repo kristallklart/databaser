@@ -17,10 +17,16 @@ public class ControllerCronus {
 	public DefaultTableModel getTableModel(int selectedIndex) throws SQLException {
 		return dalC.getTableModel(selectedIndex);
 	}
+	public DefaultTableModel getTableModelMeta(int selectedIndex) throws SQLException {
+		return dalC.getTableModelMeta(selectedIndex);
+	}
 
 	// Används för att sätta rätt query-namn i comboboxen för uppgift 2.
-	public Vector<String> getCronusQueryNames() {
-		return utilCronus.getCronusQueryNames();
+	public Vector<String> getCronusQueryNamesTables() {
+		return utilCronus.getCronusQueryGetTables();
+	}
+	public Vector<String> getCronusQueryNamesMetaData() {
+		return utilCronus.getCronusQueryGetMetaData();
 	}
 
 	// Används för att öppna rätt fil i Excel eller Access
