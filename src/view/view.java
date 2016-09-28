@@ -851,10 +851,10 @@ public class view extends JFrame {
 
 		String[] microsoft = { "", "Access", "Excel" };
 
-		JComboBox comboBox_word_excel = new JComboBox(microsoft);
-		comboBox_word_excel.setName("comboBox_word_excel");
-		comboBox_word_excel.setBounds(171, 101, 280, 26);
-		panel.add(comboBox_word_excel);
+		JComboBox comboBox_access_excel = new JComboBox(microsoft);
+		comboBox_access_excel.setName("comboBox_word_excel");
+		comboBox_access_excel.setBounds(171, 101, 280, 26);
+		panel.add(comboBox_access_excel);
 
 		JComboBox comboBox_cdatabase_query = new JComboBox(controllerCronus.getCronusFileNameToOpen());
 		comboBox_cdatabase_query.setName("comboBox_cdatabase_query");
@@ -902,8 +902,8 @@ public class view extends JFrame {
 		btnGo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (comboBox_word_excel.getSelectedIndex() != 0 && comboBox_cdatabase_query.getSelectedIndex() != 0) {
-					controllerCronus.openCronusFile(comboBox_word_excel.getSelectedIndex(),
+				if (comboBox_access_excel.getSelectedIndex() != 0 && comboBox_cdatabase_query.getSelectedIndex() != 0) {
+					controllerCronus.openCronusFile(comboBox_access_excel.getSelectedIndex(),
 							comboBox_cdatabase_query.getSelectedIndex());
 				}
 			}
