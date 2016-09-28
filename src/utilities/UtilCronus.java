@@ -177,7 +177,8 @@ public class UtilCronus {
 			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 2) {
 				desktop.open(new File(cronusExcelFilesToOpen.get(selectedCronusFileToOpen)));
 			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 1) {
-				desktop.open(new File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
+				// desktop.open(new
+				// File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
 
 			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 2) {
 
