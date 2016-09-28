@@ -8,27 +8,39 @@ import java.util.Vector;
 
 public class UtilCronus {
 
-	private ArrayList<String> cronusAccessFilesToOpen = new ArrayList<String>();
-	private ArrayList<String> cronusExcelFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusAccessDocFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusExcelDocFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusAccessFormFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusExcelFormFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusWordFormFilesToOpen = new ArrayList<String>();
 
 	public UtilCronus() {
-		// ArrayList<String> cronusFilesToOpenTemp = new ArrayList<String>();
-		cronusAccessFilesToOpen.add(" ");
-		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.accdb");
-		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.accdb");
-		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.accdb");
-		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query4.accdb");
-		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.accdb");
-		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.accdb");
-		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.accdb");
-		cronusExcelFilesToOpen.add(" ");
-		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.xlsx");
-		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.xlsx");
-		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.xlsx");
-		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query4.xlsx");
-		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.xlsx");
-		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
-		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
+		cronusAccessDocFilesToOpen.add(" ");
+		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.accdb");
+		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.accdb");
+		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.accdb");
+		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query4.accdb");
+		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.accdb");
+		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.accdb");
+		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.accdb");
+
+		cronusExcelDocFilesToOpen.add(" ");
+		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.xlsx");
+		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.xlsx");
+		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.xlsx");
+		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query4.xlsx");
+		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.xlsx");
+		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
+		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
+
+		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
+		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
+
+		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
+		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
+
+		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
+		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
 	}
 
 	public String getQuery(int selectedIndex) {
@@ -172,10 +184,10 @@ public class UtilCronus {
 			}
 
 			if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 1) {
-				desktop.open(new File(cronusAccessFilesToOpen.get(selectedCronusFileToOpen)));
+				desktop.open(new File(cronusAccessDocFilesToOpen.get(selectedCronusFileToOpen)));
 
 			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 2) {
-				desktop.open(new File(cronusExcelFilesToOpen.get(selectedCronusFileToOpen)));
+				desktop.open(new File(cronusExcelDocFilesToOpen.get(selectedCronusFileToOpen)));
 			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 1) {
 				// desktop.open(new
 				// File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
