@@ -358,6 +358,25 @@ public class DataAccessLayerLu {
 		}
 	}
 
+	public boolean registerOnCourse(String sPnr, String cCode, String semester) {
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(queriesLu.registerOnCourse());
+			pStatement.setString(1, sPnr);
+			pStatement.setString(2, cCode);
+			pStatement.setString(3, semester);
+
+			pStatement.execute();
+			return true;
+
+		} catch (SQLException e) {
+			return false;
+
+		}
+	}
+
 	public void deleteStudying(String spnr, String ccode) {
 		Connection con = null;
 		PreparedStatement pStatement = null;
