@@ -34,8 +34,8 @@ public class UtilCronus {
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
 
-		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCronusCustomer.accdb");
-		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCronusEmployee.accdb");
+		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.accdb");
+		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.accdb");
 		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.xlsx");
 		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.xlsx");
 		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.docx");
