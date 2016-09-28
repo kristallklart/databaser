@@ -68,14 +68,9 @@ public class view extends JFrame {
 	private JTextField textField_course_points;
 	private JTable table_stud_currentCourses;
 	private JTable table_caccess;
-	// private JComboBox comboBox_regStud_ccode;
-	// private JComboBox comboBox_stud_course;
-	// private JComboBox comboBox_stud_grade;
 	private JTextField textField_stud_deleteAdd_pnr;
 	private JTextField textField_stud_deleteAdd_name;
 	private JTextField textField_stud_deleteAdd_address;
-	// private DefaultTableModel stud_finished;
-	// private DefaultTableModel dtmCourse_results;
 	private DefaultTableModel dtmNotFinished;
 	private DefaultTableModel dtmcourse_showall;
 	private DefaultTableModel dtmcourse_mostThrough;
@@ -83,8 +78,6 @@ public class view extends JFrame {
 	private JTable table_stud_finishedCourses;
 	private JTable table_course;
 	private JTextField textField_course_enrolled_ccode;
-	// private JLabel lbl_stud_showRemoveCourse;
-	// private JRadioButton rdbtn_course_showNotFinished;
 	private JTextField textField_stud_regOnCourse_pnr;
 	private JTextField textField_stud_regOnCourse_ccode;
 	private JTable table_stud_regOnCourse_courseList;
@@ -152,8 +145,6 @@ public class view extends JFrame {
 		DefaultTableModel dtmStud_Search = new DefaultTableModel();
 		String[] student = { "Personal number", "Name", "Address" };
 		dtmStud_Search.setColumnIdentifiers(student);
-		// DefaultComboBoxModel<String> courselist = new
-		// DefaultComboBoxModel<String>();
 
 		JLabel lbl_course_ccode = new JLabel("Course code:");
 		lbl_course_ccode.setBounds(10, 33, LABEL_WIDTH, LABEL_HEIGHT);
