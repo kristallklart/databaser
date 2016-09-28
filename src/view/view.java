@@ -802,21 +802,21 @@ public class view extends JFrame {
 		tabbedPane.addTab("Cronus Access", panel_caccess);
 		panel_caccess.setLayout(null);
 
-		JLabel lbl_caccess_selectOption = new JLabel("Select query:");
-		lbl_caccess_selectOption.setBounds(10, 22, LABEL_WIDTH, LABEL_HEIGHT);
+		JLabel lbl_caccess_selectOption = new JLabel("Tables");
+		lbl_caccess_selectOption.setBounds(22, 22, 87, 23);
 		panel_caccess.add(lbl_caccess_selectOption);
 
-		JComboBox<String> comboBox_caccess = new JComboBox(controllerCronus.getCronusQueryNames());
-		comboBox_caccess.setBounds(119, 21, 297, 25);
+		JComboBox<String> comboBox_caccessTables = new JComboBox(controllerCronus.getCronusQueryNamesTables());
+		comboBox_caccessTables.setBounds(119, 21, 297, 25);
 
-		panel_caccess.add(comboBox_caccess);
+		panel_caccess.add(comboBox_caccessTables);
 
-		JButton btn_caccess_go = new JButton("Go");
-		btn_caccess_go.setBounds(479, 22, BUTTON_WIDTH, BUTTON_HEIGHT);
-		btn_caccess_go.addActionListener(new ActionListener() {
+		JButton btn_caccess_go_tables = new JButton("Show tables");
+		btn_caccess_go_tables.setBounds(479, 22, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_caccess_go_tables.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int selectedCronusIndex = comboBox_caccess.getSelectedIndex();
+				int selectedCronusIndex = comboBox_caccessTables.getSelectedIndex();
 				if (selectedCronusIndex != 0) {
 					try {
 						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex));
@@ -828,14 +828,46 @@ public class view extends JFrame {
 				}
 			}
 		});
-		panel_caccess.add(btn_caccess_go);
+		panel_caccess.add(btn_caccess_go_tables);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
-		scrollPane_caccess.setBounds(119, 92, 544, 229);
+		scrollPane_caccess.setBounds(119, 189, 544, 229);
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
 		scrollPane_caccess.setViewportView(table_caccess);
+		
+		JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
+		comboBox_caccessMeta.setBounds(119, 89, 297, 25);
+		
+		panel_caccess.add(comboBox_caccessMeta);
+		
+		JButton btn_caccess_go_meta = new JButton("Show meta");
+		btn_caccess_go_meta.setBounds(479, 88, 108, 23);
+		btn_caccess_go_meta.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedCronusIndex = comboBox_caccessMeta.getSelectedIndex();
+				if (selectedCronusIndex != 0) {
+					try {
+						table_caccess.setModel(controllerCronus.getTableModelMeta(selectedCronusIndex));
+
+					} catch (SQLException e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		panel_caccess.add(btn_caccess_go_meta);
+		
+		
+		
+		
+		
+		JLabel lblNewLabel = new JLabel("Meta data");
+		lblNewLabel.setBounds(22, 89, 75, 19);
+		panel_caccess.add(lblNewLabel);
 
 		// ********************************
 		// ****** CRONUS OPEN FILES *******
