@@ -10,6 +10,7 @@ public class UtilCronus {
 
 	private ArrayList<String> cronusAccessDocFilesToOpen = new ArrayList<String>();
 	private ArrayList<String> cronusExcelDocFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusManagementStudioDocFilesToOpen = new ArrayList<String>();
 	private ArrayList<String> cronusAccessFormFilesToOpen = new ArrayList<String>();
 	private ArrayList<String> cronusExcelFormFilesToOpen = new ArrayList<String>();
 	private ArrayList<String> cronusWordFormFilesToOpen = new ArrayList<String>();
@@ -32,6 +33,15 @@ public class UtilCronus {
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.xlsx");
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
+
+		cronusManagementStudioDocFilesToOpen.add(" ");
+		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.sql");
+		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.sql");
+		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.sql");
+		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query4.sql");
+		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.sql");
+		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.sql");
+		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.sql");
 
 		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.accdb");
 		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.accdb");
@@ -76,44 +86,44 @@ public class UtilCronus {
 
 	public String getQueryMeta(int selectedIndex) {
 		String sqlQuery = null;
-		
+
 		switch (selectedIndex) {
 		case 1:
 			sqlQuery = getMetaDataEmployee();
 			break;
-	
+
 		case 2:
 			sqlQuery = getMetaDataEmployeeAbsence();
 			break;
-	
+
 		case 3:
 			sqlQuery = getMetaDataEmployeePortalSetup();
 			break;
-	
+
 		case 4:
 			sqlQuery = getMetaDataEmployeeQualification();
 			break;
-	
+
 		case 5:
 			sqlQuery = getMetaDataEmployeeRelative();
 			break;
-	
+
 		case 6:
 			sqlQuery = getMetaDataEmployeeStatisticsGroup();
 			break;
-	
+
 		case 7:
 			sqlQuery = getKeys();
 			break;
-	
+
 		case 8:
 			sqlQuery = getIndex();
 			break;
-	
+
 		case 9:
 			sqlQuery = getTableConstrains();
 			break;
-	
+
 		case 10:
 			sqlQuery = getAllTablesUsingInformationSchema();
 			break;
@@ -121,29 +131,29 @@ public class UtilCronus {
 		case 11:
 			sqlQuery = getAllTablesUsingSysObjects();
 			break;
-	
+
 		case 12:
 			sqlQuery = getEmployeeColumnsInformationSchema();
 			break;
-	
+
 		case 13:
 			sqlQuery = getEmployeeColumnsSysColumns();
 			break;
-	
+
 		case 14:
 			sqlQuery = getMostRows();
 			break;
-	
+
 		default:
 			break;
 		}
 		return sqlQuery;
 	}
-	
+
 	public Vector<String> getCronusQueryGetTables() {
 		Vector<String> cronusQueryNames = new Vector<String>();
 
-		cronusQueryNames.add(" "); // 0
+		cronusQueryNames.add("Select..."); // 0
 		cronusQueryNames.add("Employee"); // 1
 		cronusQueryNames.add("Employee Absence top 20"); // 2
 		cronusQueryNames.add("Employee Portal Setup"); // 3
@@ -153,9 +163,10 @@ public class UtilCronus {
 		cronusQueryNames.add("Most rows in database"); // 7
 		return cronusQueryNames;
 	}
-	public Vector<String> getCronusQueryGetMetaData(){
+
+	public Vector<String> getCronusQueryGetMetaData() {
 		Vector<String> cronusQueryNames = new Vector<String>();
-		cronusQueryNames.add(" "); //0
+		cronusQueryNames.add("Select..."); // 0
 		cronusQueryNames.add("Metadata Employee top 20"); // 1
 		cronusQueryNames.add("Metadata Employee Absence"); // 2
 		cronusQueryNames.add("Metadata Employee Portal Setup top 20"); // 3
@@ -176,7 +187,7 @@ public class UtilCronus {
 	public Vector<String> getCronusFileNameToOpen() {
 		Vector<String> cronusQueryFileNames = new Vector<String>();
 
-		cronusQueryFileNames.add(" "); // 0
+		cronusQueryFileNames.add("Select..."); // 0
 		cronusQueryFileNames.add("100 NOK in SEK"); // 1
 		cronusQueryFileNames.add("Most used currency in SEK"); // 2
 		cronusQueryFileNames.add("Adress and town for Fotograferna AB"); // 3
@@ -199,6 +210,8 @@ public class UtilCronus {
 				desktop.open(new File(cronusAccessDocFilesToOpen.get(selectedCronusFileToOpen)));
 			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 2) {
 				desktop.open(new File(cronusExcelDocFilesToOpen.get(selectedCronusFileToOpen)));
+			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 3) {
+				desktop.open(new File(cronusManagementStudioDocFilesToOpen.get(selectedCronusFileToOpen)));
 			} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 1) {
 				desktop.open(new File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
 			} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 2) {

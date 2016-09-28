@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.ControllerCronus;
@@ -836,14 +839,14 @@ public class view extends JFrame {
 
 		table_caccess = new JTable();
 		scrollPane_caccess.setViewportView(table_caccess);
-		
+
 		JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
 		comboBox_caccessMeta.setBounds(119, 89, 297, 25);
-		
+
 		panel_caccess.add(comboBox_caccessMeta);
-		
+
 		JButton btn_caccess_go_meta = new JButton("Show meta");
-		btn_caccess_go_meta.setBounds(479, 88, 108, 23);
+		btn_caccess_go_meta.setBounds(479, 88, BUTTON_WIDTH, BUTTON_HEIGHT);
 		btn_caccess_go_meta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -860,82 +863,57 @@ public class view extends JFrame {
 			}
 		});
 		panel_caccess.add(btn_caccess_go_meta);
-		
-		
-		
-		
-		
+
 		JLabel lblNewLabel = new JLabel("Meta data");
 		lblNewLabel.setBounds(22, 89, 75, 19);
 		panel_caccess.add(lblNewLabel);
 
 		// ********************************
-		// ****** CRONUS OPEN FILES *******
+		// ********** OPEN FILES **********
 		// ********************************
 
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("Cronus Database", null, panel, null);
+		tabbedPane.addTab("Open files", null, panel, null);
 		panel.setLayout(null);
 
-		JLabel lblSelectOption = new JLabel("Select option:");
-		lblSelectOption.setBounds(44, 95, 112, 39);
-		panel.add(lblSelectOption);
-
-		JLabel lblSelectQuery = new JLabel("Select query:");
-		lblSelectQuery.setBounds(44, 150, 112, 39);
-		panel.add(lblSelectQuery);
-
-		String[] microsoft = { "", "Access", "Excel" };
-
-		JComboBox comboBox_access_excel = new JComboBox(microsoft);
-		comboBox_access_excel.setName("comboBox_access_excel");
-		comboBox_access_excel.setBounds(171, 101, 280, 26);
-		panel.add(comboBox_access_excel);
-
-		JComboBox comboBox_cdatabase_query = new JComboBox(controllerCronus.getCronusFileNameToOpen());
-		comboBox_cdatabase_query.setName("comboBox_cdatabase_query");
-		comboBox_cdatabase_query.setBounds(171, 156, 280, 26);
-		panel.add(comboBox_cdatabase_query);
+		String[] microsoft = { "Select...", "Access", "Excel", "SQL Management Studio" };
 
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(30, 297, 900, 2);
+		separator_1.setBounds(10, 261, 500, 2);
 		panel.add(separator_1);
 
-		JLabel lblSqlQuery = new JLabel("SQL query");
-		lblSqlQuery.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblSqlQuery.setBounds(383, 30, 112, 31);
-		panel.add(lblSqlQuery);
+		String[] micoffice = { "Select...", "Access", "Excel", "Word" };
 
-		JLabel lblOpen = new JLabel("Open form");
-		lblOpen.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblOpen.setBounds(383, 330, 112, 31);
-		panel.add(lblOpen);
+		String[] ec = { "Select...", "Employee", "Customer" };
 
-		JLabel lbl_oform_selectOption = new JLabel("Select option:");
-		lbl_oform_selectOption.setBounds(30, 406, 112, 39);
-		panel.add(lbl_oform_selectOption);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open query files",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBounds(10, 11, 500, 208);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
 
-		String[] micoffice = { "", "Access", "Excel", "Word" };
+		JLabel lblSelectOption = new JLabel("Type of file:");
+		lblSelectOption.setBounds(34, 43, 112, 39);
+		panel_1.add(lblSelectOption);
 
-		JComboBox comboBox_oform_selectProgram = new JComboBox(micoffice);
-		comboBox_oform_selectProgram.setName("comboBox_oform_selectProgram");
-		comboBox_oform_selectProgram.setBounds(171, 412, 144, 26);
-		panel.add(comboBox_oform_selectProgram);
+		JComboBox comboBox_access_excel = new JComboBox(microsoft);
+		comboBox_access_excel.setBounds(156, 49, 300, 26);
+		panel_1.add(comboBox_access_excel);
+		comboBox_access_excel.setName("comboBox_access_excel");
 
-		JLabel lbl_oform_select = new JLabel("Select :");
-		lbl_oform_select.setBounds(30, 466, 112, 39);
-		panel.add(lbl_oform_select);
+		JComboBox comboBox_cdatabase_query = new JComboBox(controllerCronus.getCronusFileNameToOpen());
+		comboBox_cdatabase_query.setBounds(156, 99, 300, 26);
+		panel_1.add(comboBox_cdatabase_query);
+		comboBox_cdatabase_query.setName("comboBox_cdatabase_query");
 
-		String[] ec = { " ", "Employee", "Customer" };
+		JLabel lblSelectQuery = new JLabel("Specified query:");
+		lblSelectQuery.setBounds(34, 93, 112, 39);
+		panel_1.add(lblSelectQuery);
 
-		JComboBox comboBox_oform_selectQuery = new JComboBox(ec);
-		comboBox_oform_selectQuery.setName("comboBox_oform_selectQuery");
-		comboBox_oform_selectQuery.setBounds(171, 472, 144, 26);
-		panel.add(comboBox_oform_selectQuery);
-
-		JButton btnGo = new JButton("GO 1");
-		btnGo.setBounds(40, 224, 102, 29);
-		panel.add(btnGo);
+		JButton btnGo = new JButton("Open");
+		btnGo.setBounds(34, 164, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_1.add(btnGo);
 		btnGo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -946,8 +924,35 @@ public class view extends JFrame {
 			}
 		});
 
-		JButton button_1 = new JButton("GO 2");
-		button_1.addActionListener(new ActionListener() {
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open Form files",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2.setBounds(10, 310, 500, 208);
+		panel.add(panel_2);
+		panel_2.setLayout(null);
+
+		JLabel lbl_oform_selectOption = new JLabel("Type of file:");
+		lbl_oform_selectOption.setBounds(34, 35, 112, 39);
+		panel_2.add(lbl_oform_selectOption);
+
+		JComboBox comboBox_oform_selectProgram = new JComboBox(micoffice);
+		comboBox_oform_selectProgram.setBounds(156, 41, 144, 26);
+		panel_2.add(comboBox_oform_selectProgram);
+		comboBox_oform_selectProgram.setName("comboBox_oform_selectProgram");
+
+		JLabel lbl_oform_select = new JLabel("Form:");
+		lbl_oform_select.setBounds(34, 85, 112, 39);
+		panel_2.add(lbl_oform_select);
+
+		JComboBox comboBox_oform_selectQuery = new JComboBox(ec);
+		comboBox_oform_selectQuery.setBounds(156, 91, 144, 26);
+		panel_2.add(comboBox_oform_selectQuery);
+		comboBox_oform_selectQuery.setName("comboBox_oform_selectQuery");
+
+		JButton btnOpen = new JButton("Open");
+		btnOpen.setBounds(34, 151, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_2.add(btnOpen);
+		btnOpen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox_oform_selectProgram.getSelectedIndex() != 0
@@ -958,8 +963,6 @@ public class view extends JFrame {
 				}
 			}
 		});
-		button_1.setBounds(30, 546, 102, 29);
-		panel.add(button_1);
 
 	}
 
