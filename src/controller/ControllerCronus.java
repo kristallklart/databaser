@@ -24,8 +24,8 @@ public class ControllerCronus {
 	}
 
 	// Används för att öppna rätt fil i Excel eller Access
-	public void openCronusFile(int selectedProgramToUse, int selectedCronusFileToOpen) {
-		utilCronus.openCronusFile(selectedProgramToUse, selectedCronusFileToOpen);
+	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen) {
+		utilCronus.openCronusFile(nameProgramToUse, selectedProgramToUse, selectedCronusFileToOpen);
 	}
 
 	public Vector<String> getCronusFileNameToOpen() {
