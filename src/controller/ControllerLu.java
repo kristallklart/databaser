@@ -89,7 +89,7 @@ public class ControllerLu {
 		return dal.getTableAll(values, tableName);
 	}
 
-	public void createAll(ArrayList<String> values, String studentOrCourse) throws SQLException {
+	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
 		dal.createAll(values, studentOrCourse);
 	}
 }

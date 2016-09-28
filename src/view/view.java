@@ -280,16 +280,23 @@ public class view extends JFrame {
 		btn_course_deleteAdd_add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if (textField_course_courseCode.getText().trim().isEmpty()) {
-						communicateMessage(feedbackHandler.noInput());
-					} else {
-						controllerLu.createCourse(textField_course_courseCode.getText(),
-								textField_course_cname.getText(), textField_course_points.getText());
-						communicateMessage("Course successfully added!");
+				clearFeedback();
+				String ccode = textField_course_courseCode.getText().trim();
+				String cname = textField_course_cname.getText().trim();
+				int points = Integer.parseInt(textField_course_points.getText().trim());
+				if (ccode.isEmpty() || cname.isEmpty()) {
+					communicateMessage(feedbackHandler.insufficientInput());
+				} else {
+					ArrayList<Object> values = new ArrayList<Object>();
+					values.add(ccode);
+					values.add(cname);
+					values.add(points);
+					try {
+						controllerLu.createAll(values, "Course");
+						communicateMessage(feedbackHandler.courseAdded(ccode));
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
 					}
-				} catch (Exception e) {
-					communicateMessage(exceptionHandler.handleException(e));
 				}
 			}
 
@@ -629,7 +636,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
 					try {
-						ArrayList<String> values = new ArrayList<>();
+						ArrayList<Object> values = new ArrayList<Object>();
 						values.add(spnr);
 						values.add(name);
 						values.add(address);

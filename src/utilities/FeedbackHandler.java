@@ -40,7 +40,12 @@ public class FeedbackHandler {
 	}
 
 	public String studentAdded(String input) {
-		String message = "Successfully added student with personal number: " + input;
+		String message = "Successfully added student with personal number: " + " " + input;
+		return message;
+	}
+
+	public String courseAdded(String input) {
+		String message = "Successfully added course with course code: " + " " + input;
 		return message;
 	}
 }

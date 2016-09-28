@@ -472,7 +472,7 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public void createAll(ArrayList<String> values, String studentOrCourse) throws SQLException {
+	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
 		String query = utilLu.getCreateQuery(studentOrCourse);
 		Connection con = null;
 		PreparedStatement pStatement = null;
@@ -483,9 +483,16 @@ public class DataAccessLayerLu {
 
 			int x = 0;
 			while (x < values.size()) {
-				pStatement.setString(x + 1, values.get(x));
-				x++;
+				if (values.get(x) instanceof String) {
+					pStatement.setString(x + 1, values.get(x).toString());
+					x++;
+				} else if (values.get(x) instanceof Integer) {
+					int z = (int) values.get(x);
+					pStatement.setInt(x + 1, z);
+					x++;
+				}
 			}
+
 			pStatement.execute();
 
 		} finally {
