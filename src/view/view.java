@@ -859,13 +859,11 @@ public class view extends JFrame {
 		String[] microsoft = { "", "Access", "Excel" };
 
 		JComboBox comboBox_word_excel = new JComboBox(microsoft);
-		comboBox_word_excel.setBounds(171, 101, 144, 26);
+		comboBox_word_excel.setBounds(171, 101, 280, 26);
 		panel.add(comboBox_word_excel);
 
-		String[] query = { "", "1", "2", "3", "4", "5", "6", "7" };
-
-		JComboBox comboBox_cdatabase_query = new JComboBox(query);
-		comboBox_cdatabase_query.setBounds(171, 156, 144, 26);
+		JComboBox comboBox_cdatabase_query = new JComboBox(controllerCronus.getCronusFileNameToOpen());
+		comboBox_cdatabase_query.setBounds(171, 156, 280, 26);
 		panel.add(comboBox_cdatabase_query);
 
 		JSeparator separator_1 = new JSeparator();
@@ -902,11 +900,20 @@ public class view extends JFrame {
 		comboBox_oform_select.setBounds(171, 472, 144, 26);
 		panel.add(comboBox_oform_select);
 
-		JButton btnGo = new JButton("GO");
+		JButton btnGo = new JButton("GO 1");
 		btnGo.setBounds(40, 224, 102, 29);
 		panel.add(btnGo);
+		btnGo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (comboBox_word_excel.getSelectedIndex() != 0 && comboBox_cdatabase_query.getSelectedIndex() != 0) {
+					controllerCronus.openCronusFile(comboBox_word_excel.getSelectedIndex(),
+							comboBox_cdatabase_query.getSelectedIndex());
+				}
+			}
+		});
 
-		JButton button_1 = new JButton("GO");
+		JButton button_1 = new JButton("GO 2");
 		button_1.setBounds(30, 546, 102, 29);
 		panel.add(button_1);
 

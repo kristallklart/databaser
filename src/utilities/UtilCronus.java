@@ -3,11 +3,33 @@ package utilities;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Vector;
 
-import sun.launcher.resources.launcher;
-
 public class UtilCronus {
+
+	private ArrayList<String> cronusAccessFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusExcelFilesToOpen = new ArrayList<String>();
+
+	public UtilCronus() {
+		// ArrayList<String> cronusFilesToOpenTemp = new ArrayList<String>();
+		cronusAccessFilesToOpen.add(" ");
+		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.accdb");
+		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.accdb");
+		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.accdb");
+		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query4.accdb");
+		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.accdb");
+		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.accdb");
+		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.accdb");
+		cronusExcelFilesToOpen.add(" ");
+		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.xlsx");
+		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.xlsx");
+		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.xlsx");
+		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query4.xlsx");
+		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.xlsx");
+		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
+		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
+	}
 
 	public String getQuery(int selectedIndex) {
 		String sqlQuery = null;
@@ -127,20 +149,37 @@ public class UtilCronus {
 		return cronusQueryNames;
 	}
 
-	public void openCronusFile(int selectedCronusFileToOpen) {
+	public Vector<String> getCronusFileNameToOpen() {
+		Vector<String> cronusQueryFileNames = new Vector<String>();
+
+		cronusQueryFileNames.add(" "); // 0
+		cronusQueryFileNames.add("100 NOK in SEK"); // 1
+		cronusQueryFileNames.add("Most used currency in SEK"); // 2
+		cronusQueryFileNames.add("Adress and town for Fotograferna AB"); // 3
+		cronusQueryFileNames.add("Name for employees who has been sick"); // 4
+		cronusQueryFileNames.add("Name and kinship for all employees' relatives"); // 5
+		cronusQueryFileNames.add("Customers handled by Andreas Berglund"); // 6
+		cronusQueryFileNames.add("Bank accounts owned by customer nr 10000"); // 7
+
+		return cronusQueryFileNames;
+	}
+
+	public void openCronusFile(int selectedProgramToUse, int selectedCronusFileToOpen) {
 		try {
 			Desktop desktop = null;
 			if (Desktop.isDesktopSupported()) {
 				desktop = Desktop.getDesktop();
 			}
 
-			desktop.open(new File("C:\\Program Files\\Cronusfiler\\Query1.xlsx"));
+			if (selectedProgramToUse == 1) {
+				desktop.open(new File(cronusAccessFilesToOpen.get(selectedCronusFileToOpen)));
+			} else {
+				desktop.open(new File(cronusExcelFilesToOpen.get(selectedCronusFileToOpen)));
+			}
 
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-
-	}
 
 	}
 
