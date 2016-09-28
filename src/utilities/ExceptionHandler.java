@@ -22,8 +22,8 @@ public class ExceptionHandler {
 			case 2627: // Unique key violation
 				message = "Student or course aldready exists.";
 				break;
-			case 547: // Foreign key violation
-				message = "Student or course does not exist.";
+			case 547:
+				message = "Could not add course because the value of course points was too high, maximum is 30.";
 				break;
 			case 17: // No connection
 				message = "Connection to database failed, please try again. If the error persists contact support.";
