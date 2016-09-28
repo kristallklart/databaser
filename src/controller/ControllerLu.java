@@ -16,7 +16,7 @@ public class ControllerLu {
 
 	private DataAccessLayerLu dal = new DataAccessLayerLu();
 
-	public Student getStudent(String spnr) throws SQLException {
+	public Student getStudent(String spnr) throws SQLException, NotFoundException {
 		return dal.getStudent(spnr);
 	}
 
@@ -34,10 +34,6 @@ public class ControllerLu {
 
 	public ArrayList<Studied> getStudentStudied(String spnr) throws SQLException {
 		return dal.getStudentStudied(spnr);
-	}
-
-	public Student getStudentAll(String spnr) throws SQLException {
-		return dal.getStudentAll(spnr);
 	}
 
 	public void deleteCourse(String ccode) throws SQLException {
@@ -88,19 +84,12 @@ public class ControllerLu {
 		return dal.mostThrough();
 	}
 
-	public DefaultTableModel getTestStudent(String spnr) throws SQLException, NotFoundException {
-		return dal.getTestStudent(spnr);
+	public DefaultTableModel getTableAll(ArrayList<String> values, String tableName)
+			throws SQLException, NotFoundException {
+		return dal.getTableAll(values, tableName);
 	}
 
-	public DefaultTableModel getTestStudentStudying(String spnr) throws SQLException, NotFoundException {
-		return dal.getTestStudentStudying(spnr);
-	}
-
-	public DefaultTableModel getTestStudentStudied(String spnr) throws SQLException, NotFoundException {
-		return dal.getTestStudentStudied(spnr);
-	}
-
-	public DefaultTableModel getAll(ArrayList<String> values, String tableName) throws SQLException, NotFoundException {
-		return dal.getAll(values, tableName);
+	public void createAll(ArrayList<String> values, String studentOrCourse) throws SQLException {
+		dal.createAll(values, studentOrCourse);
 	}
 }

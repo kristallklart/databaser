@@ -2,6 +2,10 @@ package utilities;
 
 public class FeedbackHandler {
 
+	public String studentFound() {
+		return "Successfully found the student you searched for.";
+	}
+
 	public String noInput() {
 		return "Please type something to search for.";
 	}

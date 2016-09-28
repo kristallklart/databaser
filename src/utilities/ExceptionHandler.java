@@ -60,6 +60,8 @@ public class ExceptionHandler {
 		case "table_stud_finishedCourses":
 			message = "The student you searched for has not finished any courses.";
 			break;
+		case "No student found":
+			message = "Could not find the student you were searching for.";
 		}
 		return message;
 	}

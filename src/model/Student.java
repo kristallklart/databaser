@@ -5,10 +5,20 @@ import java.util.ArrayList;
 public class Student {
 
 	private String spnr;
-	private String sname;
-	private String saddress;
+	private String name;
+	private String address;
 	private ArrayList<Studied> studiedList = new ArrayList<Studied>();
 	private ArrayList<Studying> studyingList = new ArrayList<Studying>();
+
+	public Student() {
+
+	}
+
+	public Student(String spnr, String name, String address) {
+		this.spnr = spnr;
+		this.name = name;
+		this.name = address;
+	}
 
 	public String getSpnr() {
 		return spnr;
@@ -19,19 +29,19 @@ public class Student {
 	}
 
 	public String getSname() {
-		return sname;
+		return name;
 	}
 
 	public void setSname(String sName) {
-		this.sname = sName;
+		this.name = sName;
 	}
 
 	public String getSaddress() {
-		return saddress;
+		return address;
 	}
 
 	public void setSaddress(String sAddress) {
-		this.saddress = sAddress;
+		this.address = sAddress;
 	}
 
 	public ArrayList<Studied> getStudiedList() {

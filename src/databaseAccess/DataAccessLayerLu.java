@@ -30,31 +30,29 @@ public class DataAccessLayerLu {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
 	}
 
-	public Student getStudent(String spnr) throws SQLException {
+	public Student getStudent(String spnr) throws SQLException, NotFoundException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		ResultSet rSet = null;
-		Student s = null;
 
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.getStudent());
 			pStatement.setString(1, spnr);
 			rSet = pStatement.executeQuery();
+
 			if (!rSet.isBeforeFirst()) {
-				return s;
-			} else {
-				s = new Student();
-				while (rSet.next()) {
-					s.setSpnr(rSet.getString("spnr"));
-					s.setSname(rSet.getString("sname"));
-					s.setSaddress(rSet.getString("sadress"));
-				}
+				throw new NotFoundException("No student found");
 			}
+
+			Student s = new Student();
+			setStudent(rSet, s);
+
+			return s;
+
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
-		return s;
 	}
 
 	public Course getCourse(String ccode) throws SQLException {
@@ -187,63 +185,6 @@ public class DataAccessLayerLu {
 		} catch (SQLException e) {
 		}
 
-	}
-
-	// returnerar en student med alla attribut och kurser som studenten läser
-	// och har läst
-	public Student getStudentAll(String spnr) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
-		Student student = null;
-		Studying studying = null;
-		Studied studied = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.getStudent());
-			pStatement.setString(1, spnr);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return student;
-			} else {
-				student = new Student();
-				setStudent(rSet, student);
-
-				pStatement.close();
-				pStatement = con.prepareStatement(queriesLu.getStudentStudying());
-				pStatement.setString(1, spnr);
-				rSet = pStatement.executeQuery();
-				if (!rSet.isBeforeFirst()) {
-					return student;
-				} else {
-					while (rSet.next()) {
-						studying = new Studying();
-						studying.setcCode(rSet.getString("ccode"));
-						studying.setSemester(rSet.getString("semester"));
-						student.addStudying(studying);
-					}
-					pStatement.close();
-					pStatement = con.prepareStatement(queriesLu.getStudentStudied());
-					pStatement.setString(1, spnr);
-					rSet = pStatement.executeQuery();
-					if (!rSet.isBeforeFirst()) {
-						return student;
-					} else {
-						while (rSet.next()) {
-							studied = new Studied();
-							studied.setSemester(rSet.getString("semester"));
-							studied.setcCode(rSet.getString("ccode"));
-							studied.setGrade(rSet.getString("grade"));
-							student.addStudied(studied);
-						}
-					}
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return student;
 	}
 
 	private void setStudent(ResultSet rSet, Student s) throws SQLException {
@@ -483,140 +424,12 @@ public class DataAccessLayerLu {
 		return c;
 	}
 
-	public DefaultTableModel getTestStudent(String spnr) throws SQLException, NotFoundException {
+	public DefaultTableModel getTableAll(ArrayList<String> values, String tableName)
+			throws SQLException, NotFoundException {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
 
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
-		ResultSetMetaData rSetMeta = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.getStudent());
-			pStatement.setString(1, spnr);
-			rSet = pStatement.executeQuery();
-
-			if (!rSet.isBeforeFirst()) {
-				throw new NotFoundException("No student with personal number: " + spnr + " found.");
-			}
-
-			rSetMeta = rSet.getMetaData();
-			int numberOfColumns = rSetMeta.getColumnCount();
-
-			for (int i = 1; i <= numberOfColumns; i++) {
-				sendColumnNames.add(rSetMeta.getColumnName(i));
-			}
-
-			while (rSet.next()) {
-				Vector<Object> columnData = new Vector<Object>();
-				for (int i = 1; i <= numberOfColumns; i++) {
-					columnData.add(rSet.getObject(i));
-				}
-				sendData.add(columnData);
-			}
-
-			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
-
-			return model;
-
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-	}
-
-	public DefaultTableModel getTestStudentStudying(String spnr) throws SQLException, NotFoundException {
-		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
-		Vector<String> sendColumnNames = new Vector<String>();
-
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
-		ResultSetMetaData rSetMeta = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.getStudentStudying());
-			pStatement.setString(1, spnr);
-			rSet = pStatement.executeQuery();
-
-			if (!rSet.isBeforeFirst()) {
-				throw new NotFoundException("Student with personal number: " + spnr + " is not studying any courses.");
-			}
-
-			rSetMeta = rSet.getMetaData();
-			int numberOfColumns = rSetMeta.getColumnCount();
-
-			for (int i = 1; i <= numberOfColumns; i++) {
-				sendColumnNames.add(rSetMeta.getColumnName(i));
-			}
-
-			while (rSet.next()) {
-				Vector<Object> columnData = new Vector<Object>();
-				for (int i = 1; i <= numberOfColumns; i++) {
-					columnData.add(rSet.getObject(i));
-				}
-				sendData.add(columnData);
-			}
-
-			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
-
-			return model;
-
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-	}
-
-	public DefaultTableModel getTestStudentStudied(String spnr) throws SQLException, NotFoundException {
-		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
-		Vector<String> sendColumnNames = new Vector<String>();
-
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
-		ResultSetMetaData rSetMeta = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.getStudentStudying());
-			pStatement.setString(1, spnr);
-			rSet = pStatement.executeQuery();
-
-			if (!rSet.isBeforeFirst()) {
-				throw new NotFoundException("Student with personal number: " + spnr + " has not finished any courses.");
-			}
-
-			rSetMeta = rSet.getMetaData();
-			int numberOfColumns = rSetMeta.getColumnCount();
-
-			for (int i = 1; i <= numberOfColumns; i++) {
-				sendColumnNames.add(rSetMeta.getColumnName(i));
-			}
-
-			while (rSet.next()) {
-				Vector<Object> columnData = new Vector<Object>();
-				for (int i = 1; i <= numberOfColumns; i++) {
-					columnData.add(rSet.getObject(i));
-				}
-				sendData.add(columnData);
-			}
-
-			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
-
-			return model;
-
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-	}
-
-	public DefaultTableModel getAll(ArrayList<String> values, String tableName) throws SQLException, NotFoundException {
-		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
-		Vector<String> sendColumnNames = new Vector<String>();
-
-		String query = utilLu.getQuery(tableName);
+		String query = utilLu.getTableQuery(tableName);
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		ResultSet rSet = null;
@@ -659,4 +472,24 @@ public class DataAccessLayerLu {
 		}
 	}
 
+	public void createAll(ArrayList<String> values, String studentOrCourse) throws SQLException {
+		String query = utilLu.getCreateQuery(studentOrCourse);
+		Connection con = null;
+		PreparedStatement pStatement = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+
+			int x = 0;
+			while (x < values.size()) {
+				pStatement.setString(x + 1, values.get(x));
+				x++;
+			}
+			pStatement.execute();
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
 }

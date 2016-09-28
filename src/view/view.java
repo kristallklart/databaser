@@ -416,17 +416,15 @@ public class view extends JFrame {
 		btn_stud_deleteAdd_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (textField_stud_deleteAdd_pnr.getText().trim().isEmpty()) {
+				clearFeedback();
+				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
+				if (spnr.isEmpty()) {
 					communicateMessage(feedbackHandler.noInput());
 				} else {
 					try {
-						Student s = controllerLu.getStudent(textField_stud_deleteAdd_pnr.getText());
-						if (s == null) {
-							communicateMessage(feedbackHandler.noStudentFound(textField_stud_deleteAdd_pnr.getText()));
-						} else {
-							textField_stud_deleteAdd_name.setText(s.getSname());
-							textField_stud_deleteAdd_address.setText(s.getSaddress());
-						}
+						Student s = controllerLu.getStudent(spnr);
+						textField_stud_deleteAdd_name.setText(s.getSname());
+						textField_stud_deleteAdd_address.setText(s.getSaddress());
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
@@ -622,25 +620,27 @@ public class view extends JFrame {
 		btn_stud_deleteAdd_add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if (textField_stud_deleteAdd_pnr.getText().trim().isEmpty()
-							|| textField_stud_deleteAdd_name.getText().trim().isEmpty()
-							|| textField_stud_deleteAdd_address.getText().trim().isEmpty()) {
-						communicateMessage(feedbackHandler.insufficientInput());
-					} else {
-						boolean test = controllerLu.createStudent(textField_stud_deleteAdd_pnr.getText(),
-								textField_stud_deleteAdd_name.getText(), textField_stud_deleteAdd_address.getText());
-						if (test == false) {
-							communicateMessage(feedbackHandler.studentAdded(textField_stud_deleteAdd_pnr.getText()));
-						} else {
-							communicateMessage("NOT SO GREAT!");
-						}
-					}
-				} catch (Exception e) {
-					communicateMessage(exceptionHandler.handleException(e));
-				}
-			}
+				clearFeedback();
+				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
+				String name = textField_stud_deleteAdd_name.getText().trim();
+				String address = textField_stud_deleteAdd_address.getText().trim();
 
+				if (spnr.isEmpty() || name.isEmpty() || address.isEmpty()) {
+					communicateMessage(feedbackHandler.insufficientInput());
+				} else {
+					try {
+						ArrayList<String> values = new ArrayList<>();
+						values.add(spnr);
+						values.add(name);
+						values.add(address);
+						controllerLu.createAll(values, "Student");
+						communicateMessage(feedbackHandler.studentAdded(spnr));
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+					}
+				}
+
+			}
 		});
 		btn_stud_deleteAdd_add.setBounds(159, 155, 132, 23);
 		panel_student.add(btn_stud_deleteAdd_add);
@@ -683,9 +683,8 @@ public class view extends JFrame {
 					try {
 						String tableName = table_stud_regOnCourse_courseList.getName();
 						ArrayList<String> values = new ArrayList<String>();
-
 						values.add(spnr);
-						table_stud_regOnCourse_courseList.setModel(controllerLu.getAll(values, tableName));
+						table_stud_regOnCourse_courseList.setModel(controllerLu.getTableAll(values, tableName));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
@@ -726,37 +725,34 @@ public class view extends JFrame {
 				String spnr = textField_stud_findStudentAll_pnr.getText().trim();
 
 				if (spnr.isEmpty()) {
-
 					communicateMessage(feedbackHandler.noInput());
 
 				} else {
-
 					ArrayList<String> values = new ArrayList<String>();
 					values.add(spnr);
 					String tableName;
 
 					try {
-						tableName = table_stud_foundStud.getName();
-						table_stud_foundStud.setModel(controllerLu.getAll(values, tableName));
-
+						tableName = table_stud_finishedCourses.getName();
+						table_stud_finishedCourses.setModel(controllerLu.getTableAll(values, tableName));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
 						tableName = table_stud_currentCourses.getName();
-						table_stud_currentCourses.setModel(controllerLu.getAll(values, tableName));
+						table_stud_currentCourses.setModel(controllerLu.getTableAll(values, tableName));
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
-						tableName = table_stud_finishedCourses.getName();
-						table_stud_finishedCourses.setModel(controllerLu.getAll(values, tableName));
+						tableName = table_stud_foundStud.getName();
+						table_stud_foundStud.setModel(controllerLu.getTableAll(values, tableName));
+						communicateMessage(feedbackHandler.studentFound());
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
-
 				}
 			}
 		});

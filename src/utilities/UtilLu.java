@@ -1,7 +1,7 @@
 package utilities;
 
 public class UtilLu {
-	public String getQuery(String tableName) {
+	public String getTableQuery(String tableName) {
 		String sqlQuery = null;
 
 		switch (tableName) {
@@ -24,8 +24,30 @@ public class UtilLu {
 		return sqlQuery;
 	}
 
+	public String getCreateQuery(String studentOrCourse) {
+		String sqlQuery = null;
+
+		if (studentOrCourse.equals("Student")) {
+			sqlQuery = createStudent();
+		} else if (studentOrCourse.equals("Course")) {
+			sqlQuery = createCourse();
+		}
+		return sqlQuery;
+	}
+
+	public String getTextFieldQuery(String studentOrCourse) {
+		String sqlQuery = null;
+
+		if (studentOrCourse.equals("Student")) {
+			sqlQuery = getStudent();
+		} else if (studentOrCourse.equals("Course")) {
+			sqlQuery = getCourse();
+		}
+		return sqlQuery;
+	}
+
 	public String getStudent() {
-		return "select spnr as 'Personal Number', sname as 'Name', spcity as 'City' from student where spnr = ?";
+		return "select spnr as 'Personal Number', sname as 'Name', sadress as 'City' from student where spnr = ?";
 	}
 
 	// allt från en viss kurs
