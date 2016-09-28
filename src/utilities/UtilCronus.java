@@ -11,8 +11,11 @@ public class UtilCronus {
 	private ArrayList<String> cronusAccessFilesToOpen = new ArrayList<String>();
 	private ArrayList<String> cronusExcelFilesToOpen = new ArrayList<String>();
 
+	private ArrayList<String> cronusAccessFormFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusExcelFormFilesToOpen = new ArrayList<String>();
+	private ArrayList<String> cronusWordFormFilesToOpen = new ArrayList<String>();
+
 	public UtilCronus() {
-		// ArrayList<String> cronusFilesToOpenTemp = new ArrayList<String>();
 		cronusAccessFilesToOpen.add(" ");
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.accdb");
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.accdb");
@@ -21,6 +24,7 @@ public class UtilCronus {
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.accdb");
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.accdb");
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.accdb");
+
 		cronusExcelFilesToOpen.add(" ");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.xlsx");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.xlsx");
@@ -29,6 +33,13 @@ public class UtilCronus {
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.xlsx");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
+
+		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCronusCustomer.accdb");
+		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCronusEmployee.accdb");
+		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.xlsx");
+		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.xlsx");
+		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.docx");
+		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.docx");
 	}
 
 	public String getQuery(int selectedIndex) {
