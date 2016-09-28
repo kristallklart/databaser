@@ -11,11 +11,8 @@ public class UtilCronus {
 	private ArrayList<String> cronusAccessFilesToOpen = new ArrayList<String>();
 	private ArrayList<String> cronusExcelFilesToOpen = new ArrayList<String>();
 
-	private ArrayList<String> cronusAccessFormFilesToOpen = new ArrayList<String>();
-	private ArrayList<String> cronusExcelFormFilesToOpen = new ArrayList<String>();
-	private ArrayList<String> cronusWordFormFilesToOpen = new ArrayList<String>();
-
 	public UtilCronus() {
+		// ArrayList<String> cronusFilesToOpenTemp = new ArrayList<String>();
 		cronusAccessFilesToOpen.add(" ");
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.accdb");
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.accdb");
@@ -24,7 +21,6 @@ public class UtilCronus {
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.accdb");
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.accdb");
 		cronusAccessFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.accdb");
-
 		cronusExcelFilesToOpen.add(" ");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.xlsx");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.xlsx");
@@ -33,13 +29,6 @@ public class UtilCronus {
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query5.xlsx");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
 		cronusExcelFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
-
-		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.accdb");
-		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.accdb");
-		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.xlsx");
-		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.xlsx");
-		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.docx");
-		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.docx");
 	}
 
 	public String getQuery(int selectedIndex) {
@@ -175,17 +164,25 @@ public class UtilCronus {
 		return cronusQueryFileNames;
 	}
 
-	public void openCronusFile(int selectedProgramToUse, int selectedCronusFileToOpen) {
+	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen) {
 		try {
 			Desktop desktop = null;
 			if (Desktop.isDesktopSupported()) {
 				desktop = Desktop.getDesktop();
 			}
 
-			if (selectedProgramToUse == 1) {
+			if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 1) {
 				desktop.open(new File(cronusAccessFilesToOpen.get(selectedCronusFileToOpen)));
-			} else {
+
+			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 2) {
 				desktop.open(new File(cronusExcelFilesToOpen.get(selectedCronusFileToOpen)));
+			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 1) {
+				desktop.open(new File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
+
+			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 2) {
+
+			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 3) {
+
 			}
 
 		} catch (IOException ioe) {
