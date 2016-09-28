@@ -838,6 +838,10 @@ public class view extends JFrame {
 		table_caccess.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane_caccess.setViewportView(table_caccess);
 
+		// ********************************
+		// ****** CRONUS OPEN FILES *******
+		// ********************************
+
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Cronus Database", null, panel, null);
 		panel.setLayout(null);
@@ -852,11 +856,13 @@ public class view extends JFrame {
 
 		String[] microsoft = { "", "Access", "Excel" };
 
-		JComboBox comboBox_word_excel = new JComboBox(microsoft);
-		comboBox_word_excel.setBounds(171, 101, 280, 26);
-		panel.add(comboBox_word_excel);
+		JComboBox comboBox_access_excel = new JComboBox(microsoft);
+		comboBox_access_excel.setName("comboBox_access_excel");
+		comboBox_access_excel.setBounds(171, 101, 280, 26);
+		panel.add(comboBox_access_excel);
 
 		JComboBox comboBox_cdatabase_query = new JComboBox(controllerCronus.getCronusFileNameToOpen());
+		comboBox_cdatabase_query.setName("comboBox_cdatabase_query");
 		comboBox_cdatabase_query.setBounds(171, 156, 280, 26);
 		panel.add(comboBox_cdatabase_query);
 
@@ -880,9 +886,10 @@ public class view extends JFrame {
 
 		String[] micoffice = { "", "Access", "Excel", "Word" };
 
-		JComboBox comboBox_oform_selectOption = new JComboBox(micoffice);
-		comboBox_oform_selectOption.setBounds(171, 412, 144, 26);
-		panel.add(comboBox_oform_selectOption);
+		JComboBox comboBox_oform_selectProgram = new JComboBox(micoffice);
+		comboBox_oform_selectProgram.setName("comboBox_oform_selectProgram");
+		comboBox_oform_selectProgram.setBounds(171, 412, 144, 26);
+		panel.add(comboBox_oform_selectProgram);
 
 		JLabel lbl_oform_select = new JLabel("Select :");
 		lbl_oform_select.setBounds(30, 466, 112, 39);
@@ -890,9 +897,10 @@ public class view extends JFrame {
 
 		String[] ec = { "Employee", "Customer" };
 
-		JComboBox comboBox_oform_select = new JComboBox(ec);
-		comboBox_oform_select.setBounds(171, 472, 144, 26);
-		panel.add(comboBox_oform_select);
+		JComboBox comboBox_oform_selectQuery = new JComboBox(ec);
+		comboBox_oform_selectQuery.setName("comboBox_oform_selectQuery");
+		comboBox_oform_selectQuery.setBounds(171, 472, 144, 26);
+		panel.add(comboBox_oform_selectQuery);
 
 		JButton btnGo = new JButton("GO 1");
 		btnGo.setBounds(40, 224, 102, 29);
@@ -900,9 +908,9 @@ public class view extends JFrame {
 		btnGo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (comboBox_word_excel.getSelectedIndex() != 0 && comboBox_cdatabase_query.getSelectedIndex() != 0) {
-					controllerCronus.openCronusFile(comboBox_word_excel.getSelectedIndex(),
-							comboBox_cdatabase_query.getSelectedIndex());
+				if (comboBox_access_excel.getSelectedIndex() != 0 && comboBox_cdatabase_query.getSelectedIndex() != 0) {
+					controllerCronus.openCronusFile(comboBox_access_excel.getName(),
+							comboBox_access_excel.getSelectedIndex(), comboBox_cdatabase_query.getSelectedIndex());
 				}
 			}
 		});
@@ -911,7 +919,12 @@ public class view extends JFrame {
 		button_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				if (comboBox_oform_selectProgram.getSelectedIndex() != 0
+						&& comboBox_oform_selectQuery.getSelectedIndex() != 0) {
+					controllerCronus.openCronusFile(comboBox_oform_selectProgram.getName(),
+							comboBox_oform_selectProgram.getSelectedIndex(),
+							comboBox_oform_selectQuery.getSelectedIndex());
+				}
 			}
 		});
 		button_1.setBounds(30, 546, 102, 29);

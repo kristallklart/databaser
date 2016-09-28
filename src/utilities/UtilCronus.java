@@ -185,17 +185,14 @@ public class UtilCronus {
 
 			if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 1) {
 				desktop.open(new File(cronusAccessDocFilesToOpen.get(selectedCronusFileToOpen)));
-
 			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 2) {
 				desktop.open(new File(cronusExcelDocFilesToOpen.get(selectedCronusFileToOpen)));
-			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 1) {
-				// desktop.open(new
-				// File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
-
-			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 2) {
-
-			} else if (nameProgramToUse.equals("comboBox_cdatabase_query") && selectedProgramToUse == 3) {
-
+			} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 1) {
+				desktop.open(new File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
+			} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 2) {
+				desktop.open(new File(cronusExcelFormFilesToOpen.get(selectedCronusFileToOpen)));
+			} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 3) {
+				desktop.open(new File(cronusWordFormFilesToOpen.get(selectedCronusFileToOpen)));
 			}
 
 		} catch (IOException ioe) {
