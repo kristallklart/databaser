@@ -14,11 +14,8 @@ public class ControllerCronus {
 	private UtilCronus utilCronus = new UtilCronus();
 
 	// Används för att visa en tabell för respektive query för uppgift 2
-	public DefaultTableModel getTableModel(int selectedIndex) throws SQLException {
-		return dalC.getTableModel(selectedIndex);
-	}
-	public DefaultTableModel getTableModelMeta(int selectedIndex) throws SQLException {
-		return dalC.getTableModelMeta(selectedIndex);
+	public DefaultTableModel getTableModel(int selectedIndex, String nameCombobox) throws SQLException {
+		return dalC.getTableModel(selectedIndex, nameCombobox);
 	}
 
 	// Används för att sätta rätt query-namn i comboboxen för uppgift 2.

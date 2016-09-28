@@ -807,6 +807,7 @@ public class view extends JFrame {
 		panel_caccess.add(lbl_caccess_selectOption);
 
 		JComboBox<String> comboBox_caccessTables = new JComboBox(controllerCronus.getCronusQueryNamesTables());
+		comboBox_caccessTables.setName("comboBox_caccessTables");
 		comboBox_caccessTables.setBounds(119, 21, 297, 25);
 
 		panel_caccess.add(comboBox_caccessTables);
@@ -817,9 +818,10 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int selectedCronusIndex = comboBox_caccessTables.getSelectedIndex();
+				String nameCombobox = comboBox_caccessTables.getName();
 				if (selectedCronusIndex != 0) {
 					try {
-						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex));
+						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex, nameCombobox));
 
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
@@ -838,9 +840,13 @@ public class view extends JFrame {
 		scrollPane_caccess.setViewportView(table_caccess);
 		
 		JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
+		comboBox_caccessMeta.setName("combox_caccessMeta");
 		comboBox_caccessMeta.setBounds(119, 89, 297, 25);
 		
 		panel_caccess.add(comboBox_caccessMeta);
+		
+		
+		
 		
 		JButton btn_caccess_go_meta = new JButton("Show meta");
 		btn_caccess_go_meta.setBounds(479, 88, 108, 23);
@@ -848,9 +854,10 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int selectedCronusIndex = comboBox_caccessMeta.getSelectedIndex();
+				String nameCombobox = comboBox_caccessMeta.getName();
 				if (selectedCronusIndex != 0) {
 					try {
-						table_caccess.setModel(controllerCronus.getTableModelMeta(selectedCronusIndex));
+						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex, nameCombobox));
 
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
