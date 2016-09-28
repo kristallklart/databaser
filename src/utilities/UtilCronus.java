@@ -33,14 +33,14 @@ public class UtilCronus {
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
 
-		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
-		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
+		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.accdb");
+		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.accdb");
 
-		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
-		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
+		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.xlsx");
+		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.xlsx");
 
-		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
-		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\");
+		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.docx");
+		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.docx");
 	}
 
 	public String getQuery(int selectedIndex) {
@@ -306,7 +306,7 @@ public class UtilCronus {
 	public String getEmployeeColumnsSysColumns() {
 		return "select name as [Employee Columns] from sys.columns "
 				+ "where object_id=object_ID('CRONUS Sverige AB$Employee')";
-				
+
 	}
 
 	// tabell som innehåller flest rader
