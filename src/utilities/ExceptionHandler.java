@@ -7,7 +7,9 @@ public class ExceptionHandler {
 	public String handleException(Exception ex) {
 		String message;
 
-		if (ex instanceof NullPointerException) {
+		if (ex instanceof NotFoundException) {
+			message = ex.getMessage();
+		} else if (ex instanceof NullPointerException) {
 			message = "Nullpointer.";
 		} else if (ex instanceof IndexOutOfBoundsException) {
 			message = "Index out of bounds.";

@@ -4,13 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
 
 import model.Course;
 import model.Student;
 import model.Studied;
 import model.Studying;
+import utilities.NotFoundException;
 import utilities.UtilDatabaseAccess;
 
 public class DataAccessLayerLu {
@@ -474,5 +479,134 @@ public class DataAccessLayerLu {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return c;
+	}
+
+	public DefaultTableModel getTestStudent(String spnr) throws SQLException, NotFoundException {
+		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
+		Vector<String> sendColumnNames = new Vector<String>();
+
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ResultSetMetaData rSetMeta = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(queriesLu.getStudent());
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+
+			if (!rSet.isBeforeFirst()) {
+				throw new NotFoundException("No student with personal number: " + spnr + " found.");
+			}
+
+			rSetMeta = rSet.getMetaData();
+			int numberOfColumns = rSetMeta.getColumnCount();
+
+			for (int i = 1; i <= numberOfColumns; i++) {
+				sendColumnNames.add(rSetMeta.getColumnName(i));
+			}
+
+			while (rSet.next()) {
+				Vector<Object> columnData = new Vector<Object>();
+				for (int i = 1; i <= numberOfColumns; i++) {
+					columnData.add(rSet.getObject(i));
+				}
+				sendData.add(columnData);
+			}
+
+			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
+
+			return model;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
+	public DefaultTableModel getTestStudentStudying(String spnr) throws SQLException, NotFoundException {
+		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
+		Vector<String> sendColumnNames = new Vector<String>();
+
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ResultSetMetaData rSetMeta = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(queriesLu.getStudentStudying());
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+
+			if (!rSet.isBeforeFirst()) {
+				throw new NotFoundException("Student with personal number: " + spnr + " is not studying any courses.");
+			}
+
+			rSetMeta = rSet.getMetaData();
+			int numberOfColumns = rSetMeta.getColumnCount();
+
+			for (int i = 1; i <= numberOfColumns; i++) {
+				sendColumnNames.add(rSetMeta.getColumnName(i));
+			}
+
+			while (rSet.next()) {
+				Vector<Object> columnData = new Vector<Object>();
+				for (int i = 1; i <= numberOfColumns; i++) {
+					columnData.add(rSet.getObject(i));
+				}
+				sendData.add(columnData);
+			}
+
+			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
+
+			return model;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
+	public DefaultTableModel getTestStudentStudied(String spnr) throws SQLException, NotFoundException {
+		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
+		Vector<String> sendColumnNames = new Vector<String>();
+
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ResultSetMetaData rSetMeta = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(queriesLu.getStudentStudying());
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+
+			if (!rSet.isBeforeFirst()) {
+				throw new NotFoundException("Student with personal number: " + spnr + " has not finished any courses.");
+			}
+
+			rSetMeta = rSet.getMetaData();
+			int numberOfColumns = rSetMeta.getColumnCount();
+
+			for (int i = 1; i <= numberOfColumns; i++) {
+				sendColumnNames.add(rSetMeta.getColumnName(i));
+			}
+
+			while (rSet.next()) {
+				Vector<Object> columnData = new Vector<Object>();
+				for (int i = 1; i <= numberOfColumns; i++) {
+					columnData.add(rSet.getObject(i));
+				}
+				sendData.add(columnData);
+			}
+
+			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
+
+			return model;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
 	}
 }

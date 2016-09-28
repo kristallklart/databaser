@@ -3,11 +3,14 @@ package controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.table.DefaultTableModel;
+
 import databaseAccess.DataAccessLayerLu;
 import model.Course;
 import model.Student;
 import model.Studied;
 import model.Studying;
+import utilities.NotFoundException;
 
 public class ControllerLu {
 
@@ -83,5 +86,17 @@ public class ControllerLu {
 
 	public ArrayList<Course> mostThrough() throws SQLException {
 		return dal.mostThrough();
+	}
+
+	public DefaultTableModel getTestStudent(String spnr) throws SQLException, NotFoundException {
+		return dal.getTestStudent(spnr);
+	}
+
+	public DefaultTableModel getTestStudentStudying(String spnr) throws SQLException, NotFoundException {
+		return dal.getTestStudentStudying(spnr);
+	}
+
+	public DefaultTableModel getTestStudentStudied(String spnr) throws SQLException, NotFoundException {
+		return dal.getTestStudentStudied(spnr);
 	}
 }
