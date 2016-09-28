@@ -894,7 +894,7 @@ public class view extends JFrame {
 		lbl_oform_select.setBounds(30, 466, 112, 39);
 		panel.add(lbl_oform_select);
 
-		String[] ec = { "Employee", "Customer" };
+		String[] ec = { " ", "Employee", "Customer" };
 
 		JComboBox comboBox_oform_selectQuery = new JComboBox(ec);
 		comboBox_oform_selectQuery.setName("comboBox_oform_selectQuery");
