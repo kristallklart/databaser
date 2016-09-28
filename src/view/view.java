@@ -87,6 +87,7 @@ public class view extends JFrame {
 	private JTextField textField_course_regpnr;
 	private JTextField textField_course_regccode;
 	private JTable table;
+	// test branch
 
 	/**
 	 * Launch the application.
@@ -836,12 +837,12 @@ public class view extends JFrame {
 
 		table_caccess = new JTable();
 		scrollPane_caccess.setViewportView(table_caccess);
-		
+
 		JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
 		comboBox_caccessMeta.setBounds(119, 89, 297, 25);
-		
+
 		panel_caccess.add(comboBox_caccessMeta);
-		
+
 		JButton btn_caccess_go_meta = new JButton("Show meta");
 		btn_caccess_go_meta.setBounds(479, 88, 108, 23);
 		btn_caccess_go_meta.addActionListener(new ActionListener() {
@@ -860,11 +861,7 @@ public class view extends JFrame {
 			}
 		});
 		panel_caccess.add(btn_caccess_go_meta);
-		
-		
-		
-		
-		
+
 		JLabel lblNewLabel = new JLabel("Meta data");
 		lblNewLabel.setBounds(22, 89, 75, 19);
 		panel_caccess.add(lblNewLabel);
