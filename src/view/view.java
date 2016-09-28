@@ -787,7 +787,6 @@ public class view extends JFrame {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 				}
-
 			}
 		});
 		btn_course_searchEnrolled.setBounds(1093, 110, 108, 23);
@@ -853,10 +852,12 @@ public class view extends JFrame {
 		String[] microsoft = { "", "Access", "Excel" };
 
 		JComboBox comboBox_word_excel = new JComboBox(microsoft);
+		comboBox_word_excel.setName("comboBox_word_excel");
 		comboBox_word_excel.setBounds(171, 101, 280, 26);
 		panel.add(comboBox_word_excel);
 
 		JComboBox comboBox_cdatabase_query = new JComboBox(controllerCronus.getCronusFileNameToOpen());
+		comboBox_cdatabase_query.setName("comboBox_cdatabase_query");
 		comboBox_cdatabase_query.setBounds(171, 156, 280, 26);
 		panel.add(comboBox_cdatabase_query);
 
@@ -881,6 +882,7 @@ public class view extends JFrame {
 		String[] micoffice = { "", "Access", "Excel", "Word" };
 
 		JComboBox comboBox_oform_selectOption = new JComboBox(micoffice);
+		comboBox_oform_selectOption.setName("comboBox_oform_selectOption");
 		comboBox_oform_selectOption.setBounds(171, 412, 144, 26);
 		panel.add(comboBox_oform_selectOption);
 
@@ -891,9 +893,9 @@ public class view extends JFrame {
 		String[] ec = { "Employee", "Customer" };
 
 		JComboBox comboBox_oform_select = new JComboBox(ec);
+		comboBox_oform_select.setName("comboBox_oform_select");
 		comboBox_oform_select.setBounds(171, 472, 144, 26);
 		panel.add(comboBox_oform_select);
-
 		JButton btnGo = new JButton("GO 1");
 		btnGo.setBounds(40, 224, 102, 29);
 		panel.add(btnGo);
@@ -916,4 +918,5 @@ public class view extends JFrame {
 	public void communicateMessage(String message) {
 		lbl_feedback.setText(message);
 	}
+
 }
