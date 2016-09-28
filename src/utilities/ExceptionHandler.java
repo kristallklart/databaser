@@ -5,10 +5,10 @@ import java.sql.SQLException;
 public class ExceptionHandler {
 
 	public String handleException(Exception ex) {
-		String message;
+		String message = null;
 
 		if (ex instanceof NotFoundException) {
-			message = ex.getMessage();
+			message = whatsUp(((NotFoundException) ex).getError());
 		} else if (ex instanceof NullPointerException) {
 			message = "Nullpointer.";
 		} else if (ex instanceof IndexOutOfBoundsException) {
@@ -37,6 +37,29 @@ public class ExceptionHandler {
 			}
 		} else {
 			message = "An unknown exception occured, please contact support.";
+		}
+		return message;
+	}
+
+	private String whatsUp(String error) {
+		String message = null;
+
+		switch (error) {
+		case "table_stud_regOnCourse_courseList":
+			message = "Could not find the student you were searching for.";
+			break;
+
+		case "table_stud_foundStud":
+			message = "Could not find the student you were searching for.";
+			break;
+
+		case "table_stud_currentCourses":
+			message = "The student you searched for is currently not studying any courses.";
+			break;
+
+		case "table_stud_finishedCourses":
+			message = "The student you searched for has not finished any courses.";
+			break;
 		}
 		return message;
 	}

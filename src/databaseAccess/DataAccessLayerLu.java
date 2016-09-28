@@ -17,12 +17,14 @@ import model.Studied;
 import model.Studying;
 import utilities.NotFoundException;
 import utilities.UtilDatabaseAccess;
+import utilities.UtilLu;
 
 public class DataAccessLayerLu {
 
 	private LoginDataLu login = new LoginDataLu();
 	private QueriesLu queriesLu = new QueriesLu();
 	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
+	private UtilLu utilLu = new UtilLu();
 
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
@@ -609,4 +611,52 @@ public class DataAccessLayerLu {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
+
+	public DefaultTableModel getAll(ArrayList<String> values, String tableName) throws SQLException, NotFoundException {
+		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
+		Vector<String> sendColumnNames = new Vector<String>();
+
+		String query = utilLu.getQuery(tableName);
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ResultSetMetaData rSetMeta = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+
+			int x = 0;
+			while (x < values.size()) {
+				pStatement.setString(x + 1, values.get(x));
+				x++;
+			}
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				throw new NotFoundException(tableName);
+			}
+			rSetMeta = rSet.getMetaData();
+			int numberOfColumns = rSetMeta.getColumnCount();
+
+			for (int i = 1; i <= numberOfColumns; i++) {
+				sendColumnNames.add(rSetMeta.getColumnName(i));
+			}
+
+			while (rSet.next()) {
+				Vector<Object> columnData = new Vector<Object>();
+				for (int i = 1; i <= numberOfColumns; i++) {
+					columnData.add(rSet.getObject(i));
+				}
+				sendData.add(columnData);
+			}
+
+			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
+
+			return model;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
 }

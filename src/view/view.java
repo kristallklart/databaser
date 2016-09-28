@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -146,6 +145,24 @@ public class view extends JFrame {
 		String[] student = { "Personal number", "Name", "Address" };
 		dtmStud_Search.setColumnIdentifiers(student);
 
+		/*
+		 * DefaultTableModel dtmcourses = new DefaultTableModel(); String[]
+		 * course = { "Code", "Semester" };
+		 * dtmcourses.setColumnIdentifiers(course);
+		 *
+		 * DefaultTableModel dtmcourse_showall = new DefaultTableModel();
+		 * String[] courses = { "Code", "Name", "Points" };
+		 * dtmcourse_showall.setColumnIdentifiers(courses);
+		 *
+		 * DefaultTableModel dtmcourse_mostThrough = new DefaultTableModel();
+		 * String[] mcourses = { "Code", "No. of students through ", };
+		 * dtmcourse_mostThrough.setColumnIdentifiers(mcourses);
+		 *
+		 * DefaultTableModel dtmNotFinished = new DefaultTableModel(); String[]
+		 * students = { "Personal Number", "Semester" };
+		 * dtmNotFinished.setColumnIdentifiers(students);
+		 */
+
 		JLabel lbl_course_ccode = new JLabel("Course code:");
 		lbl_course_ccode.setBounds(10, 33, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_ccode);
@@ -210,8 +227,8 @@ public class view extends JFrame {
 		JScrollPane scrollPane_course = new JScrollPane();
 		scrollPane_course.setBounds(674, 247, 527, 309);
 		panel_course.add(scrollPane_course);
-
 		table_course = new JTable();
+		table_course.setName("table_course");
 		scrollPane_course.setViewportView(table_course);
 
 		JButton btn_course_addCourse_clear = new JButton("Clear");
@@ -515,12 +532,14 @@ public class view extends JFrame {
 		JScrollPane scrollPane_stud_foundStudent = new JScrollPane();
 		scrollPane_stud_foundStudent.setBounds(472, 121, 391, 88);
 		table_stud_foundStud = new JTable();
+		table_stud_foundStud.setName("table_stud_foundStud");
 		scrollPane_stud_foundStudent.setViewportView(table_stud_foundStud);
 		panel_student.add(scrollPane_stud_foundStudent);
 
 		JScrollPane scrollPane_stud_currentCourses = new JScrollPane();
 		scrollPane_stud_currentCourses.setBounds(472, 253, 358, 219);
 		table_stud_currentCourses = new JTable();
+		table_stud_currentCourses.setName("table_stud_currentCourses");
 		table_stud_currentCourses.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -540,13 +559,14 @@ public class view extends JFrame {
 		scrollPane_stud_finishedCourses.setBounds(856, 253, 367, 219);
 		panel_student.add(scrollPane_stud_finishedCourses);
 		table_stud_finishedCourses = new JTable();
+		table_stud_finishedCourses.setName("table_stud_finishedCourses");
 		scrollPane_stud_finishedCourses.setViewportView(table_stud_finishedCourses);
 
 		JScrollPane scrollPane_stud_regOnCourse_courseList = new JScrollPane();
 		scrollPane_stud_regOnCourse_courseList.setBounds(12, 374, 397, 173);
 		panel_student.add(scrollPane_stud_regOnCourse_courseList);
-
 		table_stud_regOnCourse_courseList = new JTable();
+		table_stud_regOnCourse_courseList.setName("table_stud_regOnCourse_courseList");
 		scrollPane_stud_regOnCourse_courseList.setViewportView(table_stud_regOnCourse_courseList);
 
 		JComboBox<String> comboBox_stud_grade_1 = new JComboBox<String>();
@@ -651,6 +671,27 @@ public class view extends JFrame {
 		});
 
 		JButton btn_stud_regOnCourse_search = new JButton("Search");
+		btn_stud_regOnCourse_search.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				clearFeedback();
+				String spnr = textField_stud_regOnCourse_pnr.getText().trim();
+
+				if (spnr.isEmpty()) {
+					communicateMessage(feedbackHandler.noInput());
+				} else {
+					try {
+						String tableName = table_stud_regOnCourse_courseList.getName();
+						ArrayList<String> values = new ArrayList<String>();
+
+						values.add(spnr);
+						table_stud_regOnCourse_courseList.setModel(controllerLu.getAll(values, tableName));
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+					}
+				}
+			}
+		});
 		btn_stud_regOnCourse_search.setBounds(301, 264, 108, 23);
 		panel_student.add(btn_stud_regOnCourse_search);
 
@@ -685,15 +726,37 @@ public class view extends JFrame {
 				String spnr = textField_stud_findStudentAll_pnr.getText().trim();
 
 				if (spnr.isEmpty()) {
+
 					communicateMessage(feedbackHandler.noInput());
+
 				} else {
+
+					ArrayList<String> values = new ArrayList<String>();
+					values.add(spnr);
+					String tableName;
+
 					try {
-						table_stud_foundStud.setModel(controllerLu.getTestStudent(spnr));
-						table_stud_currentCourses.setModel(controllerLu.getTestStudentStudying(spnr));
-						table_stud_finishedCourses.setModel(controllerLu.getTestStudentStudied(spnr));
+						tableName = table_stud_foundStud.getName();
+						table_stud_foundStud.setModel(controllerLu.getAll(values, tableName));
+
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
+					try {
+						tableName = table_stud_currentCourses.getName();
+						table_stud_currentCourses.setModel(controllerLu.getAll(values, tableName));
+
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+					}
+					try {
+						tableName = table_stud_finishedCourses.getName();
+						table_stud_finishedCourses.setModel(controllerLu.getAll(values, tableName));
+
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+					}
+
 				}
 			}
 		});
@@ -738,24 +801,6 @@ public class view extends JFrame {
 		JSeparator separator_stud_regGrade = new JSeparator();
 		separator_stud_regGrade.setBounds(472, 549, 358, 14);
 		panel_student.add(separator_stud_regGrade);
-
-		DefaultComboBoxModel<String> ccodesList = new DefaultComboBoxModel<String>();
-
-		DefaultTableModel dtmcourses = new DefaultTableModel();
-		String[] course = { "Code", "Semester" };
-		dtmcourses.setColumnIdentifiers(course);
-
-		DefaultTableModel dtmcourse_showall = new DefaultTableModel();
-		String[] courses = { "Code", "Name", "Points" };
-		dtmcourse_showall.setColumnIdentifiers(courses);
-
-		DefaultTableModel dtmcourse_mostThrough = new DefaultTableModel();
-		String[] mcourses = { "Code", "No. of students through ", };
-		dtmcourse_mostThrough.setColumnIdentifiers(mcourses);
-
-		DefaultTableModel dtmNotFinished = new DefaultTableModel();
-		String[] students = { "Personal Number", "Semester" };
-		dtmNotFinished.setColumnIdentifiers(students);
 
 		// ***************************************
 		// ***********CRONUS ACCESS TAB***********

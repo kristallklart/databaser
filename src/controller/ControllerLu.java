@@ -99,4 +99,8 @@ public class ControllerLu {
 	public DefaultTableModel getTestStudentStudied(String spnr) throws SQLException, NotFoundException {
 		return dal.getTestStudentStudied(spnr);
 	}
+
+	public DefaultTableModel getAll(ArrayList<String> values, String tableName) throws SQLException, NotFoundException {
+		return dal.getAll(values, tableName);
+	}
 }
