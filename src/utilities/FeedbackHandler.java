@@ -15,7 +15,7 @@ public class FeedbackHandler {
 	}
 
 	public String insufficientInput() {
-		return "Please fill in all the fields";
+		return "Please fill in all the fields, and make necessary selection.";
 	}
 
 	public String noStudentFound(String input) {
@@ -80,6 +80,18 @@ public class FeedbackHandler {
 
 	public String studentRegCourse(String spnr, String ccode) {
 		String message = "Student with personal number: " + spnr + " successfully added to course: " + ccode;
+		return message;
+	}
+
+	public String registeredGrade(String spnr, String grade, String ccode) {
+		String message = "Successfully registered grade: " + grade + " on course: " + ccode
+				+ " for student with personal number: " + spnr;
+		return message;
+	}
+
+	public String studentRemovedStudying(String spnr, String ccode) {
+		String message = "Successfully removed student with personal number: " + spnr + " from course with ccode: "
+				+ ccode;
 		return message;
 	}
 

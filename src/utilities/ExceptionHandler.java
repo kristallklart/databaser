@@ -12,7 +12,7 @@ public class ExceptionHandler {
 		} else if (ex instanceof NullPointerException) {
 			message = "Nullpointer.";
 		} else if (ex instanceof IndexOutOfBoundsException) {
-			message = "Something went wrong, if you're trying to register a student on a course please make sure you've selected a course from the list.";
+			message = "Something went wrong, if you're trying to register a student, course or grade please make sure you've made a selection from a list";
 		} else if (ex instanceof NumberFormatException) {
 			message = "Number format exception.";
 		} else if (ex instanceof SQLException) {

@@ -60,15 +60,15 @@ public class ControllerLu {
 		return dal.acedIt(ccode);
 	}
 
-	public boolean registerGrade(String semester, String sPnr, String cCode, String grade) {
-		return dal.registerGrade(semester, sPnr, cCode, grade);
+	public void registerGrade(Studied s) throws SQLException {
+		dal.registerGrade(s);
 	}
 
 	public void registerOnCourse(Studying s) throws SQLException {
 		dal.registerOnCourse(s);
 	}
 
-	public void deleteStudying(String spnr, String ccode) {
+	public void deleteStudying(String spnr, String ccode) throws SQLException {
 		dal.deleteStudying(spnr, ccode);
 	}
 

@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -47,9 +45,13 @@ public class view extends JFrame {
 	private ExceptionHandler exceptionHandler = new ExceptionHandler();
 	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
-	JLabel lbl_feedback = new JLabel("");
-	ButtonGroup btngr_course = new ButtonGroup();
+	private JLabel lbl_feedback = new JLabel("");
+	private ButtonGroup btngr_course = new ButtonGroup();
 	private DefaultTableModel emptyDefTableModel = new DefaultTableModel();
+	private DefaultTableModel dtm_stud_finishedCourses = new DefaultTableModel();
+	private DefaultTableModel dtm_stud_currentCourses = new DefaultTableModel();
+	private DefaultTableModel dtm_stud_student = new DefaultTableModel();
+	private JTable table_stud_currentCourses = new JTable(dtm_stud_currentCourses);
 	private JPanel contentPane;
 	private final int BUTTON_WIDTH = 108;
 	private final int BUTTON_HEIGHT = 23;
@@ -59,20 +61,14 @@ public class view extends JFrame {
 	private final int LABEL_HEIGHT = 23;
 	private final int LABEL_HEADLINE_WIDTH = 150;
 	private final int LABEL_HEADLINE_HEIGHT = 23;
-	private final int COMBOBOX_WIDHT = 85;
-	private final int COMBOBOX_HEIGHT = 25;
 	private JTextField textField_stud_findStudentAll_pnr;
 	private JTextField textField_course_courseCode;
 	private JTextField textField_course_cname;
 	private JTextField textField_course_points;
-	private JTable table_stud_currentCourses;
 	private JTable table_caccess;
 	private JTextField textField_stud_deleteAdd_pnr;
 	private JTextField textField_stud_deleteAdd_name;
 	private JTextField textField_stud_deleteAdd_address;
-	private DefaultTableModel dtmNotFinished;
-	private DefaultTableModel dtmcourse_showall;
-	private DefaultTableModel dtmcourse_mostThrough;
 	private JTable table_stud_foundStud;
 	private JTable table_stud_finishedCourses;
 	private JTable table_course;
@@ -124,21 +120,9 @@ public class view extends JFrame {
 		lbl_feedback.setBounds(10, 640, 1244, 20);
 		contentPane.add(lbl_feedback);
 
-		DefaultTableModel dtmStud_Finished = new DefaultTableModel();
-		String[] finCourse = { "Course code", "Semester", "Grade" };
-		dtmStud_Finished.setColumnIdentifiers(finCourse);
-
 		DefaultTableModel dtmCourse_results = new DefaultTableModel();
 		String[] resultsCourse = { "Personal Number", "Semester", "Grade" };
 		dtmCourse_results.setColumnIdentifiers(resultsCourse);
-
-		DefaultTableModel dtmStud_Current = new DefaultTableModel();
-		String[] currentCourse = { "Course code", "Semester" };
-		dtmStud_Current.setColumnIdentifiers(currentCourse);
-
-		DefaultTableModel dtmStud_Search = new DefaultTableModel();
-		String[] student = { "Personal number", "Name", "Address" };
-		dtmStud_Search.setColumnIdentifiers(student);
 
 		DefaultTableModel dtmcourses = new DefaultTableModel();
 		String[] course = { "Code", "Semester" };
@@ -478,12 +462,8 @@ public class view extends JFrame {
 		lbl_stud_findStudentAll_pnr.setBounds(472, 47, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_student.add(lbl_stud_findStudentAll_pnr);
 
-		JLabel lbl_stud_removeStudentCourse_selected = new JLabel("");
-		lbl_stud_removeStudentCourse_selected.setBounds(693, 558, 58, 14);
-		panel_student.add(lbl_stud_removeStudentCourse_selected);
-
-		JLabel lbl_stud_removeStudentCourse_header = new JLabel("Remove student from selected course:");
-		lbl_stud_removeStudentCourse_header.setBounds(472, 558, 228, 14);
+		JLabel lbl_stud_removeStudentCourse_header = new JLabel("Remove student from selected course");
+		lbl_stud_removeStudentCourse_header.setBounds(472, 562, 228, 14);
 		panel_student.add(lbl_stud_removeStudentCourse_header);
 
 		JLabel lbl_stud_regGrade_header = new JLabel("Register grade for selected course");
@@ -537,18 +517,6 @@ public class view extends JFrame {
 		scrollPane_stud_currentCourses.setBounds(472, 253, 358, 219);
 		table_stud_currentCourses = new JTable();
 		table_stud_currentCourses.setName("table_stud_currentCourses");
-		table_stud_currentCourses.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				try {
-					int sel = table_stud_currentCourses.getSelectedRow();
-					String ccode = dtmStud_Current.getValueAt(sel, 0).toString().toUpperCase();
-					lbl_stud_removeStudentCourse_selected.setText(ccode);
-				} catch (Exception e) {
-					communicateMessage(exceptionHandler.handleException(e));
-				}
-			}
-		});
 		scrollPane_stud_currentCourses.setViewportView(table_stud_currentCourses);
 		panel_student.add(scrollPane_stud_currentCourses);
 
@@ -642,25 +610,24 @@ public class view extends JFrame {
 		btn_stud_findStudentAll_register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if (textField_stud_findStudentAll_pnr.getText().trim().isEmpty()) {
-						lbl_feedback.setText(feedbackHandler.noInputPnr());
-					} else {
-
+				String spnr = textField_stud_findStudentAll_pnr.getText().trim();
+				if (spnr.isEmpty()) {
+					communicateMessage(feedbackHandler.insufficientInput());
+				} else {
+					try {
+						int selectedRow = table_stud_currentCourses.getSelectedRow();
 						String grade = comboBox_stud_grade_1.getSelectedItem().toString();
-						int st = table_stud_currentCourses.getSelectedRow();
-						String semester = dtmStud_Current.getValueAt(st, 1).toString();
-						String ccode = dtmStud_Current.getValueAt(st, 0).toString();
-						String spnr = textField_stud_findStudentAll_pnr.getText();
-						controllerLu.registerGrade(semester, spnr, ccode, grade);
+						String ccode = (String) table_stud_currentCourses.getValueAt(selectedRow, 0);
+						String semester = (String) table_stud_currentCourses.getValueAt(selectedRow, 1);
+						Studied s = new Studied(spnr, semester, grade, ccode);
+						controllerLu.registerGrade(s);
 						controllerLu.deleteStudying(spnr, ccode);
-						lbl_feedback.setText("Grade registered!");
+						communicateMessage(feedbackHandler.registeredGrade(spnr, grade, ccode));
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
 					}
-				} catch (Exception e) {
-					communicateMessage(exceptionHandler.handleException(e));
 				}
 			}
-
 		});
 
 		JButton btn_stud_regOnCourse_search = new JButton("Search");
@@ -755,20 +722,22 @@ public class view extends JFrame {
 
 					try {
 						tableName = table_stud_finishedCourses.getName();
-						table_stud_finishedCourses.setModel(controllerLu.getTableAll(values, tableName));
+						dtm_stud_finishedCourses = controllerLu.getTableAll(values, tableName);
+						table_stud_finishedCourses.setModel(dtm_stud_finishedCourses);
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
 						tableName = table_stud_currentCourses.getName();
-						table_stud_currentCourses.setModel(controllerLu.getTableAll(values, tableName));
-
+						dtm_stud_currentCourses = controllerLu.getTableAll(values, tableName);
+						table_stud_currentCourses.setModel(dtm_stud_currentCourses);
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
 						tableName = table_stud_foundStud.getName();
-						table_stud_foundStud.setModel(controllerLu.getTableAll(values, tableName));
+						dtm_stud_student = controllerLu.getTableAll(values, tableName);
+						table_stud_foundStud.setModel(dtm_stud_student);
 						communicateMessage(feedbackHandler.studentFound());
 
 					} catch (Exception e) {
@@ -782,29 +751,26 @@ public class view extends JFrame {
 		btn_stud_findStudentAll_register.setBounds(592, 512, 139, 23);
 		panel_student.add(btn_stud_findStudentAll_register);
 
-		JButton btn_stud_findStudentAll_delete = new JButton("Delete");
+		JButton btn_stud_findStudentAll_delete = new JButton("Remove");
 		btn_stud_findStudentAll_delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					if (textField_stud_findStudentAll_pnr.getText().trim().isEmpty()) {
-						lbl_feedback.setText(feedbackHandler.noInputPnr());
-					} else {
-						int st = table_stud_currentCourses.getSelectedRow();
-						String ccode = dtmStud_Current.getValueAt(st, 0).toString();
-						String spnr = textField_stud_findStudentAll_pnr.getText();
-						controllerLu.deleteStudying(spnr, ccode);
-						lbl_feedback.setText("Course successfully removed from student!");
-
-					}
+					int selectedRowCurrent = table_stud_currentCourses.getSelectedRow();
+					String spnr = (String) table_stud_foundStud.getValueAt(0, 0);
+					String ccode = (String) table_stud_currentCourses.getValueAt(selectedRowCurrent, 0);
+					controllerLu.deleteStudying(spnr, ccode);
+					dtm_stud_currentCourses.removeRow(selectedRowCurrent);
+					communicateMessage(feedbackHandler.studentRemovedStudying(spnr, ccode));
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
 				}
+
 			}
 
 		});
 
-		btn_stud_findStudentAll_delete.setBounds(745, 558, 85, 23);
+		btn_stud_findStudentAll_delete.setBounds(730, 558, 100, 23);
 		panel_student.add(btn_stud_findStudentAll_delete);
 
 		JSeparator separator_stud_vertical = new JSeparator();

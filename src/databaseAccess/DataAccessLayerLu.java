@@ -284,23 +284,21 @@ public class DataAccessLayerLu {
 		return percent;
 	}
 
-	public boolean registerGrade(String semester, String sPnr, String cCode, String grade) {
+	public void registerGrade(Studied s) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.registerGrade());
-			pStatement.setString(4, semester);
-			pStatement.setString(1, sPnr);
-			pStatement.setString(2, cCode);
-			pStatement.setString(3, grade);
+			pStatement.setString(1, s.getsPnr());
+			pStatement.setString(2, s.getcCode());
+			pStatement.setString(3, s.getGrade());
+			pStatement.setString(4, s.getSemester());
 
-			pStatement.execute();
-			return true;
+			pStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			return false;
-
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
 
@@ -319,7 +317,7 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public void deleteStudying(String spnr, String ccode) {
+	public void deleteStudying(String spnr, String ccode) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 
@@ -328,9 +326,10 @@ public class DataAccessLayerLu {
 			pStatement = con.prepareStatement(queriesLu.deleteStudying());
 			pStatement.setString(1, spnr);
 			pStatement.setString(2, ccode);
-			pStatement.execute();
+			pStatement.executeUpdate();
 
-		} catch (SQLException e) {
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 
 	}
