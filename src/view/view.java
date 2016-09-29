@@ -112,6 +112,16 @@ public class view extends JFrame {
 	 * Create the frame.
 	 */
 	public view() {
+		// try {
+		// for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		// if ("Nimbus".equals(info.getName())) {
+		// UIManager.setLookAndFeel(info.getClassName());
+		// }
+		// }
+		// } catch (Exception e) {
+		//
+		// }
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -878,7 +888,6 @@ public class view extends JFrame {
 				if (selectedCronusIndex != 0) {
 					try {
 						table_caccess.setModel(controllerCronus.getTableModel(nameCombobox, selectedCronusIndex));
-
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
