@@ -3,17 +3,20 @@ package controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.table.DefaultTableModel;
+
 import databaseAccess.DataAccessLayerLu;
 import model.Course;
 import model.Student;
 import model.Studied;
 import model.Studying;
+import utilities.NotFoundException;
 
 public class ControllerLu {
 
 	private DataAccessLayerLu dal = new DataAccessLayerLu();
 
-	public Student getStudent(String spnr) throws SQLException {
+	public Student getStudent(String spnr) throws SQLException, NotFoundException {
 		return dal.getStudent(spnr);
 	}
 
@@ -33,20 +36,16 @@ public class ControllerLu {
 		return dal.getStudentStudied(spnr);
 	}
 
-	public Student getStudentAll(String spnr) throws SQLException {
-		return dal.getStudentAll(spnr);
-	}
-
 	public void deleteCourse(String ccode) throws SQLException {
 		dal.deleteCourse(ccode);
 	}
 
-	public void deleteStudent(String spnr) throws SQLException {
+	public void deleteStudent(String spnr) throws SQLException, NotFoundException {
 		dal.deleteStudent(spnr);
 	}
 
-	public boolean createStudent(String spnr, String sname, String saddress) throws SQLException {
-		return dal.createStudent(spnr, sname, saddress);
+	public void addStudent(Student s) throws SQLException {
+		dal.addStudent(s);
 	}
 
 	public boolean createCourse(String ccode, String cname, String cpoint) {
@@ -61,15 +60,15 @@ public class ControllerLu {
 		return dal.acedIt(ccode);
 	}
 
-	public boolean registerGrade(String semester, String sPnr, String cCode, String grade) {
-		return dal.registerGrade(semester, sPnr, cCode, grade);
+	public void registerGrade(Studied s) throws SQLException {
+		dal.registerGrade(s);
 	}
 
-	public boolean registerOnCourse(String sPnr, String cCode, String semester) {
-		return dal.registerOnCourse(sPnr, cCode, semester);
+	public void registerOnCourse(Studying s) throws SQLException {
+		dal.registerOnCourse(s);
 	}
 
-	public void deleteStudying(String spnr, String ccode) {
+	public void deleteStudying(String spnr, String ccode) throws SQLException {
 		dal.deleteStudying(spnr, ccode);
 	}
 
@@ -83,5 +82,26 @@ public class ControllerLu {
 
 	public ArrayList<Course> mostThrough() throws SQLException {
 		return dal.mostThrough();
+	}
+
+	public DefaultTableModel getTableAll(ArrayList<String> values, String tableName)
+			throws SQLException, NotFoundException {
+		return dal.getTableAll(values, tableName);
+	}
+
+	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
+		dal.createAll(values, studentOrCourse);
+	}
+
+	public int deleteAll(Object object) throws SQLException, NotFoundException {
+		return dal.deleteAll(object);
+	}
+
+	public boolean studentExist(String spnr) throws SQLException {
+		return dal.studentExist(spnr);
+	}
+
+	public int currentPoints(String spnr) throws SQLException, NotFoundException {
+		return dal.currentPoints(spnr);
 	}
 }

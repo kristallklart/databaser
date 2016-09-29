@@ -4,50 +4,55 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
 
 import model.Course;
 import model.Student;
 import model.Studied;
 import model.Studying;
+import utilities.NotFoundException;
 import utilities.UtilDatabaseAccess;
+import utilities.UtilLu;
 
 public class DataAccessLayerLu {
 
 	private LoginDataLu login = new LoginDataLu();
 	private QueriesLu queriesLu = new QueriesLu();
 	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
+	private UtilLu utilLu = new UtilLu();
 
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
 	}
 
-	public Student getStudent(String spnr) throws SQLException {
+	public Student getStudent(String spnr) throws SQLException, NotFoundException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		ResultSet rSet = null;
-		Student s = null;
 
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.getStudent());
 			pStatement.setString(1, spnr);
 			rSet = pStatement.executeQuery();
+
 			if (!rSet.isBeforeFirst()) {
-				return s;
-			} else {
-				s = new Student();
-				while (rSet.next()) {
-					s.setSpnr(rSet.getString("spnr"));
-					s.setSname(rSet.getString("sname"));
-					s.setSaddress(rSet.getString("sadress"));
-				}
+				throw new NotFoundException("No student found");
 			}
+
+			Student s = new Student();
+			setStudent(rSet, s);
+
+			return s;
+
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
-		return s;
 	}
 
 	public Course getCourse(String ccode) throws SQLException {
@@ -151,7 +156,7 @@ public class DataAccessLayerLu {
 		return studied;
 	}
 
-	public void deleteStudent(String spnr) throws SQLException {
+	public void deleteStudent(String spnr) throws SQLException, NotFoundException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 
@@ -159,8 +164,10 @@ public class DataAccessLayerLu {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.deleteStudent());
 			pStatement.setString(1, spnr);
-			pStatement.execute();
-
+			int i = pStatement.executeUpdate();
+			if (i < 1) {
+				throw new NotFoundException("Failed to delete student");
+			}
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
@@ -182,63 +189,6 @@ public class DataAccessLayerLu {
 
 	}
 
-	// returnerar en student med alla attribut och kurser som studenten läser
-	// och har läst
-	public Student getStudentAll(String spnr) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
-		Student student = null;
-		Studying studying = null;
-		Studied studied = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.getStudent());
-			pStatement.setString(1, spnr);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return student;
-			} else {
-				student = new Student();
-				setStudent(rSet, student);
-
-				pStatement.close();
-				pStatement = con.prepareStatement(queriesLu.getStudentStudying());
-				pStatement.setString(1, spnr);
-				rSet = pStatement.executeQuery();
-				if (!rSet.isBeforeFirst()) {
-					return student;
-				} else {
-					while (rSet.next()) {
-						studying = new Studying();
-						studying.setcCode(rSet.getString("ccode"));
-						studying.setSemester(rSet.getString("semester"));
-						student.addStudying(studying);
-					}
-					pStatement.close();
-					pStatement = con.prepareStatement(queriesLu.getStudentStudied());
-					pStatement.setString(1, spnr);
-					rSet = pStatement.executeQuery();
-					if (!rSet.isBeforeFirst()) {
-						return student;
-					} else {
-						while (rSet.next()) {
-							studied = new Studied();
-							studied.setSemester(rSet.getString("semester"));
-							studied.setcCode(rSet.getString("ccode"));
-							studied.setGrade(rSet.getString("grade"));
-							student.addStudied(studied);
-						}
-					}
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return student;
-	}
-
 	private void setStudent(ResultSet rSet, Student s) throws SQLException {
 		while (rSet.next()) {
 			s.setSpnr(rSet.getString("spnr"));
@@ -247,22 +197,18 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public boolean createStudent(String spnr, String sname, String saddress) {
+	public void addStudent(Student s) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.createStudent());
-			pStatement.setString(1, spnr);
-			pStatement.setString(2, sname);
-			pStatement.setString(3, saddress);
-
-			pStatement.execute();
-			return true;
-
-		} catch (SQLException e) {
-			return false;
-
+			pStatement = con.prepareStatement(queriesLu.addStudent());
+			pStatement.setString(1, s.getSpnr());
+			pStatement.setString(2, s.getSname());
+			pStatement.setString(3, s.getSaddress());
+			pStatement.executeUpdate();
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
 
@@ -338,46 +284,40 @@ public class DataAccessLayerLu {
 		return percent;
 	}
 
-	public boolean registerGrade(String semester, String sPnr, String cCode, String grade) {
+	public void registerGrade(Studied s) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.registerGrade());
-			pStatement.setString(4, semester);
-			pStatement.setString(1, sPnr);
-			pStatement.setString(2, cCode);
-			pStatement.setString(3, grade);
+			pStatement.setString(1, s.getsPnr());
+			pStatement.setString(2, s.getcCode());
+			pStatement.setString(3, s.getGrade());
+			pStatement.setString(4, s.getSemester());
 
-			pStatement.execute();
-			return true;
+			pStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			return false;
-
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
 
-	public boolean registerOnCourse(String sPnr, String cCode, String semester) {
+	public void registerOnCourse(Studying s) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.registerOnCourse());
-			pStatement.setString(1, sPnr);
-			pStatement.setString(2, cCode);
-			pStatement.setString(3, semester);
-
-			pStatement.execute();
-			return true;
-
-		} catch (SQLException e) {
-			return false;
-
+			pStatement.setString(1, s.getsPnr());
+			pStatement.setString(2, s.getcCode());
+			pStatement.setString(3, s.getSemester());
+			pStatement.executeUpdate();
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
 
-	public void deleteStudying(String spnr, String ccode) {
+	public void deleteStudying(String spnr, String ccode) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 
@@ -386,9 +326,10 @@ public class DataAccessLayerLu {
 			pStatement = con.prepareStatement(queriesLu.deleteStudying());
 			pStatement.setString(1, spnr);
 			pStatement.setString(2, ccode);
-			pStatement.execute();
+			pStatement.executeUpdate();
 
-		} catch (SQLException e) {
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 
 	}
@@ -474,5 +415,160 @@ public class DataAccessLayerLu {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		return c;
+	}
+
+	public DefaultTableModel getTableAll(ArrayList<String> values, String tableName)
+			throws SQLException, NotFoundException {
+		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
+		Vector<String> sendColumnNames = new Vector<String>();
+
+		String query = utilLu.getTableQuery(tableName);
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		ResultSetMetaData rSetMeta = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+
+			int x = 0;
+			while (x < values.size()) {
+				pStatement.setString(x + 1, values.get(x));
+				x++;
+			}
+			rSet = pStatement.executeQuery();
+			if (!rSet.isBeforeFirst()) {
+				throw new NotFoundException(tableName);
+			}
+			rSetMeta = rSet.getMetaData();
+			int numberOfColumns = rSetMeta.getColumnCount();
+
+			for (int i = 1; i <= numberOfColumns; i++) {
+				sendColumnNames.add(rSetMeta.getColumnName(i));
+			}
+
+			while (rSet.next()) {
+				Vector<Object> columnData = new Vector<Object>();
+				for (int i = 1; i <= numberOfColumns; i++) {
+					columnData.add(rSet.getObject(i));
+				}
+				sendData.add(columnData);
+			}
+
+			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
+
+			return model;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
+	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
+		String query = utilLu.getCreateQuery(studentOrCourse);
+		Connection con = null;
+		PreparedStatement pStatement = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+
+			int x = 0;
+			while (x < values.size()) {
+				if (values.get(x) instanceof String) {
+					pStatement.setString(x + 1, values.get(x).toString());
+					x++;
+				} else if (values.get(x) instanceof Integer) {
+					int z = (int) values.get(x);
+					pStatement.setInt(x + 1, z);
+					x++;
+				}
+			}
+
+			pStatement.execute();
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
+	public boolean studentExist(String spnr) throws SQLException {
+		String query = utilLu.getStudent();
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+
+			if (!rSet.isBeforeFirst()) {
+				return false;
+			}
+			return true;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+
+	}
+
+	public int currentPoints(String spnr) throws SQLException, NotFoundException {
+		String query = utilLu.currentPoints();
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		int points = 0;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+
+			while (rSet.next()) {
+				points += rSet.getInt("points");
+			}
+			return points;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
+	public int deleteAll(Object object) throws SQLException, NotFoundException {
+		String query;
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		Student s = null;
+		Course c = null;
+
+		if (object instanceof Student) {
+			s = (Student) object;
+			query = utilLu.deleteStudent();
+		} else if (object instanceof Course) {
+			c = (Course) object;
+			query = utilLu.deleteCourse();
+		} else {
+			throw new NotFoundException("sadfasdfasdfasdfasdf");
+		}
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+			if (s != null) {
+				pStatement.setString(1, s.getSpnr());
+			} else if (c != null) {
+				pStatement.setString(1, c.getCcode());
+			}
+
+			return pStatement.executeUpdate();
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
 	}
 }

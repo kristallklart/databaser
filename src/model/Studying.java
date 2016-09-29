@@ -13,6 +13,12 @@ public class Studying {
 
 	}
 
+	public Studying(String sPnr, String cCode, String semester) {
+		this.sPnr = sPnr;
+		this.cCode = cCode;
+		this.semester = semester;
+	}
+
 	public Studying() {
 
 	}

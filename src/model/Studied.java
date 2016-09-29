@@ -15,6 +15,13 @@ public class Studied {
 
 	}
 
+	public Studied(String spnr, String semester, String grade, String ccode) {
+		this.sPnr = spnr;
+		this.grade = grade;
+		this.semester = semester;
+		this.cCode = ccode;
+	}
+
 	public Studied() {
 
 	}
