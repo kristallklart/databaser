@@ -40,12 +40,12 @@ public class ControllerLu {
 		dal.deleteCourse(ccode);
 	}
 
-	public void deleteStudent(String spnr) throws SQLException {
+	public void deleteStudent(String spnr) throws SQLException, NotFoundException {
 		dal.deleteStudent(spnr);
 	}
 
-	public boolean createStudent(String spnr, String sname, String saddress) throws SQLException {
-		return dal.createStudent(spnr, sname, saddress);
+	public void addStudent(Student s) throws SQLException {
+		dal.addStudent(s);
 	}
 
 	public boolean createCourse(String ccode, String cname, String cpoint) {
@@ -64,8 +64,8 @@ public class ControllerLu {
 		return dal.registerGrade(semester, sPnr, cCode, grade);
 	}
 
-	public boolean registerOnCourse(String sPnr, String cCode, String semester) {
-		return dal.registerOnCourse(sPnr, cCode, semester);
+	public void registerOnCourse(Studying s) throws SQLException {
+		dal.registerOnCourse(s);
 	}
 
 	public void deleteStudying(String spnr, String ccode) {
@@ -91,5 +91,17 @@ public class ControllerLu {
 
 	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
 		dal.createAll(values, studentOrCourse);
+	}
+
+	public int deleteAll(Object object) throws SQLException, NotFoundException {
+		return dal.deleteAll(object);
+	}
+
+	public boolean studentExist(String spnr) throws SQLException {
+		return dal.studentExist(spnr);
+	}
+
+	public int currentPoints(String spnr) throws SQLException, NotFoundException {
+		return dal.currentPoints(spnr);
 	}
 }

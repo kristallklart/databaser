@@ -61,7 +61,7 @@ public class QueriesLu {
 		return "delete from studies where spnr =? and ccode=?";
 	}
 
-	public String createStudent() {
+	public String addStudent() {
 		return "insert into student values (?,?,?)";
 	}
 

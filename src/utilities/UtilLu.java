@@ -1,12 +1,15 @@
 package utilities;
 
+import model.Course;
+import model.Student;
+
 public class UtilLu {
 	public String getTableQuery(String tableName) {
 		String sqlQuery = null;
 
 		switch (tableName) {
 		case "table_stud_regOnCourse_courseList":
-			sqlQuery = getStudentStudying();
+			sqlQuery = allPossibleCourses();
 			break;
 
 		case "table_stud_foundStud":
@@ -46,8 +49,18 @@ public class UtilLu {
 		return sqlQuery;
 	}
 
+	public String getDeleteQuery(Object object) {
+		if (object instanceof Student) {
+			return deleteStudent();
+		} else if (object instanceof Course) {
+			return deleteCourse();
+		} else {
+			return null;
+		}
+	}
+
 	public String getStudent() {
-		return "select spnr as 'Personal Number', sname as 'Name', sadress as 'City' from student where spnr = ?";
+		return "select spnr as 'Personal Number', sname as 'Name', sadress as 'Address' from student where spnr = ?";
 	}
 
 	// allt från en viss kurs
@@ -125,4 +138,13 @@ public class UtilLu {
 	public String allCourses() {
 		return "select * from course";
 	}
+
+	public String allPossibleCourses() {
+		return "select ccode as 'Course Code', cname as 'Course Name', points as 'Points' from course where ccode not in (select ccode from studied where spnr = ? and grade != 'U') and ccode not in (select ccode from studies where spnr = ?)";
+	}
+
+	public String currentPoints() {
+		return "select points from studies as s inner join course as c on c.ccode = s.ccode where spnr = ?";
+	}
+
 }

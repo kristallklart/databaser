@@ -46,10 +46,10 @@ public class view extends JFrame {
 	private FeedbackHandler feedbackHandler = new FeedbackHandler();
 	private ExceptionHandler exceptionHandler = new ExceptionHandler();
 	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
-	private ArrayList<JTextField> regGradePanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
 	JLabel lbl_feedback = new JLabel("");
 	ButtonGroup btngr_course = new ButtonGroup();
+	private DefaultTableModel emptyDefTableModel = new DefaultTableModel();
 	private JPanel contentPane;
 	private final int BUTTON_WIDTH = 108;
 	private final int BUTTON_HEIGHT = 23;
@@ -78,7 +78,6 @@ public class view extends JFrame {
 	private JTable table_course;
 	private JTextField textField_course_enrolled_ccode;
 	private JTextField textField_stud_regOnCourse_pnr;
-	private JTextField textField_stud_regOnCourse_ccode;
 	private JTable table_stud_regOnCourse_courseList;
 	// test branch
 
@@ -114,10 +113,6 @@ public class view extends JFrame {
 		tabbedPane.setBounds(0, 0, 1262, 636);
 		contentPane.add(tabbedPane);
 
-		// ***********************************
-		// ***********STUDENT TAB*************
-		// ***********************************
-
 		JPanel panel_student = new JPanel();
 		tabbedPane.addTab("Student", panel_student);
 		panel_student.setLayout(null);
@@ -126,7 +121,7 @@ public class view extends JFrame {
 		tabbedPane.addTab("Course", panel_course);
 		panel_course.setLayout(null);
 
-		lbl_feedback.setBounds(10, 640, 638, 20);
+		lbl_feedback.setBounds(10, 640, 1244, 20);
 		contentPane.add(lbl_feedback);
 
 		DefaultTableModel dtmStud_Finished = new DefaultTableModel();
@@ -145,34 +140,36 @@ public class view extends JFrame {
 		String[] student = { "Personal number", "Name", "Address" };
 		dtmStud_Search.setColumnIdentifiers(student);
 
-		/*
-		 * DefaultTableModel dtmcourses = new DefaultTableModel(); String[]
-		 * course = { "Code", "Semester" };
-		 * dtmcourses.setColumnIdentifiers(course);
-		 *
-		 * DefaultTableModel dtmcourse_showall = new DefaultTableModel();
-		 * String[] courses = { "Code", "Name", "Points" };
-		 * dtmcourse_showall.setColumnIdentifiers(courses);
-		 *
-		 * DefaultTableModel dtmcourse_mostThrough = new DefaultTableModel();
-		 * String[] mcourses = { "Code", "No. of students through ", };
-		 * dtmcourse_mostThrough.setColumnIdentifiers(mcourses);
-		 *
-		 * DefaultTableModel dtmNotFinished = new DefaultTableModel(); String[]
-		 * students = { "Personal Number", "Semester" };
-		 * dtmNotFinished.setColumnIdentifiers(students);
-		 */
+		DefaultTableModel dtmcourses = new DefaultTableModel();
+		String[] course = { "Code", "Semester" };
+		dtmcourses.setColumnIdentifiers(course);
+
+		DefaultTableModel dtmcourse_showall = new DefaultTableModel();
+		String[] courses = { "Code", "Name", "Points" };
+		dtmcourse_showall.setColumnIdentifiers(courses);
+
+		DefaultTableModel dtmcourse_mostThrough = new DefaultTableModel();
+		String[] mcourses = { "Code", "No. of students through ", };
+		dtmcourse_mostThrough.setColumnIdentifiers(mcourses);
+
+		DefaultTableModel dtmNotFinished = new DefaultTableModel();
+		String[] students = { "Personal Number", "Semester" };
+		dtmNotFinished.setColumnIdentifiers(students);
+
+		// ***********************************
+		// ************COURSE TAB*************
+		// ***********************************
 
 		JLabel lbl_course_ccode = new JLabel("Course code:");
 		lbl_course_ccode.setBounds(10, 33, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_ccode);
 
 		JLabel lbl_course_name = new JLabel("Course name:");
-		lbl_course_name.setBounds(10, 79, LABEL_WIDTH, LABEL_HEIGHT);
+		lbl_course_name.setBounds(10, 67, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_name);
 
 		JLabel lbl_course_points = new JLabel("Points:");
-		lbl_course_points.setBounds(10, 128, LABEL_WIDTH, LABEL_HEIGHT);
+		lbl_course_points.setBounds(10, 101, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_points);
 
 		JLabel lbl_course_addCourse_header = new JLabel("Add Course");
@@ -198,24 +195,24 @@ public class view extends JFrame {
 
 		JLabel lbl_course_courseInfo_header = new JLabel("Course Info");
 		lbl_course_courseInfo_header.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lbl_course_courseInfo_header.setBounds(674, 146, 128, 14);
+		lbl_course_courseInfo_header.setBounds(674, 166, 128, 14);
 		panel_course.add(lbl_course_courseInfo_header);
 
 		textField_course_courseCode = new JTextField();
 		textField_course_courseCode.setColumns(10);
-		textField_course_courseCode.setBounds(131, 33, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_courseCode.setBounds(106, 32, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_courseCode);
 		coursePanelFields.add(textField_course_courseCode);
 
 		textField_course_cname = new JTextField();
 		textField_course_cname.setColumns(10);
-		textField_course_cname.setBounds(131, 79, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_cname.setBounds(106, 66, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_cname);
 		coursePanelFields.add(textField_course_cname);
 
 		textField_course_points = new JTextField();
 		textField_course_points.setColumns(10);
-		textField_course_points.setBounds(131, 128, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_points.setBounds(106, 101, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_points);
 		coursePanelFields.add(textField_course_points);
 
@@ -235,27 +232,27 @@ public class view extends JFrame {
 		btn_course_addCourse_clear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UtilView.clearAllFields(coursePanelFields);
+				UtilView.clearFields(coursePanelFields);
 			}
 		});
 
 		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
-		rdbtn_course_showAll.setBounds(674, 164, 109, 23);
+		rdbtn_course_showAll.setBounds(674, 187, 128, 23);
 		panel_course.add(rdbtn_course_showAll);
 		btngr_course.add(rdbtn_course_showAll);
 
 		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
 				"Only shows the course with the highest throughoutput", false);
-		rdbtn_course_highestThrough.setBounds(674, 190, 360, 23);
+		rdbtn_course_highestThrough.setBounds(674, 213, 360, 23);
 		panel_course.add(rdbtn_course_highestThrough);
 		btngr_course.add(rdbtn_course_highestThrough);
 
 		JRadioButton rdbtn_course_showNotFinished = new JRadioButton(
 				"Show only students who hasn't finished the course", false);
-		rdbtn_course_showNotFinished.setBounds(674, 66, 301, 23);
+		rdbtn_course_showNotFinished.setBounds(674, 66, 360, 23);
 		panel_course.add(rdbtn_course_showNotFinished);
 		btngr_course.add(rdbtn_course_showNotFinished);
-		btn_course_addCourse_clear.setBounds(82, 164, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_addCourse_clear.setBounds(39, 135, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_addCourse_clear);
 
 		JButton btn_course_deleteAdd_delete = new JButton("Delete");
@@ -264,7 +261,7 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if (textField_course_courseCode.getText().trim().isEmpty()) {
-						communicateMessage(feedbackHandler.noInput());
+						communicateMessage(feedbackHandler.noInputCcode());
 					} else {
 						controllerLu.deleteCourse(textField_course_courseCode.getText());
 					}
@@ -273,7 +270,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_deleteAdd_delete.setBounds(318, 164, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_deleteAdd_delete.setBounds(275, 135, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_delete);
 
 		JButton btn_course_deleteAdd_add = new JButton("Add Course");
@@ -301,7 +298,7 @@ public class view extends JFrame {
 			}
 
 		});
-		btn_course_deleteAdd_add.setBounds(200, 164, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_deleteAdd_add.setBounds(157, 135, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_add);
 
 		JButton btn_course_deleteAdd_search = new JButton("Search");
@@ -309,7 +306,7 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (textField_course_courseCode.getText().trim().isEmpty()) {
-					communicateMessage(feedbackHandler.noInput());
+					communicateMessage(feedbackHandler.noInputCcode());
 				} else {
 					try {
 						Course c = controllerLu.getCourse(textField_course_courseCode.getText());
@@ -325,7 +322,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_deleteAdd_search.setBounds(318, 34, 108, 23);
+		btn_course_deleteAdd_search.setBounds(275, 33, 108, 23);
 		panel_course.add(btn_course_deleteAdd_search);
 
 		JButton btn_course_courseInfo_showResult = new JButton("Show Result");
@@ -373,7 +370,7 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (textField_course_enrolled_ccode.getText().trim().isEmpty()) {
-					communicateMessage(feedbackHandler.noInput());
+					communicateMessage(feedbackHandler.noInputCcode());
 				} else {
 					try {
 						if (rdbtn_course_showNotFinished.isSelected()) {
@@ -395,7 +392,7 @@ public class view extends JFrame {
 							if (r == null) {
 								communicateMessage(
 										feedbackHandler.noCourseFound(textField_course_enrolled_ccode.getText()));
-								UtilView.clearNonSearchFields(regGradePanelFields);
+
 							} else {
 
 								for (Studied re : r) {
@@ -416,8 +413,12 @@ public class view extends JFrame {
 
 			}
 		});
-		btn_course_enrolled_showResult.setBounds(1093, 110, 108, 23);
+		btn_course_enrolled_showResult.setBounds(961, 33, 108, 23);
 		panel_course.add(btn_course_enrolled_showResult);
+
+		// ***********************************
+		// ***********STUDENT TAB*************
+		// ***********************************
 
 		JButton btn_stud_deleteAdd_search = new JButton("Search");
 		btn_stud_deleteAdd_search.addActionListener(new ActionListener() {
@@ -426,14 +427,16 @@ public class view extends JFrame {
 				clearFeedback();
 				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
 				if (spnr.isEmpty()) {
-					communicateMessage(feedbackHandler.noInput());
+					communicateMessage(feedbackHandler.noInputPnr());
 				} else {
 					try {
 						Student s = controllerLu.getStudent(spnr);
 						textField_stud_deleteAdd_name.setText(s.getSname());
 						textField_stud_deleteAdd_address.setText(s.getSaddress());
+						communicateMessage(feedbackHandler.studentFound());
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						UtilView.clearFields(studPanelFields);
 					}
 				}
 			}
@@ -456,16 +459,12 @@ public class view extends JFrame {
 		panel_student.add(lbl_stud_deleteAdd_address);
 
 		JLabel lbl_stud_regOnCourse_header = new JLabel("Registrer student to course");
-		lbl_stud_regOnCourse_header.setBounds(12, 228, 254, 14);
+		lbl_stud_regOnCourse_header.setBounds(12, 278, 254, 14);
 		panel_student.add(lbl_stud_regOnCourse_header);
 
 		JLabel lbl_stud_regOnCourse_pnr = new JLabel("Personal number:");
-		lbl_stud_regOnCourse_pnr.setBounds(12, 264, 108, 23);
+		lbl_stud_regOnCourse_pnr.setBounds(12, 314, 108, 23);
 		panel_student.add(lbl_stud_regOnCourse_pnr);
-
-		JLabel lbl_stud_regOnCourse_ccode = new JLabel("Course code:");
-		lbl_stud_regOnCourse_ccode.setBounds(12, 300, 108, 23);
-		panel_student.add(lbl_stud_regOnCourse_ccode);
 
 		JLabel lbl_stud_regOnCourse_selectFromList = new JLabel("Or select Course from list:");
 		lbl_stud_regOnCourse_selectFromList.setBounds(12, 349, 216, 14);
@@ -478,10 +477,6 @@ public class view extends JFrame {
 		JLabel lbl_stud_findStudentAll_pnr = new JLabel("Personal number:");
 		lbl_stud_findStudentAll_pnr.setBounds(472, 47, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_student.add(lbl_stud_findStudentAll_pnr);
-
-		JLabel lbl_stud_findStudentAll_ccode = new JLabel("Course code: ");
-		lbl_stud_findStudentAll_ccode.setBounds(472, 83, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_student.add(lbl_stud_findStudentAll_ccode);
 
 		JLabel lbl_stud_removeStudentCourse_selected = new JLabel("");
 		lbl_stud_removeStudentCourse_selected.setBounds(693, 558, 58, 14);
@@ -516,23 +511,20 @@ public class view extends JFrame {
 
 		textField_stud_deleteAdd_name = new JTextField();
 		textField_stud_deleteAdd_name.setBounds(132, 82, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		studPanelFields.add(textField_stud_deleteAdd_name);
 		panel_student.add(textField_stud_deleteAdd_name);
 		textField_stud_deleteAdd_name.setColumns(10);
 
 		textField_stud_deleteAdd_address = new JTextField();
 		textField_stud_deleteAdd_address.setBounds(132, 118, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		studPanelFields.add(textField_stud_deleteAdd_address);
 		panel_student.add(textField_stud_deleteAdd_address);
 		textField_stud_deleteAdd_address.setColumns(10);
 
 		textField_stud_regOnCourse_pnr = new JTextField();
 		textField_stud_regOnCourse_pnr.setColumns(10);
-		textField_stud_regOnCourse_pnr.setBounds(132, 263, 159, 25);
+		textField_stud_regOnCourse_pnr.setBounds(132, 313, 159, 25);
 		panel_student.add(textField_stud_regOnCourse_pnr);
-
-		textField_stud_regOnCourse_ccode = new JTextField();
-		textField_stud_regOnCourse_ccode.setColumns(10);
-		textField_stud_regOnCourse_ccode.setBounds(132, 299, 159, 25);
-		panel_student.add(textField_stud_regOnCourse_ccode);
 
 		JScrollPane scrollPane_stud_foundStudent = new JScrollPane();
 		scrollPane_stud_foundStudent.setBounds(472, 121, 391, 88);
@@ -585,21 +577,14 @@ public class view extends JFrame {
 		comboBox_stud_grade_1.addItem("E");
 		comboBox_stud_grade_1.addItem("U");
 
-		JComboBox<String> comboBox_stud_course_1 = new JComboBox<String>();
-
-		comboBox_stud_course_1.setToolTipText("");
-		comboBox_stud_course_1.setBounds(592, 82, COMBOBOX_WIDHT, COMBOBOX_HEIGHT);
-		panel_student.add(comboBox_stud_course_1);
-
 		btn_stud_deleteAdd_search.setBounds(301, 47, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_deleteAdd_search);
 
 		JButton btn_stud_deleteAdd_clear = new JButton("Clear");
 		btn_stud_deleteAdd_clear.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UtilView.clearAllFields(studPanelFields);
+				UtilView.clearFields(studPanelFields);
 			}
 		});
 		btn_stud_deleteAdd_clear.setBounds(41, 155, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -609,14 +594,18 @@ public class view extends JFrame {
 		btn_stud_deleteAdd_delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if (textField_stud_deleteAdd_pnr.getText().trim().isEmpty()) {
-						communicateMessage(feedbackHandler.noInput());
-					} else {
-						controllerLu.deleteStudent(textField_stud_deleteAdd_pnr.getText());
+				clearFeedback();
+				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
+				if (spnr.isEmpty()) {
+					communicateMessage(feedbackHandler.noPnrDelete());
+				} else {
+					try {
+						controllerLu.deleteStudent(spnr);
+						communicateMessage(feedbackHandler.studentDeleted(spnr));
+						UtilView.clearFields(studPanelFields);
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
 					}
-				} catch (Exception e) {
-					communicateMessage(exceptionHandler.handleException(e));
 				}
 			}
 		});
@@ -635,12 +624,9 @@ public class view extends JFrame {
 				if (spnr.isEmpty() || name.isEmpty() || address.isEmpty()) {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
+					Student s = new Student(spnr, name, address);
 					try {
-						ArrayList<Object> values = new ArrayList<Object>();
-						values.add(spnr);
-						values.add(name);
-						values.add(address);
-						controllerLu.createAll(values, "Student");
+						controllerLu.addStudent(s);
 						communicateMessage(feedbackHandler.studentAdded(spnr));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
@@ -658,7 +644,7 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if (textField_stud_findStudentAll_pnr.getText().trim().isEmpty()) {
-						lbl_feedback.setText(feedbackHandler.noInput());
+						lbl_feedback.setText(feedbackHandler.noInputPnr());
 					} else {
 
 						String grade = comboBox_stud_grade_1.getSelectedItem().toString();
@@ -682,42 +668,67 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				clearFeedback();
+				clearTable(table_stud_regOnCourse_courseList);
 				String spnr = textField_stud_regOnCourse_pnr.getText().trim();
 
 				if (spnr.isEmpty()) {
-					communicateMessage(feedbackHandler.noInput());
+					communicateMessage(feedbackHandler.noInputPnr());
 				} else {
+					String tableName = table_stud_regOnCourse_courseList.getName();
+					ArrayList<String> values = new ArrayList<String>();
+					values.add(spnr);
+					values.add(spnr);
 					try {
-						String tableName = table_stud_regOnCourse_courseList.getName();
-						ArrayList<String> values = new ArrayList<String>();
-						values.add(spnr);
-						table_stud_regOnCourse_courseList.setModel(controllerLu.getTableAll(values, tableName));
+						if (controllerLu.studentExist(spnr)) {
+							table_stud_regOnCourse_courseList.setModel(controllerLu.getTableAll(values, tableName));
+							communicateMessage(feedbackHandler.possibleCoursesFound(spnr));
+						} else {
+							clearTable(table_stud_regOnCourse_courseList);
+							communicateMessage(feedbackHandler.noStudentFound(spnr));
+						}
+
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 				}
 			}
 		});
-		btn_stud_regOnCourse_search.setBounds(301, 264, 108, 23);
+		btn_stud_regOnCourse_search.setBounds(301, 314, 108, 23);
 		panel_student.add(btn_stud_regOnCourse_search);
 
 		JButton btn_stud_regOnCourse_register = new JButton("Register");
 		btn_stud_regOnCourse_register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if (textField_stud_regOnCourse_pnr.getText().trim().isEmpty()) {
-						lbl_feedback.setText(feedbackHandler.noInput());
-					} else {
+				clearFeedback();
 
-						String spnr = textField_stud_regOnCourse_pnr.getText();
-						String ccode = textField_stud_regOnCourse_ccode.getText();
-						String semester = "ht16";
-						controllerLu.registerOnCourse(spnr, ccode, semester);
-						lbl_feedback.setText("Student registered to course!");
+				String spnr = textField_stud_regOnCourse_pnr.getText().trim();
+				if (spnr.isEmpty()) {
+					communicateMessage(feedbackHandler.insufficientInput());
+				} else {
+					try {
+						int selectedRow = table_stud_regOnCourse_courseList.getSelectedRow();
+						String ccode = (String) table_stud_regOnCourse_courseList.getValueAt(selectedRow, 0);
+						String semester = UtilView.getCurrentSemester();
+						int coursePoints = (int) table_stud_regOnCourse_courseList.getValueAt(selectedRow, 2);
+						int currentPoints = 0;
+
+						if (controllerLu.studentExist(spnr)) {
+							currentPoints = controllerLu.currentPoints(spnr);
+						} else {
+							communicateMessage(feedbackHandler.noStudentFound(spnr));
+						}
+						if (currentPoints + coursePoints >= 45) {
+							communicateMessage(feedbackHandler.pointsExceeded(spnr, currentPoints));
+						} else {
+							Studying s = new Studying(spnr, ccode, semester);
+							controllerLu.registerOnCourse(s);
+							communicateMessage(feedbackHandler.studentRegCourse(spnr, ccode));
+						}
+
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
 					}
-				} catch (Exception e) {
-					communicateMessage(exceptionHandler.handleException(e));
 				}
 			}
 		});
@@ -729,10 +740,13 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				clearFeedback();
+				clearTable(table_stud_foundStud);
+				clearTable(table_stud_currentCourses);
+				clearTable(table_stud_finishedCourses);
 				String spnr = textField_stud_findStudentAll_pnr.getText().trim();
 
 				if (spnr.isEmpty()) {
-					communicateMessage(feedbackHandler.noInput());
+					communicateMessage(feedbackHandler.noInputPnr());
 
 				} else {
 					ArrayList<String> values = new ArrayList<String>();
@@ -774,7 +788,7 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if (textField_stud_findStudentAll_pnr.getText().trim().isEmpty()) {
-						lbl_feedback.setText(feedbackHandler.noInput());
+						lbl_feedback.setText(feedbackHandler.noInputPnr());
 					} else {
 						int st = table_stud_currentCourses.getSelectedRow();
 						String ccode = dtmStud_Current.getValueAt(st, 0).toString();
@@ -790,9 +804,6 @@ public class view extends JFrame {
 
 		});
 
-		// ***********************************
-		// ************COURSE TAB*************
-		// ***********************************
 		btn_stud_findStudentAll_delete.setBounds(745, 558, 85, 23);
 		panel_student.add(btn_stud_findStudentAll_delete);
 
@@ -977,5 +988,9 @@ public class view extends JFrame {
 
 	private void clearFeedback() {
 		lbl_feedback.setText("");
+	}
+
+	private void clearTable(JTable table) {
+		table.setModel(emptyDefTableModel);
 	}
 }

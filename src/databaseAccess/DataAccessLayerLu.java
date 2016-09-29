@@ -156,7 +156,7 @@ public class DataAccessLayerLu {
 		return studied;
 	}
 
-	public void deleteStudent(String spnr) throws SQLException {
+	public void deleteStudent(String spnr) throws SQLException, NotFoundException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 
@@ -164,8 +164,10 @@ public class DataAccessLayerLu {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.deleteStudent());
 			pStatement.setString(1, spnr);
-			pStatement.execute();
-
+			int i = pStatement.executeUpdate();
+			if (i < 1) {
+				throw new NotFoundException("Failed to delete student");
+			}
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
@@ -195,22 +197,18 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public boolean createStudent(String spnr, String sname, String saddress) {
+	public void addStudent(Student s) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.createStudent());
-			pStatement.setString(1, spnr);
-			pStatement.setString(2, sname);
-			pStatement.setString(3, saddress);
-
-			pStatement.execute();
-			return true;
-
-		} catch (SQLException e) {
-			return false;
-
+			pStatement = con.prepareStatement(queriesLu.addStudent());
+			pStatement.setString(1, s.getSpnr());
+			pStatement.setString(2, s.getSname());
+			pStatement.setString(3, s.getSaddress());
+			pStatement.executeUpdate();
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
 
@@ -306,22 +304,18 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public boolean registerOnCourse(String sPnr, String cCode, String semester) {
+	public void registerOnCourse(Studying s) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.registerOnCourse());
-			pStatement.setString(1, sPnr);
-			pStatement.setString(2, cCode);
-			pStatement.setString(3, semester);
-
-			pStatement.execute();
-			return true;
-
-		} catch (SQLException e) {
-			return false;
-
+			pStatement.setString(1, s.getsPnr());
+			pStatement.setString(2, s.getcCode());
+			pStatement.setString(3, s.getSemester());
+			pStatement.executeUpdate();
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
 
@@ -494,6 +488,85 @@ public class DataAccessLayerLu {
 			}
 
 			pStatement.execute();
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
+	public boolean studentExist(String spnr) throws SQLException {
+		String query = utilLu.getStudent();
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+
+			if (!rSet.isBeforeFirst()) {
+				return false;
+			}
+			return true;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+
+	}
+
+	public int currentPoints(String spnr) throws SQLException, NotFoundException {
+		String query = utilLu.currentPoints();
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		ResultSet rSet = null;
+		int points = 0;
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+			pStatement.setString(1, spnr);
+			rSet = pStatement.executeQuery();
+
+			while (rSet.next()) {
+				points += rSet.getInt("points");
+			}
+			return points;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
+	public int deleteAll(Object object) throws SQLException, NotFoundException {
+		String query;
+		Connection con = null;
+		PreparedStatement pStatement = null;
+		Student s = null;
+		Course c = null;
+
+		if (object instanceof Student) {
+			s = (Student) object;
+			query = utilLu.deleteStudent();
+		} else if (object instanceof Course) {
+			c = (Course) object;
+			query = utilLu.deleteCourse();
+		} else {
+			throw new NotFoundException("sadfasdfasdfasdfasdf");
+		}
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+			if (s != null) {
+				pStatement.setString(1, s.getSpnr());
+			} else if (c != null) {
+				pStatement.setString(1, c.getCcode());
+			}
+
+			return pStatement.executeUpdate();
 
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);

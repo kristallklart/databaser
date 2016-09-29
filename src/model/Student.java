@@ -14,10 +14,14 @@ public class Student {
 
 	}
 
+	public Student(String spnr) {
+		this.spnr = spnr;
+	}
+
 	public Student(String spnr, String name, String address) {
 		this.spnr = spnr;
 		this.name = name;
-		this.name = address;
+		this.address = address;
 	}
 
 	public String getSpnr() {
