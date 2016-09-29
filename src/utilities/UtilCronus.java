@@ -337,7 +337,7 @@ public class UtilCronus {
 
 	// tabell som innehåller flest rader
 	public String getMostRows() {
-		return "select top 1 object_name(object_id)as [Tabel name]," + " st.row_count as [Rows]"
+		return "select top 1 object_name(object_id)as [Table name]," + " st.row_count as [Rows]"
 				+ " from  sys.dm_db_partition_stats st order by st.row_count desc";
 	}
 

@@ -805,71 +805,86 @@ public class view extends JFrame {
 		tabbedPane.addTab("Cronus Access", panel_caccess);
 		panel_caccess.setLayout(null);
 
-		JLabel lbl_caccess_selectOption = new JLabel("Tables:");
-		lbl_caccess_selectOption.setBounds(44, 94, 87, 23);
-		panel_caccess.add(lbl_caccess_selectOption);
-
-		JComboBox<String> comboBox_caccessTables = new JComboBox(controllerCronus.getCronusQueryNamesTables());
-		comboBox_caccessTables.setName("comboBox_caccessTables");
-		comboBox_caccessTables.setBounds(142, 93, 297, 25);
-
-		panel_caccess.add(comboBox_caccessTables);
-
-		JButton btn_caccess_go_tables = new JButton("Show tables");
-		btn_caccess_go_tables.setBounds(476, 94, BUTTON_WIDTH, BUTTON_HEIGHT);
-		btn_caccess_go_tables.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int selectedCronusIndex = comboBox_caccessTables.getSelectedIndex();
-				String nameCombobox = comboBox_caccessTables.getName();
-				if (selectedCronusIndex != 0) {
-					try {
-						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex, nameCombobox));
-
-					} catch (SQLException e) {
-						communicateMessage(exceptionHandler.handleException(e));
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		panel_caccess.add(btn_caccess_go_tables);
-
 		JScrollPane scrollPane_caccess = new JScrollPane();
-		scrollPane_caccess.setBounds(620, 91, 544, 229);
+		scrollPane_caccess.setBounds(622, 42, 544, 385);
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
 		scrollPane_caccess.setViewportView(table_caccess);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "Show employee and related tables", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBounds(26, 33, 496, 159);
+		panel_caccess.add(panel_3);
+		panel_3.setLayout(null);
+		
+				JLabel lbl_caccess_selectOption = new JLabel("Select table");
+				lbl_caccess_selectOption.setBounds(23, 45, 87, 23);
+				panel_3.add(lbl_caccess_selectOption);
+				
+						JComboBox<String> comboBox_caccessTables = new JComboBox(controllerCronus.getCronusQueryNamesTables());
+						comboBox_caccessTables.setBounds(120, 44, 297, 25);
+						panel_3.add(comboBox_caccessTables);
+						comboBox_caccessTables.setName("comboBox_caccessTables");
+						
+								JButton btn_caccess_go_tables = new JButton("Show");
+								btn_caccess_go_tables.setBounds(309, 102, 108, 23);
+								panel_3.add(btn_caccess_go_tables);
+								
+								JPanel panel_4 = new JPanel();
+								panel_4.setBorder(new TitledBorder(null, "Show meta data", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+								panel_4.setBounds(26, 259, 496, 168);
+								panel_caccess.add(panel_4);
+								panel_4.setLayout(null);
+								
+										JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
+										comboBox_caccessMeta.setBounds(124, 46, 297, 25);
+										panel_4.add(comboBox_caccessMeta);
+										comboBox_caccessMeta.setName("combox_caccessMeta");
+										
+												JButton btn_caccess_go_meta = new JButton("Show");
+												btn_caccess_go_meta.setBounds(313, 98, 108, 23);
+												panel_4.add(btn_caccess_go_meta);
+												
+														JLabel lblNewLabel = new JLabel("Select query");
+														lblNewLabel.setBounds(23, 49, 75, 19);
+														panel_4.add(lblNewLabel);
+														
+														JSeparator separator_3 = new JSeparator();
+														separator_3.setBounds(26, 224, 496, 2);
+														panel_caccess.add(separator_3);
+												btn_caccess_go_meta.addActionListener(new ActionListener() {
+													@Override
+													public void actionPerformed(ActionEvent arg0) {
+														int selectedCronusIndex = comboBox_caccessMeta.getSelectedIndex();
+														String nameCombobox = comboBox_caccessMeta.getName();
+														if (selectedCronusIndex != 0) {
+															try {
+																table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex, nameCombobox));
 
-		JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
-		comboBox_caccessMeta.setName("combox_caccessMeta");
-		comboBox_caccessMeta.setBounds(142, 177, 297, 25);
-		panel_caccess.add(comboBox_caccessMeta);
+															} catch (SQLException e) {
+																communicateMessage(exceptionHandler.handleException(e));
+																e.printStackTrace();
+															}
+														}
+													}
+												});
+								btn_caccess_go_tables.addActionListener(new ActionListener() {
+									@Override
+									public void actionPerformed(ActionEvent arg0) {
+										int selectedCronusIndex = comboBox_caccessTables.getSelectedIndex();
+										String nameCombobox = comboBox_caccessTables.getName();
+										if (selectedCronusIndex != 0) {
+											try {
+												table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex, nameCombobox));
 
-		JButton btn_caccess_go_meta = new JButton("Show meta");
-		btn_caccess_go_meta.setBounds(476, 178, BUTTON_WIDTH, BUTTON_HEIGHT);
-		btn_caccess_go_meta.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int selectedCronusIndex = comboBox_caccessMeta.getSelectedIndex();
-				String nameCombobox = comboBox_caccessMeta.getName();
-				if (selectedCronusIndex != 0) {
-					try {
-						table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex, nameCombobox));
-
-					} catch (SQLException e) {
-						communicateMessage(exceptionHandler.handleException(e));
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		panel_caccess.add(btn_caccess_go_meta);
-
-		JLabel lblNewLabel = new JLabel("Meta data:");
-		lblNewLabel.setBounds(44, 180, 75, 19);
-		panel_caccess.add(lblNewLabel);
+											} catch (SQLException e) {
+												communicateMessage(exceptionHandler.handleException(e));
+												e.printStackTrace();
+											}
+										}
+									}
+								});
 
 		// ********************************
 		// ********** OPEN FILES **********
@@ -915,7 +930,7 @@ public class view extends JFrame {
 		panel_1.add(lblSelectQuery);
 
 		JButton btnGo = new JButton("Open");
-		btnGo.setBounds(34, 164, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnGo.setBounds(348, 154, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_1.add(btnGo);
 		btnGo.addActionListener(new ActionListener() {
 			@Override
@@ -939,7 +954,7 @@ public class view extends JFrame {
 		panel_2.add(lbl_oform_selectOption);
 
 		JComboBox comboBox_oform_selectProgram = new JComboBox(micoffice);
-		comboBox_oform_selectProgram.setBounds(156, 41, 144, 26);
+		comboBox_oform_selectProgram.setBounds(156, 41, 298, 26);
 		panel_2.add(comboBox_oform_selectProgram);
 		comboBox_oform_selectProgram.setName("comboBox_oform_selectProgram");
 
@@ -948,12 +963,12 @@ public class view extends JFrame {
 		panel_2.add(lbl_oform_select);
 
 		JComboBox comboBox_oform_selectQuery = new JComboBox(ec);
-		comboBox_oform_selectQuery.setBounds(156, 91, 144, 26);
+		comboBox_oform_selectQuery.setBounds(156, 91, 298, 26);
 		panel_2.add(comboBox_oform_selectQuery);
 		comboBox_oform_selectQuery.setName("comboBox_oform_selectQuery");
 
 		JButton btnOpen = new JButton("Open");
-		btnOpen.setBounds(34, 151, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnOpen.setBounds(346, 151, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_2.add(btnOpen);
 		btnOpen.addActionListener(new ActionListener() {
 			@Override
