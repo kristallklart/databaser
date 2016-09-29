@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import databaseAccess.QueriesCronus;
+
 public class UtilCronus {
 
 	private ArrayList<String> cronusAccessDocFilesToOpen = new ArrayList<String>();
@@ -14,6 +16,7 @@ public class UtilCronus {
 	private ArrayList<String> cronusAccessFormFilesToOpen = new ArrayList<String>();
 	private ArrayList<String> cronusExcelFormFilesToOpen = new ArrayList<String>();
 	private ArrayList<String> cronusWordFormFilesToOpen = new ArrayList<String>();
+	private QueriesCronus queriesCronus = new QueriesCronus();
 
 	public UtilCronus() {
 		cronusAccessDocFilesToOpen.add(" ");
@@ -56,101 +59,13 @@ public class UtilCronus {
 		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.docx");
 	}
 
-	public String getQuery(int selectedIndex) {
-		String sqlQuery = null;
+	public String getQuery(String comboBoxName, int selectedIndex) {
 
-		switch (selectedIndex) {
-		case 1:
-			sqlQuery = getEmployee();
-			break;
-
-		case 2:
-			sqlQuery = getEmployeeAbsence();
-			break;
-
-		case 3:
-			sqlQuery = getEmployeePortalSetup();
-			break;
-
-		case 4:
-			sqlQuery = getEmployeeQualification();
-			break;
-
-		case 5:
-			sqlQuery = getEmployeeRelative();
-			break;
-
-		case 6:
-			sqlQuery = getEmployeeStatisticsGroup();
-			break;
+		if (comboBoxName.equals("comboBox_caccessTables")) {
+			return queriesCronus.getQueriesCronusEmployee().get(selectedIndex);
+		} else {
+			return queriesCronus.getQueriesCronusMetaData().get(selectedIndex);
 		}
-		return sqlQuery;
-	}
-
-	public String getQueryMeta(int selectedIndex) {
-		String sqlQuery = null;
-
-		switch (selectedIndex) {
-		case 1:
-			sqlQuery = getMetaDataEmployee();
-			break;
-
-		case 2:
-			sqlQuery = getMetaDataEmployeeAbsence();
-			break;
-
-		case 3:
-			sqlQuery = getMetaDataEmployeePortalSetup();
-			break;
-
-		case 4:
-			sqlQuery = getMetaDataEmployeeQualification();
-			break;
-
-		case 5:
-			sqlQuery = getMetaDataEmployeeRelative();
-			break;
-
-		case 6:
-			sqlQuery = getMetaDataEmployeeStatisticsGroup();
-			break;
-
-		case 7:
-			sqlQuery = getKeys();
-			break;
-
-		case 8:
-			sqlQuery = getIndex();
-			break;
-
-		case 9:
-			sqlQuery = getTableConstrains();
-			break;
-
-		case 10:
-			sqlQuery = getAllTablesUsingInformationSchema();
-			break;
-
-		case 11:
-			sqlQuery = getAllTablesUsingSysObjects();
-			break;
-
-		case 12:
-			sqlQuery = getEmployeeColumnsInformationSchema();
-			break;
-
-		case 13:
-			sqlQuery = getEmployeeColumnsSysColumns();
-			break;
-
-		case 14:
-			sqlQuery = getMostRows();
-			break;
-
-		default:
-			break;
-		}
-		return sqlQuery;
 	}
 
 	public Vector<String> getCronusQueryGetTables() {
@@ -228,120 +143,6 @@ public class UtilCronus {
 			ioe.printStackTrace();
 		}
 
-	}
-
-	// hämtar 5 columner från EMPLOYEE
-	public String getEmployee() {
-		return "select [First Name], [Last Name], [Job Title], City from [CRONUS Sverige AB$Employee]";
-	}
-
-	// hämtar 5 columner från EMPLOYEE ABSENCE
-	public String getEmployeeAbsence() {
-		return "select top 20 [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"
-				+ " from [CRONUS Sverige AB$Employee Absence]";
-	}
-
-	// hämtar 5 columner från EMPLOYEE PORTAL SETUP
-	public String getEmployeePortalSetup() {
-		return "select [Config TP WP Request Capt ID], [Config TP Initial Req_ Capt ID], [Config TP Group Capt ID], [Search Tool Pane Caption ID], [Search Config Table ID]"
-				+ " from [CRONUS Sverige AB$Employee Portal Setup]";
-	}
-
-	// hämtar 5 columner från EMPLOYEE QUALIFICATION
-	public String getEmployeeQualification() {
-		return "select [Employee No_], [Qualification Code], Description, Institution_Company,Type"
-				+ " from [CRONUS Sverige AB$Employee Qualification]";
-	}
-
-	// hämtar 5 columner från EMPLOYEE RELATIVE
-	public String getEmployeeRelative() {
-		return "select [Employee No_], [First Name], [Last Name], [Relative Code]"
-				+ " from [CRONUS Sverige AB$Employee Relative]";
-	}
-
-	// hämtar 5 columner från EMPLOYEE STATISTICS GROUP
-	public String getEmployeeStatisticsGroup() {
-		return "select [timestamp], [Code], [Description]" + "from [CRONUS Sverige AB$Employee Statistics Group]";
-	}
-
-	public String getMetaDataEmployee() {
-		return "select top 20 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
-				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
-				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'";
-	}
-
-	public String getMetaDataEmployeeAbsence() {
-		return "select TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
-				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
-				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Absence'";
-	}
-
-	public String getMetaDataEmployeePortalSetup() {
-		return "select top 20 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
-				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
-				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Portal Setup'";
-	}
-
-	public String getMetaDataEmployeeQualification() {
-		return "select TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
-				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
-				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Qualification'";
-	}
-
-	public String getMetaDataEmployeeRelative() {
-		return "select TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
-				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
-				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Relative'";
-	}
-
-	public String getMetaDataEmployeeStatisticsGroup() {
-		return "select TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
-				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
-				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Statistics Group'";
-	}
-
-	// hämtar både pk & fk
-	public String getKeys() {
-		return "select top 20 table_name as [Table Name], column_name as [Key]"
-				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.KEY_COLUMN_USAGE";
-	}
-
-	// hämtar 5 columner från Index
-	public String getIndex() {
-		return "select top 20 object_id, name, index_id, type, type_desc" + " from sys.indexes order by object_id ";
-	}
-
-	// hämtar 3 columner fron Table Constrains
-	public String getTableConstrains() {
-		return "select top 20 CONSTRAINT_CATALOG, CONSTRAINT_NAME, TABLE_CATALOG"
-				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.TABLE_CONSTRAINTS" + " order by TABLE_NAME";
-	}
-
-	// hämtar alla tables från databasen
-	public String getAllTablesUsingInformationSchema() {
-		return "select TABLE_NAME as [All tables in CROUNS Sverige AB] from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.TABLES";
-	}
-
-	public String getAllTablesUsingSysObjects() {
-		return "use [Demo Database NAV (5-0)] select name as [All tables in CROUNS Sverige AB] from sysobjects where xtype ='U'";
-	}
-
-	// samtliga kolumner från Employee
-	public String getEmployeeColumnsInformationSchema() {
-		return "select COLUMN_NAME as [Employee Columns] from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
-				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'";
-	}
-
-	public String getEmployeeColumnsSysColumns() {
-		return "select name as [Employee Columns] from sys.columns "
-				+ "where object_id=object_ID('CRONUS Sverige AB$Employee')";
-
-	}
-
-	// tabell som innehåller flest rader
-	public String getMostRows() {
-		return "select top 1 object_name(object_id)as [Table name]," + " st.row_count as [Rows]"
-				+ " from  sys.dm_db_partition_stats st order by st.row_count desc";
 	}
 
 }

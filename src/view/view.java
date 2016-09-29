@@ -811,80 +811,81 @@ public class view extends JFrame {
 
 		table_caccess = new JTable();
 		scrollPane_caccess.setViewportView(table_caccess);
-		
+
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "Show employee and related tables", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBorder(new TitledBorder(null, "Show employee and related tables", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
 		panel_3.setBounds(26, 33, 496, 159);
 		panel_caccess.add(panel_3);
 		panel_3.setLayout(null);
-		
-				JLabel lbl_caccess_selectOption = new JLabel("Select table");
-				lbl_caccess_selectOption.setBounds(23, 45, 87, 23);
-				panel_3.add(lbl_caccess_selectOption);
-				
-						JComboBox<String> comboBox_caccessTables = new JComboBox(controllerCronus.getCronusQueryNamesTables());
-						comboBox_caccessTables.setBounds(120, 44, 297, 25);
-						panel_3.add(comboBox_caccessTables);
-						comboBox_caccessTables.setName("comboBox_caccessTables");
-						
-								JButton btn_caccess_go_tables = new JButton("Show");
-								btn_caccess_go_tables.setBounds(309, 102, 108, 23);
-								panel_3.add(btn_caccess_go_tables);
-								
-								JPanel panel_4 = new JPanel();
-								panel_4.setBorder(new TitledBorder(null, "Show meta data", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-								panel_4.setBounds(26, 259, 496, 168);
-								panel_caccess.add(panel_4);
-								panel_4.setLayout(null);
-								
-										JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
-										comboBox_caccessMeta.setBounds(124, 46, 297, 25);
-										panel_4.add(comboBox_caccessMeta);
-										comboBox_caccessMeta.setName("combox_caccessMeta");
-										
-												JButton btn_caccess_go_meta = new JButton("Show");
-												btn_caccess_go_meta.setBounds(313, 98, 108, 23);
-												panel_4.add(btn_caccess_go_meta);
-												
-														JLabel lblNewLabel = new JLabel("Select query");
-														lblNewLabel.setBounds(23, 49, 75, 19);
-														panel_4.add(lblNewLabel);
-														
-														JSeparator separator_3 = new JSeparator();
-														separator_3.setBounds(26, 224, 496, 2);
-														panel_caccess.add(separator_3);
-												btn_caccess_go_meta.addActionListener(new ActionListener() {
-													@Override
-													public void actionPerformed(ActionEvent arg0) {
-														int selectedCronusIndex = comboBox_caccessMeta.getSelectedIndex();
-														String nameCombobox = comboBox_caccessMeta.getName();
-														if (selectedCronusIndex != 0) {
-															try {
-																table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex, nameCombobox));
 
-															} catch (SQLException e) {
-																communicateMessage(exceptionHandler.handleException(e));
-																e.printStackTrace();
-															}
-														}
-													}
-												});
-								btn_caccess_go_tables.addActionListener(new ActionListener() {
-									@Override
-									public void actionPerformed(ActionEvent arg0) {
-										int selectedCronusIndex = comboBox_caccessTables.getSelectedIndex();
-										String nameCombobox = comboBox_caccessTables.getName();
-										if (selectedCronusIndex != 0) {
-											try {
-												table_caccess.setModel(controllerCronus.getTableModel(selectedCronusIndex, nameCombobox));
+		JLabel lbl_caccess_selectOption = new JLabel("Select table");
+		lbl_caccess_selectOption.setBounds(23, 45, 87, 23);
+		panel_3.add(lbl_caccess_selectOption);
 
-											} catch (SQLException e) {
-												communicateMessage(exceptionHandler.handleException(e));
-												e.printStackTrace();
-											}
-										}
-									}
-								});
+		JComboBox<String> comboBox_caccessTables = new JComboBox(controllerCronus.getCronusQueryNamesTables());
+		comboBox_caccessTables.setBounds(120, 44, 297, 25);
+		panel_3.add(comboBox_caccessTables);
+		comboBox_caccessTables.setName("comboBox_caccessTables");
+
+		JButton btn_caccess_go_tables = new JButton("Show");
+		btn_caccess_go_tables.setBounds(309, 102, 108, 23);
+		panel_3.add(btn_caccess_go_tables);
+
+		JPanel panel_4 = new JPanel();
+		panel_4.setBorder(new TitledBorder(null, "Show meta data", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_4.setBounds(26, 259, 496, 168);
+		panel_caccess.add(panel_4);
+		panel_4.setLayout(null);
+
+		JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
+		comboBox_caccessMeta.setBounds(124, 46, 297, 25);
+		panel_4.add(comboBox_caccessMeta);
+		comboBox_caccessMeta.setName("comboBox_caccessMeta");
+
+		JButton btn_caccess_go_meta = new JButton("Show");
+		btn_caccess_go_meta.setBounds(313, 98, 108, 23);
+		panel_4.add(btn_caccess_go_meta);
+
+		JLabel lblNewLabel = new JLabel("Select query");
+		lblNewLabel.setBounds(23, 49, 75, 19);
+		panel_4.add(lblNewLabel);
+
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(26, 224, 496, 2);
+		panel_caccess.add(separator_3);
+		btn_caccess_go_meta.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedCronusIndex = comboBox_caccessMeta.getSelectedIndex();
+				String nameCombobox = comboBox_caccessMeta.getName();
+				if (selectedCronusIndex != 0) {
+					try {
+						table_caccess.setModel(controllerCronus.getTableModel(nameCombobox, selectedCronusIndex));
+
+					} catch (SQLException e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		btn_caccess_go_tables.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedCronusIndex = comboBox_caccessTables.getSelectedIndex();
+				String nameCombobox = comboBox_caccessTables.getName();
+				if (selectedCronusIndex != 0) {
+					try {
+						table_caccess.setModel(controllerCronus.getTableModel(nameCombobox, selectedCronusIndex));
+
+					} catch (SQLException e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 
 		// ********************************
 		// ********** OPEN FILES **********

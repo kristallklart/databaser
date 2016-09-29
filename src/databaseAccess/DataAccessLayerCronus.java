@@ -20,7 +20,7 @@ public class DataAccessLayerCronus {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
 	}
 
-	public DefaultTableModel getTableModel(int selectedIndex, String nameCombobox) {
+	public DefaultTableModel getTableModel(String nameComboBox, int selectedIndex) {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
 		UtilCronus utilCronus = new UtilCronus();
@@ -34,14 +34,8 @@ public class DataAccessLayerCronus {
 				ResultSet rs = null;
 				ResultSetMetaData rsmd = null;
 
-				if(nameCombobox.equals("comboBox_caccessTables")) {
-					
-					pstate = con.prepareStatement(utilCronus.getQuery(selectedIndex));
-				} else if (nameCombobox.equals("combox_caccessMeta")){
-					pstate = con.prepareStatement(utilCronus.getQueryMeta(selectedIndex));
-				}
-			
-			
+				pstate = con.prepareStatement(utilCronus.getQuery(nameComboBox, selectedIndex));
+
 				rs = pstate.executeQuery();
 				rsmd = rs.getMetaData();
 
@@ -75,5 +69,5 @@ public class DataAccessLayerCronus {
 
 		return model;
 	}
-	
+
 }
