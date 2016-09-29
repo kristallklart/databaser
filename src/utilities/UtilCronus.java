@@ -120,11 +120,22 @@ public class UtilCronus {
 
 	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen) {
 		try {
+			// Desktop är en klass som används för att bland annat göra så att
+			// en Java-applikation kan öppna filer.
+			// Därför behöver vi en sådan här. /JAKOB
 			Desktop desktop = null;
+
+			// Här kollar vi först om klassen desktop stöds av den lokala
+			// datorn, i så fall hämtar vi den instansen.
+			// Stöds den inte så kan vi ju inte öppna filer.
 			if (Desktop.isDesktopSupported()) {
 				desktop = Desktop.getDesktop();
 			}
 
+			// Efter att ha tagit emot namnet på vilken combobox som används,
+			// indexet för comboboxen som väljer program,
+			// samt indexet för vilken cronusfil som ska öppnas så öppnas rätt
+			// fil med hjälp av desktop-klassen /JAKOB
 			if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 1) {
 				desktop.open(new File(cronusAccessDocFilesToOpen.get(selectedCronusFileToOpen)));
 			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 2) {
