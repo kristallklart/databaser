@@ -43,12 +43,15 @@ public class UtilCronus {
 		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.sql");
 		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.sql");
 
+		cronusAccessFormFilesToOpen.add(" ");
 		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.accdb");
 		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.accdb");
 
+		cronusAccessFormFilesToOpen.add(" ");
 		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.xlsx");
 		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.xlsx");
 
+		cronusWordFormFilesToOpen.add(" ");
 		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.docx");
 		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.docx");
 	}
@@ -160,7 +163,7 @@ public class UtilCronus {
 		cronusQueryNames.add("Employee Qualification"); // 4
 		cronusQueryNames.add("Employee Relative"); // 5
 		cronusQueryNames.add("Employee Statistics Group"); // 6
-		
+
 		return cronusQueryNames;
 	}
 
