@@ -160,7 +160,7 @@ public class UtilCronus {
 		cronusQueryNames.add("Employee Qualification"); // 4
 		cronusQueryNames.add("Employee Relative"); // 5
 		cronusQueryNames.add("Employee Statistics Group"); // 6
-		
+
 		return cronusQueryNames;
 	}
 
