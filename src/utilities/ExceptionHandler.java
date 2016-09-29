@@ -66,6 +66,9 @@ public class ExceptionHandler {
 		case "Failed to delete student":
 			message = "The student you tried to delete doesn't exist";
 			break;
+		case "No course found":
+			message = "The student you tried to delete doesn't exist";
+			break;
 		}
 		return message;
 	}

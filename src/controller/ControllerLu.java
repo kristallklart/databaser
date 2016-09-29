@@ -24,7 +24,7 @@ public class ControllerLu {
 		return dal.getCcodes();
 	}
 
-	public Course getCourse(String ccode) throws SQLException {
+	public Course getCourse(String ccode) throws SQLException, NotFoundException {
 		return dal.getCourse(ccode);
 	}
 

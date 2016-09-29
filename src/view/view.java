@@ -302,19 +302,19 @@ public class view extends JFrame {
 		btn_course_deleteAdd_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (textField_course_courseCode.getText().trim().isEmpty()) {
+				clearFeedback();
+				String ccode = textField_course_courseCode.getText().trim();
+				if (ccode.isEmpty()) {
 					communicateMessage(feedbackHandler.noInputCcode());
 				} else {
 					try {
-						Course c = controllerLu.getCourse(textField_course_courseCode.getText());
-						if (c == null) {
-							communicateMessage(feedbackHandler.noCourseFound(textField_course_courseCode.getText()));
-						} else {
-							textField_course_cname.setText(c.getCname());
-							textField_course_points.setText(Integer.toString(c.getCpoint()));
-						}
+						Course c = controllerLu.getCourse(ccode);
+						textField_course_cname.setText(c.getCname());
+						textField_course_points.setText(String.valueOf(c.getCpoint()));
+						communicateMessage(feedbackHandler.courseFound());
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						UtilView.clearFields(coursePanelFields);
 					}
 				}
 			}

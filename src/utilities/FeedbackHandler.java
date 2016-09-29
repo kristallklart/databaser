@@ -6,6 +6,10 @@ public class FeedbackHandler {
 		return "Successfully found the student you searched for.";
 	}
 
+	public String courseFound() {
+		return "Successfully found the course you searched for.";
+	}
+
 	public String noInputPnr() {
 		return "Please type a personal number to search for.";
 	}

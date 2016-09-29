@@ -55,31 +55,29 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public Course getCourse(String ccode) throws SQLException {
+	public Course getCourse(String ccode) throws SQLException, NotFoundException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		ResultSet rSet = null;
-		Course c = null;
 
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.getCourse());
 			pStatement.setString(1, ccode);
 			rSet = pStatement.executeQuery();
+
 			if (!rSet.isBeforeFirst()) {
-				return c;
-			} else {
-				c = new Course();
-				while (rSet.next()) {
-					c.setCcode(rSet.getString("ccode"));
-					c.setCname(rSet.getString("cname"));
-					c.setCpoint(rSet.getInt("points"));
-				}
+				throw new NotFoundException("No course found");
 			}
+
+			Course c = new Course();
+			setCourse(rSet, c);
+
+			return c;
+
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
-		return c;
 	}
 
 	public ArrayList<String> getCcodes() throws SQLException {
@@ -194,6 +192,14 @@ public class DataAccessLayerLu {
 			s.setSpnr(rSet.getString("spnr"));
 			s.setSname(rSet.getString("sname"));
 			s.setSaddress(rSet.getString("sadress"));
+		}
+	}
+
+	private void setCourse(ResultSet rSet, Course c) throws SQLException {
+		while (rSet.next()) {
+			c.setCcode(rSet.getString("ccode"));
+			c.setCname(rSet.getString("cname"));
+			c.setCpoint(rSet.getInt("points"));
 		}
 	}
 
