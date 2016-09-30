@@ -76,72 +76,6 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public ArrayList<String> getCcodes() throws SQLException {
-		ArrayList<String> c = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.getCcodes());
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return c;
-			} else {
-				c = new ArrayList<String>();
-				while (rSet.next()) {
-					c.add(rSet.getString("ccode"));
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return c;
-	}
-
-	public ArrayList<Studying> getStudentStudying(String spnr) throws SQLException {
-		ArrayList<Studying> studying = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.getStudentStudying());
-			pStatement.setString(1, spnr);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return studying;
-			} else {
-				studying = new ArrayList<Studying>();
-				while (rSet.next()) {
-					studying.add(new Studying(rSet.getString("ccode"), (rSet.getString("semester"))));
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return studying;
-	}
-
-	public ArrayList<Studied> getStudentStudied(String spnr) throws SQLException {
-		ArrayList<Studied> studied = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.getStudentStudied());
-			pStatement.setString(1, spnr);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return studied;
-			} else {
-				studied = new ArrayList<Studied>();
-				while (rSet.next()) {
-					studied.add(new Studied(rSet.getString("semester"), (rSet.getString("ccode")),
-							(rSet.getString("grade"))));
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return studied;
-	}
-
 	public void deleteStudent(String spnr) throws SQLException, NotFoundException {
 
 		try {
@@ -172,22 +106,6 @@ public class DataAccessLayerLu {
 
 	}
 
-	private void setStudent(ResultSet rSet, Student s) throws SQLException {
-		while (rSet.next()) {
-			s.setSpnr(rSet.getString("spnr"));
-			s.setSname(rSet.getString("sname"));
-			s.setSaddress(rSet.getString("sadress"));
-		}
-	}
-
-	private void setCourse(ResultSet rSet, Course c) throws SQLException {
-		while (rSet.next()) {
-			c.setCcode(rSet.getString("ccode"));
-			c.setCname(rSet.getString("cname"));
-			c.setCpoint(rSet.getInt("points"));
-		}
-	}
-
 	public void addStudent(Student s) throws SQLException {
 
 		try {
@@ -197,6 +115,7 @@ public class DataAccessLayerLu {
 			pStatement.setString(2, s.getSname());
 			pStatement.setString(3, s.getSaddress());
 			pStatement.executeUpdate();
+
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
@@ -274,7 +193,6 @@ public class DataAccessLayerLu {
 			pStatement.setString(2, s.getcCode());
 			pStatement.setString(3, s.getGrade());
 			pStatement.setString(4, s.getSemester());
-
 			pStatement.executeUpdate();
 
 		} finally {
@@ -291,6 +209,7 @@ public class DataAccessLayerLu {
 			pStatement.setString(2, s.getcCode());
 			pStatement.setString(3, s.getSemester());
 			pStatement.executeUpdate();
+
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
@@ -385,7 +304,7 @@ public class DataAccessLayerLu {
 		return c;
 	}
 
-	public DefaultTableModel getTableAll(ArrayList<String> values, String tableName)
+	public DefaultTableModel getTable(ArrayList<String> values, String tableName)
 			throws SQLException, NotFoundException {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
@@ -401,13 +320,14 @@ public class DataAccessLayerLu {
 				pStatement.setString(x + 1, values.get(x));
 				x++;
 			}
+
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
 				throw new NotFoundException(tableName);
 			}
+
 			rSetMeta = rSet.getMetaData();
 			int numberOfColumns = rSetMeta.getColumnCount();
-
 			for (int i = 1; i <= numberOfColumns; i++) {
 				sendColumnNames.add(rSetMeta.getColumnName(i));
 			}
@@ -423,32 +343,6 @@ public class DataAccessLayerLu {
 			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
 
 			return model;
-
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-	}
-
-	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
-		String query = queriesLu.getCreateQuery(studentOrCourse);
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(query);
-
-			int x = 0;
-			while (x < values.size()) {
-				if (values.get(x) instanceof String) {
-					pStatement.setString(x + 1, values.get(x).toString());
-					x++;
-				} else if (values.get(x) instanceof Integer) {
-					int z = (int) values.get(x);
-					pStatement.setInt(x + 1, z);
-					x++;
-				}
-			}
-
-			pStatement.execute();
 
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
@@ -495,34 +389,19 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public int deleteAll(Object object) throws SQLException, NotFoundException {
-		String query;
-		Student s = null;
-		Course c = null;
-
-		if (object instanceof Student) {
-			s = (Student) object;
-			query = queriesLu.deleteStudent();
-		} else if (object instanceof Course) {
-			c = (Course) object;
-			query = queriesLu.deleteCourse();
-		} else {
-			throw new NotFoundException("sadfasdfasdfasdfasdf");
+	private void setStudent(ResultSet rSet, Student s) throws SQLException {
+		while (rSet.next()) {
+			s.setSpnr(rSet.getString("spnr"));
+			s.setSname(rSet.getString("sname"));
+			s.setSaddress(rSet.getString("sadress"));
 		}
+	}
 
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(query);
-			if (s != null) {
-				pStatement.setString(1, s.getSpnr());
-			} else if (c != null) {
-				pStatement.setString(1, c.getCcode());
-			}
-
-			return pStatement.executeUpdate();
-
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
+	private void setCourse(ResultSet rSet, Course c) throws SQLException {
+		while (rSet.next()) {
+			c.setCcode(rSet.getString("ccode"));
+			c.setCname(rSet.getString("cname"));
+			c.setCpoint(rSet.getInt("points"));
 		}
 	}
 }

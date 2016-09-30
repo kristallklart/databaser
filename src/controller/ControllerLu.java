@@ -20,20 +20,8 @@ public class ControllerLu {
 		return dal.getStudent(spnr);
 	}
 
-	public ArrayList<String> getCcodes() throws SQLException {
-		return dal.getCcodes();
-	}
-
 	public Course getCourse(String ccode) throws SQLException, NotFoundException {
 		return dal.getCourse(ccode);
-	}
-
-	public ArrayList<Studying> getStudentStudying(String spnr) throws SQLException {
-		return dal.getStudentStudying(spnr);
-	}
-
-	public ArrayList<Studied> getStudentStudied(String spnr) throws SQLException {
-		return dal.getStudentStudied(spnr);
 	}
 
 	public void deleteCourse(String ccode) throws SQLException {
@@ -84,17 +72,9 @@ public class ControllerLu {
 		return dal.mostThrough();
 	}
 
-	public DefaultTableModel getTableAll(ArrayList<String> values, String tableName)
+	public DefaultTableModel getTable(ArrayList<String> values, String tableName)
 			throws SQLException, NotFoundException {
-		return dal.getTableAll(values, tableName);
-	}
-
-	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
-		dal.createAll(values, studentOrCourse);
-	}
-
-	public int deleteAll(Object object) throws SQLException, NotFoundException {
-		return dal.deleteAll(object);
+		return dal.getTable(values, tableName);
 	}
 
 	public boolean studentExist(String spnr) throws SQLException {

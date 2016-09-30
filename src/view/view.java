@@ -128,7 +128,7 @@ public class view extends JFrame {
 		tabbedPane.addTab("Course", panel_course);
 		panel_course.setLayout(null);
 
-		lbl_feedback.setBounds(10, 640, 1244, 20);
+		lbl_feedback.setBounds(19, 635, 1242, 20);
 		contentPane.add(lbl_feedback);
 
 		DefaultTableModel dtmCourse_results = new DefaultTableModel();
@@ -663,7 +663,7 @@ public class view extends JFrame {
 					values.add(spnr);
 					try {
 						if (controllerLu.studentExist(spnr)) {
-							table_stud_regOnCourse_courseList.setModel(controllerLu.getTableAll(values, tableName));
+							table_stud_regOnCourse_courseList.setModel(controllerLu.getTable(values, tableName));
 							communicateMessage(feedbackHandler.availableCoursesFound(spnr));
 						} else {
 							clearTable(table_stud_regOnCourse_courseList);
@@ -740,21 +740,21 @@ public class view extends JFrame {
 
 					try {
 						tableName = table_stud_finishedCourses.getName();
-						dtm_stud_finishedCourses = controllerLu.getTableAll(values, tableName);
+						dtm_stud_finishedCourses = controllerLu.getTable(values, tableName);
 						table_stud_finishedCourses.setModel(dtm_stud_finishedCourses);
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
 						tableName = table_stud_currentCourses.getName();
-						dtm_stud_currentCourses = controllerLu.getTableAll(values, tableName);
+						dtm_stud_currentCourses = controllerLu.getTable(values, tableName);
 						table_stud_currentCourses.setModel(dtm_stud_currentCourses);
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
 						tableName = table_stud_foundStud.getName();
-						dtm_stud_student = controllerLu.getTableAll(values, tableName);
+						dtm_stud_student = controllerLu.getTable(values, tableName);
 						table_stud_foundStud.setModel(dtm_stud_student);
 						communicateMessage(feedbackHandler.studentFound());
 
