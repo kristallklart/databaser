@@ -107,7 +107,8 @@ public class view extends JFrame {
 				}
 			}
 		} catch (Exception e) {
-
+			communicateMessage(exceptionHandler.handleException(e));
+			e.printStackTrace();
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -249,6 +250,7 @@ public class view extends JFrame {
 					}
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
+					e.printStackTrace();
 				}
 			}
 		});
@@ -262,23 +264,21 @@ public class view extends JFrame {
 				clearFeedback();
 				String ccode = textField_course_courseCode.getText().trim();
 				String cname = textField_course_cname.getText().trim();
-				int points = Integer.parseInt(textField_course_points.getText().trim());
+
 				if (ccode.isEmpty() || cname.isEmpty()) {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
-					ArrayList<Object> values = new ArrayList<Object>();
-					values.add(ccode);
-					values.add(cname);
-					values.add(points);
 					try {
-						controllerLu.createAll(values, "Course");
+						int cpoints = Integer.parseInt(textField_course_points.getText().trim());
+						Course c = new Course(ccode, cname, cpoints);
+						controllerLu.addCourse(c);
 						communicateMessage(feedbackHandler.courseAdded(ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
-
 		});
 		btn_course_deleteAdd_add.setBounds(197, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_add);
@@ -300,6 +300,7 @@ public class view extends JFrame {
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						UtilView.clearFields(coursePanelFields);
+						e.printStackTrace();
 					}
 				}
 			}
@@ -323,7 +324,8 @@ public class view extends JFrame {
 						}
 						table_course.setModel(dtmcourse_showall);
 					} catch (Exception e) {
-
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				} else {
 					if (rdbtn_course_highestThrough.isSelected()) {
@@ -337,6 +339,8 @@ public class view extends JFrame {
 							}
 							table_course.setModel(dtmcourse_mostThrough);
 						} catch (Exception e) {
+							communicateMessage(exceptionHandler.handleException(e));
+							e.printStackTrace();
 						}
 					}
 				}
@@ -390,6 +394,7 @@ public class view extends JFrame {
 						}
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 
@@ -443,6 +448,7 @@ public class view extends JFrame {
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						UtilView.clearFields(studPanelFields);
+						e.printStackTrace();
 					}
 				}
 			}
@@ -461,11 +467,11 @@ public class view extends JFrame {
 		panel_student.add(lbl_stud_deleteAdd_address);
 
 		JLabel lbl_stud_regOnCourse_pnr = new JLabel("Personal number:");
-		lbl_stud_regOnCourse_pnr.setBounds(22, 308, 108, 23);
+		lbl_stud_regOnCourse_pnr.setBounds(28, 308, 108, 23);
 		panel_student.add(lbl_stud_regOnCourse_pnr);
 
 		JLabel lbl_stud_regOnCourse_selectFromList = new JLabel("Select course from the list:");
-		lbl_stud_regOnCourse_selectFromList.setBounds(22, 343, 216, 14);
+		lbl_stud_regOnCourse_selectFromList.setBounds(28, 343, 216, 14);
 		panel_student.add(lbl_stud_regOnCourse_selectFromList);
 
 		JLabel lbl_stud_findStudentAll_pnr = new JLabel("Personal number:");
@@ -513,7 +519,7 @@ public class view extends JFrame {
 
 		textField_stud_regOnCourse_pnr = new JTextField();
 		textField_stud_regOnCourse_pnr.setColumns(10);
-		textField_stud_regOnCourse_pnr.setBounds(142, 307, 159, 25);
+		textField_stud_regOnCourse_pnr.setBounds(148, 307, 159, 25);
 		panel_student.add(textField_stud_regOnCourse_pnr);
 
 		JScrollPane scrollPane_stud_foundStudent = new JScrollPane();
@@ -538,7 +544,7 @@ public class view extends JFrame {
 		scrollPane_stud_finishedCourses.setViewportView(table_stud_finishedCourses);
 
 		JScrollPane scrollPane_stud_regOnCourse_courseList = new JScrollPane();
-		scrollPane_stud_regOnCourse_courseList.setBounds(22, 368, 397, 173);
+		scrollPane_stud_regOnCourse_courseList.setBounds(28, 368, 397, 173);
 		panel_student.add(scrollPane_stud_regOnCourse_courseList);
 		table_stud_regOnCourse_courseList = new JTable();
 		table_stud_regOnCourse_courseList.setName("table_stud_regOnCourse_courseList");
@@ -583,6 +589,7 @@ public class view extends JFrame {
 						UtilView.clearFields(studPanelFields);
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -608,6 +615,7 @@ public class view extends JFrame {
 						communicateMessage(feedbackHandler.studentAdded(spnr));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 
@@ -635,6 +643,7 @@ public class view extends JFrame {
 						communicateMessage(feedbackHandler.registeredGrade(spnr, grade, ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -666,11 +675,12 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
 		});
-		btn_stud_regOnCourse_search.setBounds(311, 308, 108, 23);
+		btn_stud_regOnCourse_search.setBounds(317, 308, 108, 23);
 		panel_student.add(btn_stud_regOnCourse_search);
 
 		JButton btn_stud_regOnCourse_register = new JButton("Register");
@@ -705,11 +715,12 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
 		});
-		btn_stud_regOnCourse_register.setBounds(311, 552, 114, 23);
+		btn_stud_regOnCourse_register.setBounds(311, 555, 114, 23);
 		panel_student.add(btn_stud_regOnCourse_register);
 
 		JButton btn_stud_findStudentAll_search = new JButton("Search");
@@ -752,6 +763,7 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -774,6 +786,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.studentRemovedStudying(spnr, ccode));
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
+					e.printStackTrace();
 				}
 
 			}
@@ -793,17 +806,15 @@ public class view extends JFrame {
 		panel.setBounds(12, 11, 435, 186);
 		panel_student.add(panel);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Register Student to Course",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(10, 268, 437, 329);
-		panel_student.add(panel_1);
-
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Search Student Information", TitledBorder.LEADING, TitledBorder.TOP,
 				null, null));
 		panel_2.setBounds(457, 11, 790, 586);
 		panel_student.add(panel_2);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(28, 555, 166, 23);
+		panel_student.add(comboBox);
 
 		// ***************************************
 		// ***********CRONUS ACCESS TAB***********
@@ -815,7 +826,7 @@ public class view extends JFrame {
 		panel_caccess.setLayout(null);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
-		scrollPane_caccess.setBounds(622, 42, 544, 385);
+		scrollPane_caccess.setBounds(622, 32, 544, 395);
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
@@ -824,7 +835,7 @@ public class view extends JFrame {
 		JPanel panel_CronusAccess_showTables = new JPanel();
 		panel_CronusAccess_showTables.setBorder(new TitledBorder(null, "Show employee and related tables",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_CronusAccess_showTables.setBounds(26, 33, 496, 159);
+		panel_CronusAccess_showTables.setBounds(26, 24, 496, 168);
 		panel_caccess.add(panel_CronusAccess_showTables);
 		panel_CronusAccess_showTables.setLayout(null);
 
@@ -879,6 +890,8 @@ public class view extends JFrame {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
 					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});
@@ -895,6 +908,8 @@ public class view extends JFrame {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
 					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});
@@ -947,10 +962,17 @@ public class view extends JFrame {
 		panel_open_queryFiles.add(btn_open_queryFiles);
 		btn_open_queryFiles.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				if (comboBox_access_excel.getSelectedIndex() != 0 && comboBox_cdatabase_query.getSelectedIndex() != 0) {
-					controllerCronus.openCronusFile(comboBox_access_excel.getName(),
-							comboBox_access_excel.getSelectedIndex(), comboBox_cdatabase_query.getSelectedIndex());
+					try {
+						controllerCronus.openCronusFile(comboBox_access_excel.getName(),
+								comboBox_access_excel.getSelectedIndex(), comboBox_cdatabase_query.getSelectedIndex());
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusFile());
 				}
 			}
 		});
@@ -985,12 +1007,19 @@ public class view extends JFrame {
 		panel_open_forms.add(btn_open_forms);
 		btn_open_forms.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				if (comboBox_oform_selectProgram.getSelectedIndex() != 0
 						&& comboBox_oform_selectQuery.getSelectedIndex() != 0) {
-					controllerCronus.openCronusFile(comboBox_oform_selectProgram.getName(),
-							comboBox_oform_selectProgram.getSelectedIndex(),
-							comboBox_oform_selectQuery.getSelectedIndex());
+					try {
+						controllerCronus.openCronusFile(comboBox_oform_selectProgram.getName(),
+								comboBox_oform_selectProgram.getSelectedIndex(),
+								comboBox_oform_selectQuery.getSelectedIndex());
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});

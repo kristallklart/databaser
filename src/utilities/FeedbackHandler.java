@@ -99,4 +99,14 @@ public class FeedbackHandler {
 		return message;
 	}
 
+	public String notFullChoiceCronusAccess() {
+		String message = "Please choose an option in the drop-down menu.";
+		return message;
+	}
+
+	public String notFullChoiceCronusFile() {
+		String message = "Please choose an option in both drop-down menus.";
+		return message;
+	}
+
 }

@@ -11,59 +11,48 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 import utilities.UtilCronus;
+import utilities.UtilDatabaseAccess;
 
 public class DataAccessLayerCronus {
 	private LoginDataCronus login = new LoginDataCronus();
 	private UtilCronus util = new UtilCronus();
+	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
 
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
 	}
 
-	public DefaultTableModel getTableModel(String nameComboBox, int selectedIndex) {
+	public DefaultTableModel getTableModel(String nameComboBox, int selectedIndex) throws SQLException {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
 		UtilCronus utilCronus = new UtilCronus();
 
+		PreparedStatement pStatement = null;
+		ResultSet rs = null;
+		ResultSetMetaData rsmd = null;
 		Connection con = null;
+
 		try {
 			con = this.createConnection();
-			if (con != null) {
+			pStatement = con.prepareStatement(utilCronus.getQuery(nameComboBox, selectedIndex));
+			rs = pStatement.executeQuery();
+			rsmd = rs.getMetaData();
 
-				PreparedStatement pstate = null;
-				ResultSet rs = null;
-				ResultSetMetaData rsmd = null;
+			int numberOfColumns = rsmd.getColumnCount();
 
-				pstate = con.prepareStatement(utilCronus.getQuery(nameComboBox, selectedIndex));
+			for (int i = 1; i <= numberOfColumns; i++) {
+				sendColumnNames.add(rsmd.getColumnName(i));
+			}
 
-				rs = pstate.executeQuery();
-				rsmd = rs.getMetaData();
-
-				int numberOfColumns = rsmd.getColumnCount();
-
+			while (rs.next()) {
+				Vector<Object> columnData = new Vector<Object>();
 				for (int i = 1; i <= numberOfColumns; i++) {
-					sendColumnNames.add(rsmd.getColumnName(i));
+					columnData.add(rs.getObject(i));
 				}
-
-				while (rs.next()) {
-					Vector<Object> columnData = new Vector<Object>();
-					for (int i = 1; i <= numberOfColumns; i++) {
-						columnData.add(rs.getObject(i));
-					}
-					sendData.add(columnData);
-				}
+				sendData.add(columnData);
 			}
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
 		} finally {
-			try {
-				if (con != null && !con.isClosed()) {
-					con.close();
-				}
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 		DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
 
