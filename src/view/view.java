@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -158,68 +157,54 @@ public class view extends JFrame {
 		// ***********************************
 
 		JLabel lbl_course_ccode = new JLabel("Course code:");
-		lbl_course_ccode.setBounds(10, 33, LABEL_WIDTH, LABEL_HEIGHT);
+		lbl_course_ccode.setBounds(50, 50, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_ccode);
 
 		JLabel lbl_course_name = new JLabel("Course name:");
-		lbl_course_name.setBounds(10, 67, LABEL_WIDTH, LABEL_HEIGHT);
+		lbl_course_name.setBounds(50, 84, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_name);
 
 		JLabel lbl_course_points = new JLabel("Points:");
-		lbl_course_points.setBounds(10, 101, LABEL_WIDTH, LABEL_HEIGHT);
+		lbl_course_points.setBounds(50, 118, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_points);
 
-		JLabel lbl_course_addCourse_header = new JLabel("Add Course");
-		lbl_course_addCourse_header.setBounds(10, 8, 80, 14);
-		panel_course.add(lbl_course_addCourse_header);
-
 		JLabel lbl_course_showGradeA_header = new JLabel("% of Students with grade A:");
-		lbl_course_showGradeA_header.setBounds(674, 567, 167, 14);
+		lbl_course_showGradeA_header.setBounds(607, 567, 167, 14);
 		panel_course.add(lbl_course_showGradeA_header);
 
 		JLabel lbl_course_showGradeA_result = new JLabel("");
-		lbl_course_showGradeA_result.setBounds(851, 567, 46, 14);
+		lbl_course_showGradeA_result.setBounds(784, 567, 46, 14);
 		panel_course.add(lbl_course_showGradeA_result);
 
-		JLabel lbl_course_enrolled_header = new JLabel("Enrolled Students");
-		lbl_course_enrolled_header.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lbl_course_enrolled_header.setBounds(674, 8, 189, 14);
-		panel_course.add(lbl_course_enrolled_header);
-
 		JLabel lbl_course_selectCourse_header = new JLabel("Select course:");
-		lbl_course_selectCourse_header.setBounds(674, 38, 115, 14);
+		lbl_course_selectCourse_header.setBounds(629, 67, 115, 14);
 		panel_course.add(lbl_course_selectCourse_header);
-
-		JLabel lbl_course_courseInfo_header = new JLabel("Course Info");
-		lbl_course_courseInfo_header.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lbl_course_courseInfo_header.setBounds(674, 166, 128, 14);
-		panel_course.add(lbl_course_courseInfo_header);
 
 		textField_course_courseCode = new JTextField();
 		textField_course_courseCode.setColumns(10);
-		textField_course_courseCode.setBounds(106, 32, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_courseCode.setBounds(146, 49, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_courseCode);
 		coursePanelFields.add(textField_course_courseCode);
 
 		textField_course_cname = new JTextField();
 		textField_course_cname.setColumns(10);
-		textField_course_cname.setBounds(106, 66, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_cname.setBounds(146, 83, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_cname);
 		coursePanelFields.add(textField_course_cname);
 
 		textField_course_points = new JTextField();
 		textField_course_points.setColumns(10);
-		textField_course_points.setBounds(106, 101, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_points.setBounds(146, 118, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_points);
 		coursePanelFields.add(textField_course_points);
 
 		textField_course_enrolled_ccode = new JTextField();
 		textField_course_enrolled_ccode.setColumns(10);
-		textField_course_enrolled_ccode.setBounds(792, 33, 159, 25);
+		textField_course_enrolled_ccode.setBounds(803, 62, 159, 25);
 		panel_course.add(textField_course_enrolled_ccode);
 
 		JScrollPane scrollPane_course = new JScrollPane();
-		scrollPane_course.setBounds(674, 247, 527, 309);
+		scrollPane_course.setBounds(583, 262, 563, 294);
 		panel_course.add(scrollPane_course);
 		table_course = new JTable();
 		table_course.setName("table_course");
@@ -234,22 +219,22 @@ public class view extends JFrame {
 		});
 		ButtonGroup btngr_course = new ButtonGroup();
 		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
-		rdbtn_course_showAll.setBounds(674, 187, 128, 23);
+		rdbtn_course_showAll.setBounds(629, 181, 128, 23);
 		panel_course.add(rdbtn_course_showAll);
 		btngr_course.add(rdbtn_course_showAll);
 
 		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
 				"Show the top 5 courses with the highest throughoutput", false);
-		rdbtn_course_highestThrough.setBounds(674, 213, 360, 23);
+		rdbtn_course_highestThrough.setBounds(629, 207, 360, 23);
 		panel_course.add(rdbtn_course_highestThrough);
 		btngr_course.add(rdbtn_course_highestThrough);
 
 		JRadioButton rdbtn_course_showNotFinished = new JRadioButton(
 				"Only show students who hasn't finished the course", false);
-		rdbtn_course_showNotFinished.setBounds(674, 66, 360, 23);
+		rdbtn_course_showNotFinished.setBounds(629, 95, 360, 23);
 		panel_course.add(rdbtn_course_showNotFinished);
 		btngr_course.add(rdbtn_course_showNotFinished);
-		btn_course_addCourse_clear.setBounds(39, 135, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_addCourse_clear.setBounds(79, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_addCourse_clear);
 
 		JButton btn_course_deleteAdd_delete = new JButton("Delete");
@@ -267,7 +252,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_deleteAdd_delete.setBounds(275, 135, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_deleteAdd_delete.setBounds(315, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_delete);
 
 		JButton btn_course_deleteAdd_add = new JButton("Add Course");
@@ -295,7 +280,7 @@ public class view extends JFrame {
 			}
 
 		});
-		btn_course_deleteAdd_add.setBounds(157, 135, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_deleteAdd_add.setBounds(197, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_add);
 
 		JButton btn_course_deleteAdd_search = new JButton("Search");
@@ -319,7 +304,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_deleteAdd_search.setBounds(275, 33, 108, 23);
+		btn_course_deleteAdd_search.setBounds(315, 50, 108, 23);
 		panel_course.add(btn_course_deleteAdd_search);
 
 		JButton btn_course_courseInfo_showResult = new JButton("Show Result");
@@ -358,7 +343,7 @@ public class view extends JFrame {
 			}
 
 		});
-		btn_course_courseInfo_showResult.setBounds(1093, 213, 108, 23);
+		btn_course_courseInfo_showResult.setBounds(1007, 207, 108, 23);
 		panel_course.add(btn_course_courseInfo_showResult);
 
 		JButton btn_course_enrolled_showResult = new JButton("Show Result");
@@ -410,8 +395,32 @@ public class view extends JFrame {
 
 			}
 		});
-		btn_course_enrolled_showResult.setBounds(961, 33, 108, 23);
+		btn_course_enrolled_showResult.setBounds(1007, 62, 108, 23);
 		panel_course.add(btn_course_enrolled_showResult);
+
+		JPanel panel_course_addBorder = new JPanel();
+		panel_course_addBorder.setBorder(
+				new TitledBorder(null, "Add/ Delete Course", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_course_addBorder.setBounds(25, 26, 491, 192);
+		panel_course.add(panel_course_addBorder);
+
+		JPanel panel_course_resultsBorder = new JPanel();
+		panel_course_resultsBorder.setBorder(
+				new TitledBorder(null, "Course Results", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_course_resultsBorder.setBounds(583, 38, 563, 115);
+		panel_course.add(panel_course_resultsBorder);
+
+		JPanel panel_course_informationBorder = new JPanel();
+		panel_course_informationBorder.setBorder(
+				new TitledBorder(null, "Course Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_course_informationBorder.setBounds(583, 164, 563, 87);
+		panel_course.add(panel_course_informationBorder);
+
+		JPanel panel_course_CourseInfBorder = new JPanel();
+		panel_course_CourseInfBorder.setBorder(new TitledBorder(null, "Search Course Information", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		panel_course_CourseInfBorder.setBounds(566, 11, 601, 586);
+		panel_course.add(panel_course_CourseInfBorder);
 
 		// ***********************************
 		// ***********STUDENT TAB*************
