@@ -9,7 +9,7 @@ public class ExceptionHandler {
 		String message = null;
 
 		if (ex instanceof NotFoundException) {
-			message = whatsUp(((NotFoundException) ex).getError());
+			message = getCause(((NotFoundException) ex).getError());
 		} else if (ex instanceof NullPointerException) {
 			message = "Error trying to access something that doesn't exist.";
 		} else if (ex instanceof IndexOutOfBoundsException) {
@@ -47,7 +47,7 @@ public class ExceptionHandler {
 		return message;
 	}
 
-	private String whatsUp(String error) {
+	private String getCause(String error) {
 		String message = null;
 
 		switch (error) {
