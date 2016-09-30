@@ -28,7 +28,7 @@ public class ControllerCronus {
 		return utilCronus.getCronusQueryGetMetaData();
 	}
 
-	// Används för att öppna rätt fil i Excel eller Access
+	// Används för att öppna rätt fil i Excel, Access eller Word
 	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen)
 			throws IOException {
 		utilCronus.openCronusFile(nameProgramToUse, selectedProgramToUse, selectedCronusFileToOpen);

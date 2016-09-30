@@ -25,7 +25,6 @@ public class QueriesCronus {
 				+ " from [CRONUS Sverige AB$Employee Relative]");
 		queriesCronusEmployee.add("select [timestamp] as 'Timestamp', [Code], [Description]"
 				+ "from [CRONUS Sverige AB$Employee Statistics Group]");
-
 		queriesCronusMetaData.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
 		queriesCronusMetaData.add("select top 20 TABLE_CATALOG as 'Table Catalog', TABLE_SCHEMA as 'Table Schema',"
 				+ " DATA_TYPE as 'Data Type', ORDINAL_POSITION as 'Ordinal Position'"
