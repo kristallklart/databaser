@@ -17,9 +17,9 @@ public class ExceptionHandler {
 		} else if (ex instanceof NumberFormatException) {
 			message = "Number format exception.";
 		} else if (ex instanceof IOException) {
-			message = "Some fucking IOException happened!.";
+			message = "A input/output problem occured.";
 		} else if (ex instanceof IllegalArgumentException) {
-			message = "Some fucking IllegalArgumentException happened!";
+			message = "The file could not be found.";
 		} else if (ex instanceof SQLException) {
 			int errorCode = ((SQLException) ex).getErrorCode();
 
