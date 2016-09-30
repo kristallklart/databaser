@@ -7,12 +7,13 @@ public class Studied {
 	private String cCode;
 	private String grade;
 
-	public Studied(String spnr, String semester, String grade) {
+	public Studied() {
+	}
 
+	public Studied(String spnr, String semester, String grade) {
 		this.semester = semester;
 		this.sPnr = spnr;
 		this.grade = grade;
-
 	}
 
 	public Studied(String spnr, String semester, String grade, String ccode) {
@@ -20,10 +21,6 @@ public class Studied {
 		this.grade = grade;
 		this.semester = semester;
 		this.cCode = ccode;
-	}
-
-	public Studied() {
-
 	}
 
 	public String getSemester() {

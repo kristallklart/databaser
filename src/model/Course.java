@@ -8,7 +8,6 @@ public class Course {
 	private int total;
 
 	public Course() {
-
 	}
 
 	public Course(String ccode, String cname, int points) {

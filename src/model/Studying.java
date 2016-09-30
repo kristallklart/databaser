@@ -6,21 +6,18 @@ public class Studying {
 	private String cCode;
 	private String semester;
 
-	public Studying(String ccode, String semester) {
+	public Studying() {
+	}
 
+	public Studying(String ccode, String semester) {
 		this.cCode = ccode;
 		this.semester = semester;
-
 	}
 
 	public Studying(String sPnr, String cCode, String semester) {
 		this.sPnr = sPnr;
 		this.cCode = cCode;
 		this.semester = semester;
-	}
-
-	public Studying() {
-
 	}
 
 	public String getsPnr() {
