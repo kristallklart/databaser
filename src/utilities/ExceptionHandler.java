@@ -1,5 +1,6 @@
 package utilities;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ExceptionHandler {
@@ -15,6 +16,10 @@ public class ExceptionHandler {
 			message = "Something went wrong, if you're trying to register a student, course or grade please make sure you've made a selection from a list";
 		} else if (ex instanceof NumberFormatException) {
 			message = "Number format exception.";
+		} else if (ex instanceof IOException) {
+			message = "Some fucking IOException happened!.";
+		} else if (ex instanceof IllegalArgumentException) {
+			message = "Some fucking IllegalArgumentException happened!";
 		} else if (ex instanceof SQLException) {
 			int errorCode = ((SQLException) ex).getErrorCode();
 
@@ -29,7 +34,7 @@ public class ExceptionHandler {
 				message = "Connection to database failed, please try again. If the error persists contact support.";
 				break;
 			case 0: // Login time expired
-				message = "Login to the database timeout, please check your connection and try again.";
+				message = "Login to the database timed out, please check your connection and try again.";
 				break;
 			default:
 				message = "An unknown error occured, please contact support.";
@@ -67,7 +72,7 @@ public class ExceptionHandler {
 			message = "The student you tried to delete doesn't exist";
 			break;
 		case "No course found":
-			message = "The student you tried to delete doesn't exist";
+			message = "The course you tried to delete doesn't exist";
 			break;
 		}
 		return message;

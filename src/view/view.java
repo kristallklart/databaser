@@ -868,6 +868,8 @@ public class view extends JFrame {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
 					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});
@@ -884,6 +886,8 @@ public class view extends JFrame {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
 					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});
@@ -936,10 +940,17 @@ public class view extends JFrame {
 		panel_1.add(btnGo);
 		btnGo.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				if (comboBox_access_excel.getSelectedIndex() != 0 && comboBox_cdatabase_query.getSelectedIndex() != 0) {
-					controllerCronus.openCronusFile(comboBox_access_excel.getName(),
-							comboBox_access_excel.getSelectedIndex(), comboBox_cdatabase_query.getSelectedIndex());
+					try {
+						controllerCronus.openCronusFile(comboBox_access_excel.getName(),
+								comboBox_access_excel.getSelectedIndex(), comboBox_cdatabase_query.getSelectedIndex());
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusFile());
 				}
 			}
 		});
@@ -974,12 +985,19 @@ public class view extends JFrame {
 		panel_2.add(btnOpen);
 		btnOpen.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				if (comboBox_oform_selectProgram.getSelectedIndex() != 0
 						&& comboBox_oform_selectQuery.getSelectedIndex() != 0) {
-					controllerCronus.openCronusFile(comboBox_oform_selectProgram.getName(),
-							comboBox_oform_selectProgram.getSelectedIndex(),
-							comboBox_oform_selectQuery.getSelectedIndex());
+					try {
+						controllerCronus.openCronusFile(comboBox_oform_selectProgram.getName(),
+								comboBox_oform_selectProgram.getSelectedIndex(),
+								comboBox_oform_selectQuery.getSelectedIndex());
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});
