@@ -107,7 +107,8 @@ public class view extends JFrame {
 				}
 			}
 		} catch (Exception e) {
-
+			communicateMessage(exceptionHandler.handleException(e));
+			e.printStackTrace();
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -249,6 +250,7 @@ public class view extends JFrame {
 					}
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
+					e.printStackTrace();
 				}
 			}
 		});
@@ -275,6 +277,7 @@ public class view extends JFrame {
 						communicateMessage(feedbackHandler.courseAdded(ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -300,6 +303,7 @@ public class view extends JFrame {
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						UtilView.clearFields(coursePanelFields);
+						e.printStackTrace();
 					}
 				}
 			}
@@ -323,7 +327,8 @@ public class view extends JFrame {
 						}
 						table_course.setModel(dtmcourse_showall);
 					} catch (Exception e) {
-
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				} else {
 					if (rdbtn_course_highestThrough.isSelected()) {
@@ -337,6 +342,8 @@ public class view extends JFrame {
 							}
 							table_course.setModel(dtmcourse_mostThrough);
 						} catch (Exception e) {
+							communicateMessage(exceptionHandler.handleException(e));
+							e.printStackTrace();
 						}
 					}
 				}
@@ -390,6 +397,7 @@ public class view extends JFrame {
 						}
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 
@@ -443,6 +451,7 @@ public class view extends JFrame {
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						UtilView.clearFields(studPanelFields);
+						e.printStackTrace();
 					}
 				}
 			}
@@ -583,6 +592,7 @@ public class view extends JFrame {
 						UtilView.clearFields(studPanelFields);
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -608,6 +618,7 @@ public class view extends JFrame {
 						communicateMessage(feedbackHandler.studentAdded(spnr));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 
@@ -635,6 +646,7 @@ public class view extends JFrame {
 						communicateMessage(feedbackHandler.registeredGrade(spnr, grade, ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -666,6 +678,7 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -705,6 +718,7 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -752,6 +766,7 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -774,6 +789,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.studentRemovedStudying(spnr, ccode));
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
+					e.printStackTrace();
 				}
 
 			}
