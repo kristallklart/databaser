@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -27,8 +28,9 @@ public class ControllerCronus {
 		return utilCronus.getCronusQueryGetMetaData();
 	}
 
-	// Används för att öppna rätt fil i Excel eller Access
-	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen) {
+	// Används för att öppna rätt fil i Excel, Access eller Word
+	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen)
+			throws IOException {
 		utilCronus.openCronusFile(nameProgramToUse, selectedProgramToUse, selectedCronusFileToOpen);
 	}
 

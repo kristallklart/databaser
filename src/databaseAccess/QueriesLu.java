@@ -65,7 +65,7 @@ public class QueriesLu {
 		return "insert into student values (?,?,?)";
 	}
 
-	public String createCourse() {
+	public String addCourse() {
 		return "insert into course values (?,?,?)";
 	}
 

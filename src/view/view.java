@@ -107,7 +107,8 @@ public class view extends JFrame {
 				}
 			}
 		} catch (Exception e) {
-
+			communicateMessage(exceptionHandler.handleException(e));
+			e.printStackTrace();
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -249,6 +250,7 @@ public class view extends JFrame {
 					}
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
+					e.printStackTrace();
 				}
 			}
 		});
@@ -262,23 +264,21 @@ public class view extends JFrame {
 				clearFeedback();
 				String ccode = textField_course_courseCode.getText().trim();
 				String cname = textField_course_cname.getText().trim();
-				int points = Integer.parseInt(textField_course_points.getText().trim());
+
 				if (ccode.isEmpty() || cname.isEmpty()) {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
-					ArrayList<Object> values = new ArrayList<Object>();
-					values.add(ccode);
-					values.add(cname);
-					values.add(points);
 					try {
-						controllerLu.createAll(values, "Course");
+						int cpoints = Integer.parseInt(textField_course_points.getText().trim());
+						Course c = new Course(ccode, cname, cpoints);
+						controllerLu.addCourse(c);
 						communicateMessage(feedbackHandler.courseAdded(ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
-
 		});
 		btn_course_deleteAdd_add.setBounds(197, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_add);
@@ -298,8 +298,8 @@ public class view extends JFrame {
 						textField_course_points.setText(String.valueOf(c.getCpoint()));
 						communicateMessage(feedbackHandler.courseFound());
 					} catch (Exception e) {
+						e.printStackTrace();
 						communicateMessage(exceptionHandler.handleException(e));
-						UtilView.clearFields(coursePanelFields);
 					}
 				}
 			}
@@ -323,7 +323,8 @@ public class view extends JFrame {
 						}
 						table_course.setModel(dtmcourse_showall);
 					} catch (Exception e) {
-
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				} else {
 					if (rdbtn_course_highestThrough.isSelected()) {
@@ -337,6 +338,8 @@ public class view extends JFrame {
 							}
 							table_course.setModel(dtmcourse_mostThrough);
 						} catch (Exception e) {
+							communicateMessage(exceptionHandler.handleException(e));
+							e.printStackTrace();
 						}
 					}
 				}
@@ -390,6 +393,7 @@ public class view extends JFrame {
 						}
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 
@@ -443,6 +447,7 @@ public class view extends JFrame {
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						UtilView.clearFields(studPanelFields);
+						e.printStackTrace();
 					}
 				}
 			}
@@ -492,12 +497,12 @@ public class view extends JFrame {
 		textField_stud_findStudentAll_pnr.setBounds(592, 46, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_findStudentAll_pnr);
 		textField_stud_findStudentAll_pnr.setColumns(10);
-		studPanelFields.add(textField_stud_findStudentAll_pnr);
 
 		textField_stud_deleteAdd_pnr = new JTextField();
 		textField_stud_deleteAdd_pnr.setBounds(148, 47, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_deleteAdd_pnr);
 		textField_stud_deleteAdd_pnr.setColumns(10);
+		studPanelFields.add(textField_stud_deleteAdd_pnr);
 
 		textField_stud_deleteAdd_name = new JTextField();
 		textField_stud_deleteAdd_name.setBounds(148, 83, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
@@ -584,6 +589,7 @@ public class view extends JFrame {
 						UtilView.clearFields(studPanelFields);
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -609,6 +615,7 @@ public class view extends JFrame {
 						communicateMessage(feedbackHandler.studentAdded(spnr));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 
@@ -636,6 +643,7 @@ public class view extends JFrame {
 						communicateMessage(feedbackHandler.registeredGrade(spnr, grade, ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -659,7 +667,7 @@ public class view extends JFrame {
 					try {
 						if (controllerLu.studentExist(spnr)) {
 							table_stud_regOnCourse_courseList.setModel(controllerLu.getTableAll(values, tableName));
-							communicateMessage(feedbackHandler.possibleCoursesFound(spnr));
+							communicateMessage(feedbackHandler.availableCoursesFound(spnr));
 						} else {
 							clearTable(table_stud_regOnCourse_courseList);
 							communicateMessage(feedbackHandler.noStudentFound(spnr));
@@ -667,6 +675,7 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -706,6 +715,7 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -753,6 +763,7 @@ public class view extends JFrame {
 
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
 				}
 			}
@@ -775,6 +786,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.studentRemovedStudying(spnr, ccode));
 				} catch (Exception e) {
 					communicateMessage(exceptionHandler.handleException(e));
+					e.printStackTrace();
 				}
 
 			}
@@ -790,7 +802,7 @@ public class view extends JFrame {
 
 		JPanel panel_student_addBorder = new JPanel();
 		panel_student_addBorder.setBorder(
-				new TitledBorder(null, "Add/ Delete Student", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(null, "Add/Delete Student", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_student_addBorder.setBounds(12, 11, 435, 186);
 		panel_student.add(panel_student_addBorder);
 
@@ -825,7 +837,7 @@ public class view extends JFrame {
 		panel_caccess.setLayout(null);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
-		scrollPane_caccess.setBounds(622, 42, 544, 385);
+		scrollPane_caccess.setBounds(622, 32, 544, 395);
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
@@ -834,7 +846,7 @@ public class view extends JFrame {
 		JPanel panel_CronusAccess_showTables = new JPanel();
 		panel_CronusAccess_showTables.setBorder(new TitledBorder(null, "Show employee and related tables",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_CronusAccess_showTables.setBounds(26, 33, 496, 159);
+		panel_CronusAccess_showTables.setBounds(26, 24, 496, 168);
 		panel_caccess.add(panel_CronusAccess_showTables);
 		panel_CronusAccess_showTables.setLayout(null);
 
@@ -889,6 +901,8 @@ public class view extends JFrame {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
 					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});
@@ -905,6 +919,8 @@ public class view extends JFrame {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
 					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});
@@ -917,15 +933,15 @@ public class view extends JFrame {
 		tabbedPane.addTab("Open files", null, panel_openFiles, null);
 		panel_openFiles.setLayout(null);
 
-		String[] microsoft = { "Select...", "Access", "Excel", "SQL Management Studio" };
+		String[] programToUseIndexAccess = { "Select...", "Access", "Excel", "SQL Management Studio" };
 
 		JSeparator separator_open_files = new JSeparator();
 		separator_open_files.setBounds(10, 261, 500, 2);
 		panel_openFiles.add(separator_open_files);
 
-		String[] micoffice = { "Select...", "Access", "Excel", "Word" };
+		String[] programToUseIndexForm = { "Select...", "Access", "Excel", "Word" };
 
-		String[] ec = { "Select...", "Employee", "Customer" };
+		String[] queryToUseIndexForm = { "Select...", "Employee", "Customer" };
 
 		JPanel panel_open_queryFiles = new JPanel();
 		panel_open_queryFiles.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open query files",
@@ -938,7 +954,7 @@ public class view extends JFrame {
 		lblSelectOption.setBounds(34, 43, 112, 39);
 		panel_open_queryFiles.add(lblSelectOption);
 
-		JComboBox comboBox_access_excel = new JComboBox(microsoft);
+		JComboBox comboBox_access_excel = new JComboBox(programToUseIndexAccess);
 		comboBox_access_excel.setBounds(156, 49, 300, 26);
 		panel_open_queryFiles.add(comboBox_access_excel);
 		comboBox_access_excel.setName("comboBox_access_excel");
@@ -957,10 +973,17 @@ public class view extends JFrame {
 		panel_open_queryFiles.add(btn_open_queryFiles);
 		btn_open_queryFiles.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				if (comboBox_access_excel.getSelectedIndex() != 0 && comboBox_cdatabase_query.getSelectedIndex() != 0) {
-					controllerCronus.openCronusFile(comboBox_access_excel.getName(),
-							comboBox_access_excel.getSelectedIndex(), comboBox_cdatabase_query.getSelectedIndex());
+					try {
+						controllerCronus.openCronusFile(comboBox_access_excel.getName(),
+								comboBox_access_excel.getSelectedIndex(), comboBox_cdatabase_query.getSelectedIndex());
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusFile());
 				}
 			}
 		});
@@ -976,7 +999,7 @@ public class view extends JFrame {
 		lbl_oform_selectOption.setBounds(34, 35, 112, 39);
 		panel_open_forms.add(lbl_oform_selectOption);
 
-		JComboBox comboBox_oform_selectProgram = new JComboBox(micoffice);
+		JComboBox comboBox_oform_selectProgram = new JComboBox(programToUseIndexForm);
 		comboBox_oform_selectProgram.setBounds(156, 41, 298, 26);
 		panel_open_forms.add(comboBox_oform_selectProgram);
 		comboBox_oform_selectProgram.setName("comboBox_oform_selectProgram");
@@ -985,7 +1008,7 @@ public class view extends JFrame {
 		lbl_oform_select.setBounds(34, 85, 112, 39);
 		panel_open_forms.add(lbl_oform_select);
 
-		JComboBox comboBox_oform_selectQuery = new JComboBox(ec);
+		JComboBox comboBox_oform_selectQuery = new JComboBox(queryToUseIndexForm);
 		comboBox_oform_selectQuery.setBounds(156, 91, 298, 26);
 		panel_open_forms.add(comboBox_oform_selectQuery);
 		comboBox_oform_selectQuery.setName("comboBox_oform_selectQuery");
@@ -995,12 +1018,19 @@ public class view extends JFrame {
 		panel_open_forms.add(btn_open_forms);
 		btn_open_forms.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				if (comboBox_oform_selectProgram.getSelectedIndex() != 0
 						&& comboBox_oform_selectQuery.getSelectedIndex() != 0) {
-					controllerCronus.openCronusFile(comboBox_oform_selectProgram.getName(),
-							comboBox_oform_selectProgram.getSelectedIndex(),
-							comboBox_oform_selectQuery.getSelectedIndex());
+					try {
+						controllerCronus.openCronusFile(comboBox_oform_selectProgram.getName(),
+								comboBox_oform_selectProgram.getSelectedIndex(),
+								comboBox_oform_selectQuery.getSelectedIndex());
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
+				} else {
+					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
 				}
 			}
 		});

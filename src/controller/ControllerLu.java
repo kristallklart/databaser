@@ -48,8 +48,8 @@ public class ControllerLu {
 		dal.addStudent(s);
 	}
 
-	public boolean createCourse(String ccode, String cname, String cpoint) {
-		return dal.createCourse(ccode, cname, cpoint);
+	public void addCourse(Course c) throws SQLException {
+		dal.addCourse(c);
 	}
 
 	public ArrayList<Studied> getCourseResult(String ccode) throws SQLException {

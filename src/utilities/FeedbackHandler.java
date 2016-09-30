@@ -71,8 +71,8 @@ public class FeedbackHandler {
 		return message;
 	}
 
-	public String possibleCoursesFound(String input) {
-		String message = "Found possible courses for student with personal number: " + input;
+	public String availableCoursesFound(String input) {
+		String message = "Found available courses for student with personal number: " + input;
 		return message;
 	}
 
@@ -96,6 +96,16 @@ public class FeedbackHandler {
 	public String studentRemovedStudying(String spnr, String ccode) {
 		String message = "Successfully removed student with personal number: " + spnr + " from course with ccode: "
 				+ ccode;
+		return message;
+	}
+
+	public String notFullChoiceCronusAccess() {
+		String message = "Please choose an option in the drop-down menu.";
+		return message;
+	}
+
+	public String notFullChoiceCronusFile() {
+		String message = "Please choose an option in both drop-down menus.";
 		return message;
 	}
 

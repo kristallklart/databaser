@@ -19,7 +19,7 @@ public class UtilCronus {
 	private QueriesCronus queriesCronus = new QueriesCronus();
 
 	public UtilCronus() {
-		cronusAccessDocFilesToOpen.add(" ");
+		cronusAccessDocFilesToOpen.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
 		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.accdb");
 		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.accdb");
 		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.accdb");
@@ -28,7 +28,7 @@ public class UtilCronus {
 		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.accdb");
 		cronusAccessDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.accdb");
 
-		cronusExcelDocFilesToOpen.add(" ");
+		cronusExcelDocFilesToOpen.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.xlsx");
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.xlsx");
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.xlsx");
@@ -37,7 +37,7 @@ public class UtilCronus {
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.xlsx");
 		cronusExcelDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.xlsx");
 
-		cronusManagementStudioDocFilesToOpen.add(" ");
+		cronusManagementStudioDocFilesToOpen.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
 		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query1.sql");
 		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query2.sql");
 		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query3.sql");
@@ -46,15 +46,15 @@ public class UtilCronus {
 		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query6.sql");
 		cronusManagementStudioDocFilesToOpen.add("C:\\Program Files\\Cronusfiler\\Query7.sql");
 
-		cronusAccessFormFilesToOpen.add(" ");
+		cronusAccessFormFilesToOpen.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
 		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.accdb");
 		cronusAccessFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.accdb");
 
-		cronusExcelFormFilesToOpen.add(" ");
+		cronusExcelFormFilesToOpen.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
 		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.xlsx");
 		cronusExcelFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.xlsx");
 
-		cronusWordFormFilesToOpen.add(" ");
+		cronusWordFormFilesToOpen.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
 		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportEmployee.docx");
 		cronusWordFormFilesToOpen.add("C:\\Program Files\\Cronusfiler\\RapportCustomer.docx");
 	}
@@ -118,42 +118,29 @@ public class UtilCronus {
 		return cronusQueryFileNames;
 	}
 
-	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen) {
-		try {
-			// Desktop är en klass som används för att bland annat göra så att
-			// en Java-applikation kan öppna filer.
-			// Därför behöver vi en sådan här. /JAKOB
-			Desktop desktop = null;
+	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen)
+			throws IOException, IllegalArgumentException {
+		// Desktop är en klass som används för att bland annat göra så att
+		// en Java-applikation kan öppna filer.
+		// Därför behöver vi en sådan här. /JAKOB
+		Desktop desktop = Desktop.getDesktop();
 
-			// Här kollar vi först om klassen desktop stöds av den lokala
-			// datorn, i så fall hämtar vi den instansen.
-			// Stöds den inte så kan vi ju inte öppna filer.
-			if (Desktop.isDesktopSupported()) {
-				desktop = Desktop.getDesktop();
-			}
-
-			// Efter att ha tagit emot namnet på vilken combobox som används,
-			// indexet för comboboxen som väljer program,
-			// samt indexet för vilken cronusfil som ska öppnas så öppnas rätt
-			// fil med hjälp av desktop-klassen /JAKOB
-			if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 1) {
-				desktop.open(new File(cronusAccessDocFilesToOpen.get(selectedCronusFileToOpen)));
-			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 2) {
-				desktop.open(new File(cronusExcelDocFilesToOpen.get(selectedCronusFileToOpen)));
-			} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 3) {
-				desktop.open(new File(cronusManagementStudioDocFilesToOpen.get(selectedCronusFileToOpen)));
-			} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 1) {
-				desktop.open(new File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
-			} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 2) {
-				desktop.open(new File(cronusExcelFormFilesToOpen.get(selectedCronusFileToOpen)));
-			} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 3) {
-				desktop.open(new File(cronusWordFormFilesToOpen.get(selectedCronusFileToOpen)));
-			}
-
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
+		// Efter att ha tagit emot namnet på vilken combobox som används,
+		// indexet för comboboxen som väljer program,
+		// samt indexet för vilken cronusfil som ska öppnas så öppnas rätt
+		// fil med hjälp av desktop-klassen /JAKOB
+		if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 1) {
+			desktop.open(new File(cronusAccessDocFilesToOpen.get(selectedCronusFileToOpen)));
+		} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 2) {
+			desktop.open(new File(cronusExcelDocFilesToOpen.get(selectedCronusFileToOpen)));
+		} else if (nameProgramToUse.equals("comboBox_access_excel") && selectedProgramToUse == 3) {
+			desktop.open(new File(cronusManagementStudioDocFilesToOpen.get(selectedCronusFileToOpen)));
+		} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 1) {
+			desktop.open(new File(cronusAccessFormFilesToOpen.get(selectedCronusFileToOpen)));
+		} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 2) {
+			desktop.open(new File(cronusExcelFormFilesToOpen.get(selectedCronusFileToOpen)));
+		} else if (nameProgramToUse.equals("comboBox_oform_selectProgram") && selectedProgramToUse == 3) {
+			desktop.open(new File(cronusWordFormFilesToOpen.get(selectedCronusFileToOpen)));
 		}
-
 	}
-
 }

@@ -1,5 +1,6 @@
 package utilities;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ExceptionHandler {
@@ -10,11 +11,16 @@ public class ExceptionHandler {
 		if (ex instanceof NotFoundException) {
 			message = whatsUp(((NotFoundException) ex).getError());
 		} else if (ex instanceof NullPointerException) {
-			message = "Nullpointer.";
+			message = "Error trying to access something that doesn't exist.";
 		} else if (ex instanceof IndexOutOfBoundsException) {
 			message = "Something went wrong, if you're trying to register a student, course or grade please make sure you've made a selection from a list";
 		} else if (ex instanceof NumberFormatException) {
-			message = "Number format exception.";
+			message = "Something went wrong, if you're trying to add a course make sure you use numbers to enter the course points.";
+		} else if (ex instanceof IOException) {
+			message = "A input/output problem occured.";
+		} else if (ex instanceof IllegalArgumentException) {
+			message = "The file could not be found.";
+
 		} else if (ex instanceof SQLException) {
 			int errorCode = ((SQLException) ex).getErrorCode();
 
@@ -29,7 +35,7 @@ public class ExceptionHandler {
 				message = "Connection to database failed, please try again. If the error persists contact support.";
 				break;
 			case 0: // Login time expired
-				message = "Login to the database timeout, please check your connection and try again.";
+				message = "Login to the database timed out, please check your connection and try again.";
 				break;
 			default:
 				message = "An unknown error occured, please contact support.";
@@ -48,15 +54,12 @@ public class ExceptionHandler {
 		case "table_stud_regOnCourse_courseList":
 			message = "Could not find the student you were searching for.";
 			break;
-
 		case "table_stud_foundStud":
 			message = "Could not find the student you were searching for.";
 			break;
-
 		case "table_stud_currentCourses":
 			message = "The student you searched for is currently not studying any courses.";
 			break;
-
 		case "table_stud_finishedCourses":
 			message = "The student you searched for has not finished any courses.";
 			break;
@@ -67,7 +70,7 @@ public class ExceptionHandler {
 			message = "The student you tried to delete doesn't exist";
 			break;
 		case "No course found":
-			message = "The course you tried to delete doesn't exist";
+			message = "Could not find the course you were searching for.";
 			break;
 		}
 		return message;
