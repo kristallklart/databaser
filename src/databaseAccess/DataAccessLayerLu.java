@@ -28,7 +28,7 @@ public class DataAccessLayerLu {
 	private Connection con = null;
 	private PreparedStatement pStatement = null;
 	private ResultSet rSet = null;
-	ResultSetMetaData rSetMeta = null;
+	private ResultSetMetaData rSetMeta = null;
 
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());

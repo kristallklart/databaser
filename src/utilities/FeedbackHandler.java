@@ -71,8 +71,8 @@ public class FeedbackHandler {
 		return message;
 	}
 
-	public String possibleCoursesFound(String input) {
-		String message = "Found possible courses for student with personal number: " + input;
+	public String availableCoursesFound(String input) {
+		String message = "Found available courses for student with personal number: " + input;
 		return message;
 	}
 

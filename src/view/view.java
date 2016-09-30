@@ -666,7 +666,7 @@ public class view extends JFrame {
 					try {
 						if (controllerLu.studentExist(spnr)) {
 							table_stud_regOnCourse_courseList.setModel(controllerLu.getTableAll(values, tableName));
-							communicateMessage(feedbackHandler.possibleCoursesFound(spnr));
+							communicateMessage(feedbackHandler.availableCoursesFound(spnr));
 						} else {
 							clearTable(table_stud_regOnCourse_courseList);
 							communicateMessage(feedbackHandler.noStudentFound(spnr));
