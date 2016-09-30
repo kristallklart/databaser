@@ -47,7 +47,7 @@ public class DataAccessLayerLu {
 			}
 
 			Student s = new Student();
-			setStudent(rSet, s);
+			this.setStudent(rSet, s);
 
 			return s;
 
@@ -154,6 +154,7 @@ public class DataAccessLayerLu {
 			if (i < 1) {
 				throw new NotFoundException("Failed to delete student");
 			}
+
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}

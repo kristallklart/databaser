@@ -61,8 +61,6 @@ public class view extends JFrame {
 	private final int TEXTFIELD_HEIGHT = 25;
 	private final int LABEL_WIDTH = 108;
 	private final int LABEL_HEIGHT = 23;
-	private final int LABEL_HEADLINE_WIDTH = 150;
-	private final int LABEL_HEADLINE_HEIGHT = 23;
 	private JTextField textField_stud_findStudentAll_pnr;
 	private JTextField textField_course_courseCode;
 	private JTextField textField_course_cname;
@@ -434,7 +432,6 @@ public class view extends JFrame {
 		btn_stud_deleteAdd_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearFeedback();
 				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
 				if (spnr.isEmpty()) {
 					communicateMessage(feedbackHandler.noInputPnr());

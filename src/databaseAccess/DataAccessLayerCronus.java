@@ -17,6 +17,10 @@ public class DataAccessLayerCronus {
 	private LoginDataCronus login = new LoginDataCronus();
 	private UtilCronus util = new UtilCronus();
 	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
+	private PreparedStatement pStatement = null;
+	private ResultSet rs = null;
+	private ResultSetMetaData rsmd = null;
+	private Connection con = null;
 
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
@@ -25,16 +29,10 @@ public class DataAccessLayerCronus {
 	public DefaultTableModel getTableModel(String nameComboBox, int selectedIndex) throws SQLException {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
-		UtilCronus utilCronus = new UtilCronus();
-
-		PreparedStatement pStatement = null;
-		ResultSet rs = null;
-		ResultSetMetaData rsmd = null;
-		Connection con = null;
 
 		try {
 			con = this.createConnection();
-			pStatement = con.prepareStatement(utilCronus.getQuery(nameComboBox, selectedIndex));
+			pStatement = con.prepareStatement(util.getQuery(nameComboBox, selectedIndex));
 			rs = pStatement.executeQuery();
 			rsmd = rs.getMetaData();
 
