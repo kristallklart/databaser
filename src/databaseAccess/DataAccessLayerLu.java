@@ -25,15 +25,16 @@ public class DataAccessLayerLu {
 	private QueriesLu queriesLu = new QueriesLu();
 	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
 	private UtilLu utilLu = new UtilLu();
+	private Connection con = null;
+	private PreparedStatement pStatement = null;
+	private ResultSet rSet = null;
+	ResultSetMetaData rSetMeta = null;
 
 	public Connection createConnection() throws SQLException {
 		return DriverManager.getConnection(login.getUrl(), login.getUser(), login.getPw());
 	}
 
 	public Student getStudent(String spnr) throws SQLException, NotFoundException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 
 		try {
 			con = createConnection();
@@ -56,9 +57,6 @@ public class DataAccessLayerLu {
 	}
 
 	public Course getCourse(String ccode) throws SQLException, NotFoundException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 
 		try {
 			con = createConnection();
@@ -81,10 +79,7 @@ public class DataAccessLayerLu {
 	}
 
 	public ArrayList<String> getCcodes() throws SQLException {
-		Connection con = null;
 		ArrayList<String> c = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 
 		try {
 			con = createConnection();
@@ -105,10 +100,8 @@ public class DataAccessLayerLu {
 	}
 
 	public ArrayList<Studying> getStudentStudying(String spnr) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 		ArrayList<Studying> studying = null;
+
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.getStudentStudying());
@@ -129,9 +122,6 @@ public class DataAccessLayerLu {
 	}
 
 	public ArrayList<Studied> getStudentStudied(String spnr) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 		ArrayList<Studied> studied = null;
 
 		try {
@@ -155,8 +145,6 @@ public class DataAccessLayerLu {
 	}
 
 	public void deleteStudent(String spnr) throws SQLException, NotFoundException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
 
 		try {
 			con = createConnection();
@@ -173,8 +161,6 @@ public class DataAccessLayerLu {
 	}
 
 	public void deleteCourse(String ccode) {
-		Connection con = null;
-		PreparedStatement pStatement = null;
 
 		try {
 			con = createConnection();
@@ -204,8 +190,7 @@ public class DataAccessLayerLu {
 	}
 
 	public void addStudent(Student s) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
+
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.addStudent());
@@ -219,8 +204,7 @@ public class DataAccessLayerLu {
 	}
 
 	public void addCourse(Course c) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
+
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.addCourse());
@@ -235,10 +219,8 @@ public class DataAccessLayerLu {
 	}
 
 	public ArrayList<Studied> getCourseResult(String ccode) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 		ArrayList<Studied> results = null;
+
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.courseResult());
@@ -261,9 +243,6 @@ public class DataAccessLayerLu {
 	}
 
 	public String acedIt(String ccode) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 		String percent = new String();
 
 		try {
@@ -288,8 +267,7 @@ public class DataAccessLayerLu {
 	}
 
 	public void registerGrade(Studied s) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
+
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.registerGrade());
@@ -306,8 +284,7 @@ public class DataAccessLayerLu {
 	}
 
 	public void registerOnCourse(Studying s) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
+
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.registerOnCourse());
@@ -321,8 +298,6 @@ public class DataAccessLayerLu {
 	}
 
 	public void deleteStudying(String spnr, String ccode) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
 
 		try {
 			con = createConnection();
@@ -338,9 +313,6 @@ public class DataAccessLayerLu {
 	}
 
 	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 		ArrayList<Studying> nf = null;
 
 		try {
@@ -366,9 +338,6 @@ public class DataAccessLayerLu {
 	}
 
 	public ArrayList<Course> allCourses() throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 		ArrayList<Course> c = null;
 
 		try {
@@ -394,9 +363,6 @@ public class DataAccessLayerLu {
 	}
 
 	public ArrayList<Course> mostThrough() throws SQLException {
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 		ArrayList<Course> c = null;
 
 		try {
@@ -426,10 +392,6 @@ public class DataAccessLayerLu {
 		Vector<String> sendColumnNames = new Vector<String>();
 
 		String query = utilLu.getTableQuery(tableName);
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
-		ResultSetMetaData rSetMeta = null;
 
 		try {
 			con = createConnection();
@@ -470,8 +432,6 @@ public class DataAccessLayerLu {
 
 	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
 		String query = utilLu.getCreateQuery(studentOrCourse);
-		Connection con = null;
-		PreparedStatement pStatement = null;
 
 		try {
 			con = createConnection();
@@ -498,9 +458,6 @@ public class DataAccessLayerLu {
 
 	public boolean studentExist(String spnr) throws SQLException {
 		String query = utilLu.getStudent();
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 
 		try {
 			con = createConnection();
@@ -521,9 +478,6 @@ public class DataAccessLayerLu {
 
 	public int currentPoints(String spnr) throws SQLException, NotFoundException {
 		String query = utilLu.currentPoints();
-		Connection con = null;
-		PreparedStatement pStatement = null;
-		ResultSet rSet = null;
 		int points = 0;
 
 		try {
@@ -544,8 +498,6 @@ public class DataAccessLayerLu {
 
 	public int deleteAll(Object object) throws SQLException, NotFoundException {
 		String query;
-		Connection con = null;
-		PreparedStatement pStatement = null;
 		Student s = null;
 		Course c = null;
 

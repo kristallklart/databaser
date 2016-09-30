@@ -54,15 +54,12 @@ public class ExceptionHandler {
 		case "table_stud_regOnCourse_courseList":
 			message = "Could not find the student you were searching for.";
 			break;
-
 		case "table_stud_foundStud":
 			message = "Could not find the student you were searching for.";
 			break;
-
 		case "table_stud_currentCourses":
 			message = "The student you searched for is currently not studying any courses.";
 			break;
-
 		case "table_stud_finishedCourses":
 			message = "The student you searched for has not finished any courses.";
 			break;
@@ -73,7 +70,7 @@ public class ExceptionHandler {
 			message = "The student you tried to delete doesn't exist";
 			break;
 		case "No course found":
-			message = "The course you tried to delete doesn't exist";
+			message = "Could not find the course you were searching for.";
 			break;
 		}
 		return message;

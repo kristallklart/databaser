@@ -298,9 +298,8 @@ public class view extends JFrame {
 						textField_course_points.setText(String.valueOf(c.getCpoint()));
 						communicateMessage(feedbackHandler.courseFound());
 					} catch (Exception e) {
-						communicateMessage(exceptionHandler.handleException(e));
-						UtilView.clearFields(coursePanelFields);
 						e.printStackTrace();
+						communicateMessage(exceptionHandler.handleException(e));
 					}
 				}
 			}
