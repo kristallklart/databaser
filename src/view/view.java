@@ -813,7 +813,7 @@ public class view extends JFrame {
 		panel_caccess.setLayout(null);
 
 		JScrollPane scrollPane_caccess = new JScrollPane();
-		scrollPane_caccess.setBounds(622, 42, 544, 385);
+		scrollPane_caccess.setBounds(622, 32, 544, 395);
 		panel_caccess.add(scrollPane_caccess);
 
 		table_caccess = new JTable();
@@ -822,7 +822,7 @@ public class view extends JFrame {
 		JPanel panel_CronusAccess_showTables = new JPanel();
 		panel_CronusAccess_showTables.setBorder(new TitledBorder(null, "Show employee and related tables",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_CronusAccess_showTables.setBounds(26, 33, 496, 159);
+		panel_CronusAccess_showTables.setBounds(26, 24, 496, 168);
 		panel_caccess.add(panel_CronusAccess_showTables);
 		panel_CronusAccess_showTables.setLayout(null);
 
