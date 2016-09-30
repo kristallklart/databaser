@@ -11,7 +11,7 @@ public class ExceptionHandler {
 		if (ex instanceof NotFoundException) {
 			message = whatsUp(((NotFoundException) ex).getError());
 		} else if (ex instanceof NullPointerException) {
-			message = "Nullpointer.";
+			message = "Error trying to access something that doesn't exist.";
 		} else if (ex instanceof IndexOutOfBoundsException) {
 			message = "Something went wrong, if you're trying to register a student, course or grade please make sure you've made a selection from a list";
 		} else if (ex instanceof NumberFormatException) {
