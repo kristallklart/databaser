@@ -49,7 +49,7 @@ public class view extends JFrame {
 	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
 	private JLabel lbl_feedback = new JLabel("");
-	private ButtonGroup btngr_course = new ButtonGroup();
+	private ButtonGroup btngr_course;
 	private DefaultTableModel emptyDefTableModel = new DefaultTableModel();
 	private DefaultTableModel dtm_stud_finishedCourses = new DefaultTableModel();
 	private DefaultTableModel dtm_stud_currentCourses = new DefaultTableModel();
@@ -78,7 +78,7 @@ public class view extends JFrame {
 	private JTextField textField_course_enrolled_ccode;
 	private JTextField textField_stud_regOnCourse_pnr;
 	private JTable table_stud_regOnCourse_courseList;
-	// test branch
+	private JRadioButton rdbtn_course_showNotFinished;
 
 	/**
 	 * Launch the application.
@@ -232,20 +232,20 @@ public class view extends JFrame {
 				UtilView.clearFields(coursePanelFields);
 			}
 		});
-
+		ButtonGroup btngr_course = new ButtonGroup();
 		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
 		rdbtn_course_showAll.setBounds(674, 187, 128, 23);
 		panel_course.add(rdbtn_course_showAll);
 		btngr_course.add(rdbtn_course_showAll);
 
 		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
-				"Only shows the course with the highest throughoutput", false);
+				"Show the top 5 courses with the highest throughoutput", false);
 		rdbtn_course_highestThrough.setBounds(674, 213, 360, 23);
 		panel_course.add(rdbtn_course_highestThrough);
 		btngr_course.add(rdbtn_course_highestThrough);
 
 		JRadioButton rdbtn_course_showNotFinished = new JRadioButton(
-				"Show only students who hasn't finished the course", false);
+				"Only show students who hasn't finished the course", false);
 		rdbtn_course_showNotFinished.setBounds(674, 66, 360, 23);
 		panel_course.add(rdbtn_course_showNotFinished);
 		btngr_course.add(rdbtn_course_showNotFinished);
