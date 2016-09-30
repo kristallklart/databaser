@@ -698,7 +698,7 @@ public class view extends JFrame {
 						} else {
 							communicateMessage(feedbackHandler.noStudentFound(spnr));
 						}
-						if (currentPoints + coursePoints >= 45) {
+						if (currentPoints + coursePoints > 45) {
 							communicateMessage(feedbackHandler.pointsExceeded(spnr, currentPoints));
 						} else {
 							Studying s = new Studying(spnr, ccode, semester);
