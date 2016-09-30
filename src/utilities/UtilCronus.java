@@ -94,7 +94,7 @@ public class UtilCronus {
 		cronusQueryNames.add("Keys top 20"); // 7
 		cronusQueryNames.add("Indexes top 20"); // 8
 		cronusQueryNames.add("Table Constrains top 20"); // 9
-		cronusQueryNames.add("All tables (InformationSchema"); // 10
+		cronusQueryNames.add("All tables (InformationSchema)"); // 10
 		cronusQueryNames.add("All tables (SysObjects)"); // 11
 		cronusQueryNames.add("Employee columns (InformationSchema)"); // 12
 		cronusQueryNames.add("Employee columns (SysColumns)"); // 13
