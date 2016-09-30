@@ -461,11 +461,11 @@ public class view extends JFrame {
 		panel_student.add(lbl_stud_deleteAdd_address);
 
 		JLabel lbl_stud_regOnCourse_pnr = new JLabel("Personal number:");
-		lbl_stud_regOnCourse_pnr.setBounds(22, 308, 108, 23);
+		lbl_stud_regOnCourse_pnr.setBounds(28, 308, 108, 23);
 		panel_student.add(lbl_stud_regOnCourse_pnr);
 
 		JLabel lbl_stud_regOnCourse_selectFromList = new JLabel("Select course from the list:");
-		lbl_stud_regOnCourse_selectFromList.setBounds(22, 343, 216, 14);
+		lbl_stud_regOnCourse_selectFromList.setBounds(28, 343, 216, 14);
 		panel_student.add(lbl_stud_regOnCourse_selectFromList);
 
 		JLabel lbl_stud_findStudentAll_pnr = new JLabel("Personal number:");
@@ -513,7 +513,7 @@ public class view extends JFrame {
 
 		textField_stud_regOnCourse_pnr = new JTextField();
 		textField_stud_regOnCourse_pnr.setColumns(10);
-		textField_stud_regOnCourse_pnr.setBounds(142, 307, 159, 25);
+		textField_stud_regOnCourse_pnr.setBounds(148, 307, 159, 25);
 		panel_student.add(textField_stud_regOnCourse_pnr);
 
 		JScrollPane scrollPane_stud_foundStudent = new JScrollPane();
@@ -538,7 +538,7 @@ public class view extends JFrame {
 		scrollPane_stud_finishedCourses.setViewportView(table_stud_finishedCourses);
 
 		JScrollPane scrollPane_stud_regOnCourse_courseList = new JScrollPane();
-		scrollPane_stud_regOnCourse_courseList.setBounds(22, 368, 397, 173);
+		scrollPane_stud_regOnCourse_courseList.setBounds(28, 368, 397, 173);
 		panel_student.add(scrollPane_stud_regOnCourse_courseList);
 		table_stud_regOnCourse_courseList = new JTable();
 		table_stud_regOnCourse_courseList.setName("table_stud_regOnCourse_courseList");
@@ -670,7 +670,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_stud_regOnCourse_search.setBounds(311, 308, 108, 23);
+		btn_stud_regOnCourse_search.setBounds(317, 308, 108, 23);
 		panel_student.add(btn_stud_regOnCourse_search);
 
 		JButton btn_stud_regOnCourse_register = new JButton("Register");
@@ -709,7 +709,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_stud_regOnCourse_register.setBounds(311, 552, 114, 23);
+		btn_stud_regOnCourse_register.setBounds(311, 555, 114, 23);
 		panel_student.add(btn_stud_regOnCourse_register);
 
 		JButton btn_stud_findStudentAll_search = new JButton("Search");
@@ -793,17 +793,15 @@ public class view extends JFrame {
 		panel.setBounds(12, 11, 435, 186);
 		panel_student.add(panel);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Register Student to Course",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(10, 268, 437, 329);
-		panel_student.add(panel_1);
-
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Search Student Information", TitledBorder.LEADING, TitledBorder.TOP,
 				null, null));
 		panel_2.setBounds(457, 11, 790, 586);
 		panel_student.add(panel_2);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(28, 555, 166, 23);
+		panel_student.add(comboBox);
 
 		// ***************************************
 		// ***********CRONUS ACCESS TAB***********
