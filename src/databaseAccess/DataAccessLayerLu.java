@@ -17,14 +17,12 @@ import model.Studied;
 import model.Studying;
 import utilities.NotFoundException;
 import utilities.UtilDatabaseAccess;
-import utilities.UtilLu;
 
 public class DataAccessLayerLu {
 
 	private LoginDataLu login = new LoginDataLu();
 	private QueriesLu queriesLu = new QueriesLu();
 	private UtilDatabaseAccess utilDatabaseAccess = new UtilDatabaseAccess();
-	private UtilLu utilLu = new UtilLu();
 	private Connection con = null;
 	private PreparedStatement pStatement = null;
 	private ResultSet rSet = null;
@@ -392,7 +390,7 @@ public class DataAccessLayerLu {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
 
-		String query = utilLu.getTableQuery(tableName);
+		String query = queriesLu.getTableQuery(tableName);
 
 		try {
 			con = createConnection();
@@ -432,7 +430,7 @@ public class DataAccessLayerLu {
 	}
 
 	public void createAll(ArrayList<Object> values, String studentOrCourse) throws SQLException {
-		String query = utilLu.getCreateQuery(studentOrCourse);
+		String query = queriesLu.getCreateQuery(studentOrCourse);
 
 		try {
 			con = createConnection();
@@ -458,7 +456,7 @@ public class DataAccessLayerLu {
 	}
 
 	public boolean studentExist(String spnr) throws SQLException {
-		String query = utilLu.getStudent();
+		String query = queriesLu.getStudent();
 
 		try {
 			con = createConnection();
@@ -478,7 +476,7 @@ public class DataAccessLayerLu {
 	}
 
 	public int currentPoints(String spnr) throws SQLException, NotFoundException {
-		String query = utilLu.currentPoints();
+		String query = queriesLu.currentPoints();
 		int points = 0;
 
 		try {
@@ -504,10 +502,10 @@ public class DataAccessLayerLu {
 
 		if (object instanceof Student) {
 			s = (Student) object;
-			query = utilLu.deleteStudent();
+			query = queriesLu.deleteStudent();
 		} else if (object instanceof Course) {
 			c = (Course) object;
-			query = utilLu.deleteCourse();
+			query = queriesLu.deleteCourse();
 		} else {
 			throw new NotFoundException("sadfasdfasdfasdfasdf");
 		}
