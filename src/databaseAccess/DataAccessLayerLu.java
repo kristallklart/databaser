@@ -218,22 +218,19 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public boolean createCourse(String ccode, String cname, String cpoint) {
+	public void addCourse(Course c) throws SQLException {
 		Connection con = null;
 		PreparedStatement pStatement = null;
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.createCourse());
-			pStatement.setString(1, ccode);
-			pStatement.setString(2, cname);
-			pStatement.setString(3, cpoint);
+			pStatement = con.prepareStatement(queriesLu.addCourse());
+			pStatement.setString(1, c.getCcode());
+			pStatement.setString(2, c.getCname());
+			pStatement.setInt(3, c.getCpoint());
+			pStatement.executeUpdate();
 
-			pStatement.execute();
-			return true;
-
-		} catch (SQLException e) {
-			return false;
-
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 	}
 

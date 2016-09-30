@@ -14,7 +14,7 @@ public class ExceptionHandler {
 		} else if (ex instanceof IndexOutOfBoundsException) {
 			message = "Something went wrong, if you're trying to register a student, course or grade please make sure you've made a selection from a list";
 		} else if (ex instanceof NumberFormatException) {
-			message = "Number format exception.";
+			message = "Something went wrong, if you're trying to add a course make sure you use numbers to enter the course points.";
 		} else if (ex instanceof SQLException) {
 			int errorCode = ((SQLException) ex).getErrorCode();
 

@@ -277,23 +277,20 @@ public class view extends JFrame {
 				clearFeedback();
 				String ccode = textField_course_courseCode.getText().trim();
 				String cname = textField_course_cname.getText().trim();
-				int points = Integer.parseInt(textField_course_points.getText().trim());
+
 				if (ccode.isEmpty() || cname.isEmpty()) {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
-					ArrayList<Object> values = new ArrayList<Object>();
-					values.add(ccode);
-					values.add(cname);
-					values.add(points);
 					try {
-						controllerLu.createAll(values, "Course");
+						int cpoints = Integer.parseInt(textField_course_points.getText().trim());
+						Course c = new Course(ccode, cname, cpoints);
+						controllerLu.addCourse(c);
 						communicateMessage(feedbackHandler.courseAdded(ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 				}
 			}
-
 		});
 		btn_course_deleteAdd_add.setBounds(157, 135, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_add);
