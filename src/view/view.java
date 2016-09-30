@@ -492,12 +492,13 @@ public class view extends JFrame {
 		textField_stud_findStudentAll_pnr.setBounds(592, 46, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_findStudentAll_pnr);
 		textField_stud_findStudentAll_pnr.setColumns(10);
-		studPanelFields.add(textField_stud_findStudentAll_pnr);
+		// studPanelFields.add(textField_stud_findStudentAll_pnr);
 
 		textField_stud_deleteAdd_pnr = new JTextField();
 		textField_stud_deleteAdd_pnr.setBounds(148, 47, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_deleteAdd_pnr);
 		textField_stud_deleteAdd_pnr.setColumns(10);
+		studPanelFields.add(textField_stud_deleteAdd_pnr);
 
 		textField_stud_deleteAdd_name = new JTextField();
 		textField_stud_deleteAdd_name.setBounds(148, 83, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
