@@ -264,16 +264,14 @@ public class view extends JFrame {
 				clearFeedback();
 				String ccode = textField_course_courseCode.getText().trim();
 				String cname = textField_course_cname.getText().trim();
-				int points = Integer.parseInt(textField_course_points.getText().trim());
+
 				if (ccode.isEmpty() || cname.isEmpty()) {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
-					ArrayList<Object> values = new ArrayList<Object>();
-					values.add(ccode);
-					values.add(cname);
-					values.add(points);
 					try {
-						controllerLu.createAll(values, "Course");
+						int cpoints = Integer.parseInt(textField_course_points.getText().trim());
+						Course c = new Course(ccode, cname, cpoints);
+						controllerLu.addCourse(c);
 						communicateMessage(feedbackHandler.courseAdded(ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
@@ -281,7 +279,6 @@ public class view extends JFrame {
 					}
 				}
 			}
-
 		});
 		btn_course_deleteAdd_add.setBounds(197, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_add);
@@ -501,12 +498,12 @@ public class view extends JFrame {
 		textField_stud_findStudentAll_pnr.setBounds(592, 46, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_findStudentAll_pnr);
 		textField_stud_findStudentAll_pnr.setColumns(10);
-		studPanelFields.add(textField_stud_findStudentAll_pnr);
 
 		textField_stud_deleteAdd_pnr = new JTextField();
 		textField_stud_deleteAdd_pnr.setBounds(148, 47, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_deleteAdd_pnr);
 		textField_stud_deleteAdd_pnr.setColumns(10);
+		studPanelFields.add(textField_stud_deleteAdd_pnr);
 
 		textField_stud_deleteAdd_name = new JTextField();
 		textField_stud_deleteAdd_name.setBounds(148, 83, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);

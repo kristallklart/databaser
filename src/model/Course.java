@@ -7,6 +7,16 @@ public class Course {
 	private int cpoint;
 	private int total;
 
+	public Course() {
+
+	}
+
+	public Course(String ccode, String cname, int points) {
+		this.cCode = ccode;
+		this.cName = cname;
+		this.cpoint = points;
+	}
+
 	public int getTotal() {
 		return total;
 	}
