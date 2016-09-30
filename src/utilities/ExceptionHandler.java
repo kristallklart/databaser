@@ -11,7 +11,7 @@ public class ExceptionHandler {
 		if (ex instanceof NotFoundException) {
 			message = whatsUp(((NotFoundException) ex).getError());
 		} else if (ex instanceof NullPointerException) {
-			message = "Nullpointer.";
+			message = "Error trying to access something that doesn't exist.";
 		} else if (ex instanceof IndexOutOfBoundsException) {
 			message = "Something went wrong, if you're trying to register a student, course or grade please make sure you've made a selection from a list";
 		} else if (ex instanceof NumberFormatException) {
@@ -53,15 +53,12 @@ public class ExceptionHandler {
 		case "table_stud_regOnCourse_courseList":
 			message = "Could not find the student you were searching for.";
 			break;
-
 		case "table_stud_foundStud":
 			message = "Could not find the student you were searching for.";
 			break;
-
 		case "table_stud_currentCourses":
 			message = "The student you searched for is currently not studying any courses.";
 			break;
-
 		case "table_stud_finishedCourses":
 			message = "The student you searched for has not finished any courses.";
 			break;

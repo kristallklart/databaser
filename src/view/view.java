@@ -805,7 +805,7 @@ public class view extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(
-				new TitledBorder(null, "Add/ Delete Student", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(null, "Add/Delete Student", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(12, 11, 435, 186);
 		panel_student.add(panel);
 
@@ -925,15 +925,15 @@ public class view extends JFrame {
 		tabbedPane.addTab("Open files", null, panel_openFiles, null);
 		panel_openFiles.setLayout(null);
 
-		String[] microsoft = { "Select...", "Access", "Excel", "SQL Management Studio" };
+		String[] programToUseIndexAccess = { "Select...", "Access", "Excel", "SQL Management Studio" };
 
 		JSeparator separator_open_files = new JSeparator();
 		separator_open_files.setBounds(10, 261, 500, 2);
 		panel_openFiles.add(separator_open_files);
 
-		String[] micoffice = { "Select...", "Access", "Excel", "Word" };
+		String[] programToUseIndexForm = { "Select...", "Access", "Excel", "Word" };
 
-		String[] ec = { "Select...", "Employee", "Customer" };
+		String[] queryToUseIndexForm = { "Select...", "Employee", "Customer" };
 
 		JPanel panel_open_queryFiles = new JPanel();
 		panel_open_queryFiles.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open query files",
@@ -946,7 +946,7 @@ public class view extends JFrame {
 		lblSelectOption.setBounds(34, 43, 112, 39);
 		panel_open_queryFiles.add(lblSelectOption);
 
-		JComboBox comboBox_access_excel = new JComboBox(microsoft);
+		JComboBox comboBox_access_excel = new JComboBox(programToUseIndexAccess);
 		comboBox_access_excel.setBounds(156, 49, 300, 26);
 		panel_open_queryFiles.add(comboBox_access_excel);
 		comboBox_access_excel.setName("comboBox_access_excel");
@@ -991,7 +991,7 @@ public class view extends JFrame {
 		lbl_oform_selectOption.setBounds(34, 35, 112, 39);
 		panel_open_forms.add(lbl_oform_selectOption);
 
-		JComboBox comboBox_oform_selectProgram = new JComboBox(micoffice);
+		JComboBox comboBox_oform_selectProgram = new JComboBox(programToUseIndexForm);
 		comboBox_oform_selectProgram.setBounds(156, 41, 298, 26);
 		panel_open_forms.add(comboBox_oform_selectProgram);
 		comboBox_oform_selectProgram.setName("comboBox_oform_selectProgram");
@@ -1000,7 +1000,7 @@ public class view extends JFrame {
 		lbl_oform_select.setBounds(34, 85, 112, 39);
 		panel_open_forms.add(lbl_oform_select);
 
-		JComboBox comboBox_oform_selectQuery = new JComboBox(ec);
+		JComboBox comboBox_oform_selectQuery = new JComboBox(queryToUseIndexForm);
 		comboBox_oform_selectQuery.setBounds(156, 91, 298, 26);
 		panel_open_forms.add(comboBox_oform_selectQuery);
 		comboBox_oform_selectQuery.setName("comboBox_oform_selectQuery");
