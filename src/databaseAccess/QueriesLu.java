@@ -22,7 +22,7 @@ public class QueriesLu {
 	// Visa resultat för angiven kurs (alla studenter som tagit kursen och deras
 	// betyg)
 	public String courseResult() {
-		return "select spnr,semester,grade from studied where ccode = ? order by semester asc";
+		return "select spnr,semester, grade from studied where ccode = ? order by semester asc";
 	}
 
 	public String getStudentStudied() {
