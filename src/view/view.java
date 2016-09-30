@@ -548,8 +548,9 @@ public class view extends JFrame {
 
 		JComboBox<String> comboBox_stud_grade_1 = new JComboBox<String>();
 
-		comboBox_stud_grade_1.setBounds(472, 496, 108, 25);
+		comboBox_stud_grade_1.setBounds(472, 496, 146, 25);
 		panel_student.add(comboBox_stud_grade_1);
+		comboBox_stud_grade_1.addItem("Select Grade...");
 		comboBox_stud_grade_1.addItem("A");
 		comboBox_stud_grade_1.addItem("B");
 		comboBox_stud_grade_1.addItem("C");
@@ -766,7 +767,7 @@ public class view extends JFrame {
 		});
 		btn_stud_findStudentAll_search.setBounds(763, 47, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_findStudentAll_search);
-		btn_stud_findStudentAll_register.setBounds(592, 497, 139, 23);
+		btn_stud_findStudentAll_register.setBounds(628, 497, 139, 23);
 		panel_student.add(btn_stud_findStudentAll_register);
 
 		JButton btn_stud_findStudentAll_delete = new JButton("Remove");
@@ -796,21 +797,32 @@ public class view extends JFrame {
 		separator_stud_regGrade.setBounds(472, 532, 358, 14);
 		panel_student.add(separator_stud_regGrade);
 
-		JPanel panel = new JPanel();
-		panel.setBorder(
+		JPanel panel_student_addBorder = new JPanel();
+		panel_student_addBorder.setBorder(
 				new TitledBorder(null, "Add/Delete Student", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(12, 11, 435, 186);
-		panel_student.add(panel);
+		panel_student_addBorder.setBounds(12, 11, 435, 186);
+		panel_student.add(panel_student_addBorder);
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "Search Student Information", TitledBorder.LEADING, TitledBorder.TOP,
-				null, null));
-		panel_2.setBounds(457, 11, 790, 586);
-		panel_student.add(panel_2);
+		JComboBox comboBox_studentRegisterSemester = new JComboBox();
+		comboBox_studentRegisterSemester.setBounds(28, 555, 166, 23);
+		panel_student.add(comboBox_studentRegisterSemester);
+		comboBox_studentRegisterSemester.addItem("Select Semester...");
+		comboBox_studentRegisterSemester.addItem("HT16");
+		comboBox_studentRegisterSemester.addItem("VT17");
+		comboBox_studentRegisterSemester.addItem("HT17");
+		comboBox_studentRegisterSemester.addItem("VT18");
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(28, 555, 166, 23);
-		panel_student.add(comboBox);
+		JPanel panel_student_registerBorder = new JPanel();
+		panel_student_registerBorder.setBorder(new TitledBorder(null, "Register Student to Course",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_student_registerBorder.setBounds(12, 273, 435, 324);
+		panel_student.add(panel_student_registerBorder);
+
+		JPanel panel_student_informtionBoder = new JPanel();
+		panel_student_informtionBoder.setBorder(new TitledBorder(null, "Search Student Information",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_student_informtionBoder.setBounds(457, 11, 790, 586);
+		panel_student.add(panel_student_informtionBoder);
 
 		// ***************************************
 		// ***********CRONUS ACCESS TAB***********
