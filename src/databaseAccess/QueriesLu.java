@@ -31,7 +31,7 @@ public class QueriesLu {
 
 	// studenter som inte är klara med en viss kurs - fråga erre
 	public String notFinished() {
-		return "select spnr, sname from studying where ccode = ?";
+		return "select spnr, semester from studies where ccode = ?";
 	}
 
 	// procent studenter som fått a på en särskild kurs
@@ -46,7 +46,7 @@ public class QueriesLu {
 
 	// högst genomströmmning
 	public String mostThrough() {
-		return "select ccode, count(grade) from studied group by ccode,grade having grade !='u'";
+		return "select top 5 ccode, count(*)Totalt from studied where grade != 'U' group by ccode order by totalt desc";
 	}
 
 	public String deleteStudent() {

@@ -9,46 +9,54 @@ public class QueriesCronus {
 
 	public QueriesCronus() {
 
-		queriesCronusEmployee.add("NOT IN USE BECAUSE OF INDEXING");
+		queriesCronusEmployee.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
 		queriesCronusEmployee
 				.add("select [First Name], [Last Name], [Job Title], City from [CRONUS Sverige AB$Employee]");
 		queriesCronusEmployee
-				.add("select top 20 [Entry No_], [Employee No_], [Cause of Absence Code], Description, Quantity"
+				.add("select top 20 [Entry No_] as 'Entry No', [Employee No_] as 'Employee No', [Cause of Absence Code] as 'Cause of Absence', Description, Quantity"
 						+ " from [CRONUS Sverige AB$Employee Absence]");
 		queriesCronusEmployee
 				.add("select [Config TP WP Request Capt ID], [Config TP Initial Req_ Capt ID], [Config TP Group Capt ID], [Search Tool Pane Caption ID], [Search Config Table ID]"
 						+ " from [CRONUS Sverige AB$Employee Portal Setup]");
-		queriesCronusEmployee.add("select [Employee No_], [Qualification Code], Description, Institution_Company,Type"
-				+ " from [CRONUS Sverige AB$Employee Qualification]");
-		queriesCronusEmployee.add("select [Employee No_], [First Name], [Last Name], [Relative Code]"
+		queriesCronusEmployee
+				.add("select [Employee No_] as 'Employee No', [Qualification Code], Description, Institution_Company as 'Institution',Type"
+						+ " from [CRONUS Sverige AB$Employee Qualification]");
+		queriesCronusEmployee.add("select [Employee No_] as 'Employee No', [First Name], [Last Name], [Relative Code]"
 				+ " from [CRONUS Sverige AB$Employee Relative]");
-		queriesCronusEmployee.add(
-				"select [timestamp], [Code], [Description]" + "from [CRONUS Sverige AB$Employee Statistics Group]");
+		queriesCronusEmployee.add("select [timestamp] as 'Timestamp', [Code], [Description]"
+				+ "from [CRONUS Sverige AB$Employee Statistics Group]");
 
-		queriesCronusMetaData.add("NOT IN USE BECAUSE OF INDEXING");
-		queriesCronusMetaData.add("select top 20 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+		queriesCronusMetaData.add("NOT IN USE BECAUSE OF INDEXING CALCULATIONS IN THE VIEW CLASS");
+		queriesCronusMetaData.add("select top 20 TABLE_CATALOG as 'Table Catalog', TABLE_SCHEMA as 'Table Schema',"
+				+ " DATA_TYPE as 'Data Type', ORDINAL_POSITION as 'Ordinal Position'"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
 				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'");
-		queriesCronusMetaData.add("select TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+		queriesCronusMetaData.add("select TABLE_CATALOG as 'Table Catalog', TABLE_SCHEMA as 'Table Schema',"
+				+ " DATA_TYPE as 'Data Type', ORDINAL_POSITION as 'Ordinal Position'"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
 				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Absence'");
-		queriesCronusMetaData.add("select top 20 TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+		queriesCronusMetaData.add("select top 20 TABLE_CATALOG as 'Table Catalog', TABLE_SCHEMA as 'Table Schema',"
+				+ " DATA_TYPE as 'Data Type', ORDINAL_POSITION as 'Ordinal Position'"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
 				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Portal Setup'");
-		queriesCronusMetaData.add("select TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+		queriesCronusMetaData.add("select TABLE_CATALOG as 'Table Catalog', TABLE_SCHEMA as 'Table Schema',"
+				+ " DATA_TYPE as 'Data Type', ORDINAL_POSITION as 'Ordinal Position'"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
 				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Qualification'");
-		queriesCronusMetaData.add("select TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+		queriesCronusMetaData.add("select TABLE_CATALOG as 'Table Catalog', TABLE_SCHEMA as 'Table Schema',"
+				+ " DATA_TYPE as 'Data Type', ORDINAL_POSITION as 'Ordinal Position'"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
 				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Relative'");
-		queriesCronusMetaData.add("select TABLE_CATALOG, TABLE_SCHEMA, DATA_TYPE, ORDINAL_POSITION"
+		queriesCronusMetaData.add("select TABLE_CATALOG as 'Table Catalog', TABLE_SCHEMA as 'Table Schema',"
+				+ " DATA_TYPE as 'Data Type', ORDINAL_POSITION as 'Ordinal Position'"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
 				+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee Statistics Group'");
 		queriesCronusMetaData.add("select top 20 table_name as [Table Name], column_name as [Key]"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.KEY_COLUMN_USAGE");
-		queriesCronusMetaData.add(
-				"select top 20 object_id, name, index_id, type, type_desc" + " from sys.indexes order by object_id");
-		queriesCronusMetaData.add("select top 20 CONSTRAINT_CATALOG, CONSTRAINT_NAME, TABLE_CATALOG"
+		queriesCronusMetaData.add("select top 20 object_id as 'Object ID', name as 'Name', index_id as 'Index ID',"
+				+ " type as 'Type', type_desc as 'Type Desc'" + " from sys.indexes order by object_id");
+		queriesCronusMetaData.add("select top 20 CONSTRAINT_CATALOG as 'Constraint Catalog',"
+				+ " CONSTRAINT_NAME as 'Constraint Name', TABLE_CATALOG as 'Table Catalog'"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.TABLE_CONSTRAINTS" + " order by TABLE_NAME");
 		queriesCronusMetaData.add(
 				"select TABLE_NAME as [All tables in CROUNS Sverige AB] from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.TABLES");
