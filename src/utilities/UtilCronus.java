@@ -94,9 +94,9 @@ public class UtilCronus {
 	public String getQuery(String comboBoxName, int selectedIndex) {
 
 		if (comboBoxName.equals("comboBox_caccessTables")) {
-			return queriesCronus.getQueriesCronusEmployee().get(selectedIndex);
+			return queriesCronus.getQueriesCronusEmployee().get(selectedIndex - 1);
 		} else {
-			return queriesCronus.getQueriesCronusMetaData().get(selectedIndex);
+			return queriesCronus.getQueriesCronusMetaData().get(selectedIndex - 1);
 		}
 	}
 
