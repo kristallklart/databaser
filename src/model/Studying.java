@@ -2,38 +2,38 @@ package model;
 
 public class Studying {
 
-	private String sPnr;
-	private String cCode;
+	private String spnr;
+	private String ccode;
 	private String semester;
 
 	public Studying() {
 	}
 
 	public Studying(String ccode, String semester) {
-		this.cCode = ccode;
+		this.ccode = ccode;
 		this.semester = semester;
 	}
 
 	public Studying(String sPnr, String cCode, String semester) {
-		this.sPnr = sPnr;
-		this.cCode = cCode;
+		this.spnr = sPnr;
+		this.ccode = cCode;
 		this.semester = semester;
 	}
 
 	public String getsPnr() {
-		return sPnr;
+		return spnr;
 	}
 
 	public void setsPnr(String sPnr) {
-		this.sPnr = sPnr;
+		this.spnr = sPnr;
 	}
 
 	public String getcCode() {
-		return cCode;
+		return ccode;
 	}
 
 	public void setcCode(String cCode) {
-		this.cCode = cCode;
+		this.ccode = cCode;
 	}
 
 	public String getSemester() {
