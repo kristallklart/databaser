@@ -737,6 +737,7 @@ public class view extends JFrame {
 
 				} else {
 					ArrayList<String> values = new ArrayList<String>();
+					values.add(spnr);
 					String tableName;
 
 					try {

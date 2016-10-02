@@ -52,7 +52,15 @@ public class DataAccessLayerCronus {
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
-		DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
+		DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames) {
+			private static final long serialVersionUID = -5462317740326355112L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+
+		};
 
 		return model;
 	}

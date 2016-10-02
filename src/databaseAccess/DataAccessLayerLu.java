@@ -348,7 +348,16 @@ public class DataAccessLayerLu {
 				sendData.add(columnData);
 			}
 
-			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames);
+			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames) {
+				private static final long serialVersionUID = 2107598765076969503L;
+
+				@Override
+				public boolean isCellEditable(int row, int column) {
+
+					return false;
+				}
+
+			};
 
 			return model;
 
