@@ -28,6 +28,12 @@ public class QueriesLu {
 		case "getCourseResult":
 			sqlQuery = courseResult();
 			break;
+		case "allCourses":
+			sqlQuery = allCourses();
+			break;
+		case "mostThrough":
+			sqlQuery = mostThrough();
+			break;
 		}
 		return sqlQuery;
 	}

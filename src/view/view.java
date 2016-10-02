@@ -311,40 +311,21 @@ public class view extends JFrame {
 		btn_course_courseInfo_showResult.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				values.clear();
 				if (rdbtn_course_showAll.isSelected()) {
 					try {
-						ArrayList<Course> c = controllerLu.allCourses();
-						dtmcourse_showall.setRowCount(0);
-
-						for (Course co : c) {
-							String[] allCourses = { co.getCcode().toUpperCase(), co.getCname(),
-									Integer.toString(co.getCpoint()) };
-							dtmcourse_showall.addRow(allCourses);
-						}
-						table_course.setModel(dtmcourse_showall);
+						table_course.setModel(controllerLu.getTable(values, "allCourses"));
 					} catch (Exception e) {
-						communicateMessage(exceptionHandler.handleException(e));
-						e.printStackTrace();
+						exceptionHandler.handleException(e);
 					}
-				} else {
-					if (rdbtn_course_highestThrough.isSelected()) {
-						try {
-							ArrayList<Course> c = controllerLu.mostThrough();
-							dtmcourse_mostThrough.setRowCount(0);
-
-							for (Course co : c) {
-								String[] allCourses = { co.getCcode().toUpperCase(), Integer.toString(co.getTotal()) };
-								dtmcourse_mostThrough.addRow(allCourses);
-							}
-							table_course.setModel(dtmcourse_mostThrough);
-						} catch (Exception e) {
-							communicateMessage(exceptionHandler.handleException(e));
-							e.printStackTrace();
-						}
+				} else if (rdbtn_course_highestThrough.isSelected()) {
+					try {
+						table_course.setModel(controllerLu.getTable(values, "mostThrough"));
+					} catch (Exception e) {
+						exceptionHandler.handleException(e);
 					}
 				}
 			}
-
 		});
 		btn_course_courseInfo_showResult.setBounds(1007, 207, 108, 23);
 		panel_course.add(btn_course_courseInfo_showResult);
