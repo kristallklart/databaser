@@ -47,6 +47,7 @@ public class view extends JFrame {
 	private ExceptionHandler exceptionHandler = new ExceptionHandler();
 	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
+	private ArrayList<String> values = new ArrayList<String>();
 	private JLabel lbl_feedback = new JLabel("");
 	private ButtonGroup btngr_course;
 	private DefaultTableModel emptyDefTableModel = new DefaultTableModel();
@@ -630,17 +631,24 @@ public class view extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String spnr = textField_stud_findStudentAll_pnr.getText().trim();
-				if (spnr.isEmpty()) {
+				int selectedRow = table_stud_currentCourses.getSelectedRow();
+				if (spnr.isEmpty() || selectedRow < 0) {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
 					try {
-						int selectedRow = table_stud_currentCourses.getSelectedRow();
 						String grade = comboBox_stud_grade_1.getSelectedItem().toString();
 						String ccode = (String) table_stud_currentCourses.getValueAt(selectedRow, 0);
 						String semester = (String) table_stud_currentCourses.getValueAt(selectedRow, 1);
 						Studied s = new Studied(spnr, semester, grade, ccode);
+						values.clear();
+						values.add(spnr);
 						controllerLu.registerGrade(s);
 						controllerLu.deleteStudying(spnr, ccode);
+						dtm_stud_currentCourses.removeRow(selectedRow);
+						// .setModel(controllerLu.getTable(values,
+						// table_stud_currentCourses.getName()));
+						table_stud_finishedCourses
+								.setModel(controllerLu.getTable(values, table_stud_finishedCourses.getName()));
 						communicateMessage(feedbackHandler.registeredGrade(spnr, grade, ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
@@ -661,7 +669,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.noInputPnr());
 				} else {
 					String tableName = table_stud_regOnCourse_courseList.getName();
-					ArrayList<String> values = new ArrayList<String>();
+					values.clear();
 					values.add(spnr);
 					values.add(spnr);
 					try {
@@ -707,6 +715,24 @@ public class view extends JFrame {
 							} else {
 								Studying s = new Studying(spnr, ccode, semester);
 								controllerLu.registerOnCourse(s);
+								values.clear();
+								values.add(spnr);
+								values.add(spnr);
+
+								table_stud_regOnCourse_courseList.setModel(
+										controllerLu.getTable(values, table_stud_regOnCourse_courseList.getName()));
+
+								values.remove(values.size() - 1);
+
+								table_stud_foundStud
+										.setModel(controllerLu.getTable(values, table_stud_foundStud.getName()));
+								textField_stud_findStudentAll_pnr.setText(spnr);
+								table_stud_currentCourses
+										.setModel(controllerLu.getTable(values, table_stud_currentCourses.getName()));
+
+								table_stud_finishedCourses
+										.setModel(controllerLu.getTable(values, table_stud_finishedCourses.getName()));
+
 								communicateMessage(feedbackHandler.studentRegCourse(spnr, ccode));
 							}
 
@@ -736,7 +762,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.noInputPnr());
 
 				} else {
-					ArrayList<String> values = new ArrayList<String>();
+					values.clear();
 					values.add(spnr);
 					String tableName;
 
@@ -776,20 +802,22 @@ public class view extends JFrame {
 		btn_stud_findStudentAll_delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					int selectedRowCurrent = table_stud_currentCourses.getSelectedRow();
-					String spnr = (String) table_stud_foundStud.getValueAt(0, 0);
-					String ccode = (String) table_stud_currentCourses.getValueAt(selectedRowCurrent, 0);
-					controllerLu.deleteStudying(spnr, ccode);
-					dtm_stud_currentCourses.removeRow(selectedRowCurrent);
-					communicateMessage(feedbackHandler.studentRemovedStudying(spnr, ccode));
-				} catch (Exception e) {
-					communicateMessage(exceptionHandler.handleException(e));
-					e.printStackTrace();
+				int selectedRowCurrent = table_stud_currentCourses.getSelectedRow();
+				if (selectedRowCurrent < 0) {
+					communicateMessage(feedbackHandler.insufficientInput());
+				} else {
+					try {
+						String spnr = (String) table_stud_foundStud.getValueAt(0, 0);
+						String ccode = (String) table_stud_currentCourses.getValueAt(selectedRowCurrent, 0);
+						controllerLu.deleteStudying(spnr, ccode);
+						dtm_stud_currentCourses.removeRow(selectedRowCurrent);
+						communicateMessage(feedbackHandler.studentRemovedStudying(spnr, ccode));
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+					}
 				}
-
 			}
-
 		});
 
 		btn_stud_findStudentAll_delete.setBounds(730, 552, 100, 23);

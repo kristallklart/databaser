@@ -11,7 +11,7 @@ public class QueriesLu {
 			break;
 
 		case "table_stud_foundStud":
-			sqlQuery = getStudent();
+			sqlQuery = getStudentToTable();
 			break;
 
 		case "table_stud_currentCourses":
@@ -29,6 +29,10 @@ public class QueriesLu {
 		return "select * from student where spnr = ?";
 	}
 
+	public String getStudentToTable() {
+		return "select spnr as 'Personal Number', sname as 'Name', sadress as 'Address' from student where spnr = ?";
+	}
+
 	public String getCourse() {
 		return "select * from course where ccode = ?";
 	}
@@ -38,7 +42,7 @@ public class QueriesLu {
 	}
 
 	public String getStudentStudying() {
-		return "select ccode, semester from studies where spnr = ?";
+		return "select ccode as 'Course Code', semester as 'Semester' from studies where spnr = ?";
 	}
 
 	public String courseResult() {
@@ -46,7 +50,7 @@ public class QueriesLu {
 	}
 
 	public String getStudentStudied() {
-		return "select semester, ccode, grade from studied where spnr = ?";
+		return "select semester as 'Semester', ccode as 'Course Code', grade as 'Grade' from studied where spnr = ?";
 	}
 
 	public String notFinished() {
