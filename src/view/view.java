@@ -213,21 +213,22 @@ public class view extends JFrame {
 				UtilView.clearFields(coursePanelFields);
 			}
 		});
-		ButtonGroup btngr_course = new ButtonGroup();
+		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_course.add(btn_course_addCourse_clear);
+
+		ButtonGroup btnGroup_course = new ButtonGroup();
 		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
 		rdbtn_course_showAll.setBounds(629, 181, 128, 23);
 		panel_course.add(rdbtn_course_showAll);
-		btngr_course.add(rdbtn_course_showAll);
+		btnGroup_course.add(rdbtn_course_showAll);
 
 		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
 				"Show the top 5 courses with the highest throughoutput", false);
 		rdbtn_course_highestThrough.setBounds(629, 207, 360, 23);
 		panel_course.add(rdbtn_course_highestThrough);
-		btngr_course.add(rdbtn_course_highestThrough);
-		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_addCourse_clear);
+		btnGroup_course.add(rdbtn_course_highestThrough);
 
-		JCheckBox chckbx_notFinished = new JCheckBox("Show only students who hasn't finished the  course");
+		JCheckBox chckbx_notFinished = new JCheckBox("Show only students who hasn't finished the course");
 		chckbx_notFinished.setBounds(182, 322, 359, 23);
 		panel_course.add(chckbx_notFinished);
 
