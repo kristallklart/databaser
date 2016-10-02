@@ -50,32 +50,29 @@ public class view extends JFrame {
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
 	private ArrayList<String> values = new ArrayList<String>();
 	private JLabel lbl_feedback = new JLabel("");
-	private DefaultTableModel emptyDefTableModel = new DefaultTableModel();
-	private DefaultTableModel dtm_stud_finishedCourses = new DefaultTableModel();
-	private DefaultTableModel dtm_stud_currentCourses = new DefaultTableModel();
-	private DefaultTableModel dtm_stud_student = new DefaultTableModel();
-	private JTable table_stud_currentCourses = new JTable();
-	private JPanel contentPane;
 	private final int BUTTON_WIDTH = 108;
 	private final int BUTTON_HEIGHT = 23;
 	private final int TEXTFIELD_WIDTH = 159;
 	private final int TEXTFIELD_HEIGHT = 25;
 	private final int LABEL_WIDTH = 108;
 	private final int LABEL_HEIGHT = 23;
+	private JPanel contentPane;
+	private DefaultTableModel emptyDefTableModel = new DefaultTableModel();
+	private JTable table_stud_currentCourses;
+	private JTable table_stud_foundStud;
+	private JTable table_stud_finishedCourses;
+	private JTable table_stud_regOnCourse_courseList;
+	private JTable table_caccess;
+	private JTable table_course;
 	private JTextField textField_stud_findStudentAll_pnr;
 	private JTextField textField_course_courseCode;
 	private JTextField textField_course_cname;
 	private JTextField textField_course_points;
-	private JTable table_caccess;
 	private JTextField textField_stud_deleteAdd_pnr;
 	private JTextField textField_stud_deleteAdd_name;
 	private JTextField textField_stud_deleteAdd_address;
-	private JTable table_stud_foundStud;
-	private JTable table_stud_finishedCourses;
-	private JTable table_course;
 	private JTextField textField_course_enrolled_ccode;
 	private JTextField textField_stud_regOnCourse_pnr;
-	private JTable table_stud_regOnCourse_courseList;
 
 	/**
 	 * Launch the application.
@@ -729,26 +726,21 @@ public class view extends JFrame {
 				} else {
 					values.clear();
 					values.add(spnr);
-					String tableName;
 
 					try {
-						tableName = table_stud_finishedCourses.getName();
-						dtm_stud_finishedCourses = controllerLu.getTable(values, tableName);
-						table_stud_finishedCourses.setModel(dtm_stud_finishedCourses);
+						table_stud_finishedCourses
+								.setModel(controllerLu.getTable(values, table_stud_finishedCourses.getName()));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
-						tableName = table_stud_currentCourses.getName();
-						dtm_stud_currentCourses = controllerLu.getTable(values, tableName);
-						table_stud_currentCourses.setModel(dtm_stud_currentCourses);
+						table_stud_currentCourses
+								.setModel(controllerLu.getTable(values, table_stud_currentCourses.getName()));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
-						tableName = table_stud_foundStud.getName();
-						dtm_stud_student = controllerLu.getTable(values, tableName);
-						table_stud_foundStud.setModel(dtm_stud_student);
+						table_stud_foundStud.setModel(controllerLu.getTable(values, table_stud_foundStud.getName()));
 						communicateMessage(feedbackHandler.studentFound());
 
 					} catch (Exception e) {
@@ -775,7 +767,10 @@ public class view extends JFrame {
 						String spnr = (String) table_stud_foundStud.getValueAt(0, 0);
 						String ccode = (String) table_stud_currentCourses.getValueAt(selectedRowCurrent, 0);
 						controllerLu.deleteStudying(spnr, ccode);
-						dtm_stud_currentCourses.removeRow(selectedRowCurrent);
+						values.clear();
+						values.add(spnr);
+						table_stud_currentCourses
+								.setModel(controllerLu.updateTable(values, table_stud_currentCourses.getName()));
 						communicateMessage(feedbackHandler.studentRemovedStudying(spnr, ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
