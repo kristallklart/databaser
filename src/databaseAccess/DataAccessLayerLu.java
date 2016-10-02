@@ -45,7 +45,11 @@ public class DataAccessLayerLu {
 			}
 
 			Student s = new Student();
-			this.setStudent(rSet, s);
+			while (rSet.next()) {
+				s.setSpnr(rSet.getString("spnr"));
+				s.setSname(rSet.getString("sname"));
+				s.setSaddress(rSet.getString("sadress"));
+			}
 
 			return s;
 
@@ -67,7 +71,11 @@ public class DataAccessLayerLu {
 			}
 
 			Course c = new Course();
-			setCourse(rSet, c);
+			while (rSet.next()) {
+				c.setCcode(rSet.getString("ccode"));
+				c.setCname(rSet.getString("cname"));
+				c.setCpoint(rSet.getInt("points"));
+			}
 
 			return c;
 
@@ -386,22 +394,6 @@ public class DataAccessLayerLu {
 
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-	}
-
-	private void setStudent(ResultSet rSet, Student s) throws SQLException {
-		while (rSet.next()) {
-			s.setSpnr(rSet.getString("spnr"));
-			s.setSname(rSet.getString("sname"));
-			s.setSaddress(rSet.getString("sadress"));
-		}
-	}
-
-	private void setCourse(ResultSet rSet, Course c) throws SQLException {
-		while (rSet.next()) {
-			c.setCcode(rSet.getString("ccode"));
-			c.setCname(rSet.getString("cname"));
-			c.setCpoint(rSet.getInt("points"));
 		}
 	}
 }
