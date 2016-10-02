@@ -2,8 +2,8 @@ package model;
 
 public class Course {
 
-	private String cCode;
-	private String cName;
+	private String ccode;
+	private String cname;
 	private int cpoint;
 	private int total;
 
@@ -11,8 +11,8 @@ public class Course {
 	}
 
 	public Course(String ccode, String cname, int points) {
-		this.cCode = ccode;
-		this.cName = cname;
+		this.ccode = ccode;
+		this.cname = cname;
 		this.cpoint = points;
 	}
 
@@ -25,19 +25,19 @@ public class Course {
 	}
 
 	public String getCcode() {
-		return cCode;
+		return ccode;
 	}
 
 	public void setCcode(String cCode) {
-		this.cCode = cCode;
+		this.ccode = cCode;
 	}
 
 	public String getCname() {
-		return cName;
+		return cname;
 	}
 
 	public void setCname(String cName) {
-		this.cName = cName;
+		this.cname = cName;
 	}
 
 	public int getCpoint() {

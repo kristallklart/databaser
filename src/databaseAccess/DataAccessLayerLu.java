@@ -214,55 +214,6 @@ public class DataAccessLayerLu {
 
 	}
 
-	public ArrayList<Course> allCourses() throws SQLException {
-		ArrayList<Course> c = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.allCourses());
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return c;
-			} else {
-				c = new ArrayList<Course>();
-				while (rSet.next()) {
-					Course co = new Course();
-					co.setCcode(rSet.getString("ccode"));
-					co.setCname(rSet.getString("cname"));
-					co.setCpoint(rSet.getInt("points"));
-					c.add(co);
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return c;
-	}
-
-	public ArrayList<Course> mostThrough() throws SQLException {
-		ArrayList<Course> c = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.mostThrough());
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return c;
-			} else {
-				c = new ArrayList<Course>();
-				while (rSet.next()) {
-					Course co = new Course();
-					co.setCcode(rSet.getString("ccode"));
-					co.setTotal(rSet.getInt("totalt"));
-					c.add(co);
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return c;
-	}
-
 	public DefaultTableModel getTable(ArrayList<String> values, String queryName)
 			throws SQLException, NotFoundException {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();

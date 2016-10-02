@@ -293,8 +293,9 @@ public class view extends JFrame {
 						textField_course_points.setText(String.valueOf(c.getCpoint()));
 						communicateMessage(feedbackHandler.courseFound());
 					} catch (Exception e) {
-						e.printStackTrace();
 						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
+						UtilView.clearFields(coursePanelFields);
 					}
 				}
 			}
@@ -502,25 +503,25 @@ public class view extends JFrame {
 		table_stud_regOnCourse_courseList.setName("table_stud_regOnCourse_courseList");
 		scrollPane_stud_regOnCourse_courseList.setViewportView(table_stud_regOnCourse_courseList);
 
-		JComboBox<String> comboBox_stud_grade_1 = new JComboBox<String>();
-		comboBox_stud_grade_1.setBounds(472, 496, 146, 25);
-		panel_student.add(comboBox_stud_grade_1);
-		comboBox_stud_grade_1.addItem("Select Grade...");
-		comboBox_stud_grade_1.addItem("A");
-		comboBox_stud_grade_1.addItem("B");
-		comboBox_stud_grade_1.addItem("C");
-		comboBox_stud_grade_1.addItem("D");
-		comboBox_stud_grade_1.addItem("E");
-		comboBox_stud_grade_1.addItem("U");
+		JComboBox<String> comboBox_stud_grade = new JComboBox<String>();
+		comboBox_stud_grade.setBounds(472, 496, 146, 25);
+		panel_student.add(comboBox_stud_grade);
+		comboBox_stud_grade.addItem("Select Grade...");
+		comboBox_stud_grade.addItem("A");
+		comboBox_stud_grade.addItem("B");
+		comboBox_stud_grade.addItem("C");
+		comboBox_stud_grade.addItem("D");
+		comboBox_stud_grade.addItem("E");
+		comboBox_stud_grade.addItem("U");
 
-		JComboBox<String> comboBox_studentRegisterSemester = new JComboBox<String>();
-		comboBox_studentRegisterSemester.setBounds(28, 555, 166, 23);
-		panel_student.add(comboBox_studentRegisterSemester);
-		comboBox_studentRegisterSemester.addItem("Select Semester...");
-		comboBox_studentRegisterSemester.addItem("HT16");
-		comboBox_studentRegisterSemester.addItem("VT17");
-		comboBox_studentRegisterSemester.addItem("HT17");
-		comboBox_studentRegisterSemester.addItem("VT18");
+		JComboBox<String> comboBox_stud_registerSemester = new JComboBox<String>();
+		comboBox_stud_registerSemester.setBounds(28, 555, 166, 23);
+		panel_student.add(comboBox_stud_registerSemester);
+		comboBox_stud_registerSemester.addItem("Select Semester...");
+		comboBox_stud_registerSemester.addItem("HT16");
+		comboBox_stud_registerSemester.addItem("VT17");
+		comboBox_stud_registerSemester.addItem("HT17");
+		comboBox_stud_registerSemester.addItem("VT18");
 
 		btn_stud_deleteAdd_search.setBounds(317, 48, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_deleteAdd_search);
@@ -594,7 +595,7 @@ public class view extends JFrame {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
 					try {
-						String grade = comboBox_stud_grade_1.getSelectedItem().toString();
+						String grade = comboBox_stud_grade.getSelectedItem().toString();
 						String ccode = (String) table_stud_currentCourses.getValueAt(selectedRow, 0);
 						String semester = (String) table_stud_currentCourses.getValueAt(selectedRow, 1);
 						Studied s = new Studied(spnr, semester, grade, ccode);
@@ -657,13 +658,13 @@ public class view extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String spnr = textField_stud_regOnCourse_pnr.getText().trim();
 				int selectedTableRow = table_stud_regOnCourse_courseList.getSelectedRow();
-				int selectedBoxRow = comboBox_studentRegisterSemester.getSelectedIndex();
+				int selectedBoxRow = comboBox_stud_registerSemester.getSelectedIndex();
 				if (spnr.isEmpty() || selectedBoxRow == 0 || selectedTableRow < 0) {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
 					try {
 						String ccode = (String) table_stud_regOnCourse_courseList.getValueAt(selectedTableRow, 0);
-						String semester = (String) comboBox_studentRegisterSemester.getSelectedItem();
+						String semester = (String) comboBox_stud_registerSemester.getSelectedItem();
 						int coursePoints = (int) table_stud_regOnCourse_courseList.getValueAt(selectedTableRow, 2);
 						int currentPoints = 0;
 

@@ -3,8 +3,8 @@ package model;
 public class Studied {
 
 	private String semester;
-	private String sPnr;
-	private String cCode;
+	private String spnr;
+	private String ccode;
 	private String grade;
 
 	public Studied() {
@@ -12,15 +12,15 @@ public class Studied {
 
 	public Studied(String spnr, String semester, String grade) {
 		this.semester = semester;
-		this.sPnr = spnr;
+		this.spnr = spnr;
 		this.grade = grade;
 	}
 
 	public Studied(String spnr, String semester, String grade, String ccode) {
-		this.sPnr = spnr;
+		this.spnr = spnr;
 		this.grade = grade;
 		this.semester = semester;
-		this.cCode = ccode;
+		this.ccode = ccode;
 	}
 
 	public String getSemester() {
@@ -32,19 +32,19 @@ public class Studied {
 	}
 
 	public String getsPnr() {
-		return sPnr;
+		return spnr;
 	}
 
 	public void setsPnr(String sPnr) {
-		this.sPnr = sPnr;
+		this.spnr = sPnr;
 	}
 
 	public String getcCode() {
-		return cCode;
+		return ccode;
 	}
 
 	public void setcCode(String cCode) {
-		this.cCode = cCode;
+		this.ccode = cCode;
 	}
 
 	public String getGrade() {
