@@ -56,10 +56,6 @@ public class ControllerLu {
 		dal.deleteStudying(spnr, ccode);
 	}
 
-	public ArrayList<Course> mostThrough() throws SQLException {
-		return dal.mostThrough();
-	}
-
 	public boolean studentExist(String spnr) throws SQLException {
 		return dal.studentExist(spnr);
 	}
