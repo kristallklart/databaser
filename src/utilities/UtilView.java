@@ -11,8 +11,4 @@ public class UtilView {
 		}
 		return fields;
 	}
-
-	public static String getCurrentSemester() {
-		return "ht16";
-	}
 }

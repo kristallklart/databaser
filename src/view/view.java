@@ -259,7 +259,6 @@ public class view extends JFrame {
 		btn_course_deleteAdd_add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearFeedback();
 				String ccode = textField_course_courseCode.getText().trim();
 				String cname = textField_course_cname.getText().trim();
 
@@ -285,7 +284,6 @@ public class view extends JFrame {
 		btn_course_deleteAdd_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearFeedback();
 				String ccode = textField_course_courseCode.getText().trim();
 				if (ccode.isEmpty()) {
 					communicateMessage(feedbackHandler.noInputCcode());
@@ -583,7 +581,6 @@ public class view extends JFrame {
 		btn_stud_deleteAdd_delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearFeedback();
 				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
 				if (spnr.isEmpty()) {
 					communicateMessage(feedbackHandler.noPnrDelete());
@@ -606,7 +603,6 @@ public class view extends JFrame {
 		btn_stud_deleteAdd_add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearFeedback();
 				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
 				String name = textField_stud_deleteAdd_name.getText().trim();
 				String address = textField_stud_deleteAdd_address.getText().trim();
@@ -658,7 +654,6 @@ public class view extends JFrame {
 		btn_stud_regOnCourse_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearFeedback();
 				clearTable(table_stud_regOnCourse_courseList);
 				String spnr = textField_stud_regOnCourse_pnr.getText().trim();
 
@@ -692,8 +687,6 @@ public class view extends JFrame {
 		btn_stud_regOnCourse_register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearFeedback();
-
 				String spnr = textField_stud_regOnCourse_pnr.getText().trim();
 				int selectedTableRow = table_stud_regOnCourse_courseList.getSelectedRow();
 				int selectedBoxRow = comboBox_studentRegisterSemester.getSelectedIndex();
@@ -734,7 +727,6 @@ public class view extends JFrame {
 		btn_stud_findStudentAll_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearFeedback();
 				clearTable(table_stud_foundStud);
 				clearTable(table_stud_currentCourses);
 				clearTable(table_stud_finishedCourses);
@@ -745,7 +737,6 @@ public class view extends JFrame {
 
 				} else {
 					ArrayList<String> values = new ArrayList<String>();
-					values.add(spnr);
 					String tableName;
 
 					try {
