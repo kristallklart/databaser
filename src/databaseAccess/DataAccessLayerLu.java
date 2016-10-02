@@ -148,36 +148,12 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public ArrayList<Studied> getCourseResult(String ccode) throws SQLException {
-		ArrayList<Studied> results = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.courseResult());
-			pStatement.setString(1, ccode);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return results;
-			} else {
-				results = new ArrayList<Studied>();
-				while (rSet.next()) {
-					results.add(new Studied(rSet.getString("spnr"), (rSet.getString("semester")),
-							(rSet.getString("grade"))));
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return results;
-
-	}
-
 	public String acedIt(String ccode) throws SQLException {
 		String percent = new String();
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.AcedIt());
+			pStatement = con.prepareStatement(queriesLu.acedIt());
 			pStatement.setString(1, ccode);
 			pStatement.setString(2, ccode);
 			rSet = pStatement.executeQuery();
@@ -242,31 +218,6 @@ public class DataAccessLayerLu {
 
 	}
 
-	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
-		ArrayList<Studying> nf = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.notFinished());
-			pStatement.setString(1, ccode);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return nf;
-			} else {
-				nf = new ArrayList<Studying>();
-				while (rSet.next()) {
-					Studying s = new Studying();
-					s.setsPnr(rSet.getString("spnr"));
-					s.setSemester((rSet.getString("semester")));
-					nf.add(s);
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return nf;
-	}
-
 	public ArrayList<Course> allCourses() throws SQLException {
 		ArrayList<Course> c = null;
 
@@ -316,12 +267,12 @@ public class DataAccessLayerLu {
 		return c;
 	}
 
-	public DefaultTableModel getTable(ArrayList<String> values, String tableName)
+	public DefaultTableModel getTable(ArrayList<String> values, String queryName)
 			throws SQLException, NotFoundException {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
 
-		String query = queriesLu.getTableQuery(tableName);
+		String query = queriesLu.getTableQuery(queryName);
 
 		try {
 			con = createConnection();
@@ -335,7 +286,7 @@ public class DataAccessLayerLu {
 
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
-				throw new NotFoundException(tableName);
+				throw new NotFoundException(queryName);
 			}
 
 			rSetMeta = rSet.getMetaData();
