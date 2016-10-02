@@ -101,15 +101,19 @@ public class DataAccessLayerLu {
 
 	}
 
-	public void deleteCourse(String ccode) {
+	public void deleteCourse(String ccode) throws SQLException, NotFoundException {
 
 		try {
 			con = createConnection();
 			pStatement = con.prepareStatement(queriesLu.deleteCourse());
 			pStatement.setString(1, ccode);
-			pStatement.execute();
+			int i = pStatement.executeUpdate();
+			if (i < 1) {
+				throw new NotFoundException("Failed to delete course");
+			}
 
-		} catch (SQLException e) {
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 
 	}

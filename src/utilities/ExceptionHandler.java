@@ -29,7 +29,7 @@ public class ExceptionHandler {
 				message = "The student or course you tried to add aldready exists.";
 				break;
 			case 547:
-				message = "Could not add course because the value of course points was too high, maximum is 30.";
+				message = "Could not delete course because there are still students tied to that course.";
 				break;
 			case 17: // No connection
 				message = "Connection to database failed, please try again. If the error persists contact support.";
@@ -68,6 +68,9 @@ public class ExceptionHandler {
 			break;
 		case "Failed to delete student":
 			message = "The student you tried to delete doesn't exist";
+			break;
+		case "Failed to delete course":
+			message = "The course you tried to delete doesn't exist";
 			break;
 		case "No course found":
 			message = "Could not find the course you were searching for.";

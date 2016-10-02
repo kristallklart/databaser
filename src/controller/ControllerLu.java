@@ -24,7 +24,7 @@ public class ControllerLu {
 		return dal.getCourse(ccode);
 	}
 
-	public void deleteCourse(String ccode) throws SQLException {
+	public void deleteCourse(String ccode) throws SQLException, NotFoundException {
 		dal.deleteCourse(ccode);
 	}
 

@@ -66,6 +66,10 @@ public class FeedbackHandler {
 		return "Please fill in a valid personal number for the student you want to delete.";
 	}
 
+	public String noCcodeDelete() {
+		return "Please fill in a valid course code for the course you want to delete.";
+	}
+
 	public String noStudentToDelete(String input) {
 		String message = "Could not delete student with personal number: " + input + ", student doesn't exist.";
 		return message;
@@ -106,6 +110,11 @@ public class FeedbackHandler {
 
 	public String notFullChoiceCronusFile() {
 		String message = "Please choose an option in both drop-down menus.";
+		return message;
+	}
+
+	public String courseDeleted(String input) {
+		String message = "Successfully deleted course with course code: " + " " + input;
 		return message;
 	}
 

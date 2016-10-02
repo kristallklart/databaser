@@ -241,15 +241,18 @@ public class view extends JFrame {
 		btn_course_deleteAdd_delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if (textField_course_courseCode.getText().trim().isEmpty()) {
-						communicateMessage(feedbackHandler.noInputCcode());
-					} else {
-						controllerLu.deleteCourse(textField_course_courseCode.getText());
+				String ccode = textField_course_courseCode.getText().trim();
+				if (ccode.isEmpty()) {
+					communicateMessage(feedbackHandler.noCcodeDelete());
+				} else {
+					try {
+						controllerLu.deleteCourse(ccode);
+						communicateMessage(feedbackHandler.courseDeleted(ccode));
+						UtilView.clearFields(coursePanelFields);
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						e.printStackTrace();
 					}
-				} catch (Exception e) {
-					communicateMessage(exceptionHandler.handleException(e));
-					e.printStackTrace();
 				}
 			}
 		});
@@ -270,6 +273,7 @@ public class view extends JFrame {
 						int cpoints = Integer.parseInt(textField_course_points.getText().trim());
 						Course c = new Course(ccode, cname, cpoints);
 						controllerLu.addCourse(c);
+						UtilView.clearFields(coursePanelFields);
 						communicateMessage(feedbackHandler.courseAdded(ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
@@ -614,6 +618,7 @@ public class view extends JFrame {
 					Student s = new Student(spnr, name, address);
 					try {
 						controllerLu.addStudent(s);
+						UtilView.clearFields(studPanelFields);
 						communicateMessage(feedbackHandler.studentAdded(spnr));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
