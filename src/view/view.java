@@ -869,7 +869,7 @@ public class view extends JFrame {
 		JPanel panel_CronusAccess_showTables = new JPanel();
 		panel_CronusAccess_showTables.setBorder(new TitledBorder(null, "Show employee and related tables",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_CronusAccess_showTables.setBounds(26, 24, 496, 168);
+		panel_CronusAccess_showTables.setBounds(10, 11, 496, 168);
 		panel_caccess.add(panel_CronusAccess_showTables);
 		panel_CronusAccess_showTables.setLayout(null);
 
@@ -889,7 +889,7 @@ public class view extends JFrame {
 		JPanel panel_CronusAccess_showMetadata = new JPanel();
 		panel_CronusAccess_showMetadata.setBorder(
 				new TitledBorder(null, "Show meta data", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_CronusAccess_showMetadata.setBounds(26, 259, 496, 168);
+		panel_CronusAccess_showMetadata.setBounds(10, 259, 496, 168);
 		panel_caccess.add(panel_CronusAccess_showMetadata);
 		panel_CronusAccess_showMetadata.setLayout(null);
 
@@ -908,7 +908,7 @@ public class view extends JFrame {
 		panel_CronusAccess_showMetadata.add(lblNewLabel);
 
 		JSeparator separator_cronusAccess = new JSeparator();
-		separator_cronusAccess.setBounds(26, 224, 496, 2);
+		separator_cronusAccess.setBounds(10, 212, 496, 2);
 		panel_caccess.add(separator_cronusAccess);
 
 		btn_caccess_showMetadata.addActionListener(new ActionListener() {
