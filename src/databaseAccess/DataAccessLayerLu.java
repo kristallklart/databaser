@@ -370,6 +370,54 @@ public class DataAccessLayerLu {
 		}
 	}
 
+	public DefaultTableModel updateTable(ArrayList<String> values, String tableName) throws SQLException {
+		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
+		Vector<String> sendColumnNames = new Vector<String>();
+
+		String query = queriesLu.getTableQuery(tableName);
+
+		try {
+			con = createConnection();
+			pStatement = con.prepareStatement(query);
+
+			int x = 0;
+			while (x < values.size()) {
+				pStatement.setString(x + 1, values.get(x));
+				x++;
+			}
+			rSet = pStatement.executeQuery();
+			rSetMeta = rSet.getMetaData();
+			int numberOfColumns = rSetMeta.getColumnCount();
+			for (int i = 1; i <= numberOfColumns; i++) {
+				sendColumnNames.add(rSetMeta.getColumnName(i));
+			}
+
+			while (rSet.next()) {
+				Vector<Object> columnData = new Vector<Object>();
+				for (int i = 1; i <= numberOfColumns; i++) {
+					columnData.add(rSet.getObject(i));
+				}
+				sendData.add(columnData);
+			}
+
+			DefaultTableModel model = new DefaultTableModel(sendData, sendColumnNames) {
+				private static final long serialVersionUID = 3735113673457707626L;
+
+				@Override
+				public boolean isCellEditable(int row, int column) {
+
+					return false;
+				}
+
+			};
+
+			return model;
+
+		} finally {
+			utilDatabaseAccess.closeAll(pStatement, con);
+		}
+	}
+
 	public boolean studentExist(String spnr) throws SQLException {
 		String query = queriesLu.getStudent();
 
