@@ -149,7 +149,7 @@ public class DataAccessLayerLu {
 	}
 
 	public String acedIt(String ccode) throws SQLException {
-		String percent = new String();
+		String percent = null;
 
 		try {
 			con = createConnection();
@@ -157,13 +157,9 @@ public class DataAccessLayerLu {
 			pStatement.setString(1, ccode);
 			pStatement.setString(2, ccode);
 			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return percent;
-			} else {
-				while (rSet.next()) {
-					percent = rSet.getString(1);
-				}
 
+			while (rSet.next()) {
+				percent = rSet.getString(1);
 			}
 
 		} finally {
