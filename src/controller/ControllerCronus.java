@@ -30,7 +30,7 @@ public class ControllerCronus {
 
 	// Används för att öppna rätt fil i Excel, Access eller Word
 	public void openCronusFile(String nameProgramToUse, int selectedProgramToUse, int selectedCronusFileToOpen)
-			throws IOException {
+			throws IOException, IllegalArgumentException {
 		utilCronus.openCronusFile(nameProgramToUse, selectedProgramToUse, selectedCronusFileToOpen);
 	}
 
