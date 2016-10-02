@@ -347,6 +347,8 @@ public class view extends JFrame {
 							clearFeedback();
 						} else {
 							table_course.setModel(controllerLu.getTable(values, "getCourseResult"));
+							lbl_course_showGradeA_result
+									.setText(controllerLu.acedIt(textField_course_enrolled_ccode.getText().trim()));
 							clearFeedback();
 						}
 					} catch (Exception e) {
