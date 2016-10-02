@@ -51,7 +51,8 @@ public class QueriesCronus {
 		queriesCronusMetaData.add("select top 20 table_name as [Table Name], column_name as [Key]"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.KEY_COLUMN_USAGE");
 		queriesCronusMetaData.add("select top 20 object_id as 'Object ID', name as 'Name', index_id as 'Index ID',"
-				+ " type as 'Type', type_desc as 'Type Desc'" + " from sys.indexes order by object_id");
+				+ " type as 'Type', type_desc as 'Type Desc'"
+				+ " from [Demo Database NAV (5-0)].sys.indexes order by object_id");
 		queriesCronusMetaData.add("select top 20 CONSTRAINT_CATALOG as 'Constraint Catalog',"
 				+ " CONSTRAINT_NAME as 'Constraint Name', TABLE_CATALOG as 'Table Catalog'"
 				+ " from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.TABLE_CONSTRAINTS" + " order by TABLE_NAME");
@@ -64,8 +65,8 @@ public class QueriesCronus {
 						+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'");
 		queriesCronusMetaData.add("select name as [Employee Columns] from sys.columns "
 				+ "where object_id=object_ID('CRONUS Sverige AB$Employee')");
-		queriesCronusMetaData.add("select top 1 object_name(object_id)as [Table name]," + " st.row_count as [Rows]"
-				+ " from  sys.dm_db_partition_stats st order by st.row_count desc");
+		queriesCronusMetaData.add("use [Demo Database NAV (5-0)] select top 1 object_name(object_id) as [Table name],"
+				+ " row_count as [Rows]" + " from sys.dm_db_partition_stats order by row_count desc");
 
 	}
 
