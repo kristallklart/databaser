@@ -72,9 +72,9 @@ public class ControllerLu {
 		return dal.mostThrough();
 	}
 
-	public DefaultTableModel getTable(ArrayList<String> values, String tableName)
+	public DefaultTableModel getTable(ArrayList<String> values, String queryName)
 			throws SQLException, NotFoundException {
-		return dal.getTable(values, tableName);
+		return dal.getTable(values, queryName);
 	}
 
 	public boolean studentExist(String spnr) throws SQLException {

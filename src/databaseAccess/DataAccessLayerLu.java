@@ -316,12 +316,12 @@ public class DataAccessLayerLu {
 		return c;
 	}
 
-	public DefaultTableModel getTable(ArrayList<String> values, String tableName)
+	public DefaultTableModel getTable(ArrayList<String> values, String queryName)
 			throws SQLException, NotFoundException {
 		Vector<Vector<Object>> sendData = new Vector<Vector<Object>>();
 		Vector<String> sendColumnNames = new Vector<String>();
 
-		String query = queriesLu.getTableQuery(tableName);
+		String query = queriesLu.getTableQuery(queryName);
 
 		try {
 			con = createConnection();
@@ -335,7 +335,7 @@ public class DataAccessLayerLu {
 
 			rSet = pStatement.executeQuery();
 			if (!rSet.isBeforeFirst()) {
-				throw new NotFoundException(tableName);
+				throw new NotFoundException(queryName);
 			}
 
 			rSetMeta = rSet.getMetaData();

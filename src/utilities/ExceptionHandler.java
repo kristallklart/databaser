@@ -75,6 +75,12 @@ public class ExceptionHandler {
 		case "No course found":
 			message = "Could not find the course you were searching for.";
 			break;
+		case "notFinished":
+			message = "There are no students who has failed to finished the course you searched for.";
+			break;
+		case "getCourseResult":
+			message = "No students had finished the course you searched for.";
+			break;
 		}
 		return message;
 	}
