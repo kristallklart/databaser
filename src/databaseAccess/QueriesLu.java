@@ -47,19 +47,19 @@ public class QueriesLu {
 	}
 
 	public String getStudentStudying() {
-		return "select ccode as 'Course Code', semester as 'Semester' from studies where spnr = ?";
+		return "select ccode as 'Course Code', upper(semester) as 'Semester' from studies where spnr = ?";
 	}
 
 	public String courseResult() {
-		return "select spnr as 'Personal Number', semester as 'Semester', grade as 'Grade' from studied where ccode = ? order by semester asc";
+		return "select spnr as 'Personal Number', upper(semester) as 'Semester', upper(grade) as 'Grade' from studied where ccode = ? order by semester asc";
 	}
 
 	public String getStudentStudied() {
-		return "select semester as 'Semester', ccode as 'Course Code', grade as 'Grade' from studied where spnr = ?";
+		return "select upper(semester) as 'Semester', ccode as 'Course Code', upper(grade) as 'Grade' from studied where spnr = ?";
 	}
 
 	public String notFinished() {
-		return "select spnr as 'Personal Number', semester as 'Semester' from studies where ccode = ?";
+		return "select spnr as 'Personal Number', upper(semester) as 'Semester' from studies where ccode = ?";
 	}
 
 	public String acedIt() {
