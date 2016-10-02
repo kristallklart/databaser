@@ -49,7 +49,7 @@ public class view extends JFrame {
 	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
 	private ArrayList<String> values = new ArrayList<String>();
-	private JLabel lbl_feedback = new JLabel("");
+	private JLabel lbl_feedback;
 	private final int BUTTON_WIDTH = 108;
 	private final int BUTTON_HEIGHT = 23;
 	private final int TEXTFIELD_WIDTH = 159;
@@ -125,28 +125,9 @@ public class view extends JFrame {
 		tabbedPane.addTab("Course", panel_course);
 		panel_course.setLayout(null);
 
+		lbl_feedback = new JLabel();
 		lbl_feedback.setBounds(19, 635, 1242, 20);
 		contentPane.add(lbl_feedback);
-
-		DefaultTableModel dtmCourse_results = new DefaultTableModel();
-		String[] resultsCourse = { "Personal Number", "Semester", "Grade" };
-		dtmCourse_results.setColumnIdentifiers(resultsCourse);
-
-		DefaultTableModel dtmcourses = new DefaultTableModel();
-		String[] course = { "Code", "Semester" };
-		dtmcourses.setColumnIdentifiers(course);
-
-		DefaultTableModel dtmcourse_showall = new DefaultTableModel();
-		String[] courses = { "Code", "Name", "Points" };
-		dtmcourse_showall.setColumnIdentifiers(courses);
-
-		DefaultTableModel dtmcourse_mostThrough = new DefaultTableModel();
-		String[] mcourses = { "Code", "No. of students through ", };
-		dtmcourse_mostThrough.setColumnIdentifiers(mcourses);
-
-		DefaultTableModel dtmNotFinished = new DefaultTableModel();
-		String[] students = { "Personal Number", "Semester" };
-		dtmNotFinished.setColumnIdentifiers(students);
 
 		// ***********************************
 		// ************COURSE TAB*************
