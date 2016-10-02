@@ -77,6 +77,10 @@ public class ControllerLu {
 		return dal.getTable(values, tableName);
 	}
 
+	public DefaultTableModel updateTable(ArrayList<String> values, String tableName) throws SQLException {
+		return dal.updateTable(values, tableName);
+	}
+
 	public boolean studentExist(String spnr) throws SQLException {
 		return dal.studentExist(spnr);
 	}

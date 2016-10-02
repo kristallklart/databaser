@@ -54,7 +54,7 @@ public class view extends JFrame {
 	private DefaultTableModel dtm_stud_finishedCourses = new DefaultTableModel();
 	private DefaultTableModel dtm_stud_currentCourses = new DefaultTableModel();
 	private DefaultTableModel dtm_stud_student = new DefaultTableModel();
-	private JTable table_stud_currentCourses = new JTable(dtm_stud_currentCourses);
+	private JTable table_stud_currentCourses = new JTable();
 	private JPanel contentPane;
 	private final int BUTTON_WIDTH = 108;
 	private final int BUTTON_HEIGHT = 23;
@@ -649,11 +649,13 @@ public class view extends JFrame {
 						values.add(spnr);
 						controllerLu.registerGrade(s);
 						controllerLu.deleteStudying(spnr, ccode);
-						dtm_stud_currentCourses.removeRow(selectedRow);
-						// .setModel(controllerLu.getTable(values,
-						// table_stud_currentCourses.getName()));
+
+						table_stud_currentCourses
+								.setModel(controllerLu.updateTable(values, table_stud_currentCourses.getName()));
+
 						table_stud_finishedCourses
-								.setModel(controllerLu.getTable(values, table_stud_finishedCourses.getName()));
+								.setModel(controllerLu.updateTable(values, table_stud_finishedCourses.getName()));
+
 						communicateMessage(feedbackHandler.registeredGrade(spnr, grade, ccode));
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
@@ -725,18 +727,20 @@ public class view extends JFrame {
 								values.add(spnr);
 
 								table_stud_regOnCourse_courseList.setModel(
-										controllerLu.getTable(values, table_stud_regOnCourse_courseList.getName()));
+										controllerLu.updateTable(values, table_stud_regOnCourse_courseList.getName()));
 
 								values.remove(values.size() - 1);
 
 								table_stud_foundStud
-										.setModel(controllerLu.getTable(values, table_stud_foundStud.getName()));
-								textField_stud_findStudentAll_pnr.setText(spnr);
-								table_stud_currentCourses
-										.setModel(controllerLu.getTable(values, table_stud_currentCourses.getName()));
+										.setModel(controllerLu.updateTable(values, table_stud_foundStud.getName()));
 
-								table_stud_finishedCourses
-										.setModel(controllerLu.getTable(values, table_stud_finishedCourses.getName()));
+								textField_stud_findStudentAll_pnr.setText(spnr);
+
+								table_stud_currentCourses.setModel(
+										controllerLu.updateTable(values, table_stud_currentCourses.getName()));
+
+								table_stud_finishedCourses.setModel(
+										controllerLu.updateTable(values, table_stud_finishedCourses.getName()));
 
 								communicateMessage(feedbackHandler.studentRegCourse(spnr, ccode));
 							}
