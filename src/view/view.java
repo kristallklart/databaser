@@ -232,8 +232,8 @@ public class view extends JFrame {
 		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_addCourse_clear);
 
-		JCheckBox chckbx_notFinished = new JCheckBox("New check box");
-		chckbx_notFinished.setBounds(346, 322, 97, 23);
+		JCheckBox chckbx_notFinished = new JCheckBox("Show only students who hasn't finished the  course");
+		chckbx_notFinished.setBounds(182, 322, 359, 23);
 		panel_course.add(chckbx_notFinished);
 
 		JButton btn_course_deleteAdd_delete = new JButton("Delete");
