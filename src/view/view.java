@@ -156,15 +156,15 @@ public class view extends JFrame {
 		// ***********************************
 
 		JLabel lbl_course_ccode = new JLabel("Course code:");
-		lbl_course_ccode.setBounds(50, 50, LABEL_WIDTH, LABEL_HEIGHT);
+		lbl_course_ccode.setBounds(35, 35, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_ccode);
 
 		JLabel lbl_course_name = new JLabel("Course name:");
-		lbl_course_name.setBounds(50, 84, LABEL_WIDTH, LABEL_HEIGHT);
+		lbl_course_name.setBounds(35, 69, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_name);
 
 		JLabel lbl_course_points = new JLabel("Points:");
-		lbl_course_points.setBounds(50, 118, LABEL_WIDTH, LABEL_HEIGHT);
+		lbl_course_points.setBounds(35, 103, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_course.add(lbl_course_points);
 
 		JLabel lbl_course_showGradeA_header = new JLabel("% of Students with grade A:");
@@ -181,19 +181,19 @@ public class view extends JFrame {
 
 		textField_course_courseCode = new JTextField();
 		textField_course_courseCode.setColumns(10);
-		textField_course_courseCode.setBounds(146, 49, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_courseCode.setBounds(131, 34, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_courseCode);
 		coursePanelFields.add(textField_course_courseCode);
 
 		textField_course_cname = new JTextField();
 		textField_course_cname.setColumns(10);
-		textField_course_cname.setBounds(146, 83, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_cname.setBounds(131, 68, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_cname);
 		coursePanelFields.add(textField_course_cname);
 
 		textField_course_points = new JTextField();
 		textField_course_points.setColumns(10);
-		textField_course_points.setBounds(146, 118, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_course_points.setBounds(131, 103, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_course.add(textField_course_points);
 		coursePanelFields.add(textField_course_points);
 
@@ -233,7 +233,7 @@ public class view extends JFrame {
 		rdbtn_course_showNotFinished.setBounds(629, 95, 360, 23);
 		panel_course.add(rdbtn_course_showNotFinished);
 		btngr_course.add(rdbtn_course_showNotFinished);
-		btn_course_addCourse_clear.setBounds(79, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_addCourse_clear);
 
 		JButton btn_course_deleteAdd_delete = new JButton("Delete");
@@ -252,7 +252,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_deleteAdd_delete.setBounds(315, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_deleteAdd_delete.setBounds(300, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_delete);
 
 		JButton btn_course_deleteAdd_add = new JButton("Add Course");
@@ -277,7 +277,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_deleteAdd_add.setBounds(197, 152, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btn_course_deleteAdd_add.setBounds(182, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_deleteAdd_add);
 
 		JButton btn_course_deleteAdd_search = new JButton("Search");
@@ -300,7 +300,7 @@ public class view extends JFrame {
 				}
 			}
 		});
-		btn_course_deleteAdd_search.setBounds(315, 50, 108, 23);
+		btn_course_deleteAdd_search.setBounds(300, 35, 108, 23);
 		panel_course.add(btn_course_deleteAdd_search);
 
 		JButton btn_course_courseInfo_showResult = new JButton("Show Result");
@@ -401,7 +401,7 @@ public class view extends JFrame {
 		JPanel panel_course_addBorder = new JPanel();
 		panel_course_addBorder.setBorder(
 				new TitledBorder(null, "Add/ Delete Course", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_course_addBorder.setBounds(25, 26, 491, 192);
+		panel_course_addBorder.setBounds(10, 11, 491, 192);
 		panel_course.add(panel_course_addBorder);
 
 		JPanel panel_course_resultsBorder = new JPanel();
