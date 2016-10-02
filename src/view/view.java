@@ -405,7 +405,7 @@ public class view extends JFrame {
 
 		JPanel panel_course_addBorder = new JPanel();
 		panel_course_addBorder.setBorder(
-				new TitledBorder(null, "Add/ Delete Course", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(null, "Add/Delete Course", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_course_addBorder.setBounds(10, 11, 491, 192);
 		panel_course.add(panel_course_addBorder);
 
@@ -1016,7 +1016,7 @@ public class view extends JFrame {
 		});
 
 		JPanel panel_open_forms = new JPanel();
-		panel_open_forms.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open Form files",
+		panel_open_forms.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open form files",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_open_forms.setBounds(10, 310, 500, 208);
 		panel_openFiles.add(panel_open_forms);
