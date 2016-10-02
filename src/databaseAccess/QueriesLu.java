@@ -1,8 +1,5 @@
 package databaseAccess;
 
-import model.Course;
-import model.Student;
-
 public class QueriesLu {
 
 	public String getTableQuery(String tableName) {
@@ -28,43 +25,10 @@ public class QueriesLu {
 		return sqlQuery;
 	}
 
-	public String getCreateQuery(String studentOrCourse) {
-		String sqlQuery = null;
-
-		if (studentOrCourse.equals("Student")) {
-			sqlQuery = createStudent();
-		} else if (studentOrCourse.equals("Course")) {
-			sqlQuery = createCourse();
-		}
-		return sqlQuery;
-	}
-
-	public String getTextFieldQuery(String studentOrCourse) {
-		String sqlQuery = null;
-
-		if (studentOrCourse.equals("Student")) {
-			sqlQuery = getStudent();
-		} else if (studentOrCourse.equals("Course")) {
-			sqlQuery = getCourse();
-		}
-		return sqlQuery;
-	}
-
-	public String getDeleteQuery(Object object) {
-		if (object instanceof Student) {
-			return deleteStudent();
-		} else if (object instanceof Course) {
-			return deleteCourse();
-		} else {
-			return null;
-		}
-	}
-
 	public String getStudent() {
 		return "select * from student where spnr = ?";
 	}
 
-	// allt från en viss kurs
 	public String getCourse() {
 		return "select * from course where ccode = ?";
 	}
@@ -123,7 +87,6 @@ public class QueriesLu {
 
 	public String registerGrade() {
 		return "insert into studied values (?,?,?,?)";
-
 	}
 
 	public String registerOnCourse() {
