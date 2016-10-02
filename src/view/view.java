@@ -50,7 +50,6 @@ public class view extends JFrame {
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
 	private ArrayList<String> values = new ArrayList<String>();
 	private JLabel lbl_feedback = new JLabel("");
-	private ButtonGroup btngr_course;
 	private DefaultTableModel emptyDefTableModel = new DefaultTableModel();
 	private DefaultTableModel dtm_stud_finishedCourses = new DefaultTableModel();
 	private DefaultTableModel dtm_stud_currentCourses = new DefaultTableModel();
@@ -77,7 +76,6 @@ public class view extends JFrame {
 	private JTextField textField_course_enrolled_ccode;
 	private JTextField textField_stud_regOnCourse_pnr;
 	private JTable table_stud_regOnCourse_courseList;
-	private JRadioButton rdbtn_course_showNotFinished;
 
 	/**
 	 * Launch the application.

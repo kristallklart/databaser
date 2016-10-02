@@ -148,36 +148,12 @@ public class DataAccessLayerLu {
 		}
 	}
 
-	public ArrayList<Studied> getCourseResult(String ccode) throws SQLException {
-		ArrayList<Studied> results = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.courseResult());
-			pStatement.setString(1, ccode);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return results;
-			} else {
-				results = new ArrayList<Studied>();
-				while (rSet.next()) {
-					results.add(new Studied(rSet.getString("spnr"), (rSet.getString("semester")),
-							(rSet.getString("grade"))));
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return results;
-
-	}
-
 	public String acedIt(String ccode) throws SQLException {
 		String percent = new String();
 
 		try {
 			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.AcedIt());
+			pStatement = con.prepareStatement(queriesLu.acedIt());
 			pStatement.setString(1, ccode);
 			pStatement.setString(2, ccode);
 			rSet = pStatement.executeQuery();
@@ -240,31 +216,6 @@ public class DataAccessLayerLu {
 			utilDatabaseAccess.closeAll(pStatement, con);
 		}
 
-	}
-
-	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
-		ArrayList<Studying> nf = null;
-
-		try {
-			con = createConnection();
-			pStatement = con.prepareStatement(queriesLu.notFinished());
-			pStatement.setString(1, ccode);
-			rSet = pStatement.executeQuery();
-			if (!rSet.isBeforeFirst()) {
-				return nf;
-			} else {
-				nf = new ArrayList<Studying>();
-				while (rSet.next()) {
-					Studying s = new Studying();
-					s.setsPnr(rSet.getString("spnr"));
-					s.setSemester((rSet.getString("semester")));
-					nf.add(s);
-				}
-			}
-		} finally {
-			utilDatabaseAccess.closeAll(pStatement, con);
-		}
-		return nf;
 	}
 
 	public ArrayList<Course> allCourses() throws SQLException {

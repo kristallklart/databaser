@@ -40,10 +40,6 @@ public class ControllerLu {
 		dal.addCourse(c);
 	}
 
-	public ArrayList<Studied> getCourseResult(String ccode) throws SQLException {
-		return dal.getCourseResult(ccode);
-	}
-
 	public String acedIt(String ccode) throws SQLException {
 		return dal.acedIt(ccode);
 	}
@@ -60,16 +56,16 @@ public class ControllerLu {
 		dal.deleteStudying(spnr, ccode);
 	}
 
-	public ArrayList<Studying> notFinished(String ccode) throws SQLException {
-		return dal.notFinished(ccode);
-	}
-
-	public ArrayList<Course> allCourses() throws SQLException {
-		return dal.allCourses();
-	}
-
 	public ArrayList<Course> mostThrough() throws SQLException {
 		return dal.mostThrough();
+	}
+
+	public boolean studentExist(String spnr) throws SQLException {
+		return dal.studentExist(spnr);
+	}
+
+	public int currentPoints(String spnr) throws SQLException, NotFoundException {
+		return dal.currentPoints(spnr);
 	}
 
 	public DefaultTableModel getTable(ArrayList<String> values, String queryName)
@@ -81,11 +77,4 @@ public class ControllerLu {
 		return dal.updateTable(values, tableName);
 	}
 
-	public boolean studentExist(String spnr) throws SQLException {
-		return dal.studentExist(spnr);
-	}
-
-	public int currentPoints(String spnr) throws SQLException, NotFoundException {
-		return dal.currentPoints(spnr);
-	}
 }
