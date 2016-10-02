@@ -547,7 +547,6 @@ public class view extends JFrame {
 		scrollPane_stud_regOnCourse_courseList.setViewportView(table_stud_regOnCourse_courseList);
 
 		JComboBox<String> comboBox_stud_grade_1 = new JComboBox<String>();
-
 		comboBox_stud_grade_1.setBounds(472, 496, 146, 25);
 		panel_student.add(comboBox_stud_grade_1);
 		comboBox_stud_grade_1.addItem("Select Grade...");
@@ -557,6 +556,15 @@ public class view extends JFrame {
 		comboBox_stud_grade_1.addItem("D");
 		comboBox_stud_grade_1.addItem("E");
 		comboBox_stud_grade_1.addItem("U");
+
+		JComboBox<String> comboBox_studentRegisterSemester = new JComboBox<String>();
+		comboBox_studentRegisterSemester.setBounds(28, 555, 166, 23);
+		panel_student.add(comboBox_studentRegisterSemester);
+		comboBox_studentRegisterSemester.addItem("Select Semester...");
+		comboBox_studentRegisterSemester.addItem("HT16");
+		comboBox_studentRegisterSemester.addItem("VT17");
+		comboBox_studentRegisterSemester.addItem("HT17");
+		comboBox_studentRegisterSemester.addItem("VT18");
 
 		btn_stud_deleteAdd_search.setBounds(317, 48, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_deleteAdd_search);
@@ -687,29 +695,31 @@ public class view extends JFrame {
 				clearFeedback();
 
 				String spnr = textField_stud_regOnCourse_pnr.getText().trim();
-				if (spnr.isEmpty()) {
+				int selectedTableRow = table_stud_regOnCourse_courseList.getSelectedRow();
+				int selectedBoxRow = comboBox_studentRegisterSemester.getSelectedIndex();
+				if (spnr.isEmpty() || selectedBoxRow == 0 || selectedTableRow < 0) {
 					communicateMessage(feedbackHandler.insufficientInput());
 				} else {
 					try {
-						int selectedRow = table_stud_regOnCourse_courseList.getSelectedRow();
-						String ccode = (String) table_stud_regOnCourse_courseList.getValueAt(selectedRow, 0);
-						String semester = UtilView.getCurrentSemester();
-						int coursePoints = (int) table_stud_regOnCourse_courseList.getValueAt(selectedRow, 2);
+						String ccode = (String) table_stud_regOnCourse_courseList.getValueAt(selectedTableRow, 0);
+						String semester = (String) comboBox_studentRegisterSemester.getSelectedItem();
+						int coursePoints = (int) table_stud_regOnCourse_courseList.getValueAt(selectedTableRow, 2);
 						int currentPoints = 0;
 
 						if (controllerLu.studentExist(spnr)) {
 							currentPoints = controllerLu.currentPoints(spnr);
+
+							if (currentPoints + coursePoints > 45) {
+								communicateMessage(feedbackHandler.pointsExceeded(spnr, currentPoints));
+							} else {
+								Studying s = new Studying(spnr, ccode, semester);
+								controllerLu.registerOnCourse(s);
+								communicateMessage(feedbackHandler.studentRegCourse(spnr, ccode));
+							}
+
 						} else {
 							communicateMessage(feedbackHandler.noStudentFound(spnr));
 						}
-						if (currentPoints + coursePoints > 45) {
-							communicateMessage(feedbackHandler.pointsExceeded(spnr, currentPoints));
-						} else {
-							Studying s = new Studying(spnr, ccode, semester);
-							controllerLu.registerOnCourse(s);
-							communicateMessage(feedbackHandler.studentRegCourse(spnr, ccode));
-						}
-
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
@@ -802,15 +812,6 @@ public class view extends JFrame {
 				new TitledBorder(null, "Add/Delete Student", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_student_addBorder.setBounds(12, 11, 435, 186);
 		panel_student.add(panel_student_addBorder);
-
-		JComboBox comboBox_studentRegisterSemester = new JComboBox();
-		comboBox_studentRegisterSemester.setBounds(28, 555, 166, 23);
-		panel_student.add(comboBox_studentRegisterSemester);
-		comboBox_studentRegisterSemester.addItem("Select Semester...");
-		comboBox_studentRegisterSemester.addItem("HT16");
-		comboBox_studentRegisterSemester.addItem("VT17");
-		comboBox_studentRegisterSemester.addItem("HT17");
-		comboBox_studentRegisterSemester.addItem("VT18");
 
 		JPanel panel_student_registerBorder = new JPanel();
 		panel_student_registerBorder.setBorder(new TitledBorder(null, "Register Student to Course",
