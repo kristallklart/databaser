@@ -58,7 +58,7 @@ public class QueriesCronus {
 		queriesCronusMetaData.add(
 				"select TABLE_NAME as [All tables in CRONUS Sverige AB] from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.TABLES");
 		queriesCronusMetaData.add(
-				"use [Demo Database NAV (5-0)] select name as [All tables in CRONUS Sverige AB] from sysobjects where xtype ='U'");
+				"use [Demo Database NAV (5-0)] select name as [All tables in CRONUS Sverige AB] from sys.sysobjects where xtype ='U'");
 		queriesCronusMetaData
 				.add("select COLUMN_NAME as [Employee Columns] from [Demo Database NAV (5-0)].INFORMATION_SCHEMA.COLUMNS"
 						+ " where TABLE_NAME = 'CRONUS Sverige AB$Employee'");
