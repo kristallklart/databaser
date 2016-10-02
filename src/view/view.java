@@ -49,7 +49,7 @@ public class view extends JFrame {
 	private ArrayList<JTextField> studPanelFields = new ArrayList<JTextField>();
 	private ArrayList<JTextField> coursePanelFields = new ArrayList<JTextField>();
 	private ArrayList<String> values = new ArrayList<String>();
-	private JLabel lbl_feedback = new JLabel("");
+	private JLabel lbl_feedback;
 	private final int BUTTON_WIDTH = 108;
 	private final int BUTTON_HEIGHT = 23;
 	private final int TEXTFIELD_WIDTH = 159;
@@ -125,28 +125,9 @@ public class view extends JFrame {
 		tabbedPane.addTab("Course", panel_course);
 		panel_course.setLayout(null);
 
+		lbl_feedback = new JLabel();
 		lbl_feedback.setBounds(19, 635, 1242, 20);
 		contentPane.add(lbl_feedback);
-
-		DefaultTableModel dtmCourse_results = new DefaultTableModel();
-		String[] resultsCourse = { "Personal Number", "Semester", "Grade" };
-		dtmCourse_results.setColumnIdentifiers(resultsCourse);
-
-		DefaultTableModel dtmcourses = new DefaultTableModel();
-		String[] course = { "Code", "Semester" };
-		dtmcourses.setColumnIdentifiers(course);
-
-		DefaultTableModel dtmcourse_showall = new DefaultTableModel();
-		String[] courses = { "Code", "Name", "Points" };
-		dtmcourse_showall.setColumnIdentifiers(courses);
-
-		DefaultTableModel dtmcourse_mostThrough = new DefaultTableModel();
-		String[] mcourses = { "Code", "No. of students through ", };
-		dtmcourse_mostThrough.setColumnIdentifiers(mcourses);
-
-		DefaultTableModel dtmNotFinished = new DefaultTableModel();
-		String[] students = { "Personal Number", "Semester" };
-		dtmNotFinished.setColumnIdentifiers(students);
 
 		// ***********************************
 		// ************COURSE TAB*************
@@ -213,21 +194,22 @@ public class view extends JFrame {
 				UtilView.clearFields(coursePanelFields);
 			}
 		});
-		ButtonGroup btngr_course = new ButtonGroup();
+		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_course.add(btn_course_addCourse_clear);
+
+		ButtonGroup btnGroup_course = new ButtonGroup();
 		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
 		rdbtn_course_showAll.setBounds(629, 181, 128, 23);
 		panel_course.add(rdbtn_course_showAll);
-		btngr_course.add(rdbtn_course_showAll);
+		btnGroup_course.add(rdbtn_course_showAll);
 
 		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
 				"Show the top 5 courses with the highest throughoutput", false);
 		rdbtn_course_highestThrough.setBounds(629, 207, 360, 23);
 		panel_course.add(rdbtn_course_highestThrough);
-		btngr_course.add(rdbtn_course_highestThrough);
-		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_addCourse_clear);
+		btnGroup_course.add(rdbtn_course_highestThrough);
 
-		JCheckBox chckbx_notFinished = new JCheckBox("Show only students who hasn't finished the  course");
+		JCheckBox chckbx_notFinished = new JCheckBox("Show only students who hasn't finished the course");
 		chckbx_notFinished.setBounds(182, 322, 359, 23);
 		panel_course.add(chckbx_notFinished);
 
