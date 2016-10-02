@@ -1057,7 +1057,7 @@ public class view extends JFrame {
 						e.printStackTrace();
 					}
 				} else {
-					communicateMessage(feedbackHandler.notFullChoiceCronusAccess());
+					communicateMessage(feedbackHandler.notFullChoiceCronusFile());
 				}
 			}
 		});
