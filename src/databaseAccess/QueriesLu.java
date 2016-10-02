@@ -2,10 +2,10 @@ package databaseAccess;
 
 public class QueriesLu {
 
-	public String getTableQuery(String tableName) {
+	public String getTableQuery(String queryName) {
 		String sqlQuery = null;
 
-		switch (tableName) {
+		switch (queryName) {
 		case "table_stud_regOnCourse_courseList":
 			sqlQuery = allPossibleCourses();
 			break;
@@ -20,6 +20,19 @@ public class QueriesLu {
 
 		case "table_stud_finishedCourses":
 			sqlQuery = getStudentStudied();
+			break;
+
+		case "notFinished":
+			sqlQuery = notFinished();
+			break;
+		case "getCourseResult":
+			sqlQuery = courseResult();
+			break;
+		case "allCourses":
+			sqlQuery = allCourses();
+			break;
+		case "mostThrough":
+			sqlQuery = mostThrough();
 			break;
 		}
 		return sqlQuery;

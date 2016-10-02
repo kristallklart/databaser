@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -228,14 +229,12 @@ public class view extends JFrame {
 		rdbtn_course_highestThrough.setBounds(629, 207, 360, 23);
 		panel_course.add(rdbtn_course_highestThrough);
 		btngr_course.add(rdbtn_course_highestThrough);
-
-		JRadioButton rdbtn_course_showNotFinished = new JRadioButton(
-				"Only show students who hasn't finished the course", false);
-		rdbtn_course_showNotFinished.setBounds(629, 95, 360, 23);
-		panel_course.add(rdbtn_course_showNotFinished);
-		btngr_course.add(rdbtn_course_showNotFinished);
 		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_course.add(btn_course_addCourse_clear);
+
+		JCheckBox chckbx_notFinished = new JCheckBox("Show only students who hasn't finished the  course");
+		chckbx_notFinished.setBounds(182, 322, 359, 23);
+		panel_course.add(chckbx_notFinished);
 
 		JButton btn_course_deleteAdd_delete = new JButton("Delete");
 		btn_course_deleteAdd_delete.addActionListener(new ActionListener() {
@@ -312,40 +311,21 @@ public class view extends JFrame {
 		btn_course_courseInfo_showResult.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				values.clear();
 				if (rdbtn_course_showAll.isSelected()) {
 					try {
-						ArrayList<Course> c = controllerLu.allCourses();
-						dtmcourse_showall.setRowCount(0);
-
-						for (Course co : c) {
-							String[] allCourses = { co.getCcode().toUpperCase(), co.getCname(),
-									Integer.toString(co.getCpoint()) };
-							dtmcourse_showall.addRow(allCourses);
-						}
-						table_course.setModel(dtmcourse_showall);
+						table_course.setModel(controllerLu.getTable(values, "allCourses"));
 					} catch (Exception e) {
-						communicateMessage(exceptionHandler.handleException(e));
-						e.printStackTrace();
+						exceptionHandler.handleException(e);
 					}
-				} else {
-					if (rdbtn_course_highestThrough.isSelected()) {
-						try {
-							ArrayList<Course> c = controllerLu.mostThrough();
-							dtmcourse_mostThrough.setRowCount(0);
-
-							for (Course co : c) {
-								String[] allCourses = { co.getCcode().toUpperCase(), Integer.toString(co.getTotal()) };
-								dtmcourse_mostThrough.addRow(allCourses);
-							}
-							table_course.setModel(dtmcourse_mostThrough);
-						} catch (Exception e) {
-							communicateMessage(exceptionHandler.handleException(e));
-							e.printStackTrace();
-						}
+				} else if (rdbtn_course_highestThrough.isSelected()) {
+					try {
+						table_course.setModel(controllerLu.getTable(values, "mostThrough"));
+					} catch (Exception e) {
+						exceptionHandler.handleException(e);
 					}
 				}
 			}
-
 		});
 		btn_course_courseInfo_showResult.setBounds(1007, 207, 108, 23);
 		panel_course.add(btn_course_courseInfo_showResult);
@@ -354,47 +334,25 @@ public class view extends JFrame {
 		btn_course_enrolled_showResult.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
-				if (textField_course_enrolled_ccode.getText().trim().isEmpty()) {
+				String ccode = textField_course_enrolled_ccode.getText().trim();
+				clearTable(table_course);
+				if (ccode.isEmpty()) {
 					communicateMessage(feedbackHandler.noInputCcode());
 				} else {
+					values.clear();
+					values.add(ccode);
 					try {
-						if (rdbtn_course_showNotFinished.isSelected()) {
-							ArrayList<Studying> s = controllerLu
-									.notFinished(textField_course_enrolled_ccode.getText().trim());
-							dtmNotFinished.setRowCount(0);
-
-							for (Studying studying : s) {
-								String[] studentsCourses = { studying.getsPnr(), studying.getSemester().toUpperCase() };
-								dtmNotFinished.addRow(studentsCourses);
-							}
-							table_course.setModel(dtmNotFinished);
-
+						if (chckbx_notFinished.isSelected()) {
+							table_course.setModel(controllerLu.getTable(values, "notFinished"));
+							clearFeedback();
 						} else {
-							ArrayList<Studied> r = controllerLu
-									.getCourseResult(textField_course_enrolled_ccode.getText());
-							dtmCourse_results.setRowCount(0);
-
-							if (r == null) {
-								communicateMessage(
-										feedbackHandler.noCourseFound(textField_course_enrolled_ccode.getText()));
-
-							} else {
-
-								for (Studied re : r) {
-									String[] studentsCourses = { re.getsPnr(), re.getSemester().toUpperCase(),
-											re.getGrade().toUpperCase() };
-									dtmCourse_results.addRow(studentsCourses);
-								}
-
-								table_course.setModel(dtmCourse_results);
-								lbl_course_showGradeA_result
-										.setText(controllerLu.acedIt(textField_course_enrolled_ccode.getText()));
-							}
+							table_course.setModel(controllerLu.getTable(values, "getCourseResult"));
+							lbl_course_showGradeA_result
+									.setText(controllerLu.acedIt(textField_course_enrolled_ccode.getText().trim()));
+							clearFeedback();
 						}
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
-						e.printStackTrace();
 					}
 				}
 
