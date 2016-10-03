@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -185,6 +187,13 @@ public class view extends JFrame {
 		textField_course_enrolled_ccode.setColumns(10);
 		textField_course_enrolled_ccode.setBounds(803, 62, 159, 25);
 		panel_course.add(textField_course_enrolled_ccode);
+		textField_course_enrolled_ccode.setText("Enter CourseCode..");
+		textField_course_enrolled_ccode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textField_course_enrolled_ccode.setText("");
+			}
+		});
 
 		JScrollPane scrollPane_course = new JScrollPane();
 		scrollPane_course.setBounds(583, 262, 563, 294);
@@ -417,6 +426,13 @@ public class view extends JFrame {
 		textField_stud_findStudentAll_pnr.setBounds(592, 46, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel_student.add(textField_stud_findStudentAll_pnr);
 		textField_stud_findStudentAll_pnr.setColumns(10);
+		textField_stud_findStudentAll_pnr.setText("Enter Personal Number..");
+		textField_stud_findStudentAll_pnr.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textField_stud_findStudentAll_pnr.setText("");
+			}
+		});
 
 		textField_stud_deleteAdd_pnr = new JTextField();
 		textField_stud_deleteAdd_pnr.setBounds(148, 47, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
