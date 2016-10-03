@@ -73,8 +73,8 @@ public class FeedbackHandler {
 	}
 
 	public String studentRemovedStudying(String spnr, String ccode) {
-		String message = "Successfully removed student with personal number: " + spnr + " from course with ccode: "
-				+ ccode;
+		String message = "Successfully removed student with personal number: " + spnr
+				+ " from course with course code: " + ccode;
 		return message;
 	}
 
