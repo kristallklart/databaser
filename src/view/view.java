@@ -119,6 +119,12 @@ public class view extends JFrame {
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 1262, 636);
+		tabbedPane.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clearFeedback();
+			}
+		});
 		contentPane.add(tabbedPane);
 
 		JPanel panel_student = new JPanel();
@@ -280,6 +286,7 @@ public class view extends JFrame {
 		btn_course_deleteAdd_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				utilView.startTime();
 				String ccode = textField_course_courseCode.getText().trim();
 				if (ccode.isEmpty()) {
 					communicateMessage(feedbackHandler.noInputCcode());
@@ -289,6 +296,7 @@ public class view extends JFrame {
 						textField_course_cname.setText(c.getCname());
 						textField_course_points.setText(String.valueOf(c.getCpoint()));
 						communicateMessage(feedbackHandler.courseFound());
+						communicateTime();
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
@@ -304,16 +312,19 @@ public class view extends JFrame {
 		btn_course_courseInfo_showResult.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				utilView.startTime();
 				values.clear();
 				if (rdbtn_course_showAll.isSelected()) {
 					try {
 						table_course.setModel(controllerLu.getTable(values, "allCourses"));
+						communicateTime();
 					} catch (Exception e) {
 						exceptionHandler.handleException(e);
 					}
 				} else if (rdbtn_course_highestThrough.isSelected()) {
 					try {
 						table_course.setModel(controllerLu.getTable(values, "mostThrough"));
+						communicateTime();
 					} catch (Exception e) {
 						exceptionHandler.handleException(e);
 					}
@@ -327,6 +338,7 @@ public class view extends JFrame {
 		btn_course_enrolled_showResult.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				utilView.startTime();
 				String ccode = textField_course_enrolled_ccode.getText().trim();
 				clearTable(table_course);
 				if (ccode.isEmpty()) {
@@ -338,11 +350,13 @@ public class view extends JFrame {
 						if (chckbx_notFinished.isSelected()) {
 							table_course.setModel(controllerLu.getTable(values, "notFinished"));
 							clearFeedback();
+							communicateTime();
 						} else {
 							table_course.setModel(controllerLu.getTable(values, "getCourseResult"));
 							lbl_course_showGradeA_result
 									.setText(controllerLu.acedIt(textField_course_enrolled_ccode.getText().trim()));
 							clearFeedback();
+							communicateTime();
 						}
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
@@ -630,6 +644,7 @@ public class view extends JFrame {
 		btn_stud_regOnCourse_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				utilView.startTime();
 				clearTable(table_stud_regOnCourse_courseList);
 				String spnr = textField_stud_regOnCourse_pnr.getText().trim();
 
@@ -644,6 +659,7 @@ public class view extends JFrame {
 						if (controllerLu.studentExist(spnr)) {
 							table_stud_regOnCourse_courseList.setModel(controllerLu.getTable(values, tableName));
 							communicateMessage(feedbackHandler.availableCoursesFound(spnr));
+							communicateTime();
 						} else {
 							clearTable(table_stud_regOnCourse_courseList);
 							communicateMessage(feedbackHandler.noStudentFound(spnr));
@@ -723,6 +739,7 @@ public class view extends JFrame {
 		btn_stud_findStudentAll_search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				utilView.startTime();
 				clearTable(table_stud_foundStud);
 				clearTable(table_stud_currentCourses);
 				clearTable(table_stud_finishedCourses);
@@ -738,19 +755,21 @@ public class view extends JFrame {
 					try {
 						table_stud_finishedCourses
 								.setModel(controllerLu.getTable(values, table_stud_finishedCourses.getName()));
+						communicateTime();
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
 						table_stud_currentCourses
 								.setModel(controllerLu.getTable(values, table_stud_currentCourses.getName()));
+						communicateTime();
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 					}
 					try {
 						table_stud_foundStud.setModel(controllerLu.getTable(values, table_stud_foundStud.getName()));
 						communicateMessage(feedbackHandler.studentFound());
-
+						communicateTime();
 					} catch (Exception e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
@@ -873,12 +892,14 @@ public class view extends JFrame {
 		btn_caccess_showMetadata.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				utilView.startTime();
 				int selectedCronusIndex = comboBox_caccessMeta.getSelectedIndex();
 				String nameCombobox = comboBox_caccessMeta.getName();
 				if (selectedCronusIndex != 0) {
 					try {
 						table_caccess.setModel(controllerCronus.getTableModel(nameCombobox, selectedCronusIndex));
-
+						clearFeedback();
+						communicateTime();
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
@@ -892,11 +913,14 @@ public class view extends JFrame {
 		btn_caccess__showTables.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				utilView.startTime();
 				int selectedCronusIndex = comboBox_caccessTables.getSelectedIndex();
 				String nameCombobox = comboBox_caccessTables.getName();
 				if (selectedCronusIndex != 0) {
 					try {
 						table_caccess.setModel(controllerCronus.getTableModel(nameCombobox, selectedCronusIndex));
+						clearFeedback();
+						communicateTime();
 					} catch (SQLException e) {
 						communicateMessage(exceptionHandler.handleException(e));
 						e.printStackTrace();
