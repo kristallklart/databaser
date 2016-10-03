@@ -214,8 +214,7 @@ public class view extends JFrame {
 		panel_course.add(rdbtn_course_showAll);
 		btnGroup_course.add(rdbtn_course_showAll);
 
-		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
-				"Show the top 5 courses with the highest throughoutput", false);
+		JRadioButton rdbtn_course_highestThrough = new JRadioButton("Show throughoutput for all courses", false);
 		rdbtn_course_highestThrough.setBounds(629, 207, 360, 23);
 		panel_course.add(rdbtn_course_highestThrough);
 		btnGroup_course.add(rdbtn_course_highestThrough);
