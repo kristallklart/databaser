@@ -39,7 +39,7 @@ public class QueriesLu {
 	}
 
 	public String getStudentToTable() {
-		return "select spnr as 'Personal Number', sname as 'Name', sadress as 'Address' from student where spnr = ?";
+		return "select spnr as 'Personal Number', upper(sname) as 'Name', upper(sadress) as 'Address' from student where spnr = ?";
 	}
 
 	public String getCourse() {
@@ -67,7 +67,7 @@ public class QueriesLu {
 	}
 
 	public String mostThrough() {
-		return "select top 5 ccode as 'Course Code', count(*)Total from studied where grade != 'U' group by ccode order by total desc";
+		return "select top 5 upper(ccode) as 'Course Code', count(*)Total from studied where grade != 'U' group by ccode order by total desc";
 	}
 
 	public String deleteStudent() {
@@ -99,11 +99,11 @@ public class QueriesLu {
 	}
 
 	public String allCourses() {
-		return "select upper(ccode) as 'Course Code', cname as 'Course Name', points as 'Points' from course";
+		return "select upper(ccode) as 'Course Code', upper(cname) as 'Course Name', points as 'Points' from course";
 	}
 
 	public String allPossibleCourses() {
-		return "select upper(ccode) as 'Course Code', cname as 'Course Name', points as 'Points' from course where ccode not in (select ccode from studied where spnr = ? and grade != 'U') and ccode not in (select ccode from studies where spnr = ?)";
+		return "select upper(ccode) as 'Course Code', upper(cname) as 'Course Name', points as 'Points' from course where ccode not in (select ccode from studied where spnr = ? and grade != 'U') and ccode not in (select ccode from studies where spnr = ?)";
 	}
 
 	public String currentPoints() {
