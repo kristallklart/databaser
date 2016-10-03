@@ -99,11 +99,11 @@ public class QueriesLu {
 	}
 
 	public String allCourses() {
-		return "select ccode as 'Course Code', cname as 'Course Name', points as 'Points' from course";
+		return "select upper(ccode) as 'Course Code', cname as 'Course Name', points as 'Points' from course";
 	}
 
 	public String allPossibleCourses() {
-		return "select ccode as 'Course Code', cname as 'Course Name', points as 'Points' from course where ccode not in (select ccode from studied where spnr = ? and grade != 'U') and ccode not in (select ccode from studies where spnr = ?)";
+		return "select upper(ccode) as 'Course Code', cname as 'Course Name', points as 'Points' from course where ccode not in (select ccode from studied where spnr = ? and grade != 'U') and ccode not in (select ccode from studies where spnr = ?)";
 	}
 
 	public String currentPoints() {
