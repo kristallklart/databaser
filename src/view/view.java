@@ -150,7 +150,7 @@ public class view extends JFrame {
 		panel_course.add(lbl_course_showGradeA_header);
 
 		JLabel lbl_course_showGradeA_result = new JLabel("");
-		lbl_course_showGradeA_result.setBounds(784, 567, 46, 14);
+		lbl_course_showGradeA_result.setBounds(770, 567, 27, 14);
 		panel_course.add(lbl_course_showGradeA_result);
 
 		JLabel lbl_course_selectCourse_header = new JLabel("Select course:");
