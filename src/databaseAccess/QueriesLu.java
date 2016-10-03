@@ -67,7 +67,8 @@ public class QueriesLu {
 	}
 
 	public String mostThrough() {
-		return "select top 5 upper(ccode) as 'Course Code', count(*)Total from studied where grade != 'U' group by ccode order by total desc";
+		return "select upper(ccode) as 'Course Code', (sum(case when grade !='U' then 1 else 0 end)*100) / count (ccode) as 'Percent Passed' from studied group by ccode order by 'Percent Passed' desc";
+
 	}
 
 	public String deleteStudent() {
