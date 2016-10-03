@@ -827,8 +827,7 @@ public class view extends JFrame {
 		scrollPane_caccess.setViewportView(table_caccess);
 
 		JPanel panel_CronusAccess_showTables = new JPanel();
-		panel_CronusAccess_showTables.setBorder(new TitledBorder(null, "Show employee and related tables",
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_CronusAccess_showTables.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Show Employee and Related Tables", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_CronusAccess_showTables.setBounds(10, 11, 496, 168);
 		panel_caccess.add(panel_CronusAccess_showTables);
 		panel_CronusAccess_showTables.setLayout(null);
@@ -848,7 +847,7 @@ public class view extends JFrame {
 
 		JPanel panel_CronusAccess_showMetadata = new JPanel();
 		panel_CronusAccess_showMetadata.setBorder(
-				new TitledBorder(null, "Show meta data", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Show Meta data", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_CronusAccess_showMetadata.setBounds(10, 259, 496, 168);
 		panel_caccess.add(panel_CronusAccess_showMetadata);
 		panel_CronusAccess_showMetadata.setLayout(null);
@@ -927,8 +926,7 @@ public class view extends JFrame {
 		String[] queryToUseIndexForm = { "Select...", "Employee", "Customer" };
 
 		JPanel panel_open_queryFiles = new JPanel();
-		panel_open_queryFiles.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open query files",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_open_queryFiles.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open Query Files", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_open_queryFiles.setBounds(10, 11, 500, 208);
 		panel_openFiles.add(panel_open_queryFiles);
 		panel_open_queryFiles.setLayout(null);
@@ -972,8 +970,7 @@ public class view extends JFrame {
 		});
 
 		JPanel panel_open_forms = new JPanel();
-		panel_open_forms.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open form files",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_open_forms.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Open Form Files", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_open_forms.setBounds(10, 310, 500, 208);
 		panel_openFiles.add(panel_open_forms);
 		panel_open_forms.setLayout(null);
