@@ -99,7 +99,7 @@ public class QueriesLu {
 	}
 
 	public String allCourses() {
-		return "select upper(ccode) as 'Course Code', upper(cname) as 'Course Name', points as 'Points' from course";
+		return "select upper(ccode) as 'Course Code', upper(rtrim(cname)) as 'Course Name', points as 'Points' from course";
 	}
 
 	public String allPossibleCourses() {
