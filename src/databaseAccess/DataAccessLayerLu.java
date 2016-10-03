@@ -158,7 +158,9 @@ public class DataAccessLayerLu {
 			pStatement.setString(2, ccode);
 			rSet = pStatement.executeQuery();
 
-			percent = rSet.getString(1);
+			while (rSet.next()) {
+				percent = rSet.getString(1);
+			}
 
 		} finally {
 			utilDatabaseAccess.closeAll(pStatement, con);
