@@ -187,16 +187,6 @@ public class view extends JFrame {
 		table_course.setName("table_course");
 		scrollPane_course.setViewportView(table_course);
 
-		JButton btn_course_addCourse_clear = new JButton("Clear");
-		btn_course_addCourse_clear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				UtilView.clearFields(coursePanelFields);
-			}
-		});
-		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_addCourse_clear);
-
 		ButtonGroup btnGroup_course = new ButtonGroup();
 		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
 		rdbtn_course_showAll.setBounds(629, 181, 128, 23);
@@ -212,6 +202,16 @@ public class view extends JFrame {
 		JCheckBox chckbx_notFinished = new JCheckBox("Show only students who hasn't finished the course");
 		chckbx_notFinished.setBounds(182, 322, 359, 23);
 		panel_course.add(chckbx_notFinished);
+
+		JButton btn_course_addCourse_clear = new JButton("Clear");
+		btn_course_addCourse_clear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UtilView.clearFields(coursePanelFields);
+			}
+		});
+		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel_course.add(btn_course_addCourse_clear);
 
 		JButton btn_course_deleteAdd_delete = new JButton("Delete");
 		btn_course_deleteAdd_delete.addActionListener(new ActionListener() {
@@ -367,28 +367,6 @@ public class view extends JFrame {
 		// ***********STUDENT TAB*************
 		// ***********************************
 
-		JButton btn_stud_deleteAdd_search = new JButton("Search");
-		btn_stud_deleteAdd_search.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
-				if (spnr.isEmpty()) {
-					communicateMessage(feedbackHandler.noInputPnr());
-				} else {
-					try {
-						Student s = controllerLu.getStudent(spnr);
-						textField_stud_deleteAdd_name.setText(s.getSname());
-						textField_stud_deleteAdd_address.setText(s.getSaddress());
-						communicateMessage(feedbackHandler.studentFound());
-					} catch (Exception e) {
-						communicateMessage(exceptionHandler.handleException(e));
-						UtilView.clearFields(studPanelFields);
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-
 		JLabel lbl_stud_deleteAdd_pnr = new JLabel("Personal number");
 		lbl_stud_deleteAdd_pnr.setBounds(28, 48, LABEL_WIDTH, LABEL_HEIGHT);
 		panel_student.add(lbl_stud_deleteAdd_pnr);
@@ -505,6 +483,27 @@ public class view extends JFrame {
 		comboBox_stud_registerSemester.addItem("HT17");
 		comboBox_stud_registerSemester.addItem("VT18");
 
+		JButton btn_stud_deleteAdd_search = new JButton("Search");
+		btn_stud_deleteAdd_search.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String spnr = textField_stud_deleteAdd_pnr.getText().trim();
+				if (spnr.isEmpty()) {
+					communicateMessage(feedbackHandler.noInputPnr());
+				} else {
+					try {
+						Student s = controllerLu.getStudent(spnr);
+						textField_stud_deleteAdd_name.setText(s.getSname());
+						textField_stud_deleteAdd_address.setText(s.getSaddress());
+						communicateMessage(feedbackHandler.studentFound());
+					} catch (Exception e) {
+						communicateMessage(exceptionHandler.handleException(e));
+						UtilView.clearFields(studPanelFields);
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		btn_stud_deleteAdd_search.setBounds(317, 48, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_deleteAdd_search);
 
@@ -600,6 +599,8 @@ public class view extends JFrame {
 				}
 			}
 		});
+		btn_stud_findStudentAll_register.setBounds(628, 497, 139, BUTTON_HEIGHT);
+		panel_student.add(btn_stud_findStudentAll_register);
 
 		JButton btn_stud_regOnCourse_search = new JButton("Search");
 		btn_stud_regOnCourse_search.addActionListener(new ActionListener() {
@@ -735,8 +736,6 @@ public class view extends JFrame {
 		});
 		btn_stud_findStudentAll_search.setBounds(763, 47, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel_student.add(btn_stud_findStudentAll_search);
-		btn_stud_findStudentAll_register.setBounds(628, 497, 139, 23);
-		panel_student.add(btn_stud_findStudentAll_register);
 
 		JButton btn_stud_findStudentAll_delete = new JButton("Remove");
 		btn_stud_findStudentAll_delete.addActionListener(new ActionListener() {
@@ -762,7 +761,6 @@ public class view extends JFrame {
 				}
 			}
 		});
-
 		btn_stud_findStudentAll_delete.setBounds(730, 552, 100, 23);
 		panel_student.add(btn_stud_findStudentAll_delete);
 
@@ -815,7 +813,7 @@ public class view extends JFrame {
 		lbl_caccess_selectOption.setBounds(23, 45, 87, 23);
 		panel_CronusAccess_showTables.add(lbl_caccess_selectOption);
 
-		JComboBox<String> comboBox_caccessTables = new JComboBox(controllerCronus.getCronusQueryNamesTables());
+		JComboBox<String> comboBox_caccessTables = new JComboBox<String>(controllerCronus.getCronusQueryNamesTables());
 		comboBox_caccessTables.setBounds(120, 44, 297, 25);
 		panel_CronusAccess_showTables.add(comboBox_caccessTables);
 		comboBox_caccessTables.setName("comboBox_caccessTables");
@@ -831,7 +829,7 @@ public class view extends JFrame {
 		panel_caccess.add(panel_CronusAccess_showMetadata);
 		panel_CronusAccess_showMetadata.setLayout(null);
 
-		JComboBox<String> comboBox_caccessMeta = new JComboBox(controllerCronus.getCronusQueryNamesMetaData());
+		JComboBox<String> comboBox_caccessMeta = new JComboBox<String>(controllerCronus.getCronusQueryNamesMetaData());
 
 		comboBox_caccessMeta.setBounds(124, 46, 297, 25);
 		panel_CronusAccess_showMetadata.add(comboBox_caccessMeta);
@@ -915,7 +913,7 @@ public class view extends JFrame {
 		lblSelectOption.setBounds(34, 43, 112, 39);
 		panel_open_queryFiles.add(lblSelectOption);
 
-		JComboBox comboBox_access_excel = new JComboBox(programToUseIndexAccess);
+		JComboBox<Object> comboBox_access_excel = new JComboBox<Object>(programToUseIndexAccess);
 		comboBox_access_excel.setBounds(156, 49, 300, 26);
 		panel_open_queryFiles.add(comboBox_access_excel);
 		comboBox_access_excel.setName("comboBox_access_excel");
