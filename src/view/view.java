@@ -121,9 +121,11 @@ public class view extends JFrame {
 		tabbedPane.addTab("Student", panel_student);
 		panel_student.setLayout(null);
 
-		JPanel panel_course = new JPanel();
-		tabbedPane.addTab("Course", panel_course);
-		panel_course.setLayout(null);
+		JPanel panel_course_courseInformation = new JPanel();
+		panel_course_courseInformation.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"Search  Course Information", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		tabbedPane.addTab("Course", panel_course_courseInformation);
+		panel_course_courseInformation.setLayout(null);
 
 		lbl_feedback = new JLabel();
 		lbl_feedback.setBounds(19, 635, 1242, 20);
@@ -135,54 +137,54 @@ public class view extends JFrame {
 
 		JLabel lbl_course_ccode = new JLabel("Course code:");
 		lbl_course_ccode.setBounds(35, 35, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_course.add(lbl_course_ccode);
+		panel_course_courseInformation.add(lbl_course_ccode);
 
 		JLabel lbl_course_name = new JLabel("Course name:");
 		lbl_course_name.setBounds(35, 69, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_course.add(lbl_course_name);
+		panel_course_courseInformation.add(lbl_course_name);
 
 		JLabel lbl_course_points = new JLabel("Points:");
 		lbl_course_points.setBounds(35, 103, LABEL_WIDTH, LABEL_HEIGHT);
-		panel_course.add(lbl_course_points);
+		panel_course_courseInformation.add(lbl_course_points);
 
 		JLabel lbl_course_showGradeA_header = new JLabel("% of Students with grade A:");
 		lbl_course_showGradeA_header.setBounds(607, 567, 167, 14);
-		panel_course.add(lbl_course_showGradeA_header);
+		panel_course_courseInformation.add(lbl_course_showGradeA_header);
 
 		JLabel lbl_course_showGradeA_result = new JLabel("");
-		lbl_course_showGradeA_result.setBounds(770, 567, 27, 14);
-		panel_course.add(lbl_course_showGradeA_result);
+		lbl_course_showGradeA_result.setBounds(780, 567, 27, 14);
+		panel_course_courseInformation.add(lbl_course_showGradeA_result);
 
 		JLabel lbl_course_selectCourse_header = new JLabel("Select course:");
 		lbl_course_selectCourse_header.setBounds(629, 67, 115, 14);
-		panel_course.add(lbl_course_selectCourse_header);
+		panel_course_courseInformation.add(lbl_course_selectCourse_header);
 
 		textField_course_courseCode = new JTextField();
 		textField_course_courseCode.setColumns(10);
 		textField_course_courseCode.setBounds(131, 34, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_course.add(textField_course_courseCode);
+		panel_course_courseInformation.add(textField_course_courseCode);
 		coursePanelFields.add(textField_course_courseCode);
 
 		textField_course_cname = new JTextField();
 		textField_course_cname.setColumns(10);
 		textField_course_cname.setBounds(131, 68, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_course.add(textField_course_cname);
+		panel_course_courseInformation.add(textField_course_cname);
 		coursePanelFields.add(textField_course_cname);
 
 		textField_course_points = new JTextField();
 		textField_course_points.setColumns(10);
 		textField_course_points.setBounds(131, 103, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel_course.add(textField_course_points);
+		panel_course_courseInformation.add(textField_course_points);
 		coursePanelFields.add(textField_course_points);
 
 		textField_course_enrolled_ccode = new JTextField();
 		textField_course_enrolled_ccode.setColumns(10);
 		textField_course_enrolled_ccode.setBounds(803, 62, 159, 25);
-		panel_course.add(textField_course_enrolled_ccode);
+		panel_course_courseInformation.add(textField_course_enrolled_ccode);
 
 		JScrollPane scrollPane_course = new JScrollPane();
 		scrollPane_course.setBounds(583, 262, 563, 294);
-		panel_course.add(scrollPane_course);
+		panel_course_courseInformation.add(scrollPane_course);
 		table_course = new JTable();
 		table_course.setName("table_course");
 		scrollPane_course.setViewportView(table_course);
@@ -190,18 +192,18 @@ public class view extends JFrame {
 		ButtonGroup btnGroup_course = new ButtonGroup();
 		JRadioButton rdbtn_course_showAll = new JRadioButton("Show all courses");
 		rdbtn_course_showAll.setBounds(629, 181, 128, 23);
-		panel_course.add(rdbtn_course_showAll);
+		panel_course_courseInformation.add(rdbtn_course_showAll);
 		btnGroup_course.add(rdbtn_course_showAll);
 
 		JRadioButton rdbtn_course_highestThrough = new JRadioButton(
 				"Show the top 5 courses with the highest throughoutput", false);
 		rdbtn_course_highestThrough.setBounds(629, 207, 360, 23);
-		panel_course.add(rdbtn_course_highestThrough);
+		panel_course_courseInformation.add(rdbtn_course_highestThrough);
 		btnGroup_course.add(rdbtn_course_highestThrough);
 
 		JCheckBox chckbx_notFinished = new JCheckBox("Show only students who hasn't finished the course");
-		chckbx_notFinished.setBounds(182, 322, 359, 23);
-		panel_course.add(chckbx_notFinished);
+		chckbx_notFinished.setBounds(630, 103, 359, 23);
+		panel_course_courseInformation.add(chckbx_notFinished);
 
 		JButton btn_course_addCourse_clear = new JButton("Clear");
 		btn_course_addCourse_clear.addActionListener(new ActionListener() {
@@ -211,7 +213,7 @@ public class view extends JFrame {
 			}
 		});
 		btn_course_addCourse_clear.setBounds(64, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_addCourse_clear);
+		panel_course_courseInformation.add(btn_course_addCourse_clear);
 
 		JButton btn_course_deleteAdd_delete = new JButton("Delete");
 		btn_course_deleteAdd_delete.addActionListener(new ActionListener() {
@@ -233,7 +235,7 @@ public class view extends JFrame {
 			}
 		});
 		btn_course_deleteAdd_delete.setBounds(300, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_deleteAdd_delete);
+		panel_course_courseInformation.add(btn_course_deleteAdd_delete);
 
 		JButton btn_course_deleteAdd_add = new JButton("Add Course");
 		btn_course_deleteAdd_add.addActionListener(new ActionListener() {
@@ -259,7 +261,7 @@ public class view extends JFrame {
 			}
 		});
 		btn_course_deleteAdd_add.setBounds(182, 137, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel_course.add(btn_course_deleteAdd_add);
+		panel_course_courseInformation.add(btn_course_deleteAdd_add);
 
 		JButton btn_course_deleteAdd_search = new JButton("Search");
 		btn_course_deleteAdd_search.addActionListener(new ActionListener() {
@@ -283,7 +285,7 @@ public class view extends JFrame {
 			}
 		});
 		btn_course_deleteAdd_search.setBounds(300, 35, 108, 23);
-		panel_course.add(btn_course_deleteAdd_search);
+		panel_course_courseInformation.add(btn_course_deleteAdd_search);
 
 		JButton btn_course_courseInfo_showResult = new JButton("Show Result");
 		btn_course_courseInfo_showResult.addActionListener(new ActionListener() {
@@ -306,7 +308,7 @@ public class view extends JFrame {
 			}
 		});
 		btn_course_courseInfo_showResult.setBounds(1007, 207, 108, 23);
-		panel_course.add(btn_course_courseInfo_showResult);
+		panel_course_courseInformation.add(btn_course_courseInfo_showResult);
 
 		JButton btn_course_enrolled_showResult = new JButton("Show Result");
 		btn_course_enrolled_showResult.addActionListener(new ActionListener() {
@@ -337,31 +339,31 @@ public class view extends JFrame {
 			}
 		});
 		btn_course_enrolled_showResult.setBounds(1007, 62, 108, 23);
-		panel_course.add(btn_course_enrolled_showResult);
+		panel_course_courseInformation.add(btn_course_enrolled_showResult);
 
 		JPanel panel_course_addBorder = new JPanel();
 		panel_course_addBorder.setBorder(
 				new TitledBorder(null, "Add/Delete Course", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_course_addBorder.setBounds(10, 11, 491, 192);
-		panel_course.add(panel_course_addBorder);
-
-		JPanel panel_course_resultsBorder = new JPanel();
-		panel_course_resultsBorder.setBorder(
-				new TitledBorder(null, "Course Results", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_course_resultsBorder.setBounds(583, 38, 563, 115);
-		panel_course.add(panel_course_resultsBorder);
+		panel_course_courseInformation.add(panel_course_addBorder);
 
 		JPanel panel_course_informationBorder = new JPanel();
 		panel_course_informationBorder.setBorder(
 				new TitledBorder(null, "Course Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_course_informationBorder.setBounds(583, 164, 563, 87);
-		panel_course.add(panel_course_informationBorder);
+		panel_course_courseInformation.add(panel_course_informationBorder);
 
-		JPanel panel_course_CourseInfBorder = new JPanel();
-		panel_course_CourseInfBorder.setBorder(new TitledBorder(null, "Search Course Information", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
-		panel_course_CourseInfBorder.setBounds(566, 11, 601, 586);
-		panel_course.add(panel_course_CourseInfBorder);
+		JPanel panel_course_resultsBorder = new JPanel();
+		panel_course_resultsBorder.setBorder(
+				new TitledBorder(null, "Course Results", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_course_resultsBorder.setBounds(583, 35, 563, 121);
+		panel_course_courseInformation.add(panel_course_resultsBorder);
+
+		JPanel panel_course_SearchCourseInformation = new JPanel();
+		panel_course_SearchCourseInformation.setBorder(new TitledBorder(null, "Search Course Information",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_course_SearchCourseInformation.setBounds(542, 13, 642, 580);
+		panel_course_courseInformation.add(panel_course_SearchCourseInformation);
 
 		// ***********************************
 		// ***********STUDENT TAB*************
