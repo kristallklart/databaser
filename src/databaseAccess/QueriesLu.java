@@ -47,7 +47,7 @@ public class QueriesLu {
 	}
 
 	public String getStudentStudying() {
-		return "select ccode as 'Course Code', upper(semester) as 'Semester' from studies where spnr = ?";
+		return "select upper(ccode) as 'Course Code', upper(semester) as 'Semester' from studies where spnr = ?";
 	}
 
 	public String courseResult() {
@@ -55,7 +55,7 @@ public class QueriesLu {
 	}
 
 	public String getStudentStudied() {
-		return "select upper(semester) as 'Semester', ccode as 'Course Code', upper(grade) as 'Grade' from studied where spnr = ?";
+		return "select upper(semester) as 'Semester', upper(ccode) as 'Course Code', upper(grade) as 'Grade' from studied where spnr = ?";
 	}
 
 	public String notFinished() {
